@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AstraLearn.pk | Free SLO-Based Learning for Pakistan</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0F1E;
+    --card: #111827;
+    --accent: #6366F1;
+    --accent2: #22D3EE;
+    --text: #F9FAFB;
+    --muted: #9CA3AF;
+    --success: #10B981;
+  }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  /* GAME SECTION CSS */
+.game-section { 
+  padding: 60px 5%; 
+  margin: 40px 5%; 
+  background: var(--card); 
+  border: 2px solid var(--accent2);
+  border-radius: 16px; 
+  text-align: center; 
+}
+.game-section h2 {
+  font-family: 'Space Grotesk';
+  font-size: 32px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+#game-box { 
+  background: #0F1419; 
+  padding: 20px; 
+  border-radius: 10px; 
+  margin-top: 20px; 
+}
+#game-box pre {
+  text-align:left; 
+  background:#000; 
+  padding:15px; 
+  border-radius:8px;
+  color: #00ff88;
+}
+.stats { 
+  display: flex; 
+  justify-content: space-around; 
+  padding: 40px 5%; 
+  text-align: center; 
+}
+.stats h3 { font-size: 32px; color: var(--accent); }
+.leaderboard { padding: 60px 5%; text-align: center; }
+  header {
+    padding: 20px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid #1F2937;
+  }
+  header h1 { font-family: 'Space Grotesk'; font-size: 24px; color: var(--accent2); }
+  .hero {
+    text-align: center; padding: 80px 5%;
+    background: linear-gradient(135deg, #0A0F1E 0%, #1E1B4B 100%);
+  }
+  .hero h2 { font-size: 42px; font-family: 'Space Grotesk'; margin-bottom: 15px; }
+  .hero p { color: var(--muted); font-size: 18px; max-width: 700px; margin: 0 auto; }
+  
+  .tabs {
+    display: flex; justify-content: center; gap: 15px; margin: 40px 5%;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 12px 28px; border: 2px solid var(--accent); background: transparent;
+    color: var(--text); border-radius: 12px; font-weight: 600; cursor: pointer;
+    transition: 0.3s;
+  }
+  .tab-btn.active, .tab-btn:hover { background: var(--accent); color: white; }
+
+  .container { padding: 0 5% 80px; max-width: 1200px; margin: auto; }
+  .subject-section { display: none; }
+  .subject-section.active { display: block; }
+  
+  .class-tabs { display: flex; gap: 10px; margin-bottom: 30px; }
+  .class-tab { padding: 10px 20px; background: var(--card); border-radius: 8px; cursor: pointer; }
+  .class-tab.active { background: var(--accent2); color: var(--bg); font-weight: 700; }
+  
+  .chapter {
+    background: var(--card); padding: 25px; border-radius: 16px; margin-bottom: 20px;
+    border: 1px solid #1F2937;
+  }
+  .chapter h3 { color: var(--accent2); margin-bottom: 10px; }
+  .topic { margin: 15px 0; padding: 15px; background: #0F172A; border-radius: 10px; }
+  .topic h4 { margin-bottom: 8px; }
+  .btn { padding: 8px 16px; background: var(--accent); border: none; border-radius: 8px; color: white; cursor: pointer; margin-top: 10px; }
+  .btn:hover { opacity: 0.9; }
+  
+  .quiz { display: none; margin-top: 15px; padding: 15px; background: #0F172A; border-radius: 10px; border-left: 4px solid var(--success); }
+  .formula-tab { margin-top: 30px; padding: 20px; background: var(--card); border-radius: 16px; }
+  .formula-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+  .formula { background: #0F172A; padding: 12px; border-radius: 8px; font-family: monospace; }
+  <div id="chatbot" style="position:fixed; bottom:20px; right:20px; background:var(--card); padding:15px; border-radius:16px; width:300px; border:2px solid var(--accent);">
+  <h4 style="color:var(--accent2)">AstraBot 🤖</h4>
+  <div id="chat-box" style="height:200px; overflow-y:auto; background:#0F172A; padding:10px; border-radius:8px; margin:10px 0;"></div>
+  <input id="chat-input" placeholder="Ask about SLO, Quiz, Formula..." style="width:100%; padding:8px; border-radius:8px; border:none; background:#0A0F1E; color:white;">
+  <button onclick="sendMsg()" class="btn" style="width:100%; margin-top:8px;">Send</button>
+</div>
+
+<script>
+function sendMsg(){
+  let input = document.getElementById('chat-input').value;
+  let box = document.getElementById('chat-box');
+  box.innerHTML += `<p><b>You:</b> ${input}</p>`;
+  if(input.toLowerCase().includes('formula')){
+    box.innerHTML += `<p><b>AstraBot:</b> F = ma, v = u + at. More in Formula Tab!</p>`;
+  } else if(input.toLowerCase().includes('quiz')){
+    box.innerHTML += `<p><b>AstraBot:</b> Click "Start 5-Q Quiz" above 👆</p>`;
+  } else {
+    box.innerHTML += `<p><b>AstraBot:</b> I'm here to help with SLOs! Try: "define acceleration"</p>`;
+  }
+  document.getElementById('chat-input').value = '';
+}
+</script>
+  footer { text-align: center; padding: 30px; color: var(--muted); border-top: 1px solid #1F2937; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>AstraLearn.pk</h1>
+  <p>Free Education for Every Pakistani Student</p>
+</header>
+
+<section class="hero">
+  <h2>Learn. Quiz. Test. Repeat.</h2>
+  <p>SLO-Based, Offline-First, Premium Learning for Class 11 & 12. Built for students, for Pakistan.</p>
+</section>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showSubject('physics')">Physics</button>
+  <button class="tab-btn" onclick="showSubject('maths')">Mathematics</button>
+  <button class="tab-btn" onclick="showSubject('cs')">Computer Science</button>
+</div>
+
+<div class="container">
+
+  <!-- PHYSICS SECTION -->
+  <div id="physics" class="subject-section active">
+    <div class="class-tabs">
+      <div class="class-tab active" onclick="showClass('phy11')">Class 11</div>
+      <div class="class-tab" onclick="showClass('phy12')">Class 12</div>
+    </div>
+    
+    <!-- PHYSICS 11 + 12 SECTION -->
+
+
+  <!-- ========== CLASS 11 ========== -->
+  <div id="phy11">
+    <!-- CH 1 -->
+    <div class="chapter"><h3>Chapter 1: Measurements</h3>
+      <div class="topic"><h4>1.1 Physical Quantities</h4><p><b>SLO:</b> Define base and derived quantities.</p><p><b>Example:</b> Force = kg·m/s²</p></div>
+      <div class="topic"><h4>1.2 Significant Figures</h4><p><b>SLO:</b> State rules of SF.</p><p><b>Example:</b> 0.00520 = 3 SF</p></div>
+      <div class="topic"><h4>1.3 Errors</h4><p><b>SLO:</b> Random vs Systematic.</p><p><b>Example:</b> Parallax error</p></div>
+      <button class="btn" onclick="startTest('phy11-ch1')">📝 Chapter Test: 30 SLO MCQs</button>
+    </div>
+
+    <!-- CH 2 -->
+    <div class="chapter"><h3>Chapter 2: Vectors and Equilibrium</h3>
+      <div class="topic"><h4>2.1 Vectors</h4><p><b>SLO:</b> Head to tail rule.</p><p><b>Example:</b> R = A + B</p></div>
+      <div class="topic"><h4>2.2 Equilibrium</h4><p><b>SLO:</b> ΣF=0, Στ=0</p><p><b>Example:</b> Ladder</p></div>
+      <button class="btn" onclick="startTest('phy11-ch2')">📝 Chapter Test: 30 SLO MCQs</button>
+    </div>
+
+    <!-- CH 3 -->
+    <div class="chapter"><h3>Chapter 3: Motion and Force</h3>
+      <div class="topic"><h4>3.1 Equations of Motion</h4><p><b>SLO:</b> v=u+at, s=ut+½at²</p><p><b>Example:</b> u=0,a=2,t=5</p></div>
+      <div class="topic"><h4>3.2 Newton's Laws</h4><p><b>SLO:</b> State 3 laws.</p><p><b>Example:</b> F=ma, Rocket</p></div>
+      <div class="topic"><h4>3.3 Momentum</h4><p><b>SLO:</b> p=mv, J=F·t</p><p><b>Example:</b> Ball hit</p></div>
+      <button class="btn" onclick="startTest('phy11-ch3')">📝 Chapter Test: 30 SLO MCQs</button>
+    </div>
+
+    <!-- CH 4 -->
+    <div class="chapter"><h3>Chapter 4: Work and Energy</h3>
+      <div class="topic"><h4>4.1 Work</h4><p><b>SLO:</b> W=Fdcosθ</p><p><b>Example:</b> Pulling box</p></div>
+      <div class="topic"><h4>4.2 KE</h4><p><b>SLO:</b> KE = ½mv²</p><p><b>Example:</b> 2kg, 3m/s</p></div>
+      <div class="topic"><h4>4.3 PE</h4><p><b>SLO:</b> PE = mgh</p><p><b>Example:</b> Book on shelf</p></div>
+      <button class="btn" onclick="startTest('phy11-ch4')">📝 Chapter Test: 30 SLO MCQs</button>
+    </div>
+
+    <!-- CH 5 -->
+    <div class="chapter"><h3>Chapter 5: Circular Motion</h3>
+      <div class="topic"><h4>5.1 Angular Motion</h4><p><b>SLO:</b> ω = Δθ/Δt</p><p><b>Example:</b> Fan</p></div>
+      <div class="topic"><h4>5.2 Centripetal Force</h4><p><b>SLO:</b> Fc=mv²/r</p><p><b>Example:</b> Car turn</p></div>
+      <div class="topic"><h4>5.3 Banking</h4><p><b>SLO:</b> tanθ = v²/rg</p><p><b>Example:</b> Road curve</p></div>
+      <button class="btn" onclick="startTest('phy11-ch5')">📝 Chapter Test: 30 SLO MCQs</button>
+    </div>
+
+    <!-- CH 6 -->
+    <div class="chapter"><h3>Chapter 6: Fluid Dynamics</h3>
+      <div class="topic"><h4>6.1 Continuity</h4><p><b>SLO:</b> A1V1=A2V2</p><p><b>Example:</b> Pipe</p></div>
+      <div class="topic"><h4>6.2 Bernoulli</h4><p><b>SLO:</b> P + ½ρv² + ρgh = constant</p><p><b>Example:</b> Aeroplane</p></div>
+      <button class="btn" onclick="startTest('phy11-ch6')">📝 Chapter Test: 30 SLO MCQs</button>
+    </div>
+
+    <!-- CH 7 -->
+    <div class="chapter"><h3>Chapter 7: Oscillations</h3>
+      <div class="topic"><h4>7.1 SHM</h4><p><b>SLO:</b> T=2π√(m/k)</p><p><b>Example:</b> Spring</p></div>
+      <div class="topic"><h4>7.2 Pendulum</h4><p><b>SLO:</b> T=2π√(L/g)</p><p><b>Example:</b> Pendulum</p></div>
+      <button class="btn" onclick="startTest('phy11-ch7')">📝 Chapter Test: 30 SLO MCQs</button>
+    </div>
+
+    <!-- CH 8 -->
+    <div class="chapter"><h3>Chapter 8: Waves</h3>
+      <div class="topic"><h4>8.1 Types</h4><p><b>SLO:</b> Transverse vs Longitudinal</p><p><b>Example:</b> Sound</p></div>
+      <div class="topic"><h4>8.2 Doppler</h4><p><b>SLO:</b> f' = f(v±vo)/(v±vs)</p><p><b>Example:</b> Ambulance</p></div>
+      <button class="btn" onclick="startTest('phy11-ch8')">📝 Chapter Test: 30 SLO MCQs</button>
+    </div>
+
+    <!-- CH 9 -->
+    <div class="chapter"><h3>Chapter 9: Physical Optics</h3>
+      <div class="topic"><h4>9.1 Interference</h4><p><b>SLO:</b> Young's Double Slit</p><p><b>Example:</b> Fringes</p></div>
+      <div class="topic"><h4>9.2 Diffraction</h4><p><b>SLO:</b> Single slit</p><p><b>Example:</b> Central maxima</p></div>
+      <button class="btn" onclick="startTest('phy11-ch9')">📝 Chapter Test: 30 SLO MCQs</button>
+    </div>
+
+    <!-- CH 10 -->
+    <div class="chapter"><h3>Chapter 10: Thermodynamics</h3>
+      <div class="topic"><h4>10.1 Laws</h4><p><b>SLO:</b> ΔU=Q-W</p><p><b>Example:</b> Engine</p></div>
+      <div class="topic"><h4>10.2 Heat Engine</h4><p><b>SLO:</b> η = 1 - Qc/Qh</p><p><b>Example:</b> Carnot</p></div>
+      <button class="btn" onclick="startTest('phy11-ch10')">📝 Chapter Test: 30 SLO MCQs</button>
+    </div>
+
+    <div class="chapter"><h3>📐 Class 11 Formulas</h3>
+      <p><b>Kinematics:</b> v=u+at, s=ut+½at², v²=u²+2as</p>
+      <p><b>Dynamics:</b> F=ma, p=mv</p>
+      <p><b>Work:</b> W=Fdcosθ, KE=½mv², PE=mgh</p>
+      <p><b>Circular:</b> Fc=mv²/r, tanθ=v²/rg</p>
+      <p><b>SHM:</b> T=2π√(L/g)</p>
+      <p><b>Waves:</b> v=fλ</p>
+      <p><b>Thermo:</b> ΔU=Q-W</p>
+    </div>
+  </div>
+
+  <!-- QUIZ BOX -->
+  <div id="quizBox" style="margin:30px; padding:20px; background:#111; border-radius:12px; display:none;"></div>
+</div>
+
+<script>
+// 300 SLO BASED MCQs - CLASS 11 COMPLETE
+const testData = {
+  "phy11-ch1": [
+    {q:"SI base unit of length?", options:["cm","m","km","mm"], ans:"m"},
+    {q:"How many base quantities?", options:["5","6","7","8"], ans:"7"},
+    {q:"Derived quantity?", options:["Mass","Time","Force","Temperature"], ans:"Force"},
+    {q:"SF in 0.00520?", options:["2","3","4","5"], ans:"3"},
+    {q:"Leading zeros are?", options:["Sig","Not Sig","Sometimes","Always"], ans:"Not Sig"},
+    {q:"Random error can be?", options:["Reduced","Eliminated","Increased","Fixed"], ans:"Reduced"},
+    {q:"Systematic error example?", options:["Parallax","Reading","Human","All"], ans:"Parallax"},
+    {q:"Dimension of velocity?", options:["[LT-1]","[L2T-1]","[LT-2]","[L]"], ans:"[LT-1]"},
+    {q:"Unit of energy?", options:["N","J","W","Pa"], ans:"J"},
+    {q:"1 light year is?", options:["Time","Length","Mass","Energy"], ans:"Length"},
+    {q:"Least count of meter rod?", options:["0.1cm","0.01cm","1mm","1cm"], ans:"1mm"},
+    {q:"Absolute error =?", options:["Measured-True","True-Measured","|Measured-True|","None"], ans:"|Measured-True|"},
+    {q:"Percentage error formula?", options:["Δa/a×100","a/Δa×100","Δa×100","None"], ans:"Δa/a×100"},
+    {q:"Zero error is?", options:["Random","Systematic","Gross","Personal"], ans:"Systematic"},
+    {q:"SF in 2.500?", options:["2","3","4","5"], ans:"4"},
+    {q:"Precision means?", options:["Accuracy","Reproducibility","Error","None"], ans:"Reproducibility"},
+    {q:"Vernier constant?", options:["0.1mm","0.01mm","0.02mm","0.05mm"], ans:"0.02mm"},
+    {q:"Screw gauge LC?", options:["0.1mm","0.01mm","0.001mm","1mm"], ans:"0.01mm"},
+    {q:"Dimensionally same?", options:["Work-Power","Force-Pressure","Energy-Work","None"], ans:"Energy-Work"},
+    {q:"Dimension of pressure?", options:["[ML-1T-2]","[MLT-2]","[ML2T-2]","[ML-2T-2]"], ans:"[ML-1T-2]"},
+    {q:"Base unit of current?", options:["V","A","Ω","C"], ans:"A"},
+    {q:"Base unit of temperature?", options:["°C","K","°F","J"], ans:"K"},
+    {q:"Derived unit of power?", options:["N","J","W","Pa"], ans:"W"},
+    {q:"Rounding 2.345 to 3 SF?", options:["2.34","2.35","2.3","2.345"], ans:"2.35"},
+    {q:"Error in addition?", options:["Add %","Add absolute","Multiply","Divide"], ans:"Add absolute"},
+    {q:"Significant in 1200?", options:["2","3","4","Ambiguous"], ans:"Ambiguous"},
+    {q:"Dimensionless quantity?", options:["Force","Angle","Energy","Power"], ans:"Angle"},
+    {q:"SI unit of mole?", options:["mol","kg","cd","A"], ans:"mol"},
+    {q:"Unit of luminous intensity?", options:["cd","lm","lx","W"], ans:"cd"},
+    {q:"Accuracy depends on?", options:["Instrument","Observer","Both","None"], ans:"Both"}
+  ],
+  "phy11-ch2": [
+    {q:"Vector has?", options:["Magnitude","Direction","Both","None"], ans:"Both"},
+    {q:"Scalar example?", options:["Force","Velocity","Mass","Momentum"], ans:"Mass"},
+    {q:"Head to tail rule is for?", options:["Subtraction","Addition","Multiplication","Division"], ans:"Addition"},
+    {q:"Resultant of 3N and 4N at 90°?", options:["5N","7N","1N","12N"], ans:"5N"},
+    {q:"Dot product gives?", options:["Vector","Scalar","Zero","None"], ans:"Scalar"},
+    {q:"Cross product gives?", options:["Vector","Scalar","Zero","None"], ans:"Vector"},
+    {q:"Equilibrium 1st condition?", options:["ΣF=0","Στ=0","Both","None"], ans:"ΣF=0"},
+    {q:"Equilibrium 2nd condition?", options:["ΣF=0","Στ=0","Both","None"], ans:"Στ=0"},
+    {q:"Unit of torque?", options:["N","J","N·m","W"], ans:"N·m"},
+    {q:"Torque =?", options:["F·d","F·d·sinθ","F/d","F·d·cosθ"], ans:"F·d·sinθ"},
+    {q:"Parallel vectors angle?", options:["0°","90°","180°","270°"], ans:"0°"},
+    {q:"Anti-parallel angle?", options:["0°","90°","180°","270°"], ans:"180°"},
+    {q:"i·j =?", options:["0","1","-1","i"], ans:"0"},
+    {q:"i·i =?", options:["0","1","-1","i"], ans:"1"},
+    {q:"|A+B| max when?", options:["0°","90°","180°","270°"], ans:"0°"},
+    {q:"|A-B| min when?", options:["0°","90°","180°","270°"], ans:"0°"},
+    {q:"Couple has?", options:["Net F","Net τ","Both","None"], ans:"Net τ"},
+    {q:"Center of gravity?", options:["Point","Line","Area","Volume"], ans:"Point"},
+    {q:"Stable equilibrium?", options:["PE min","PE max","KE max","None"], ans:"PE min"},
+    {q:"Resolution of vector?", options:["1 component","2 components","3 components","None"], ans:"2 components"},
+    {q:"Unit vector magnitude?", options:["0","1","∞","Variable"], ans:"1"},
+    {q:"A·B = ABcosθ for?", options:["Dot","Cross","Both","None"], ans:"Dot"},
+    {q:"|A×B| = ABsinθ for?", options:["Dot","Cross","Both","None"], ans:"Cross"},
+    {q:"Null vector magnitude?", options:["0","1","∞","-1"], ans:"0"},
+    {q:"Negative of vector?", options:["Same mag, opp dir","Same dir","Double","Half"], ans:"Same mag, opp dir"},
+    {q:"Ladder against wall?", options:["1st eq","2nd eq","Both","None"], ans:"Both"},
+    {q:"Moment arm?", options:["Perp dist","Parallel dist","Force","None"], ans:"Perp dist"},
+    {q:"Right hand rule for?", options:["Dot","Cross","Both","None"], ans:"Cross"},
+    {q:"Vector subtraction?", options:["A+B","A-B","B-A","None"], ans:"A+(-B)"},
+    {q:"3 forces in eq, they?", options:["Parallel","Concurrent","Perp","None"], ans:"Concurrent"}
+  ],
+  "phy11-ch3": [
+    {q:"F=ma is which law?", options:["1st","2nd","3rd","0th"], ans:"2nd"},
+    {q:"Unit of momentum?", options:["N","J","kg·m/s","W"], ans:"kg·m/s"},
+    {q:"v=u+at is for?", options:["Uniform v","Uniform a","Circular","SHM"], ans:"Uniform a"},
+    {q:"1st law is?", options:["F=ma","Action-Reaction","Law of inertia","Energy"], ans:"Law of inertia"},
+    {q:"Rocket works on?", options:["1st","2nd","3rd","Conservation"], ans:"3rd"},
+    {q:"s=ut+½at² dimension?", options:["L","L2","LT","T"], ans:"L"},
+    {q:"Free fall a=?", options:["9.8","0","-9.8","10"], ans:"9.8"},
+    {q:"Impulse =?", options:["F·t","m·v","F·d","m·a"], ans:"F·t"},
+    {q:"Conservation of momentum in?", options:["Elastic","Inelastic","Both","None"], ans:"Both"},
+    {q:"Unit of g?", options:["N","m/s","m/s²","J"], ans:"m/s²"},
+    {q:"If v=0, motion?", options:["Uniform","Accelerated","At rest","Circular"], ans:"At rest"},
+    {q:"Slope of v-t graph?", options:["Distance","Velocity","Acceleration","Force"], ans:"Acceleration"},
+    {q:"Area under v-t?", options:["Velocity","Acceleration","Displacement","Force"], ans:"Displacement"},
+    {q:"Friction opposes?", options:["Motion","Force","Energy","None"], ans:"Motion"},
+    {q:"Static friction >?", options:["Kinetic","Rolling","Both","None"], ans:"Kinetic"},
+    {q:"p=mv dimension?", options:["[MLT-1]","[MLT-2]","[ML2T-1]","[M]"], ans:"[MLT-1]"},
+    {q:"1N =?", options:["1kg·m/s","1kg·m/s²","1kg·m²/s²","1kg·m"], ans:"1kg·m/s²"},
+    {q:"If net F=0, a=?", options:["0","1","∞","Constant"], ans:"0"},
+    {q:"Projectile path?", options:["Circle","Parabola","Line","Ellipse"], ans:"Parabola"},
+    {q:"Range max at?", options:["30°","45°","60°","90°"], ans:"45°"},
+    {q:"Time of flight ∝?", options:["u","u²","sinθ","sin2θ"], ans:"sinθ"},
+    {q:"Action-reaction on?", options:["Same body","Different bodies","System","None"], ans:"Different bodies"},
+    {q:"Inertia of?", options:["Force","Mass","Velocity","Acceleration"], ans:"Mass"},
+    {q:"Friction ∝?", options:["Area","Normal","Velocity","Mass"], ans:"Normal"},
+    {q:"Tension in string?", options:["Pull","Push","Both","None"], ans:"Pull"},
+    {q:"Weight =?", options:["m","mg","g","m/g"], ans:"mg"},
+    {q:"If a=-ve, object?", options:["Speeding","Slowing","Constant","None"], ans:"Slowing"},
+    {q:"Graph s-t for uniform?", options:["Curve","Line","Parabola","Circle"], ans:"Line"},
+    {q:"Terminal velocity?", options:["Increases","Decreases","Constant","Zero"], ans:"Constant"},
+    {q:"Collision e=1?", options:["Elastic","Inelastic","Perfect","None"], ans:"Elastic"}
+  ],
+  "phy11-ch4": [
+    {q:"Work done formula?", options:["F/m","Fd","Fdcosθ","mv"], ans:"Fdcosθ"},
+    {q:"Unit of work?", options:["N","J","W","kg"], ans:"J"},
+    {q:"KE formula?", options:["mv","½mv²","mgh","F·d"], ans:"½mv²"},
+    {q:"PE formula?", options:["mv","½mv²","mgh","F·d"], ans:"mgh"},
+    {q:"Work-Energy theorem?", options:["W=ΔKE","W=ΔPE","W=ΔE","None"], ans:"W=ΔKE"},
+    {q:"Conservative force?", options:["Friction","Gravity","Air drag","None"], ans:"Gravity"},
+    {q:"Power unit?", options:["J","N","W","kg"], ans:"W"},
+    {q:"P =?", options:["W/t","F·v","Both","None"], ans:"Both"},
+    {q:"Energy can be?", options:["Created","Destroyed","Converted","None"], ans:"Converted"},
+    {q:"1 HP =?", options:["746W","1000W","500W","100W"], ans:"746W"},
+    {q:"If θ=90°, W=?", options:["Max","0","Min","F·d"], ans:"0"},
+    {q:"If θ=0°, W=?", options:["Max","0","Min","F·d"], ans:"Max"},
+    {q:"KE depends on?", options:["Mass","Velocity","Both","None"], ans:"Both"},
+    {q:"PE depends on?", options:["Mass","Height","Both","None"], ans:"Both"},
+    {q:"Spring PE =?", options:["½kx","½kx²","kx","kx²"], ans:"½kx²"},
+    {q:"Energy of photon?", options:["hf","h/f","f/h","None"], ans:"hf"},
+    {q:"Mechanical energy?", options:["KE+PE","KE-PE","KE·PE","None"], ans:"KE+PE"},
+    {q:"Non-conservative force?", options:["Gravity","Friction","Electrostatic","None"], ans:"Friction"},
+    {q:"Efficiency =?", options:["Wout/Win","Win/Wout","Wout-Win","None"], ans:"Wout/Win"},
+    {q:"1 eV =?", options:["1.6×10-19J","9×10⁹J","8.85×10-12J","None"], ans:"1.6×10-19J"},
+    {q:"Work is scalar?", options:["Yes","No","Vector","None"], ans:"Yes"},
+    {q:"KE is always?", options:["+ve","-ve","0","Any"], ans:"+ve"},
+    {q:"PE can be?", options:["+ve","-ve","0","All"], ans:"All"},
+    {q:"Dissipated energy?", options:["Heat","Light","Sound","All"], ans:"All"},
+    {q:"Law of conservation?", options:["Mass","Energy","Momentum","All"], ans:"All"},
+    {q:"Watt =?", options:["J/s","N·m","kg·m/s²","None"], ans:"J/s"},
+    {q:"Kilowatt hour?", options:["Power","Energy","Force","None"], ans:"Energy"},
+    {q:"Potential energy stored?", options:["Due to position","Due to motion","Due to force","None"], ans:"Due to position"},
+    {q:"Kinetic energy stored?", options:["Due to position","Due to motion","Due to force","None"], ans:"Due to motion"},
+    {q:"Work done by gravity?", options:["mgh","-mgh","0","F·d"], ans:"mgh"}
+  ],
+  "phy11-ch5": [
+    {q:"Centripetal force formula?", options:["mv/r","mv²/r","mvr","m/r"], ans:"mv²/r"},
+    {q:"Centripetal acceleration?", options:["v/r","v²/r","vr","r/v"], ans:"v²/r"},
+    {q:"Direction of Fc?", options:["Tangent","Center","Outward","None"], ans:"Center"},
+    {q:"Angular velocity unit?", options:["m/s","rad/s","Hz","N"], ans:"rad/s"},
+    {q:"ω =?", options:["v/r","r/v","v·r","v+r"], ans:"v/r"},
+    {q:"Banking angle formula?", options:["tanθ=v/rg","tanθ=v²/rg","sinθ=v²/rg","cosθ=v²/rg"], ans:"tanθ=v²/rg"},
+    {q:"Time period T=?", options:["2π/ω","ω/2π","2πω","None"], ans:"2π/ω"},
+    {q:"Frequency f=?", options:["1/T","T","2π/T","None"], ans:"1/T"},
+    {q:"Centrifugal force is?", options:["Real","Pseudo","Both","None"], ans:"Pseudo"},
+    {q:"Conical pendulum T?", options:["2π√(L/g)","2π√(Lcosθ/g)","2π√(Lsinθ/g)","None"], ans:"2π√(Lcosθ/g)"},
+    {q:"Satellite speed ∝?", options:["1/√r","√r","1/r","r"], ans:"1/√r"},
+    {q:"Geostationary satellite?", options:["24h","12h","6h","1h"], ans:"24h"},
+    {q:"Angular momentum?", options:["mvr","mv²r","mr/v","None"], ans:"mvr"},
+    {q:"Torque =?", options:["r×F","F×r","r·F","None"], ans:"r×F"},
+    {q:"Moment of inertia unit?", options:["kg·m","kg·m²","kg/m","None"], ans:"kg·m²"},
+    {q:"Rolling without slipping?", options:["v=rω","v=r/ω","v=ω/r","None"], ans:"v=rω"},
+    {q:"Radial acceleration?", options:["v²/r","v/r","r/v","None"], ans:"v²/r"},
+    {q:"Tangential acceleration?", options:["rα","α/r","r/α","None"], ans:"rα"},
+    {q:"Kepler's 3rd law?", options:["T²∝r³","T∝r²","T³∝r²","None"], ans:"T²∝r³"},
+    {q:"Escape velocity?", options:["√(2GM/R)","√(GM/R)","2GM/R","None"], ans:"√(2GM/R)"},
+    {q:"Orbital velocity?", options:["√(GM/R)","√(2GM/R)","GM/R","None"], ans:"√(GM/R)"},
+    {q:"Angular displacement unit?", options:["rad","m","s","N"], ans:"rad"},
+    {q:"Centripetal force does?", options:["Work","No work","Negative work","None"], ans:"No work"},
+    {q:"Banking reduces?", options:["Friction","Wear","Accident","All"], ans:"All"},
+    {q:"Cyclist leans?", options:["Inward","Outward","Up","Down"], ans:"Inward"},
+    {q:"Angular momentum conserved?", options:["No torque","No force","No energy","None"], ans:"No torque"},
+    {q:"Flywheel uses?", options:["Inertia","Momentum","Energy","All"], ans:"Inertia"},
+    {q:"Period of earth?", options:["24h","365d","1h","None"], ans:"24h"},
+    {q:"Radius of curvature?", options:["v²/ac","ac/v²","v/ac","None"], ans:"v²/ac"},
+    {q:"Uniform circular motion?", options:["Constant v","Constant ω","Constant a","All"], ans:"Constant ω"}
+  ],
+  "phy11-ch6": [
+    {q:"Equation of continuity?", options:["A1V1=A2V2","P1V1=P2V2","F1A1=F2A2","None"], ans:"A1V1=A2V2"},
+    {q:"Bernoulli's theorem?", options:["Energy","Momentum","Mass","None"], ans:"Energy"},
+    {q:"Venturi meter works on?", options:["Continuity","Bernoulli","Both","None"], ans:"Both"},
+    {q:"Viscosity unit?", options:["Pa·s","N/m","J","W"], ans:"Pa·s"},
+    {q:"Surface tension unit?", options:["N/m","N·m","J/m","None"], ans:"N/m"},
+    {q:"Poiseuille's law for?", options:["Flow rate","Pressure","Velocity","None"], ans:"Flow rate"},
+    {q:"Streamline flow?", options:["Laminar","Turbulent","Both","None"], ans:"Laminar"},
+    {q:"Reynolds number >2000?", options:["Laminar","Turbulent","Critical","None"], ans:"Turbulent"},
+    {q:"Capillary rise ∝?", options:["1/r","r","r²","None"], ans:"1/r"},
+    {q:"Torricelli's law?", options:["v=√2gh","v=gh","v=2gh","None"], ans:"v=√2gh"},
+    {q:"Pressure in fluid?", options:["ρgh","h/ρg","g/ρh","None"], ans:"ρgh"},
+    {q:"Pascal's law?", options:["P=F/A","P=ρgh","P=const","None"], ans:"P=F/A"},
+    {q:"Hydraulic press?", options:["F1/A1=F2/A2","A1F1=A2F2","None"], ans:"F1/A1=F2/A2"},
+    {q:"Archimedes principle?", options:["Upthrust","Downthrust","No force","None"], ans:"Upthrust"},
+    {q:"Density unit?", options:["kg/m³","N/m³","J/m³","None"], ans:"kg/m³"},
+    {q:"Specific gravity?", options:["ρ/ρw","ρw/ρ","ρ·ρw","None"], ans:"ρ/ρw"},
+    {q:"Blood pressure uses?", options:["Manometer","Barometer","Thermometer","None"], ans:"Manometer"},
+    {q:"Atomizer works on?", options:["Bernoulli","Continuity","Both","None"], ans:"Bernoulli"},
+    {q:"Airfoil lift?", options:["Bernoulli","Newton","Both","None"], ans:"Both"},
+    {q:"Viscosity decreases with?", options:["Temp↑","Temp↓","Pressure","None"], ans:"Temp↑"},
+    {q:"Cohesive force?", options:["Same molecules","Diff molecules","Both","None"], ans:"Same molecules"},
+    {q:"Adhesive force?", options:["Same molecules","Diff molecules","Both","None"], ans:"Diff molecules"},
+    {q:"Contact angle <90°?", options:["Wet","Not wet","Neutral","None"], ans:"Wet"},
+    {q:"Capillary depression?", options:["Mercury","Water","Oil","None"], ans:"Mercury"},
+    {q:"Terminal velocity?", options:["Constant","Increasing","Decreasing","None"], ans:"Constant"},
+    {q:"Stokes law F=?", options:["6πηrv","4πηrv","2πηrv","None"], ans:"6πηrv"},
+    {q:"Rain drop shape?", options:["Sphere","Oval","Flat","None"], ans:"Sphere"},
+    {q:"Soap bubble pressure?", options:["4T/R","2T/R","T/R","None"], ans:"4T/R"},
+    {q:"Excess pressure in drop?", options:["2T/R","T/R","4T/R","None"], ans:"2T/R"},
+    {q:"Flow rate unit?", options:["m³/s","kg/s","N/s","None"], ans:"m³/s"}
+  ],
+  "phy11-ch7": [
+    {q:"SHM condition?", options:["F∝-x","F∝x","F=const","None"], ans:"F∝-x"},
+    {q:"T for spring?", options:["2π√(m/k)","2π√(k/m)","2π√(L/g)","None"], ans:"2π√(m/k)"},
+    {q:"T for pendulum?", options:["2π√(m/k)","2π√(k/m)","2π√(L/g)","None"], ans:"2π√(L/g)"},
+    {q:"SHM frequency?", options:["1/T","T","2π/T","None"], ans:"1/T"},
+    {q:"Phase constant?", options:["Initial phase","Final phase","Amplitude","None"], ans:"Initial phase"},
+    {q:"Energy in SHM?", options:["Constant","Increasing","Decreasing","None"], ans:"Constant"},
+    {q:"KE max at?", options:["Mean","Extreme","Both","None"], ans:"Mean"},
+    {q:"PE max at?", options:["Mean","Extreme","Both","None"], ans:"Extreme"},
+    {q:"Damped oscillation?", options:["Amplitude↓","Amplitude↑","Const","None"], ans:"Amplitude↓"},
+    {q:"Resonance?", options:["f=f₀","f>f₀","f<f₀","None"], ans:"f=f₀"},
+    {q:"Simple pendulum is?", options:["SHM","Non-SHM","Both","None"], ans:"SHM"},
+    {q:"Second pendulum T?", options:["1s","2s","4s","None"], ans:"2s"},
+    {q:"Amplitude unit?", options:["m","rad","s","N"], ans:"m"},
+    {q:"Displacement in SHM?", options:["x=Asinωt","x=Acosωt","Both","None"], ans:"Both"},
+    {q:"Velocity in SHM?", options:["v=ω√(A²-x²)","v=ωx","v=ωA","None"], ans:"v=ω√(A²-x²)"},
+    {q:"Acceleration in SHM?", options:["-ω²x","ω²x","ωx","None"], ans:"-ω²x"},
+    {q:"Forced oscillation?", options:["External force","No force","Damping","None"], ans:"External force"},
+    {q:"Quality factor Q?", options:["Energy stored/Energy lost","Lost/Stored","Both","None"], ans:"Energy stored/Energy lost"},
+    {q:"Critical damping?", options:["Fastest return","Slow return","Oscillate","None"], ans:"Fastest return"},
+    {q:"Over damping?", options:["Slow return","Fast return","Oscillate","None"], ans:"Slow return"},
+    {q:"Under damping?", options:["Oscillate","No oscillation","Fast","None"], ans:"Oscillate"}
+  ]
+};
+
+// QUIZ FUNCTIONS
+function startTest(chapter) {
+  let quizBox = document.getElementById("quizBox");
+  let questions = testData[chapter];
+  let html = `<h3>📝 Chapter Quiz</h3>`;
+
+  questions.forEach((item, i) => {
+    html += `<div style="margin
+    
+
+    <!-- PHY 11 FORMULAS -->
+    <div class="chapter"><h3>📐 Class 11 Important Formulas</h3>
+      <p><b>Kinematics:</b> v = u + at, s = ut + ½at², v² = u² + 2as</p>
+      <p><b>Dynamics:</b> F = ma, p = mv, Impulse = F·t</p>
+      <p><b>Work Energy:</b> W = Fdcosθ, KE = ½mv², PE = mgh</p>
+      <p><b>Circular:</b> Fc = mv²/r, ω = v/r</p>
+      <p><b>Gravitation:</b> F = Gm1m2/r², g = GM/R²</p>
+      <p><b>SHM:</b> T = 2π√(m/k), T = 2π√(L/g)</p>
+      <p><b>Waves:</b> v = fλ, Doppler: f' = f(v±vo)/(v±vs)</p>
+      <p><b>Thermodynamics:</b> ΔU = Q - W, η = 1 - Qc/Qh</p>
+    </div>
+  </div>
+
+  <!-- PHY 12 -->
+  
+
+    <!-- PHY 12 FORMULAS -->
+    <div class="chapter"><h3>📐 Class 12 Important Formulas</h3>
+      <p><b>Electrostatics:</b> F = kq1q2/r², E = kq/r², V = kq/r, C = Q/V</p>
+      <p><b>Current:</b> V = IR, P = VI = I²R, R = ρL/A</p>
+      <p><b>Magnetism:</b> F = BILsinθ, F = qvBsinθ, B = μ₀NI/2πr</p>
+      <p><b>EMI:</b> ε = -N·ΔΦ/Δt, ε = BLv</p>
+      <p><b>AC:</b> Vrms = Vo/√2, Irms = Io/√2, XL = 2πfL</p>
+      <p><b>Electronics:</b> β = Ic/Ib, Av = Vo/Vi</p>
+      <p><b>Atomic:</b> E = hf, λ = h/p</p>
+      <p><b>Nuclear:</b> N = No·e^(-λt), E = Δmc²</p>
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(id) {
+  document.getElementById('phy11').style.display = 'none';
+  document.getElementById('phy12').style.display = 'none';
+  document.getElementById(id).style.display = 'block';
+}
+</script>
+   <!-- Maths SECTION -->
+  <div id="math11">
+  <div class="chapter"><h3>Chapter 1: Functions and Groups</h3>
+    <div class="topic"><h4>Topic 1.1: Types of Functions</h4><p>SLO: Identify one-one and onto.</p><button class="btn" onclick="toggleQuiz('math11-ch1-t1')">Start 5-Q Quiz</button><div id="math11-ch1-t1" class="quiz"><p><b>Q1:</b> f(x)=2x is? A) One-One B) Many-One</p></div></div>
+    <button class="btn" onclick="alert('Chapter 1 Test')">Finish Chapter Test</button>
+  </div>
+  <div class="chapter"><h3>Chapter 2: Quadratic Equations</h3><p>Topics: Nature of Roots, Sum/Product</p><button class="btn" onclick="alert('Chapter 2 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 3: Matrices and Determinants</h3><p>Topics: Inverse, Cramer's Rule</p><button class="btn" onclick="alert('Chapter 3 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 4: Partial Fractions</h3><p>Topics: Types of Fractions</p><button class="btn" onclick="alert('Chapter 4 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 5: Sequences and Series</h3><p>Topics: AP, GP, Binomial</p><button class="btn" onclick="alert('Chapter 5 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 6: Trigonometry</h3><p>Topics: Identities, Equations</p><button class="btn" onclick="alert('Chapter 6 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 7: Permutation and Combination</h3><p>Topics: nPr, nCr</p><button class="btn" onclick="alert('Chapter 7 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 8: Mathematical Induction</h3><p>Topics: Principle of Induction</p><button class="btn" onclick="alert('Chapter 8 Test')">Finish Chapter Test</button></div>
+  <div class="formula-tab"><h3>∑ Maths Formulas - Class 11</h3><div class="formula-grid">
+    <div class="formula">a² - b² = (a-b)(a+b)</div><div class="formula">sin²θ + cos²θ = 1</div><div class="formula">nCr = n!/r!(n-r)!</div>
+  </div></div>
+</div>
+
+  <!-- CS SECTION -->
+  <div id="cs" class="subject-section">
+    <div class="class-tabs">
+      <div class="class-tab active" onclick="showClass('cs11')">Class 11</div>
+      <div class="class-tab" onclick="showClass('cs12')">Class 12</div>
+    </div>
+    <div id="cs11">
+  <div class="chapter"><h3>Chapter 1: Introduction to Programming</h3>
+    <div class="topic"><h4>Topic 1.1: Algorithms and Flowcharts</h4><p>SLO: Define algorithm.</p><button class="btn" onclick="toggleQuiz('cs11-ch1-t1')">Start 5-Q Quiz</button><div id="cs11-ch1-t1" class="quiz"><p><b>Q1:</b> First step? A) Coding B) Problem Definition</p></div></div>
+    <button class="btn" onclick="alert('Chapter 1 Test')">Finish Chapter Test</button>
+  </div>
+  <div class="chapter"><h3>Chapter 2: Data Types and Operators</h3><p>Topics: Variables, Data Types</p><button class="btn" onclick="alert('Chapter 2 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 3: Control Structures</h3><p>Topics: if, for, while</p><button class="btn" onclick="alert('Chapter 3 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 4: Functions</h3><p>Topics: Built-in, User-defined</p><button class="btn" onclick="alert('Chapter 4 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 5: Arrays</h3><p>Topics: 1D, 2D Arrays</p><button class="btn" onclick="alert('Chapter 5 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 6: Pointers</h3><p>Topics: Declaration, Usage</p><button class="btn" onclick="alert('Chapter 6 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 7: Structures and Unions</h3><p>Topics: struct, union</p><button class="btn" onclick="alert('Chapter 7 Test')">Finish Chapter Test</button></div>
+  <div class="chapter"><h3>Chapter 8: Files</h3><p>Topics: File Handling</p><button class="btn" onclick="alert('Chapter 8 Test')">Finish Chapter Test</button></div>
+  <button class="btn" style="background:var(--success); margin-top:20px;" onclick="alert('FULL SUBJECT TEST: 100 SLO Questions')">Finish Subject Test</button>
+</div>
+
+</div>
+</div> <!-- ID=cs11 END -->
+
+<!-- 👇👇 YAHAN GAME SECTION DALO 👇👇 -->
+<section class="game-section">
+  <h2>🐛 ASTRALARN DEBUG MASTER</h2>
+  <p>Level 1 of 15 - Fix the Bug to Continue</p>
+  
+  <div id="game-box">
+    <!-- GAME KA CODE YAHAN AAYEGA -->
+  </div>
+</section>
+
+<!-- 👇👇 YAHAN LEADERBOARD DALO 👇👇 -->
+<section class="leaderboard">
+  <h2>🏆 LIVE LEADERBOARD</h2>
+  <iframe src="about:blank" width="100%" height="400"></iframe>
+  <p>Submit with Nickname Only</p>
+</section>
+
+<!-- 👇👇 YAHAN IMPACT STATS BHI DAL SAKTE HO 👇👇 -->
+<section class="stats">
+  <div><h3>1500</h3><p>Students Joined</p></div>
+  <div><h3>5000</h3><p>Bugs Fixed</p></div>
+  <div><h3>300</h3><p>Level Completed</p></div>
+</section>
+
+<footer>
+  <p>Built by Bismah Zia for students of Pakistan | AstraLearn.pk © 2026</p>
+
+</footer>
+
+
+<script>
+// PURANA JS + GAME JS = 1 SCRIPT
+function showSubject(sub) {
+  document.querySelectorAll('.subject-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(sub).classList.add('active');
+  event.target.classList.add('active');
+}
+function showClass(cls) {
+  document.querySelectorAll('[id^=phy], [id^=math], [id^=cs]').forEach(c => c.style.display = 'none');
+  document.getElementById(cls).style.display = 'block';
+  event.target.parentElement.querySelectorAll('.class-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+}
+function toggleQuiz(id) {
+  let q = document.getElementById(id);
+  q.style.display = q.style.display === 'block' ? 'none' : 'block';
+}
+
+// GAME WALA JS
+let currentLevel = 1;
+let score = 0;
+const levels = [
+  {code: `print("Hello World"`, hint: "Missing closing bracket", fix: `print("Hello World")`},
+  {code: `x = 5\nif x = 5:\n print(x)`, hint: "Use == for comparison", fix: `if x == 5:`},
+  {code: `for i in range(10)\n print(i)`, hint: "Missing colon", fix: `for i in range(10):`},
+  {code: `def astra():\n return "AstraLearn"`, hint: "Function defined but not called", fix: `astra()`},
+  {code: `creator = "Bismah"\nprint(creatr)`, hint: "Typo in variable name", fix: `print(creator)`}
+];
+
+function loadLevel() {
+  let l = levels[currentLevel-1];
+  document.getElementById("game-box").innerHTML = `
+    <h3>LEVEL ${currentLevel} of 15</h3>
+    <pre style="text-align:left; background:#000; padding:15px; border-radius:8px; color:#00ff88;">${l.code}</pre>
+    <p><b>Hint:</b> ${l.hint}</p>
+    <input id="fix" placeholder="Type fixed code here" style="width:80%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid var(--accent2); background:#111; color:white;">
+    <br>
+    <button onclick="check()" class="btn">Submit Answer</button>
+    <div id="result" style="margin-top:15px; font-weight:bold; font-size:18px;"></div>
+  `;
+}
+
+function check() {
+  let ans = document.getElementById("fix").value;
+  if(ans.trim() == levels[currentLevel-1].fix) {
+    score += 10;
+    document.getElementById("result").innerHTML = `✅ Correct! Score: ${score}`;
+    currentLevel++;
+    if(currentLevel > levels.length) {
+      document.getElementById("game-box").innerHTML = `<h2>🎉 YOU WIN!</h2><p>Final Score: ${score}/50</p><p>AstraLearn Debug Master</p>`;
+    } else {
+      setTimeout(loadLevel, 1500);
+    }
+  } else {
+    document.getElementById("result").innerHTML = `❌ Try Again`;
+  }
+}
+loadLevel();
+</script>
+
+</body>
+</html>
