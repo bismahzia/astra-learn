@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AstraLearn.pk | Free SLO-Based Learning for Pakistan</title>
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DBM248WKMT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', ' G-DBM248WKMT');
+</script> 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -125,6 +133,31 @@ function sendMsg(){
   }
   document.getElementById('chat-input').value = '';
 }
+function showSubject(subject) {
+  // sab subjects hide karo
+  document.querySelectorAll('.subject-section').forEach(s => s.classList.remove('active'));
+  // jis pe click kiya wo show karo
+  document.getElementById(subject).classList.add('active');
+  
+  // sab tabs se active hatao
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  // jis pe click kiya usko active karo
+  event.target.classList.add('active');
+}
+
+function showClass(cls) {
+  // parent subject dhoondo
+  let parent = document.getElementById(cls.substring(0,3));
+  // us subject ke andar sab classes hide karo
+  parent.querySelectorAll('.class-section').forEach(c => c.classList.remove('active'));
+  // jis class pe click kiya wo show karo
+  document.getElementById(cls).classList.add('active');
+  
+  // sab class-tabs se active hatao
+  parent.querySelectorAll('.class-tab').forEach(b => b.classList.remove('active'));
+  // jis pe click kiya usko active karo
+  event.target.classList.add('active');
+}    
 </script>
   footer { text-align: center; padding: 30px; color: var(--muted); border-top: 1px solid #1F2937; }
 </style>
