@@ -625,19 +625,23 @@ function showTab(id) {
 
 
 <script>
-// PURANA JS - GAME JS + 1 SCRIPT
+// ==========================================
+// 1. NAVIGATION & TABS LOGIC
+// ==========================================
 function showSubject(sub) {
     document.querySelectorAll('.subject-section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(sub).classList.add('active');
-    event.target.classList.add('active');
+    if(event) event.target.classList.add('active');
 }
 
 function showClass(cls) {
     document.querySelectorAll('#phy11, #math11, #cs11').forEach(c => c.style.display = 'none');
     document.getElementById(cls).style.display = 'block';
-    event.target.parentElement.querySelectorAll('.class-tab').forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
+    if(event) {
+        event.target.parentElement.querySelectorAll('.class-tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+    }
 }
 
 function toggleQuiz(id) {
@@ -645,9 +649,113 @@ function toggleQuiz(id) {
     q.style.display = q.style.display === 'block' ? 'none' : 'block';
 }
 
-// GAME WALA JS
+function showTab(id) {
+    if(document.getElementById('phy11')) document.getElementById('phy11').style.display = 'none';
+    if(document.getElementById('phy12')) document.getElementById('phy12').style.display = 'none';
+    if(document.getElementById(id)) document.getElementById(id).style.display = 'block';
+}
+
+// ==========================================
+// 2. SMART QUIZ SYSTEM (FIXED KEY MISMATCH)
+// ==========================================
+let currentQuizQuestions = [];
+let userQuizAnswers = {};
+
+function startTest(chapterKey) {
+    // Hidden quiz box element ko dhoondo
+    let quizContainer = document.getElementById("quizBox");
+    if (!quizContainer) {
+        // Agar quizBox nahi mila toh use dynamic create karein
+        quizContainer = document.createElement("div");
+        quizContainer.id = "quizBox";
+        quizContainer.style.cssText = "margin-top:30px; padding:20px; background:#111; border-radius:12px; display:none;";
+        document.body.appendChild(quizContainer);
+    }
+    
+    // Safety check: Dash wale keys ko Underscore keys se match karne ke liye auto-fix
+    let fixedKey = chapterKey.replace('-', '_'); 
+    let chapterData = testData[chapterKey] || testData[fixedKey];
+
+    if (!chapterData || chapterData.length === 0) {
+        alert("Quiz data not found for: " + chapterKey);
+        return;
+    }
+
+    // Quiz area show aur auto-scroll karein
+    quizContainer.style.display = "block";
+    quizContainer.scrollIntoView({ behavior: 'smooth' });
+
+    currentQuizQuestions = chapterData;
+    userQuizAnswers = {};
+
+    let html = `<h2 style="color:var(--accent);">Chapter Test: 30 SLO MCQs</h2><hr style='border:1px solid var(--accent); margin-bottom:20px;'>`;
+    
+    currentQuizQuestions.forEach((item, index) => {
+        html += `
+            <div style="margin-bottom: 25px; padding: 15px; background: rgba(255,255,255,0.02); border-radius: 8px; text-align: left;">
+                <h4 style="color:#fff;"><b>Q${index + 1}:</b> ${item.q}</h4>
+                <div style="margin-top: 10px; display: grid; gap: 10px;">
+        `;
+        
+        item.options.forEach(opt => {
+            html += `
+                <label style="display: block; cursor: pointer; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 5px; color:#ccc;" 
+                       onclick="selectQuizOption(this, ${index}, '${opt}')">
+                    <input type="radio" name="q_${index}" style="margin-right: 10px;"> ${opt}
+                </label>
+            `;
+        });
+
+        html += `</div></div>`;
+    });
+
+    html += `
+        <button onclick="submitQuiz()" class="btn" style="background: var(--accent); color:#fff; margin-top: 20px; padding: 12px 25px; width: 100%; font-weight:bold; cursor:pointer;">Submit Full Test</button>
+        <div id="quiz-final-result" style="margin-top: 20px; font-size: 20px; font-weight: bold; text-align: center;"></div>
+    `;
+
+    quizContainer.innerHTML = html;
+}
+
+function selectQuizOption(element, qIndex, selectedValue) {
+    const radio = element.querySelector('input[type="radio"]');
+    if (radio) radio.checked = true;
+
+    element.parentElement.querySelectorAll('label').forEach(lbl => {
+        lbl.style.background = "rgba(255,255,255,0.05)";
+        lbl.style.color = "#ccc";
+    });
+    element.style.background = "rgba(127, 90, 240, 0.2)";
+    element.style.color = "#fff";
+
+    userQuizAnswers[qIndex] = selectedValue;
+}
+
+function submitQuiz() {
+    let quizScore = 0;
+    currentQuizQuestions.forEach((item, index) => {
+        if (userQuizAnswers[index] === item.ans) {
+            quizScore++;
+        }
+    });
+
+    const percent = ((quizScore / currentQuizQuestions.length) * 100).toFixed(1);
+    const resultDiv = document.getElementById("quiz-final-result");
+    
+    resultDiv.innerHTML = `
+        <div style="padding: 20px; background: rgba(0,255,136,0.1); border: 2px solid #00ff88; border-radius: 8px; margin-top: 20px; color:#00ff88;">
+            🎉 Test Complete!<br>
+            Your Score: ${quizScore} / ${currentQuizQuestions.length} (${percent}%)
+        </div>
+    `;
+    resultDiv.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ==========================================
+// 3. DEBUGGING GAME LOGIC
+// ==========================================
 let currentLevel = 1;
-let score = 0;
+let gameScore = 0;
 const levels = [
     {code: "print(\"Hello World\"", hint: "Missing closing bracket", fix: "print(\"Hello World\")"},
     {code: "if x = 5:\n   print(x)", hint: "Use '==' for comparison", fix: "if x == 5:"},
@@ -658,35 +766,41 @@ const levels = [
 
 function loadLevel() {
     let l = levels[currentLevel-1];
-    document.getElementById("game-box").innerHTML = `
+    const gameContainer = document.getElementById("game-box");
+    if(!gameContainer) return;
+    
+    gameContainer.innerHTML = `
         <h3>LEVEL ${currentLevel} of 5</h3>
-        <pre style="text-align:left; background:#000; padding:15px; border-radius:8px; color:#00ff88;">${l.code}</pre>
+        <pre style="text-align:left; background:#000; padding:15px; border-radius:8px; color:#00ff88; font-family:monospace;">${l.code}</pre>
         <p><b>Hint:</b> ${l.hint}</p>
-        <input id="fix" placeholder="Type fixed code here" style="width:80%; padding:10px; margin:10px 0; border-radius:8px;"><br>
-        <button onclick="check()" class="btn">Submit Answer</button>
-        <div id="result" style="margin-top:15px; font-weight:bold; font-size:18px;"></div>
+        <input id="fix" placeholder="Type fixed code here" style="width:80%; padding:10px; margin:10px 0; border-radius:8px; background:#111; color:#fff; border:1px solid var(--accent);"><br>
+        <button onclick="checkGameAnswer()" class="btn">Submit Answer</button>
+        <div id="game-result" style="margin-top:15px; font-weight:bold; font-size:18px;"></div>
     `;
 }
 
-function check() {
+function checkGameAnswer() {
     let ans = document.getElementById("fix").value;
     if(ans.trim() === levels[currentLevel-1].fix) {
-        score += 10;
-        document.getElementById("result").innerHTML = "✅ Correct! Score: " + score;
+        gameScore += 10;
+        document.getElementById("game-result").innerHTML = "✅ Correct! Score: " + gameScore;
         currentLevel++;
         if(currentLevel > levels.length) {
-            document.getElementById("game-box").innerHTML = `<h2>🎉 YOU WIN!</h2><p>Final Score: ${score}/50</p>`;
+            document.getElementById("game-box").innerHTML = `<h2>🎉 YOU WIN!</h2><p>Final Game Score: ${gameScore}/50</p>`;
         } else {
             setTimeout(loadLevel, 1500);
         }
     } else {
-        document.getElementById("result").innerHTML = "❌ Try Again!";
+        document.getElementById("game-result").innerHTML = "❌ Try Again!";
     }
 }
 
-// Automatically start the game on load
-loadLevel();
+// Page load initialization
+window.onload = function() {
+    loadLevel();
+};
 </script>
+
 
 
 </body>
