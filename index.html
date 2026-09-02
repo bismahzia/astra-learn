@@ -625,65 +625,69 @@ function showTab(id) {
 
 
 <script>
-// PURANA JS + GAME JS = 1 SCRIPT
+// PURANA JS - GAME JS + 1 SCRIPT
 function showSubject(sub) {
-  document.querySelectorAll('.subject-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(sub).classList.add('active');
-  event.target.classList.add('active');
+    document.querySelectorAll('.subject-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(sub).classList.add('active');
+    event.target.classList.add('active');
 }
+
 function showClass(cls) {
-  document.querySelectorAll('[id^=phy], [id^=math], [id^=cs]').forEach(c => c.style.display = 'none');
-  document.getElementById(cls).style.display = 'block';
-  event.target.parentElement.querySelectorAll('.class-tab').forEach(t => t.classList.remove('active'));
-  event.target.classList.add('active');
+    document.querySelectorAll('#phy11, #math11, #cs11').forEach(c => c.style.display = 'none');
+    document.getElementById(cls).style.display = 'block';
+    event.target.parentElement.querySelectorAll('.class-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
 }
+
 function toggleQuiz(id) {
-  let q = document.getElementById(id);
-  q.style.display = q.style.display === 'block' ? 'none' : 'block';
+    let q = document.getElementById(id);
+    q.style.display = q.style.display === 'block' ? 'none' : 'block';
 }
 
 // GAME WALA JS
 let currentLevel = 1;
 let score = 0;
 const levels = [
-  {code: `print("Hello World"`, hint: "Missing closing bracket", fix: `print("Hello World")`},
-  {code: `x = 5\nif x = 5:\n print(x)`, hint: "Use == for comparison", fix: `if x == 5:`},
-  {code: `for i in range(10)\n print(i)`, hint: "Missing colon", fix: `for i in range(10):`},
-  {code: `def astra():\n return "AstraLearn"`, hint: "Function defined but not called", fix: `astra()`},
-  {code: `creator = "Bismah"\nprint(creatr)`, hint: "Typo in variable name", fix: `print(creator)`}
+    {code: "print(\"Hello World\"", hint: "Missing closing bracket", fix: "print(\"Hello World\")"},
+    {code: "if x = 5:\n   print(x)", hint: "Use '==' for comparison", fix: "if x == 5:"},
+    {code: "for i in range(10)\n    print(i)", hint: "Missing colon", fix: "for i in range(10):"},
+    {code: "def astra():\n    return \"AstraLearn\"", hint: "Function defined but not called", fix: "astra()"},
+    {code: "creator = \"Bismah\"\nprint(creatr)", hint: "Typo in variable name", fix: "print(creator)"}
 ];
 
 function loadLevel() {
-  let l = levels[currentLevel-1];
-  document.getElementById("game-box").innerHTML = `
-    <h3>LEVEL ${currentLevel} of 15</h3>
-    <pre style="text-align:left; background:#000; padding:15px; border-radius:8px; color:#00ff88;">${l.code}</pre>
-    <p><b>Hint:</b> ${l.hint}</p>
-    <input id="fix" placeholder="Type fixed code here" style="width:80%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid var(--accent2); background:#111; color:white;">
-    <br>
-    <button onclick="check()" class="btn">Submit Answer</button>
-    <div id="result" style="margin-top:15px; font-weight:bold; font-size:18px;"></div>
-  `;
+    let l = levels[currentLevel-1];
+    document.getElementById("game-box").innerHTML = `
+        <h3>LEVEL ${currentLevel} of 5</h3>
+        <pre style="text-align:left; background:#000; padding:15px; border-radius:8px; color:#00ff88;">${l.code}</pre>
+        <p><b>Hint:</b> ${l.hint}</p>
+        <input id="fix" placeholder="Type fixed code here" style="width:80%; padding:10px; margin:10px 0; border-radius:8px;"><br>
+        <button onclick="check()" class="btn">Submit Answer</button>
+        <div id="result" style="margin-top:15px; font-weight:bold; font-size:18px;"></div>
+    `;
 }
 
 function check() {
-  let ans = document.getElementById("fix").value;
-  if(ans.trim() == levels[currentLevel-1].fix) {
-    score += 10;
-    document.getElementById("result").innerHTML = `✅ Correct! Score: ${score}`;
-    currentLevel++;
-    if(currentLevel > levels.length) {
-      document.getElementById("game-box").innerHTML = `<h2>🎉 YOU WIN!</h2><p>Final Score: ${score}/50</p><p>AstraLearn Debug Master</p>`;
+    let ans = document.getElementById("fix").value;
+    if(ans.trim() === levels[currentLevel-1].fix) {
+        score += 10;
+        document.getElementById("result").innerHTML = "✅ Correct! Score: " + score;
+        currentLevel++;
+        if(currentLevel > levels.length) {
+            document.getElementById("game-box").innerHTML = `<h2>🎉 YOU WIN!</h2><p>Final Score: ${score}/50</p>`;
+        } else {
+            setTimeout(loadLevel, 1500);
+        }
     } else {
-      setTimeout(loadLevel, 1500);
+        document.getElementById("result").innerHTML = "❌ Try Again!";
     }
-  } else {
-    document.getElementById("result").innerHTML = `❌ Try Again`;
-  }
 }
+
+// Automatically start the game on load
 loadLevel();
 </script>
+
 
 </body>
 </html>
