@@ -673,7 +673,7 @@ function startTest(chapterKey) {
     }
     
     // Safety check: Dash wale keys ko Underscore keys se match karne ke liye auto-fix
-    let fixedKey = chapterKey.replace('-', '_'); 
+   let fixedKey = chapterKey.replaceAll('-', '_'); // replace ki jagah replaceAll
     let chapterData = testData[chapterKey] || testData[fixedKey];
 
     if (!chapterData || chapterData.length === 0) {
