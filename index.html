@@ -630,8 +630,10 @@ function submitAns(){
 function showHint(){
   let q = D[currentChapter].topics[0].test[currentIndex];
   if(q.hint){
-    document.getElementById('hintText').innerText = "Hint: " + q.hint;
+    document.getElementById('hintText').innerText = "💡 Hint: " + q.hint;
     document.getElementById('hintText').style.display='block';
+  } else {
+    alert("Is sawal ka hint nahi hai");
   }
 }
 
@@ -640,19 +642,39 @@ function showFinal(){
   let total = D[currentChapter].topics[0].test.length;
   let per = (score/total)*100;
   let res = `<h2>🎉 Quiz Complete</h2>
+  <h3>${D[currentChapter].name}</h3>
   <p>Score: ${score}/${total}</p>
-  <p>Percentage: ${per.toFixed(2)}%</p>
-  ${per>=60?'<p style="color:green;">PASSED</p>':'<p style="color:red;">FAILED</p>'}`;
-
-  if(wrongList.length>0){
-    res += "<h3>Review:</h3>";
-    wrongList.forEach(w=> res+=`<p>Q: ${w.q} <br> Ans: ${w.a}</p>`);
+  <p>Percentage: ${per.toFixed(2)}%</p>`;
+  
+  if(per >= 60){
+    res += `<p style="color:lightgreen; font-size:20px;">PASSED ✅</p>`;
+  } else {
+    res += `<p style="color:red; font-size:20px;">FAILED ❌ Try Again</p>`;
   }
-  res += `<button onclick="location.reload()">Restart</button>`;
-  document.getElementById('finalResult').innerHTML=res;
-  document.getElementById('finalResult').style.display='block';
-}
-</script>
 
+  if(wrongList.length > 0){
+    res += "<h3>📝 Wrong Answers Review:</h3>";
+    wrongList.forEach(w=> {
+      res += `<p><b>Q:</b> ${w.q} <br> <b>Correct Ans:</b> ${w.a}</p><hr>`;
+    });
+  }
+  
+  res += `<button class="btn" onclick="startQuiz(currentChapter)">🔄 Restart Chapter</button> 
+          <button class="btn" onclick="showChapters()">🏠 Back to Menu</button>`;
+          
+  document.getElementById('finalResult').innerHTML = res;
+  document.getElementById('finalResult').style.display = 'block';
+}
+
+function showChapters(){
+  document.getElementById('menu').style.display = 'block';
+  document.getElementById('quizBox').style.display = 'none';
+  document.getElementById('finalResult').style.display = 'none';
+  document.getElementById('gameBox').style.display = 'none';
+}
+
+// Website load hote hi chapters show karo
+showChapters();
+</script>
 </body>
-</html>  
+</html>
