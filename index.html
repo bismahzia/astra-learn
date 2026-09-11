@@ -577,8 +577,8 @@ topics:[
 </div>
 
 <script>
-
 let currentChapter, currentIndex=0, score=0, selectedAns="", wrongList=[];
+
 let menu = document.getElementById('menu');
 menu.innerHTML = "<h3>📚 Select Chapter:</h3>";
 Object.keys(D).forEach(key=>{
@@ -615,12 +615,6 @@ function loadQ(){
   });
 }
 
-  let optDiv = document.getElementById('options');
-  optDiv.innerHTML='';
-  q.o.forEach(opt=>{
-    optDiv.innerHTML += `<label><input type="radio" name="ans" value="${opt}"> ${opt}</label><br>`;
-  });
-}
 function submitAns(){
   let ans = document.querySelector('input[name="ans"]:checked');
   if(!ans){ alert("Option select karo"); return; }
@@ -628,32 +622,16 @@ function submitAns(){
   
   let ch = D[currentChapter];
   let flatQ = [];
-  ch.topics.forEach(t=> flatQ = flatQ.concat(t.test));
+  ch.topics.forEach(t=> flatQ = flatQ.concat(t.test, t.full || []));
   let q = flatQ[currentIndex];
 
   if(selectedAns === q.a){
     score++; 
     document.getElementById('result').innerHTML="✅ Correct!";
+    document.getElementById('result').style.color="lightgreen";
   } else {
     document.getElementById('result').innerHTML=`❌ Wrong! Correct: ${q.a}`;
-    wrongList.push({q:q.q, a:q.a});
-  }
-  currentIndex++;
-  setTimeout(loadQ, 1200);
-}
-function loadQ(){
-  let topic = D[currentChapter].topics[0];
-  let q = topic.test[currentIndex];
-  if(!q){ showFinal(); return; }
-
- 
-  selectedAns = ans.value;
-  let q = D[currentChapter].topics[0].test[currentIndex];
-
-  if(selectedAns === q.a){
-    score++; document.getElementById('result').innerHTML="✅ Correct!";
-  } else {
-    document.getElementById('result').innerHTML=`❌ Wrong! Correct: ${q.a}`;
+    document.getElementById('result').style.color="red";
     wrongList.push({q:q.q, a:q.a});
   }
   currentIndex++;
@@ -661,10 +639,13 @@ function loadQ(){
 }
 
 function showHint(){
-  let q = D[currentChapter].topics[0].test[currentIndex];
+  let ch = D[currentChapter];
+  let flatQ = [];
+  ch.topics.forEach(t=> flatQ = flatQ.concat(t.test, t.full || []));
+  let q = flatQ[currentIndex];
   if(q.hint){
     document.getElementById('hintText').innerText = "💡 Hint: " + q.hint;
-    document.getElementById('hintText').style.display='block';
+    document.getElementById('hintText').style.display="block";
   } else {
     alert("Is sawal ka hint nahi hai");
   }
@@ -695,7 +676,7 @@ function showFinal(){
     });
   }
 
-  res += `<button class="btn" onclick="startQuiz(currentChapter)">🔄 Restart</button>
+  res += `<button class="btn" onclick="startQuiz(currentChapter)">🔄 Restart Chapter</button>
           <button class="btn" onclick="showChapters()">🏠 Back to Menu</button>`;
 
   document.getElementById('finalResult').innerHTML = res;
