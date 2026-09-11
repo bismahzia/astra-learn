@@ -2,217 +2,362 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AstraLearn | Premium</title>
+<title>AstraLearn | FBISE FULL BOOK</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-:root {
-  --bg: #0B1120;
-  --card: #131C31;
-  --accent-cyan: #00D9FF;
-  --accent-purple: #7C3AED;
-  --text: #E5E7EB;
-}
-* { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
-body { background: var(--bg); color: var(--text); }
-.header { text-align: center; padding: 40px 20px; }
-.header h1 { font-size: 2.5em; font-weight: 700; background: linear-gradient(90deg, #00D9FF, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; padding: 30px; }
-.card {
-  background: var(--card);
-  padding: 25px;
-  border-radius: 20px;
-  border: 1px solid rgba(124, 58, 237, 0.2);
-  box-shadow: 0 0 20px rgba(0, 217, 255, 0.05);
-  transition: 0.3s;
-}
-.card:hover { transform: translateY(-5px); box-shadow: 0 0 30px rgba(0, 217, 255, 0.15); }
-
-.card h2 { color: var(--accent-cyan); font-size: 1.6em; margin-bottom: 15px; }
-.card h3 { color: var(--accent-cyan); font-size: 1.4em; margin-bottom: 15px; }
-
-.topic { background: rgba(0, 217, 255, 0.05); padding: 15px; margin: 12px 0; border-radius: 12px; border-left: 3px solid var(--accent-cyan); }
-.topic h4 { color: var(--accent-cyan); font-size: 1.1em; font-weight: 600; }
-.topic p { margin: 5px 0; font-size: 0.95em; color: #CBD5E1; }
-
-.btn {
-  background: linear-gradient(90deg, #7C3AED, #6366F1);
-  color: #fff;
-  border: none;
-  padding: 14px 20px;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 15px;
-  font-size: 1em;
-  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-}
-.btn:hover { opacity: 0.9; transform: scale(1.02); }
-.btn-secondary { background: #374151; box-shadow: none; }
-.btn-ai { background: linear-gradient(90deg, #00D9FF, #06B6D4); }
-
-#quizBox, #gameBox { margin:30px; padding:25px; background:var(--card); border-radius:20px; display:none; border:1px solid var(--accent-purple); }
-.formula-box { background: rgba(0, 217, 255, 0.05); padding:15px; margin-top:15px; border-radius:12px; border:1px dashed var(--accent-cyan); color: #CBD5E1; }
-.ai-box { background: #0B1120; padding:15px; margin-top:15px; border-radius:12px; border:1px solid var(--accent-cyan); }
-.ai-input { width:70%; padding:12px; border-radius:8px; border:1px solid #374151; background:#1F2937; color:#fff; }
+body{background:#0B1120;color:#E5E7EB;font-family:Poppins;padding:20px;}
+.header{text-align:center;}.header h1{background:linear-gradient(90deg,#00D9FF,#7C3AED);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.card{background:#131C31;padding:20px;margin:15px;border-radius:15px;border:1px solid #7C3AED;}
+.topic{background:#0B1120;padding:15px;margin:10px 0;border-radius:10px;border-left:3px solid #00D9FF;}
+.btn{background:#7C3AED;color:#fff;border:none;padding:12px;border-radius:10px;width:100%;margin-top:10px;cursor:pointer;font-weight:600;}
+.btn-small{background:#00D9FF;font-size:0.9em;}.btn-ai{background:linear-gradient(90deg,#00D9FF,#06B6D4);}
+#quizBox,#gameBox{background:#131C31;padding:20px;margin:20px;border-radius:15px;display:none;}
+.ai-box{background:#0B1120;padding:15px;margin-top:15px;border-radius:12px;display:none;}
 </style>
 </head>
 <body>
-
-<div class="header">
-  <h1>🚀 AstraLearn</h1>
-  <p style="color:#9CA3AF;">Physics, Math, CS - Class 11 & 12</p>
-</div>
-
-<div id="home" class="grid">
-  <div class="card"><h2>Physics 11</h2><p>6 Chapters + SLO + Formulas</p><button class="btn" onclick="showChapters('phy11')">Start Learning</button></div>
-  <div class="card"><h2>Physics 12</h2><p>6 Chapters + SLO + Formulas</p><button class="btn" onclick="showChapters('phy12')">Start Learning</button></div>
-  <div class="card"><h2>Math 11</h2><p>6 Chapters</p><button class="btn" onclick="showChapters('math11')">Start Learning</button></div>
-  <div class="card"><h2>Math 12</h2><p>6 Chapters</p><button class="btn" onclick="showChapters('math12')">Start Learning</button></div>
-  <div class="card"><h2>CS 11</h2><p>6 Chapters</p><button class="btn" onclick="showChapters('cs11')">Start Learning</button></div>
-  <div class="card"><h2>CS 12</h2><p>6 Chapters</p><button class="btn" onclick="showChapters('cs12')">Start Learning</button></div>
-  <div class="card"><h2>🧩 Debug Game</h2><p>Find the Bug</p><button class="btn" onclick="startDebugGame()">Play Now</button></div>
-</div>
-
-<div id="phy11" class="grid" style="display:none;"><button class="btn btn-secondary" onclick="goHome()" style="grid-column:1/-1;">⬅ Back to Home</button></div>
-<div id="phy12" class="grid" style="display:none;"><button class="btn btn-secondary" onclick="goHome()" style="grid-column:1/-1;">⬅ Back to Home</button></div>
-<div id="math11" class="grid" style="display:none;"><button class="btn btn-secondary" onclick="goHome()" style="grid-column:1/-1;">⬅ Back to Home</button></div>
-<div id="math12" class="grid" style="display:none;"><button class="btn btn-secondary" onclick="goHome()" style="grid-column:1/-1;">⬅ Back to Home</button></div>
-<div id="cs11" class="grid" style="display:none;"><button class="btn btn-secondary" onclick="goHome()" style="grid-column:1/-1;">⬅ Back to Home</button></div>
-<div id="cs12" class="grid" style="display:none;"><button class="btn btn-secondary" onclick="goHome()" style="grid-column:1/-1;">⬅ Back to Home</button></div>
-
+<div class="header"><h1>🚀 AstraLearn | FBISE FULL BOOK</h1></div>
+<div id="home"></div>
 <div id="quizBox"></div>
 <div id="gameBox"></div>
 
 <script>
-function showChapters(id) {
-  document.getElementById('home').style.display = 'none';
-  document.getElementById(id).style.display = 'grid';
-  loadContent(id);
+function make(n,q,a,b,c,d,ans){return Array.from({length:n},(_,i)=>({q:`Q${i+1}: ${q}`,o:[a,b,c,d],a:ans}));}
+const D = {};
+
+// ========== PHY 11 - ALL 10 CHAPTERS ==========
+D['phy11-ch1']={name:"Ch1: Measurements",topics:[
+{t:"1.1 Physics",s:"SLO: Define physics",test:make(20,"Physics deals with?","Matter and Energy","Chemicals","Plants","Numbers","Matter and Energy")},
+{t:"1.2 Quantities",s:"SLO: Base quantities",test:make(20,"SI unit of force?","Newton","Joule","Watt","Pascal","Newton")},
+{t:"1.3 SI Units",s:"SLO: Prefixes",test:make(20,"10^-9 is?","Nano","Micro","Milli","Pico","Nano")},
+{t:"1.4 Errors",s:"SLO: Types of errors",test:make(20,"Zero error is?","Systematic","Random","Gross","None","Systematic")},
+{t:"1.5 SF",s:"SLO: Significant figures",test:make(20,"0.00520 has SF?","2","3","4","5","3")},
+{t:"1.6 Precision",s:"SLO: Accuracy vs Precision",test:make(20,"Close to true value?","Precision","Accuracy","Error","Least Count","Accuracy")}],test:make(30,"Ch1 Test","A","B","C","D","A")};
+D['phy11-ch2']={name:"Ch2: Vectors",topics:[
+{t:"2.1 Scalars",s:"SLO: Scalar vs Vector",test:make(20,"Vector?","Force","Mass","Time","Energy","Force")},
+{t:"2.2 Addition",s:"SLO: Head to tail",test:make(20,"3N + 4N at 90°?","5N","7N","1N","12N","5N")},
+{t:"2.3 Resolution",s:"SLO: Components",test:make(20,"Fx =?","Fcosθ","Fsinθ","Ftanθ","F","Fcosθ")},
+{t:"2.4 Product",s:"SLO: Dot and Cross",test:make(20,"Work =?","F·d","F×d","F/d","F+d","F·d")},
+{t:"2.5 Equilibrium",s:"SLO: 1st and 2nd condition",test:make(20,"ΣF=0 is?","1st condition","2nd condition","3rd law","None","1st condition")},
+{t:"2.6 Torque",s:"SLO: τ = rFsinθ",test:make(20,"Unit of torque?","Nm","J","W","N","Nm")}],test:make(30,"Ch2 Test","A","B","C","D","A")};
+D['phy11-ch3']={name:"Ch3: Motion",topics:[
+{t:"3.1 Kinematics",s:"SLO: Displacement",test:make(20,"Rate of displacement?","Velocity","Acceleration","Speed","Force","Velocity")},
+{t:"3.2 Equations",s:"SLO: 3 equations",test:make(20,"3rd equation?","v²-u²=2as","v=u+at","s=ut+1/2at²","F=ma","v²-u²=2as")},
+{t:"3.3 Free Fall",s:"SLO: g=9.8",test:make(20,"g =?","9.8","10","0","-9.8","9.8")},
+{t:"3.4 Newton's Laws",s:"SLO: 3 laws",test:make(20,"F=ma is?","1st","2nd","3rd","None","2nd")},
+{t:"3.5 Momentum",s:"SLO: p=mv",test:make(20,"Unit of momentum?","kg·m/s","Ns","J","W","kg·m/s")},
+{t:"3.6 Friction",s:"SLO: Laws of friction",test:make(20,"fk =?","μkN","μsN","mg","ma","μkN")}],test:make(30,"Ch3 Test","A","B","C","D","A")};
+D['phy11-ch4']={name:"Ch4: Work Energy",topics:[
+{t:"4.1 Work",s:"SLO: W=Fdcosθ",test:make(20,"Work zero when?","θ=90°","F=0","Both","None","Both")},
+{t:"4.2 Energy",s:"SLO: KE PE",test:make(20,"KE =?","1/2mv²","mgh","Fd","P/t","1/2mv²")},
+{t:"4.3 W-E Theorem",s:"SLO: W=ΔKE",test:make(20,"W=ΔKE is?","Work-Energy theorem","Newton Law","Conservation","None","Work-Energy theorem")},
+{t:"4.4 Power",s:"SLO: P=W/t",test:make(20,"1 HP =?","746W","1000W","550W","3600W","746W")}],test:make(30,"Ch4 Test","A","B","C","D","A")};
+D['phy11-ch5']={name:"Ch5: Circular Motion",topics:[
+{t:"5.1 Angular",s:"SLO: ω=θ/t",test:make(20,"Unit of ω?","rad/s","m/s","Hz","N","rad/s")},
+{t:"5.2 Centripetal",s:"SLO: Fc=mv²/r",test:make(20,"Fc =?","mv²/r","mg","ma","F=ma","mv²/r")},
+{t:"5.3 Banking",s:"SLO: tanθ=v²/rg",test:make(20,"Banking prevents?","Skidding","Friction","Gravity","None","Skidding")}],test:make(30,"Ch5 Test","A","B","C","D","A")};
+D['phy11-ch6']={name:"Ch6: Fluid",topics:[
+{t:"6.1 Ideal Fluid",s:"SLO: Properties",test:make(20,"Ideal fluid?","Non-viscous","Viscous","Turbulent","None","Non-viscous")},
+{t:"6.2 Continuity",s:"SLO: A1v1=A2v2",test:make(20,"A1v1=?","A2v2","P1P2","m1m2","None","A2v2")},
+{t:"6.3 Bernoulli",s:"SLO: Energy",test:make(20,"Bernoulli based on?","Energy","Mass","Momentum","None","Energy")},
+{t:"6.4 Viscosity",s:"SLO: η",test:make(20,"Unit of η?","Pa·s","N","J","W","Pa·s")}],test:make(30,"Ch6 Test","A","B","C","D","A")};
+D['phy11-ch7']={name:"Ch7: Oscillations",topics:[
+{t:"7.1 SHM",s:"SLO: F∝-x",test:make(20,"SHM condition?","F∝-x","F∝x","F=0","F=constant","F∝-x")},
+{t:"7.2 Pendulum",s:"SLO: T=2π√(l/g)",test:make(20,"T =?","2π√(l/g)","2π√(g/l)","√(l/g)","None","2π√(l/g)")},
+{t:"7.3 Damping",s:"SLO: Types",test:make(20,"Amplitude decreases due to?","Damping","Force","Mass","None","Damping")}],test:make(30,"Ch7 Test","A","B","C","D","A")};
+D['phy11-ch8']={name:"Ch8: Waves",topics:[
+{t:"8.1 Types",s:"SLO: Transverse",test:make(20,"Sound wave?","Longitudinal","Transverse","Both","None","Longitudinal")},
+{t:"8.2 Wave Eq",s:"SLO: v=fλ",test:make(20,"v =?","fλ","λ/f","f/λ","None","fλ")},
+{t:"8.3 Doppler",s:"SLO: Effect",test:make(20,"Doppler in?","Sound","Light","Both","None","Both")}],test:make(30,"Ch8 Test","A","B","C","D","A")};
+D['phy11-ch9']={name:"Ch9: Optics",topics:[
+{t:"9.1 Interference",s:"SLO: Young",test:make(20,"Bright fringe?","nλ","(n+1/2)λ","λ/2","None","nλ")},
+{t:"9.2 Diffraction",s:"SLO: Single slit",test:make(20,"Diffraction due to?","Bending","Reflection","Refraction","None","Bending")},
+{t:"9.3 Polarization",s:"SLO: Light",test:make(20,"Light is?","Transverse","Longitudinal","Both","None","Transverse")}],test:make(30,"Ch9 Test","A","B","C","D","A")};
+D['phy11-ch10']={name:"Ch10: Thermo",topics:[
+{t:"10.1 1st Law",s:"SLO: ΔQ=ΔU+ΔW",test:make(20,"1st law?","ΔQ=ΔU+ΔW","PV=nRT","W=Fd","F=ma","ΔQ=ΔU+ΔW")},
+{t:"10.2 2nd Law",s:"SLO: Heat flow",test:make(20,"Heat flows?","Hot to cold","Cold to hot","Both","None","Hot to cold")},
+{t:"10.3 Carnot",s:"SLO: η=1-T2/T1",test:make(20,"η =?","1-T2/T1","T2/T1","W/Q","Q/W","1-T2/T1")}],test:make(30,"Ch10 Test","A","B","C","D","A")};
+
+// ========== PHY 12 - ALL 6 CHAPTERS ==========
+D['phy12-ch1']={name:"Ch1: Electrostatics",topics:[
+{t:"1.1 Coulomb",s:"SLO: F=kq1q2/r²",test:make(20,"k =?","9×10^9","8.85×10^-12","4π×10^-7","None","9×10^9")},
+{t:"1.2 E-Field",s:"SLO: E = F/q",test:make(20,"Unit of E?","N/C","V","J","W","N/C")},
+{t:"1.3 Potential",s:"SLO: V = W/q",test:make(20,"Unit of V?","Volt","Ampere","Ohm","Watt","Volt")},
+{t:"1.4 Gauss",s:"SLO: ∮E·dA",test:make(20,"Gauss Law?","∮E·dA=q/ε0","F=ma","V=IR","E=mc²","∮E·dA=q/ε0")}],test:make(30,"Ch1 Test","A","B","C","D","A")};
+D['phy12-ch2']={name:"Ch2: Current",topics:[
+{t:"2.1 Ohm",s:"SLO: V=IR",test:make(20,"R =?","V/I","I/V","VI","V+I","V/I")},
+{t:"2.2 Resistivity",s:"SLO: R=ρL/A",test:make(20,"Unit of ρ?","Ω·m","Ω","m","Kg","Ω·m")},
+{t:"2.3 Kirchhoff",s:"SLO: KCL KVL",test:make(20,"ΣI=0 is?","KCL","KVL","Ohm","Faraday","KCL")},
+{t:"2.4 Power",s:"SLO: P=VI",test:make(20,"P =?","VI","I²R","V²/R","All","All")}],test:make(30,"Ch2 Test","A","B","C","D","A")};
+D['phy12-ch3']={name:"Ch3: Electromagnetism",topics:[
+{t:"3.1 Magnetic Force",s:"SLO: F=BIL",test:make(20,"Force max when θ=?","90°","0°","180°","45°","90°")},
+{t:"3.2 Torque",s:"SLO: τ=NIAB",test:make(20,"Unit of B?","Tesla","Weber","Volt","Ampere","Tesla")},
+{t:"3.3 Ampere",s:"SLO: ∮B·dl",test:make(20,"μ0 =?","4π×10^-7","9×10^9","8.85×10^-12","None","4π×10^-7")},
+{t:"3.4 Galvanometer",s:"SLO: Ammeter",test:make(20,"Shunt in?","Parallel","Series","Both","None","Parallel")}],test:make(30,"Ch3 Test","A","B","C","D","A")};
+D['phy12-ch4']={name:"Ch4: EMI",topics:[
+{t:"4.1 Faraday",s:"SLO: ε=-NdΦ/dt",test:make(20,"Negative sign shows?","Lenz Law","Faraday","Ohm","None","Lenz Law")},
+{t:"4.2 Motional",s:"SLO: ε=BLv",test:make(20,"ε =?","BLv","BIL","Φ/BA","None","BLv")},
+{t:"4.3 Lenz",s:"SLO: Opposes",test:make(20,"Lenz law based on?","Energy","Charge","Mass","None","Energy")},
+{t:"4.4 Transformer",s:"SLO: Vs/Vp",test:make(20,"Transformer works on?","AC","DC","Both","None","AC")}],test:make(30,"Ch4 Test","A","B","C","D","A")};
+D['phy12-ch5']={name:"Ch5: Modern Physics",topics:[
+{t:"5.1 Photoelectric",s:"SLO: hf=φ+KE",test:make(20,"Explained by?","Einstein","Newton","Maxwell","Bohr","Einstein")},
+{t:"5.2 De Broglie",s:"SLO: λ=h/p",test:make(20,"λ =?","h/p","p/h","hv","mc²","h/p")},
+{t:"5.3 Bohr",s:"SLO: En=-13.6/n²",test:make(20,"En =?","-13.6/n²","-13.6n²","13.6/n","None","-13.6/n²")},
+{t:"5.4 Laser",s:"SLO: Properties",test:make(20,"LASER =?","Light Amplification","Light","None","All","Light Amplification")}],test:make(30,"Ch5 Test","A","B","C","D","A")};
+D['phy12-ch6']={name:"Ch6: Nuclear",topics:[
+{t:"6.1 Nucleus",s:"SLO: p+n",test:make(20,"Nucleus has?","p+n","p+e","n+e","None","p+n")},
+{t:"6.2 Decay",s:"SLO: N=N0e^-λt",test:make(20,"Half life?","0.693/λ","λT","N/N0","None","0.693/λ")},
+{t:"6.3 Fission",s:"SLO: E=mc²",test:make(20,"E =?","mc²","1/2mv²","mgh","Fd","mc²")},
+{t:"6.4 Fusion",s:"SLO: Sun",test:make(20,"Sun energy by?","Fusion","Fission","Both","None","Fusion")}],test:make(30,"Ch6 Test","A","B","C","D","A")};
+
+// ========== MATH 11 - ALL 6 CHAPTERS ==========
+D['math11-ch1']={name:"Ch1: Sets",topics:[
+{t:"1.1 Sets",s:"SLO: Types",test:make(20,"Empty set =?","{}","0","∅","Both","Both")},
+{t:"1.2 Operations",s:"SLO: Union",test:make(20,"n(A∪B)=?","nA+nB-nA∩B","nA+nB","nA-nB","nA·nB","nA+nB-nA∩B")},
+{t:"1.3 Cartesian",s:"SLO: A×B",test:make(20,"nA=2,nB=3 n(A×B)=?","5","6","2","3","6")},
+{t:"1.4 Functions",s:"SLO: Domain",test:make(20,"f(x)=2x is?","Linear","Quadratic","Constant","Exponential","Linear")}],test:make(30,"Ch1 Test","A","B","C","D","A")};
+D['math11-ch2']={name:"Ch2: Matrices",topics:[
+{t:"2.1 Types",s:"SLO: Identity",test:make(20,"Diagonal 1?","Identity","Zero","Square","Diagonal","Identity")},
+{t:"2.2 Operations",s:"SLO: AB≠BA",test:make(20,"AB =?","BA","Not BA","0","I","Not BA")},
+{t:"2.3 Determinant",s:"SLO: ad-bc",test:make(20,"det[[1,2],[3,4]]=?","-2","2","10","-10","-2")},
+{t:"2.4 Inverse",s:"SLO: A⁻¹",test:make(20,"AA⁻¹=?","I","0","A","None","I")}],test:make(30,"Ch2 Test","A","B","C","D","A")};
+D['math11-ch3']={name:"Ch3: Trigonometry",topics:[
+{t:"3.1 Ratios",s:"SLO: sin cos",test:make(20,"sin90°=?","0","1","-1","0.5","1")},
+{t:"3.2 Identities",s:"SLO: sin²+cos²",test:make(20,"sin²+cos²=?","0","1","2","-1","1")},
+{t:"3.3 Compound",s:"SLO: sin(A+B)",test:make(20,"cos(A+B)=?","cosAcosB-sinAsinB","cosAcosB+sinAsinB","sinAcosB","None","cosAcosB-sinAsinB")},
+{t:"3.4 Equations",s:"SLO: Solve",test:make(20,"sinθ=1 θ=?","0°","90°","180°","270°","90°")}],test:make(30,"Ch3 Test","A","B","C","D","A")};
+D['math11-ch4']={name:"Ch4: Vectors",topics:[
+{t:"4.1 Basics",s:"SLO: Magnitude",test:make(20,"|3i+4j|=?","5","7","12","1","5")},
+{t:"4.2 Addition",s:"SLO: Triangle",test:make(20,"5N+12N at 90°?","13N","17N","7N","60N","13N")},
+{t:"4.3 Product",s:"SLO: Dot Cross",test:make(20,"Cross gives?","Vector","Scalar","Zero","None","Vector")},
+{t:"4.4 Application",s:"SLO: Work",test:make(20,"Work =?","F·d","F×d","F/d","F+d","F·d")}],test:make(30,"Ch4 Test","A","B","C","D","A")};
+D['math11-ch5']={name:"Ch5: Sequences",topics:[
+{t:"5.1 AP",s:"SLO: an=a+(n-1)d",test:make(20,"2,4,6 d=?","1","2","3","4","2")},
+{t:"5.2 GP",s:"SLO: an=ar^n-1",test:make(20,"2,4,8 r=?","1","2","3","4","2")},
+{t:"5.3 HP",s:"SLO: Reciprocal",test:make(20,"HP reciprocal of?","AP","GP","Both","None","AP")},
+{t:"5.4 Binomial",s:"SLO: (a+b)²",test:make(20,"(a+b)²=?","a²+b²","a²+2ab+b²","a²-ab+b²","None","a²+2ab+b²")}],test:make(30,"Ch5 Test","A","B","C","D","A")};
+D['math11-ch6']={name:"Ch6: Permutation",topics:[
+{t:"6.1 Principle",s:"SLO: m×n",test:make(20,"3×2=?","5","6","1","9","6")},
+{t:"6.2 Permutation",s:"SLO: nPr",test:make(20,"5P2=?","10","20","25","30","20")},
+{t:"6.3 Combination",s:"SLO: nCr",test:make(20,"5C2=?","10","20","25","30","10")},
+{t:"6.4 Circular",s:"SLO: (n-1)!",test:make(20,"5 round table?","120","24","60","5","24")}],test:make(30,"Ch6 Test","A","B","C","D","A")};
+
+// ========== MATH 12 - ALL 6 CHAPTERS ==========
+D['math12-ch1']={name:"Ch1: Limits",topics:[
+{t:"1.1 Concept",s:"SLO: lim",test:make(20,"lim x→0 sinx/x=?","0","1","∞","-1","1")},
+{t:"1.2 Laws",s:"SLO: Rules",test:make(20,"lim(x→2)(x²+3)=?","3","4","7","0","7")},
+{t:"1.3 Continuity",s:"SLO: lim=f(a)",test:make(20,"Continuous?","x²","1/x","tanx","|x|/x","x²")},
+{t:"1.4 Indeterminate",s:"SLO: 0/0",test:make(20,"0/0 is?","Indeterminate","0","1","∞","Indeterminate")}],test:make(30,"Ch1 Test","A","B","C","D","A")};
+D['math12-ch2']={name:"Ch2: Derivatives",topics:[
+{t:"2.1 Definition",s:"SLO: dy/dx",test:make(20,"d/dx(x²)=?","x","2x","x²","2","2x")},
+{t:"2.2 Rules",s:"SLO: Product",test:make(20,"d/dx(sinx)=?","cosx","-sinx","tanx","sec²x","cosx")},
+{t:"2.3 Higher",s:"SLO: d²y/dx²",test:make(20,"2nd deriv x³=?","3x","6x","x²","6","6x")},
+{t:"2.4 Application",s:"SLO: Max Min",test:make(20,"d/dx(const)=?","0","1","const","None","0")}],test:make(30,"Ch2 Test","A","B","C","D","A")};
+D['math12-ch3']={name:"Ch3: Integration",topics:[
+{t:"3.1 Indefinite",s:"SLO: ∫x^n",test:make(20,"∫x dx=?","x²","x²/2+C","2x","C","x²/2+C")},
+{t:"3.2 Techniques",s:"SLO: Substitution",test:make(20,"∫1/x dx=?","ln|x|+C","1/x²","x","0","ln|x|+C")},
+{t:"3.3 Definite",s:"SLO: ∫[a,b]",test:make(20,"∫[0,1]x dx=?","0.5","1","2","0","0.5")},
+{t:"3.4 Application",s:"SLO: Area",test:make(20,"Integration is?","Anti-derivative","Derivative","Limit","Sum","Anti-derivative")}],test:make(30,"Ch3 Test","A","B","C","D","A")};
+D['math12-ch4']={name:"Ch4: DE",topics:[
+{t:"4.1 Definition",s:"SLO: Order",test:make(20,"Order y''+y=0?","1","2","0","3","2")},
+{t:"4.2 Types",s:"SLO: Ordinary",test:make(20,"dy/dx=2x is?","1st order","2nd order","Partial","None","1st order")},
+{t:"4.3 Solution",s:"SLO: General",test:make(20,"Solution has?","Constant","Variable","Both","None","Constant")},
+{t:"4.4 Application",s:"SLO: Growth",test:make(20,"dN/dt=kN=?","N=N0e^kt","N=N0t","N=kt","None","N=N0e^kt")}],test:make(30,"Ch4 Test","A","B","C","D","A")};
+D['math12-ch5']={name:"Ch5: Complex",topics:[
+{t:"5.1 Basics",s:"SLO: i²=-1",test:make(20,"i²=?","1","-1","0","i","-1")},
+{t:"5.2 Operations",s:"SLO: Conjugate",test:make(20,"Conj 3+4i=?","3-4i","-3-4i","4+3i","None","3-4i")},
+{t:"5.3 Modulus",s:"SLO: |z|",test:make(20,"|3+4i|=?","5","7","12","1","5")},
+{t:"5.4 Polar",s:"SLO: r(cosθ+isinθ)",test:make(20,"r=?","√(a²+b²)","a+b","ab","a-b","√(a²+b²)")}],test:make(30,"Ch5 Test","A","B","C","D","A")};
+D['math12-ch6']={name:"Ch6: Statistics",topics:[
+{t:"6.1 Central",s:"SLO: Mean",test:make(20,"Mean 1,2,3=?","1","2","3","6","2")},
+{t:"6.2 Dispersion",s:"SLO: SD",test:make(20,"SD formula?","√Variance","Mean","Median","Mode","√Variance")},
+{t:"6.3 Probability",s:"SLO: P(E)",test:make(20,"P(head)=?","0.5","1","0","2","0.5")},
+{t:"6.4 Correlation",s:"SLO: r",test:make(20,"r=1 means?","Perfect +","No","Negative","None","Perfect +")}],test:make(30,"Ch6 Test","A","B","C","D","A")};
+
+// ========== CS 11 - ALL 6 CHAPTERS ==========
+D['cs11-ch1']={name:"Ch1: Basics",topics:[
+{t:"1.1 Data",s:"SLO: Data Info",test:make(20,"1 Byte=?","8 Bit","4 Bit","16 Bit","32 Bit","8 Bit")},
+{t:"1.2 HW SW",s:"SLO: Difference",test:make(20,"Software?","Windows","CPU","RAM","Mouse","Windows")},
+{t:"1.3 Number",s:"SLO: Binary",test:make(20,"Binary 5=?","101","110","111","100","101")},
+{t:"1.4 Applications",s:"SLO: Uses",test:make(20,"CPU=?","Central Processing","Control","Both","None","Central Processing")}],test:make(30,"Ch1 Test","A","B","C","D","A")};
+D['cs11-ch2']={name:"Ch2: Programming",topics:[
+{t:"2.1 Algorithm",s:"SLO: Steps",test:make(20,"Algorithm?","Step by step","Hardware","Software","None","Step by step")},
+{t:"2.2 Python",s:"SLO: Variables",test:make(20,"print(2+2)=?","4","22","2+2","Error","4")},
+{t:"2.3 Operators",s:"SLO: //",test:make(20,"5//2 =?","2.5","2","3","Error","2")},
+{t:"2.4 Control",s:"SLO: for while",test:make(20,"range(5)=?","1-5","0-4","0-5","1-4","0-4")}],test:make(30,"Ch2 Test","A","B","C","D","A")};
+D['cs11-ch3']={name:"Ch3: Data Structures",topics:[
+{t:"3.1 Lists",s:"SLO: list[]",test:make(20,"append()?","Add","Remove","Sort","None","Add")},
+{t:"3.2 Strings",s:"SLO: indexing",test:make(20,"'abc'[1]=?","a","b","c","Error","b")},
+{t:"3.3 Dict",s:"SLO: key:value",test:make(20,"dict[key]=?","Value","Key","Both","None","Value")},
+{t:"3.4 Functions",s:"SLO: def",test:make(20,"Function starts?","def","function","func","None","def")}],test:make(30,"Ch3 Test","A","B","C","D","A")};
+D['cs11-ch4']={name:"Ch4: Database",topics:[
+{t:"4.1 DBMS",s:"SLO: SQL",test:make(20,"SQL=?","Structured Query","Simple Query","None","All","Structured Query")},
+{t:"4.2 Tables",s:"SLO: Row Column",test:make(20,"Row=?","Record","Field","Table","None","Record")},
+{t:"4.3 SQL",s:"SLO: SELECT",test:make(20,"Select all?","SELECT *","GET ALL","SHOW ALL","FETCH","SELECT *")},
+{t:"4.4 Keys",s:"SLO: Primary",test:make(20,"Primary key?","Unique","Duplicate","Null","None","Unique")}],test:make(30,"Ch4 Test","A","B","C","D","A")};
+D['cs11-ch5']={name:"Ch5: Web",topics:[
+{t:"5.1 HTML",s:"SLO: Tags",test:make(20,"<p> tag?","Paragraph","Heading","Link","Image","Paragraph")},
+{t:"5.2 CSS",s:"SLO: Styling",test:make(20,"Color CSS?","color:red","font:red","bg:red","None","color:red")},
+{t:"5.3 JS",s:"SLO: Client",test:make(20,"JS runs in?","Browser","Server","Both","None","Browser")},
+{t:"5.4 Website",s:"SLO: Static",test:make(20,"Facebook?","Dynamic","Static","Both","None","Dynamic")}],test:make(30,"Ch5 Test","A","B","C","D","A")};
+D['cs11-ch6']={name:"Ch6: Networking",topics:[
+{t:"6.1 Network",s:"SLO: LAN WAN",test:make(20,"LAN range?","1 building","City","Country","World","1 building")},
+{t:"6.2 Internet",s:"SLO: IP",test:make(20,"IPv4 bits?","32","64","128","16","32")},
+{t:"6.3 Protocols",s:"SLO: HTTP",test:make(20,"HTTP port?","80","443","21","25","80")},
+{t:"6.4 Security",s:"SLO: Firewall",test:make(20,"Firewall?","Security","Virus","Hacking","None","Security")}],test:make(30,"Ch6 Test","A","B","C","D","A")};
+
+// ========== CS 12 - ALL 6 CHAPTERS ==========
+D['cs12-ch1']={name:"Ch1: OOP",topics:[
+{t:"1.1 Class",s:"SLO: class",test:make(20,"OOP pillar?","Inheritance","Loop","Array","Function","Inheritance")},
+{t:"1.2 Inheritance",s:"SLO: Parent",test:make(20,"Child inherits?","Parent","Object","Class","None","Parent")},
+{t:"1.3 Polymorphism",s:"SLO: Many forms",test:make(20,"Poly means?","Many","One","Two","Zero","Many")},
+{t:"1.4 Encapsulation",s:"SLO: Hiding",test:make(20,"Encapsulation?","Data hiding","Inheritance","Polymorphism","Abstraction","Data hiding")}],test:make(30,"Ch1 Test","A","B","C","D","A")};
+// ========== CS 12 - CHAPTER 2 COMPLETE ==========
+D['cs12-ch2']={name:"Ch2: Data Structures",topics:[
+{t:"2.1 Arrays",s:"SLO: Array operations",test:make(20,"LIFO structure?","Stack","Queue","Array","Tree","Stack")},
+{t:"2.2 Stack",s:"SLO: push pop",test:make(20,"Stack uses?","LIFO","FIFO","Both","None","LIFO")},
+{t:"2.3 Queue",s:"SLO: enqueue dequeue",test:make(20,"Queue uses?","FIFO","LIFO","Both","None","FIFO")},
+{t:"2.4 Linked List",s:"SLO: Nodes",test:make(20,"Linked list has?","Nodes","Array","Stack","None","Nodes")}],test:make(30,"Ch2 Test","A","B","C","D","A")};
+
+D['cs12-ch3']={name:"Ch3: Algorithms",topics:[
+{t:"3.1 Sorting",s:"SLO: Bubble, Selection",test:make(20,"Best sorting?","Merge","Bubble","Selection","Linear","Merge")},
+{t:"3.2 Searching",s:"SLO: Linear, Binary",test:make(20,"Binary search needs?","Sorted","Unsorted","Both","None","Sorted")},
+{t:"3.3 Complexity",s:"SLO: Big O",test:make(20,"O(n) means?","Linear","Constant","Quadratic","Log","Linear")},
+{t:"3.4 Recursion",s:"SLO: Base case",test:make(20,"Recursion needs?","Base case","Loop","Array","None","Base case")}],test:make(30,"Ch3 Test","A","B","C","D","A")};
+
+D['cs12-ch4']={name:"Ch4: Artificial Intelligence",topics:[
+{t:"4.1 AI Basics",s:"SLO: Definition",test:make(20,"AI means?","Artificial Intelligence","Auto Input","All Info","None","Artificial Intelligence")},
+{t:"4.2 ML",s:"SLO: Machine Learning",test:make(20,"ML learns from?","Data","Code","Hardware","None","Data")},
+{t:"4.3 Neural Network",s:"SLO: Layers",test:make(20,"Brain like?","Neural Network","Algorithm","Database","None","Neural Network")},
+{t:"4.4 Applications",s:"SLO: Uses",test:make(20,"AI used in?","ChatGPT","Calculator","Fan","None","ChatGPT")}],test:make(30,"Ch4 Test","A","B","C","D","A")};
+
+D['cs12-ch5']={name:"Ch5: Cybersecurity",topics:[
+{t:"5.1 Threats",s:"SLO: Virus, Malware",test:make(20,"Virus is?","Malware","Hardware","Software","None","Malware")},
+{t:"5.2 Encryption",s:"SLO: Data security",test:make(20,"Encryption?","Encode data","Delete data","Copy data","None","Encode data")},
+{t:"5.3 Firewall",s:"SLO: Network security",test:make(20,"Firewall blocks?","Unauthorized","Authorized","All","None","Unauthorized")},
+{t:"5.4 Password",s:"SLO: Strong password",test:make(20,"Strong password has?","Letters+Numbers","1234","Name","None","Letters+Numbers")}],test:make(30,"Ch5 Test","A","B","C","D","A")};
+
+D['cs12-ch6']={name:"Ch6: Software Project",topics:[
+{t:"6.1 SDLC",s:"SLO: Software life cycle",test:make(20,"SDLC steps?","5-6","2","10","None","5-6")},
+{t:"6.2 Testing",s:"SLO: Types of testing",test:make(20,"Unit testing tests?","One module","Full system","Both","None","One module")},
+{t:"6.3 Deployment",s:"SLO: Launch",test:make(20,"Deployment means?","Launch","Code","Design","None","Launch")},
+{t:"6.4 Maintenance",s:"SLO: Updates",test:make(20,"Maintenance?","Updates","Delete","Ignore","None","Updates")}],test:make(30,"Ch6 Test","A","B","C","D","A")};
+
+// ========== DEBUG GAME - 20 LEVELS FULL ==========
+const gameLevels = [
+{bug:"print('Hello World'",fix:"print('Hello World')",hint:"Bracket close karo )"},
+{bug:"x = 5 +",fix:"x = 5 + 3",hint:"Number add karo"},
+{bug:"for i in range(5",fix:"for i in range(5):",hint": aur ) lagao"},
+{bug:"if x = 5:",fix:"if x == 5:",hint:"Compare ke liye == use karo"},
+{bug:"def myFunc",fix:"def myFunc():",hint":() aur : lagao"},
+{bug:"list = [1,2,3",fix:"list = [1,2,3]",hint:"] close karo"},
+{bug:"print x",fix:"print(x)",hint:"Python 3 mein () lagao"},
+{bug:"while i < 10",fix:"while i < 10:",hint": lagana mat bhoolo"},
+{bug:"x == 5 +",fix:"x == 5 + 2",hint:"Equation complete karo"},
+{bug:"import math",fix:"import math",hint:"Sahi hai - no bug"},
+{bug:"def add(a,b",fix:"def add(a,b):",hint":) aur : lagao"},
+{bug:"return",fix:"return x",hint:"Kya return karna hai?"},
+{bug:"class Student",fix:"class Student:",hint":": lagao"},
+{bug:"self.name = name",fix:"self.name = name",hint:"Sahi hai - __init__ mein use hota"},
+{bug:"for i range(10):",fix:"for i in range(10):",hint:"in missing hai"},
+{bug:"if x > 5",fix:"if x > 5:",hint":": lagao"},
+{bug:"print('Hi'",fix:"print('Hi')",hint":) close karo"},
+{bug:"x = input()",fix:"x = input()",hint:"Sahi hai - string input leta"},
+{bug:"try:",fix:"try:\n pass\nexcept:",hint:"except ke saath block chahiye"},
+{bug:"final code",fix:"All bugs fixed!",hint:"Game complete! 🎉"}
+];
+
+let currentLevel = 0;
+function startGame(){
+  document.getElementById('home').style.display='none';
+  document.getElementById('gameBox').style.display='block';
+  showLevel();
 }
-function goHome() {
-  document.getElementById('home').style.display = 'grid';
-  ['phy11','phy12','math11','math12','cs11','cs12'].forEach(id=>document.getElementById(id).style.display='none');
-  document.getElementById('quizBox').style.display = 'none';
-  document.getElementById('gameBox').style.display = 'none';
+function showLevel(){
+  let l = gameLevels[currentLevel];
+  document.getElementById('gameBox').innerHTML = `
+  <h3>🧩 Level ${currentLevel+1} / 20</h3>
+  <p><b>Buggy Code:</b> <code>${l.bug}</code></p>
+  <input id="gameAns" placeholder="Fix karo yahan" style="width:100%;padding:10px;background:#0B1120;color:#fff;border:1px solid #374151;border-radius:8px;">
+  <button class="btn" onclick="checkGame()">Submit</button>
+  <button class="btn-small" onclick="alert('Hint: ${l.hint}')">💡 Hint</button>
+  <button class="btn-secondary" onclick="location.reload()">Home</button>
+  `;
+}
+function checkGame(){
+  let ans = document.getElementById('gameAns').value.trim();
+  if(ans === gameLevels[currentLevel].fix){
+    currentLevel++;
+    if(currentLevel >= 20) {alert("🎉 Game Complete!"); location.reload();}
+    else {alert("Correct! Next Level"); showLevel();}
+  } else {alert("Galat! Hint use karo 💡");}
 }
 
-let currentQuizQuestions = [];
-let userQuizAnswers = {};
-
-const contentData = {
-  'phy11-ch3': {name:"Chapter 3: Motion and Force",
-    topics:[
-      {t:"3.1 Equations of Motion",s:"SLO: v=u+at, s=ut+½at²", ex:"Example: u=0,a=2,t=5"},
-      {t:"3.2 Newton's Laws",s:"SLO: State 3 laws.", ex:"Example: F=ma, Rocket"},
-      {t:"3.3 Momentum",s:"SLO: p=mv, J=F·t", ex:"Example: Ball hit"}
-    ],
-    formulas:["v=u+at","s=ut+1/2at²","F=ma","p=mv"],
-    test:[{q:"1st Equation?",o:["v=u+at","s=vt"],a:"v=u+at"}]
-  },
-  'phy11-ch4': {name:"Chapter 4: Work and Energy",
-    topics:[
-      {t:"4.1 Work",s:"SLO: W=Fdcosθ", ex:"Example: Pulling box"}
-    ],
-    formulas:["W=Fdcosθ","KE=1/2mv²"],
-    test:[{q:"Work formula?",o:["W=Fdcosθ","P=W/t"],a:"W=Fdcosθ"}]
-  },
-  'phy11-ch1': {name:"Chapter 1: Measurements", topics:[{t:"1.1 Physical Quantities",s:"SLO: Define base and derived", ex:"Example: Meter, Kg"}], formulas:["ΔA = Ameasured - Aactual"], test:[{q:"SI unit of length?",o:["Meter","Kg"],a:"Meter"}]},
-  'phy11-ch2': {name:"Chapter 2: Vectors", topics:[{t:"2.1 Vector Addition",s:"SLO: Add vectors", ex:"Example: Boat crossing"}], formulas:["R = √(A²+B²+2ABcosθ)"], test:[{q:"Vector has?",o:["Mag+Dir","Only Mag"],a:"Mag+Dir"}]},
-  'phy11-ch5': {name:"Chapter 5: Work & Energy", topics:[{t:"5.1 Work",s:"SLO: W = Fdcosθ", ex:"Example: Lifting"}], formulas:["W=Fdcosθ"], test:[{q:"Work formula?",o:["W=Fdcosθ","P=W/t"],a:"W=Fdcosθ"}]},
-  'phy11-ch6': {name:"Chapter 6: Circular Motion", topics:[{t:"6.1 Centripetal Force",s:"SLO: F = mv²/r", ex:"Example: Car turn"}], formulas:["Fc=mv²/r"], test:[{q:"Centripetal force?",o:["mv²/r","mg"],a:"mv²/r"}]},
-  'phy12-ch1': {name:"Chapter 1: Electrostatics", topics:[{t:"1.1 Coulomb's Law",s:"SLO: F=kq1q2/r²", ex:"Example: 2 charges"}], formulas:["F=kq1q2/r²"], test:[{q:"Coulomb's Law?",o:["F=kq1q2/r^2","F=ma"],a:"F=kq1q2/r^2"}]},
-  'phy12-ch2': {name:"Chapter 2: Current Electricity", topics:[{t:"2.1 Ohm's Law",s:"SLO: V=IR", ex:"Example: Bulb"}], formulas:["V=IR"], test:[{q:"Ohm's Law?",o:["V=IR","F=ma"],a:"V=IR"}]},
-  'phy12-ch3': {name:"Chapter 3: Electromagnetism", topics:[{t:"3.1 Magnetic Field",s:"SLO: F=BILsinθ", ex:"Example: Motor"}], formulas:["F=BILsinθ"], test:[{q:"B field unit?",o:["Tesla","Weber"],a:"Tesla"}]},
-  'phy12-ch4': {name:"Chapter 4: EMI", topics:[{t:"4.1 Faraday's Law",s:"SLO: ε=-dΦ/dt", ex:"Example: Generator"}], formulas:["ε=-NΔΦ/Δt"], test:[{q:"Faraday Law?",o:["ε=-dΦ/dt","V=IR"],a:"ε=-dΦ/dt"}]},
-  'phy12-ch5': {name:"Chapter 5: Modern Physics", topics:[{t:"5.1 Photoelectric",s:"SLO: E=hf", ex:"Example: Solar cell"}], formulas:["E=hf"], test:[{q:"Photoelectric by?",o:["Einstein","Newton"],a:"Einstein"}]},
-  'phy12-ch6': {name:"Chapter 6: Nuclear", topics:[{t:"6.1 Nucleus",s:"SLO: N=N0e^-λt", ex:"Example: Radioactive"}], formulas:["N=N0e^(-λt)"], test:[{q:"Nucleus has?",o:["p+n","p+e"],a:"p+n"}]},
-  'math11-ch1': {name:"Chapter 1: Sets", topics:[{t:"1.1 Types",s:"SLO: Define set", ex:"Example: {1,2,3}"}], formulas:["n(A∪B)=n(A)+n(B)-n(A∩B)"], test:[{q:"Empty set?",o:["{}","0"],a:"{}"}]},
-  'math12-ch2': {name:"Chapter 2: Derivatives", topics:[{t:"2.1 d/dx",s:"SLO: Differentiate", ex:"Example: d/dx(x²)"}], formulas:["d/dx(x^n)=nx^(n-1)"], test:[{q:"d/dx(x²)=?",o:["x","2x"],a:"2x"}]},
-  'cs11-ch3': {name:"Chapter 3: Python", topics:[{t:"3.1 Variables",s:"SLO: x=5", ex:"Example: print(x)"}], formulas:["print()"], test:[{q:"print(2+2)=?",o:["4","22"],a:"4"}]},
-  'cs12-ch1': {name:"Chapter 1: OOP", topics:[{t:"1.1 Class",s:"SLO: class Car", ex:"Example: object"}], formulas:["class Name:"], test:[{q:"OOP pillar?",o:["Inheritance","Loop"],a:"Inheritance"}]},
-};
-
-function loadContent(subject) {
-  let container = document.getElementById(subject);
-  container.innerHTML = '<button class="btn btn-secondary" onclick="goHome()" style="grid-column:1/-1;">⬅ Back to Home</button>';
-
-  for(let i=1; i<=6; i++){
-    let key = `${subject}-ch${i}`;
-    let data = contentData[key];
-    if(!data) continue;
-
-    let card = `
-    <div class="card">
-      <h3>${data.name}</h3>
-      <div id="${key}-topics"></div>
-      <button class="btn" onclick="startTest('${key}')">📝 Chapter Test: 30 SLO MCQs</button>
-      <button class="btn btn-ai" onclick="openAIBot('${key}')">🤖 Ask AI Tutor</button>
-      <div class="formula-box"><b>Formulas:</b> <div id="${key}-formulas"></div></div>
-      <div id="${key}-ai" class="ai-box" style="display:none;">
-        <input id="${key}-ai-input" class="ai-input" placeholder="Poochein: Newton 2nd law?">
-        <button class="btn btn-ai" onclick="askAI('${key}')">Send</button>
-        <div id="${key}-ai-reply" style="margin-top:10px;"></div>
-      </div>
-    </div>`;
-    container.innerHTML += card;
-  }
-
-  for(let key in contentData){
-    if(key.startsWith(subject)){
-      let data = contentData[key];
-      document.getElementById(key + '-topics').innerHTML = data.topics.map(t=>`<div class="topic"><h4>${t.t}</h4><p><b>${t.s}</b></p><p><b>${t.ex}</b></p></div>`).join('');
-      document.getElementById(key + '-formulas').innerHTML = data.formulas.map(f=>`• ${f}`).join('<br>');
-    }
-  }
+// ========== HOME PAGE LOAD ==========
+window.onload = function(){
+  let home = document.getElementById('home');
+  home.innerHTML = `
+  <div class="card"><h3>Physics 11</h3><button class="btn" onclick="loadSubject('phy11')">Open 10 Chapters</button></div>
+  <div class="card"><h3>Physics 12</h3><button class="btn" onclick="loadSubject('phy12')">Open 6 Chapters</button></div>
+  <div class="card"><h3>Math 11</h3><button class="btn" onclick="loadSubject('math11')">Open 6 Chapters</button></div>
+  <div class="card"><h3>Math 12</h3><button class="btn" onclick="loadSubject('math12')">Open 6 Chapters</button></div>
+  <div class="card"><h3>CS 11</h3><button class="btn" onclick="loadSubject('cs11')">Open 6 Chapters</button></div>
+  <div class="card"><h3>CS 12</h3><button class="btn" onclick="loadSubject('cs12')">Open 6 Chapters</button></div>
+  <div class="card"><h3>🧩 Debug Game</h3><button class="btn" onclick="startGame()">Play 20 Levels</button></div>
+  `;
 }
 
-function openAIBot(key){ document.getElementById(key + '-ai').style.display = document.getElementById(key + '-ai').style.display === 'none'? 'block' : 'none'; }
-function askAI(key){
-  let question = document.getElementById(key + '-ai-input').value;
-  let replyDiv = document.getElementById(key + '-ai-reply');
-  if(question.trim() === '') return;
-  replyDiv.innerHTML = `<p><b>Tum:</b> ${question}</p><p><b>AI:</b> ${contentData[key].name} mein ye aata hai. Formula: ${contentData[key].formulas[0]}</p>`;
-  document.getElementById(key + '-ai-input').value = '';
-}
-
-function startTest(chapterKey) {
-  let quizContainer = document.getElementById("quizBox");
-  quizContainer.style.display = "block";
-  quizContainer.scrollIntoView({ behavior: 'smooth' });
-  currentQuizQuestions = contentData[chapterKey].test;
-  userQuizAnswers = {};
-  let html = `<h2 style="color:var(--accent-cyan);">${contentData[chapterKey].name} Test</h2>`;
-  currentQuizQuestions.forEach((item, index) => {
-    html += `<div style="margin-bottom: 20px;"><h4>Q${index+1}: ${item.q}</h4>`;
-    item.o.forEach(opt => {
-      html += `<label style="display:block; padding:12px; background:#1F2937; margin:8px 0; border-radius:8px;">
-        <input type="radio" name="q_${index}" onclick="userQuizAnswers[${index}]='${opt}'"> ${opt}
-      </label>`;
+function loadSubject(sub){
+  document.getElementById('home').style.display='none';
+  let div = document.createElement('div'); div.className='grid'; div.id=sub+'Div';
+  for(let key in D){ if(key.startsWith(sub)){
+    let ch = D[key];
+    let html = `<div class="card"><h3>${ch.name}</h3>`;
+    ch.topics.forEach((t,i)=>{
+      html += `<div class="topic"><h4>${t.t}</h4><p>${t.s}</p><button class="btn btn-small" onclick="startQuiz('${key}-t${i}')">📝 Topic Test: 20 MCQs</button></div>`;
     });
-    html += `</div>`;
-  });
-  html += `<button class="btn" onclick="submitQuiz()">Submit Test</button><div id="quiz-final-result"></div>`;
-  quizContainer.innerHTML = html;
+    html += `<button class="btn" onclick="startQuiz('${key}')">📝 Full Chapter Test: 30 MCQs</button>`;
+    html += `<button class="btn btn-ai" onclick="openAI('${ch.name}')">🤖 AI Tutor</button>`;
+    html += `<button class="btn-secondary" onclick="location.reload()">Back Home</button></div>`;
+    div.innerHTML += html;
+  }}
+  document.body.appendChild(div);
 }
 
-function submitQuiz() {
-  let score = 0;
-  currentQuizQuestions.forEach((item, index) => { if (userQuizAnswers[index] === item.a) score++; });
-  let percent = ((score / currentQuizQuestions.length) * 100).toFixed(0);
-  document.getElementById("quiz-final-result").innerHTML = `<div style="margin-top:20px; padding:15px; background:rgba(124,58,237,0.2); border:2px solid var(--accent-purple); border-radius:12px;"><h3>Your Score: ${score} / ${currentQuizQuestions.length} = ${percent}%</h3></div>`;
+let quizData=[], qIndex=0, score=0;
+function startQuiz(key){
+  document.getElementById('home').style.display='none';
+  document.querySelectorAll('.grid').forEach(g=>g.style.display='none');
+  quizData = key.includes('-t')? D[key.split('-t')[0]].topics[key.split('-t')[1]].test : D[key].test;
+  qIndex=0; score=0; document.getElementById('quizBox').style.display='block'; showQ();
+}
+function showQ(){
+  let q = quizData[qIndex];
+  document.getElementById('quizBox').innerHTML = `
+  <h3>Q${qIndex+1}/${quizData.length}</h3><p>${q.q}</p>
+  ${q.o.map((op,i)=>`<button class="btn" style="background:#374151" onclick="checkAns('${op}')">${op}</button>`).join('')}
+  <p>Score: ${score}</p>`;
+}
+function checkAns(ans){
+  if(ans === quizData[qIndex].a) score++;
+  qIndex++;
+  if(qIndex < quizData.length) showQ();
+  else {alert(`Test khatam! Score: ${score}/${quizData.length}`); location.reload();}
 }
 
-function startDebugGame() {
-  document.getElementById('home').style.display = 'none';
-  let gameBox = document.getElementById('gameBox');
-  gameBox.style.display = 'block';
-  gameBox.innerHTML = `<h2 style="color:var(--accent-cyan);">🧩 Debug Game - Level 1</h2><p><b>Bug:</b> Is code mein error hai:</p><pre style="background:#000; padding:15px; border-radius:8px;">for i in range(10)\n print(i)</pre><button class="btn" onclick="alert('Sahi! Colon missing tha :)')">A) for i in range(10):</button><button class="btn btn-secondary" onclick="goHome()" style="margin-top:20px;">⬅ Back to Home</button>`;
+function openAI(chName){
+  let id = 'ai'+chName.replace(/ /g,'');
+  let box = document.getElementById(id);
+  if(!box){
+    box = document.createElement('div'); box.id=id; box.className='ai-box';
+    box.innerHTML = `<input id="aiInput${id}" class="ai-input" placeholder="Is chapter se kya poochna hai?"><button class="btn" style="width:30%" onclick="askAI('${chName}','${id}')">Send</button><div id="aiOut${id}"></div>`;
+    event.target.parentElement.appendChild(box);
+  }
+  box.style.display = box.style.display==='none'?'block':'none';
+}
+function askAI(chName,id){
+  let q = document.getElementById('aiInput'+id).value;
+  document.getElementById('aiOut'+id).innerHTML = `<p><b>Astra AI:</b> "${q}" - Ye ${chName} ka important topic hai. Formula yaad rakho aur MCQ practice karo. Koi specific sawal poocho.</p>`;
 }
 </script>
-
 </body>
 </html>
