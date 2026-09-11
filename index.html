@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AstraLearn PHYSICS 11</title>
+<title>AstraLearn - PHYSICS MATH CS 11 12</title>
 <style>
 body{background:#0B1120;color:#E5E7EB;font-family:Arial;padding:20px;margin:0;}
 .header{text-align:center;padding:20px;background:#131C31;border-radius:15px;margin-bottom:20px;}
@@ -15,9 +15,12 @@ body{background:#0B1120;color:#E5E7EB;font-family:Arial;padding:20px;margin:0;}
 </style>
 </head>
 <body>
-<div class="header"><h1>🚀 AstraLearn PHYSICS Maths CS 11 12</h1><p>All  Chapters | 1200+ MCQs</p></div>
-<div id="home" class="grid"></div>
-<div id="quizBox"></div>
+<p>All Subjects | 1900+ MCQs | Bug Game</p>
+ 
+
+<div id="menu"></div>
+<div id="quizBox" style="display:none;"></div>
+<div id="finalResult" style="display:none;"></div>
 
 <script>
 const D = {};
@@ -574,15 +577,13 @@ topics:[
 </div>
 
 <script>
-let currentChapter, currentIndex=0, score=0, selectedAns="", wrongList=[];
 
-function showChapters(){
-  let menu = document.getElementById('menu');
-  menu.innerHTML = "<h3>Select Chapter:</h3>";
-  ALL_CHAPTERS.forEach(key=>{
-    menu.innerHTML += `<button onclick="startQuiz('${key}')">${D[key].name}</button><br><br>`;
-  });
-}
+let currentChapter, currentIndex=0, score=0, selectedAns="", wrongList=[];
+let menu = document.getElementById('menu');
+menu.innerHTML = "<h3>📚 Select Chapter:</h3>";
+Object.keys(D).forEach(key=>{
+  menu.innerHTML += `<button class="btn" onclick="startQuiz('${key}')">${D[key].name}</button><br><br>`;
+});
 
 function startQuiz(key){
   currentChapter = key;
@@ -594,13 +595,16 @@ function startQuiz(key){
 }
 
 function loadQ(){
-  let topic = D[currentChapter].topics[0];
-  let q = topic.test[currentIndex];
+  let ch = D[currentChapter];
+  let flatQ = [];
+  ch.topics.forEach(t=> flatQ = flatQ.concat(t.test, t.full || []));
+  let q = flatQ[currentIndex];
+
   if(!q){ showFinal(); return; }
 
-  document.getElementById('qTitle').innerText = `${D[currentChapter].name} - Q${currentIndex+1}`;
+  document.getElementById('qTitle').innerText = `${ch.name} - Q${currentIndex+1}/${flatQ.length}`;
   document.getElementById('question').innerText = q.q;
-  document.getElementById('progress').innerText = `Progress: ${currentIndex+1}/${topic.test.length} | Score: ${score}`;
+  document.getElementById('progress').innerText = `Progress: ${currentIndex+1}/${flatQ.length} | Score: ${score}`;
   document.getElementById('hintText').style.display='none';
   document.getElementById('result').innerText='';
 
@@ -611,9 +615,38 @@ function loadQ(){
   });
 }
 
+  let optDiv = document.getElementById('options');
+  optDiv.innerHTML='';
+  q.o.forEach(opt=>{
+    optDiv.innerHTML += `<label><input type="radio" name="ans" value="${opt}"> ${opt}</label><br>`;
+  });
+}
 function submitAns(){
   let ans = document.querySelector('input[name="ans"]:checked');
   if(!ans){ alert("Option select karo"); return; }
+  selectedAns = ans.value;
+  
+  let ch = D[currentChapter];
+  let flatQ = [];
+  ch.topics.forEach(t=> flatQ = flatQ.concat(t.test));
+  let q = flatQ[currentIndex];
+
+  if(selectedAns === q.a){
+    score++; 
+    document.getElementById('result').innerHTML="✅ Correct!";
+  } else {
+    document.getElementById('result').innerHTML=`❌ Wrong! Correct: ${q.a}`;
+    wrongList.push({q:q.q, a:q.a});
+  }
+  currentIndex++;
+  setTimeout(loadQ, 1200);
+}
+function loadQ(){
+  let topic = D[currentChapter].topics[0];
+  let q = topic.test[currentIndex];
+  if(!q){ showFinal(); return; }
+
+ 
   selectedAns = ans.value;
   let q = D[currentChapter].topics[0].test[currentIndex];
 
@@ -639,13 +672,16 @@ function showHint(){
 
 function showFinal(){
   document.getElementById('quizBox').style.display='none';
-  let total = D[currentChapter].topics[0].test.length;
+  
+  let total = 0;
+  D[currentChapter].topics.forEach(t=> total += t.test.length + (t.full? t.full.length : 0));
   let per = (score/total)*100;
+  
   let res = `<h2>🎉 Quiz Complete</h2>
   <h3>${D[currentChapter].name}</h3>
   <p>Score: ${score}/${total}</p>
   <p>Percentage: ${per.toFixed(2)}%</p>`;
-  
+
   if(per >= 60){
     res += `<p style="color:lightgreen; font-size:20px;">PASSED ✅</p>`;
   } else {
@@ -654,14 +690,14 @@ function showFinal(){
 
   if(wrongList.length > 0){
     res += "<h3>📝 Wrong Answers Review:</h3>";
-    wrongList.forEach(w=> {
+    wrongList.forEach(w => {
       res += `<p><b>Q:</b> ${w.q} <br> <b>Correct Ans:</b> ${w.a}</p><hr>`;
     });
   }
-  
-  res += `<button class="btn" onclick="startQuiz(currentChapter)">🔄 Restart Chapter</button> 
+
+  res += `<button class="btn" onclick="startQuiz(currentChapter)">🔄 Restart</button>
           <button class="btn" onclick="showChapters()">🏠 Back to Menu</button>`;
-          
+
   document.getElementById('finalResult').innerHTML = res;
   document.getElementById('finalResult').style.display = 'block';
 }
