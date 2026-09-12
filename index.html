@@ -3,50 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Astra Learn - Physics Part 1</title>
+<title>Astra Learn - Part 1</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
     body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); font-family: 'Segoe UI', sans-serif; }
- .glass { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
- .btn { padding: 0.5rem 1rem; border-radius: 0.75rem; font-weight: 600; cursor: pointer; }
- .btn-primary { background: #06b6d4; color: white; }
- .btn-option { width: 100%; text-align: left; padding: 0.75rem; margin: 0.5rem 0; border-radius: 0.5rem; background: #334155; border: 1px solid #475569; }
- .correct { background: rgba(34,197,94,0.3)!important; border-color: #22c55e!important; }
- .wrong { background: rgba(239,68,68,0.3)!important; border-color: #ef4444!important; }
- .hidden { display: none; }
+.glass { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+.btn { padding: 0.5rem 1rem; border-radius: 0.75rem; font-weight: 600; cursor: pointer; }
+.btn-primary { background: #06b6d4; color: white; }
+.btn-option { width: 100%; text-align: left; padding: 0.75rem; margin: 0.5rem 0; border-radius: 0.5rem; background: #334155; border: 1px solid #475569; }
+.correct { background: rgba(34,197,94,0.3)!important; border-color: #22c55e!important; }
+.wrong { background: rgba(239,68,68,0.3)!important; border-color: #ef4444!important; }
+.hidden { display: none; }
 </style>
 </head>
 <body class="text-slate-100 min-h-screen">
 
 <div class="max-w-6xl mx-auto p-4">
-    <!-- HEADER -->
     <header class="glass p-4 rounded-2xl mb-6 flex justify-between items-center">
         <h1 class="text-2xl font-bold text-cyan-400">Astra Learn 🚀</h1>
         <button onclick="showHome()" class="btn btn-primary">Home</button>
     </header>
 
-    <!-- HOME -->
     <div id="home">
         <div class="glass p-6 rounded-2xl mb-4 text-center">
             <h2 class="text-3xl font-bold mb-2">Astra Learn</h2>
             <p class="text-slate-400">Physics | Mathematics | Computer Science</p>
         </div>
         <div class="grid md:grid-cols-3 gap-4">
-            <button onclick="showSubjects('Physics')" class="glass p-6 rounded-2xl hover:bg-cyan-500/10"><h3 class="text-xl font-bold">Physics</h3><p class="text-sm text-slate-400">11th + 12th</p></button>
-            <button onclick="showSubjects('Maths')" class="glass p-6 rounded-2xl hover:bg-cyan-500/10"><h3 class="text-xl font-bold">Mathematics</h3><p class="text-sm text-slate-400">11th + 12th</p></button>
-            <button onclick="showSubjects('CS')" class="glass p-6 rounded-2xl hover:bg-cyan-500/10"><h3 class="text-xl font-bold">Computer Science</h3><p class="text-sm text-slate-400">11th + 12th</p></button>
+            <button onclick="showSubjects('Physics')" class="glass p-6 rounded-2xl hover:bg-cyan-500/10"><h3 class="text-xl font-bold">Physics</h3></button>
+            <button onclick="showSubjects('Maths')" class="glass p-6 rounded-2xl hover:bg-cyan-500/10"><h3 class="text-xl font-bold">Mathematics</h3></button>
+            <button onclick="showSubjects('CS')" class="glass p-6 rounded-2xl hover:bg-cyan-500/10"><h3 class="text-xl font-bold">Computer Science</h3></button>
         </div>
         <button onclick="showGame()" class="glass p-6 rounded-2xl hover:bg-purple-500/10 w-full mt-4"><h3 class="text-xl font-bold">MCQ Game - 15 Levels</h3></button>
         <button onclick="showAIBot()" class="glass p-6 rounded-2xl hover:bg-green-500/10 w-full mt-4"><h3 class="text-xl font-bold">AI Bot</h3></button>
     </div>
 
-    <!-- SUBJECT CHAPTERS -->
     <div id="chapterMenu" class="hidden glass p-6 rounded-2xl"></div>
-
-    <!-- TOPIC MENU -->
     <div id="topicMenu" class="hidden glass p-6 rounded-2xl"></div>
-
-    <!-- QUIZ -->
     <div id="quizBox" class="hidden glass p-6 rounded-2xl">
         <h3 id="quizTitle" class="text-xl font-bold mb-2"></h3>
         <p id="formulaBox" class="text-xs bg-slate-800 p-2 rounded mb-4 text-cyan-300"></p>
@@ -59,11 +52,7 @@
         </div>
         <button onclick="submitQuiz()" class="btn btn-primary w-full mt-4">Submit Test</button>
     </div>
-
-    <!-- RESULT -->
     <div id="resultBox" class="hidden glass p-6 rounded-2xl text-center"></div>
-
-    <!-- GAME -->
     <div id="gameBox" class="hidden glass p-6 rounded-2xl">
         <h3 class="text-xl font-bold mb-2">Level <span id="levelNum">1</span> / 15</h3>
         <p id="gameQ" class="text-lg mb-4"></p>
@@ -71,73 +60,759 @@
         <button onclick="showHint()" class="btn bg-amber-600 mt-2">💡 Hint</button>
         <p id="hintText" class="text-sm text-amber-300 mt-2 hidden"></p>
     </div>
-
-    <!-- AI BOT -->
     <div id="aiBot" class="hidden glass p-6 rounded-2xl">
         <h3 class="text-xl font-bold mb-4">AI Study Bot</h3>
         <div id="chatLog" class="h-64 overflow-y-auto bg-slate-900 p-3 rounded mb-4"></div>
-        <input id="chatInput" class="w-full p-2 rounded bg-slate-800" placeholder="Ask: What is Dimension">
+        <input id="chatInput" class="w-full p-2 rounded bg-slate-800" placeholder="Ask: What is a Set">
         <button onclick="askBot()" class="btn btn-primary mt-2 w-full">Ask</button>
     </div>
 </div>
 
 <script>
-const DATA = {
-    Physics: {
-        name: "Physics",
-        "11th": {
-            CH1: {
-                name: "Chapter 1: Measurements",
-                formula: "Relative Error = ΔA / A | %Error = (ΔA/A)*100%",
-                topics: {
-                    "Physical Quantities": [
-                        {q: "Q1: Which is a base quantity?", opts: ["Velocity", "Force", "Mass", "Energy"], ans: 2},
-                        {q: "Q2: Number of base SI units:", opts: ["5", "6", "7", "8"], ans: 2},
-                        {q: "Q3: Derived quantity is:", opts: ["Length", "Time", "Density", "Mass"], ans: 2},
-                        {q: "Q4: Dimensionless quantity:", opts: ["Velocity", "Angle", "Force", "Pressure"], ans: 1},
-                        {q: "Q5: Which is not physical quantity?", opts: ["Mass", "Time", "Beauty", "Current"], ans: 2},
-                        {q: "Q6: Unit of luminous intensity:", opts: ["Candela", "Lux", "Lumen", "Watt"], ans: 0},
-                        {q: "Q7: Quantity with unit kg m/s:", opts: ["Energy", "Power", "Momentum", "Force"], ans: 2},
-                        {q: "Q8: Supplementary unit:", opts: ["Radian", "Meter", "Kilogram", "Second"], ans: 0},
-                        {q: "Q9: Physical quantity =?", opts: ["Magnitude x Unit", "Magnitude / Unit", "Unit / Magnitude", "None"], ans: 0},
-                        {q: "Q10: Scalar quantity:", opts: ["Force", "Velocity", "Work", "Acceleration"], ans: 2},
-                        {q: "Q11: Vector quantity:", opts: ["Temperature", "Mass", "Displacement", "Energy"], ans: 2},
-                        {q: "Q12: Which has same dimension as pressure?", opts: ["Energy", "Stress", "Force", "Power"], ans: 1},
-                        {q: "Q13: Quantity measured in Weber:", opts: ["Magnetic field", "Magnetic flux", "Current", "Voltage"], ans: 1},
-                        {q: "Q14: Planck constant unit:", opts: ["Js", "J/s", "kg m/s", "N m"], ans: 0},
-                        {q: "Q15: Which is fundamental?", opts: ["Newton", "Joule", "Ampere", "Watt"], ans: 2}
-                    ],
-                    "SI Units": [
-                        {q: "Q1: SI unit of charge:", opts: ["Volt", "Ampere", "Coulomb", "Ohm"], ans: 2},
-                        {q: "Q2: 1 micron =?", opts: ["10-3 m", "10-6 m", "10-9 m", "10-12 m"], ans: 1},
-                        {q: "Q3: Unit of G:", opts: ["Nm2kg-2", "Nmkg-2", "N2mkg-1", "kgm/s2"], ans: 0},
-                        {q: "Q4: 1 HP =?", opts: ["746 W", "1000 W", "500 W", "860 W"], ans: 0},
-                        {q: "Q5: Unit of frequency:", opts: ["Hz", "s-1", "Both", "rad/s"], ans: 2},
-                        {q: "Q6: SI unit of pressure:", opts: ["Bar", "Pascal", "Torr", "atm"], ans: 1},
-                        {q: "Q7: 1 light year in meter:", opts: ["9.46x10^12", "9.46x10^15", "3x10^8", "6x10^24"], ans: 1},
-                        {q: "Q8: Unit of magnetic field:", opts: ["Tesla", "Weber", "Gauss", "Henry"], ans: 0},
-                        {q: "Q9: Unit of capacitance:", opts: ["Farad", "Henry", "Ohm", "Siemens"], ans: 0},
-                        {q: "Q10: 1 eV =?", opts: ["1.6x10^-19 J", "1.6x10^-18 J", "9.1x10^-31 J", "6.6x10^-34 J"], ans: 0},
-                        {q: "Q11: Unit of permittivity:", opts: ["F/m", "H/m", "N/C", "V/m"], ans: 0},
-                        {q: "Q12: Unit of viscosity:", opts: ["Pa s", "N s/m2", "Both", "kg/m s"], ans: 2},
-                        {q: "Q13: Unit of resistivity:", opts: ["Ω m", "Ω", "S/m", "V/m"], ans: 0},
-                        {q: "Q14: SI unit of temperature:", opts: ["Celsius", "Fahrenheit", "Kelvin", "Rankine"], ans: 2},
-                        {q: "Q15: Unit of electric field:", opts: ["N/C", "V/m", "Both", "J/C"], ans: 2}
-                    ],
-                    "Errors": [ {q: "Q1: Error = Measured - True:", opts: ["Absolute", "Relative", "Percentage", "Random"], ans: 0} ], // 15 bana dena
-                    "Significant Figures": [ {q: "Q1: Sig figs in 0.00500:", opts: ["2", "3", "4", "5"], ans: 1} ] // 15 bana dena
-                }
-            },
-            CH2: { name: "Chapter 2: Vectors", formula: "R = √(A²+B²+2ABcosθ)", topics: {"Vector Addition": [], "Torque": [], "Equilibrium": [], "Center of Mass": []} },
-            CH3: { name: "Chapter 3: Motion", formula: "F = ma", topics: {"Kinematics": [], "Newton Laws": [], "Friction": [], "Circular Motion": []} }
+const PHY11_MCQS = {
+    CH1: {
+        name: "Chapter 1: Measurements",
+        formula: "Relative Error = ΔA / A | %Error = (ΔA/A)*100%",
+        topics: {
+            "Physical Quantities": [
+                {q: "Q1: Which is a base quantity?", opts: ["Velocity", "Force", "Mass", "Energy"], ans: 2},
+                {q: "Q2: Number of base SI units?", opts: ["5", "6", "7", "8"], ans: 2},
+                {q: "Q3: Derived quantity?", opts: ["Length", "Time", "Density", "Mass"], ans: 2},
+                {q: "Q4: Dimensionless quantity?", opts: ["Velocity", "Angle", "Force", "Pressure"], ans: 1},
+                {q: "Q5: Not a physical quantity?", opts: ["Mass", "Time", "Beauty", "Current"], ans: 2},
+                {q: "Q6: Unit of luminous intensity?", opts: ["Candela", "Lux", "Lumen", "Watt"], ans: 0},
+                {q: "Q7: Quantity with unit kg m/s?", opts: ["Energy", "Power", "Momentum", "Force"], ans: 2},
+                {q: "Q8: Supplementary unit?", opts: ["Radian", "Meter", "Kilogram", "Second"], ans: 0},
+                {q: "Q9: Physical quantity =?", opts: ["Magnitude x Unit", "Magnitude / Unit", "Unit / Magnitude", "None"], ans: 0},
+                {q: "Q10: Scalar quantity?", opts: ["Force", "Velocity", "Work", "Acceleration"], ans: 2},
+                {q: "Q11: Vector quantity?", opts: ["Temperature", "Mass", "Displacement", "Energy"], ans: 2},
+                {q: "Q12: Same dimension as pressure?", opts: ["Energy", "Stress", "Force", "Power"], ans: 1},
+                {q: "Q13: Measured in Weber?", opts: ["Magnetic field", "Magnetic flux", "Current", "Voltage"], ans: 1},
+                {q: "Q14: Planck constant unit?", opts: ["Js", "J/s", "kg m/s", "N m"], ans: 0},
+                {q: "Q15: Fundamental unit?", opts: ["Newton", "Joule", "Ampere", "Watt"], ans: 2}
+            ],
+            "SI Units": [
+                {q: "Q1: SI unit of charge?", opts: ["Volt", "Ampere", "Coulomb", "Ohm"], ans: 2},
+                {q: "Q2: 1 micron =?", opts: ["10-3 m", "10-6 m", "10-9 m", "10-12 m"], ans: 1},
+                {q: "Q3: Unit of G?", opts: ["Nm2kg-2", "Nmkg-2", "N2mkg-1", "kgm/s2"], ans: 0},
+                {q: "Q4: 1 HP =?", opts: ["746 W", "1000 W", "500 W", "860 W"], ans: 0},
+                {q: "Q5: Unit of frequency?", opts: ["Hz", "s-1", "Both", "rad/s"], ans: 2},
+                {q: "Q6: SI unit of pressure?", opts: ["Bar", "Pascal", "Torr", "atm"], ans: 1},
+                {q: "Q7: 1 light year in meter?", opts: ["9.46x10^12", "9.46x10^15", "3x10^8", "6x10^24"], ans: 1},
+                {q: "Q8: Unit of magnetic field?", opts: ["Tesla", "Weber", "Gauss", "Henry"], ans: 0},
+                {q: "Q9: Unit of capacitance?", opts: ["Farad", "Henry", "Ohm", "Siemens"], ans: 0},
+                {q: "Q10: 1 eV =?", opts: ["1.6x10^-19 J", "1.6x10^-18 J", "9.1x10^-31 J", "6.6x10^-34 J"], ans: 0},
+                {q: "Q11: Unit of permittivity?", opts: ["F/m", "H/m", "N/C", "V/m"], ans: 0},
+                {q: "Q12: Unit of viscosity?", opts: ["Pa s", "N s/m2", "Both", "kg/m s"], ans: 2},
+                {q: "Q13: Unit of resistivity?", opts: ["Ω m", "Ω", "S/m", "V/m"], ans: 0},
+                {q: "Q14: SI unit of temperature?", opts: ["Celsius", "Fahrenheit", "Kelvin", "Rankine"], ans: 2},
+                {q: "Q15: Unit of electric field?", opts: ["N/C", "V/m", "Both", "J/C"], ans: 2}
+            ],
+            "Errors": [
+                {q: "Q1: Absolute Error =", opts: ["Measured-True", "True-Measured", "Measured/True", "True/Measured"], ans: 0},
+                {q: "Q2: Random error reduced by?", opts: ["Calibration", "Taking average", "Zero correction", "New instrument"], ans: 1},
+                {q: "Q3: Systematic error due to?", opts: ["Instrument", "Observer", "Environment", "All"], ans: 3},
+                {q: "Q4: %Error formula?", opts: ["ΔA/A", "(ΔA/A)*100%", "A/ΔA", "100/ΔA"], ans: 1},
+                {q: "Q5: Least count error is?", opts: ["Random", "Systematic", "Gross", "Personal"], ans: 1},
+                {q: "Q6: Error in sum?", opts: ["Add absolute", "Add relative", "Multiply", "Divide"], ans: 0},
+                {q: "Q7: Error in product?", opts: ["Add absolute", "Add relative %", "Subtract", "None"], ans: 1},
+                {q: "Q8: Gross error due to?", opts: ["Carelessness", "Instrument", "Temperature", "Friction"], ans: 0},
+                {q: "Q9: Accuracy means?", opts: ["Reproducibility", "Closeness to true", "Least count", "Precision"], ans: 1},
+                {q: "Q10: Precision means?", opts: ["Closeness to true", "Reproducibility", "Zero error", "Range"], ans: 1},
+                {q: "Q11: Zero error is?", opts: ["Random", "Systematic", "Gross", "None"], ans: 1},
+                {q: "Q12: If A=10±0.5, relative error?", opts: ["0.05", "0.5", "5%", "10%"], ans: 0},
+                {q: "Q13: Backlash error?", opts: ["Random", "Systematic", "Gross", "Zero"], ans: 1},
+                {q: "Q14: Error in division?", opts: ["Add abs", "Add rel %", "Subtract", "Multiply"], ans: 1},
+                {q: "Q15: Best way to reduce error?", opts: ["Better instrument", "Repeat", "Both", "Guess"], ans: 2}
+            ],
+            "Significant Figures": [
+                {q: "Q1: Sig figs in 0.00500?", opts: ["2", "3", "4", "5"], ans: 1},
+                {q: "Q2: Sig figs in 1500?", opts: ["2", "3", "4", "Uncertain"], ans: 3},
+                {q: "Q3: 123.45 has?", opts: ["3", "4", "5", "6"], ans: 2},
+                {q: "Q4: Leading zeros are?", opts: ["Significant", "Not significant", "Sometimes", "Always"], ans: 1},
+                {q: "Q5: Trailing zeros after decimal?", opts: ["Significant", "Not", "Sometimes", "Never"], ans: 0},
+                {q: "Q6: 2.00 has?", opts: ["1", "2", "3", "4"], ans: 2},
+                {q: "Q7: 12.11 + 18.0 =", opts: ["30.11", "30.1", "30", "30.110"], ans: 1},
+                {q: "Q8: Multiplication rule?", opts: ["Least decimal", "Least sig fig", "Most sig fig", "None"], ans: 1},
+                {q: "Q9: 0.0001 has?", opts: ["1", "2", "3", "4"], ans: 0},
+                {q: "Q10: 100.0 has?", opts: ["1", "2", "3", "4"], ans: 3},
+                {q: "Q11: Scientific notation keeps?", opts: ["All zeros", "Sig figs", "Decimal", "None"], ans: 1},
+                {q: "Q12: 3.14 x 2.0 =", opts: ["6.28", "6.3", "6", "6.280"], ans: 1},
+                {q: "Q13: Rounding 3.65 to 2 sig fig?", opts: ["3.6", "3.7", "3.65", "4"], ans: 1},
+                {q: "Q14: Exact numbers have?", opts: ["Limited sig fig", "Infinite sig fig", "Zero", "None"], ans: 1},
+                {q: "Q15: 1.2300 has?", opts: ["3", "4", "5", "2"], ans: 2}
+            ]
+        }
+    },
+    CH2: {
+        name: "Chapter 2: Vectors and Equilibrium",
+        formula: "R = √(A²+B²+2ABcosθ) | τ = r × F | ΣF=0, Στ=0",
+        topics: {
+            "Vector Addition": [
+                {q: "Q1: Resultant of 2 vectors at 90?", opts: ["A+B", "√(A²+B²)", "AB", "A-B"], ans: 1},
+                {q: "Q2: Resultant of 2 equal vectors at 60?", opts: ["A", "A√2", "A√3", "2A"], ans: 2},
+                {q: "Q3: Dot product of perpendicular vectors?", opts: ["0", "1", "AB", "-AB"], ans: 0},
+                {q: "Q4: Head to tail rule is for?", opts: ["Dot product", "Vector addition", "Cross product", "Division"], ans: 1},
+                {q: "Q5: Angle between i and j?", opts: ["0°", "45°", "90°", "180°"], ans: 2},
+                {q: "Q6: Scalar product is?", opts: ["Commutative", "Non-commutative", "Associative", "None"], ans: 0},
+                {q: "Q7: Cross product gives?", opts: ["Scalar", "Vector", "Number", "Angle"], ans: 1},
+                {q: "Q8: Null vector has?", opts: ["Zero magnitude", "No direction", "Both", "None"], ans: 2},
+                {q: "Q9: Unit vector has magnitude?", opts: ["0", "1", "2", "Infinite"], ans: 1},
+                {q: "Q10: i.j =?", opts: ["0", "1", "i", "j"], ans: 1},
+                {q: "Q11: i x j =?", opts: ["0", "1", "k", "-k"], ans: 2},
+                {q: "Q12: Vector division is?", opts: ["Possible", "Not Possible", "Sometimes", "None"], ans: 1},
+                {q: "Q13: Resultant max when angle?", opts: ["0°", "90°", "180°", "270°"], ans: 0},
+                {q: "Q14: Resultant min when angle?", opts: ["0°", "90°", "180°", "270°"], ans: 2},
+                {q: "Q15: Polygon law for?", opts: ["2 vectors", "3+ vectors", "Dot product", "None"], ans: 1}
+            ],
+            "Torque": [
+                {q: "Q1: Unit of torque?", opts: ["N", "J", "Nm", "W"], ans: 2},
+                {q: "Q2: Torque is?", opts: ["Scalar", "Vector", "Tensor", "None"], ans: 1},
+                {q: "Q3: τ =?", opts: ["r.F", "r x F", "F/r", "r/F"], ans: 1},
+                {q: "Q4: Moment arm =?", opts: ["r sinθ", "r cosθ", "r tanθ", "r"], ans: 0},
+                {q: "Q5: Couple produces?", opts: ["Translation", "Rotation", "Both", "None"], ans: 1},
+                {q: "Q6: Torque max when θ?", opts: ["0°", "45°", "90°", "180°"], ans: 2},
+                {q: "Q7: Torque zero when θ?", opts: ["0°", "45°", "90°", "180°"], ans: 0},
+                {q: "Q8: Dimension of torque?", opts: ["[MLT-2]", "[ML2T-2]", "[ML-1T-2]", "[M2LT-2]"], ans: 1},
+                {q: "Q9: 1 Nm =?", opts: ["1 J", "10 J", "0.1 J", "100 J"], ans: 0},
+                {q: "Q10: Torque due to force through pivot?", opts: ["Max", "Min", "Zero", "Infinite"], ans: 2},
+                {q: "Q11: Right hand rule for?", opts: ["Torque direction", "Force", "Velocity", "None"], ans: 0},
+                {q: "Q12: Couple has net force?", opts: ["Zero", "Max", "Min", "None"], ans: 0},
+                {q: "Q13: Torque depends on?", opts: ["F", "r", "θ", "All"], ans: 3},
+                {q: "Q14: SI unit of moment?", opts: ["N", "Nm", "J", "W"], ans: 1},
+                {q: "Q15: Clockwise torque is?", opts: ["Positive", "Negative", "Zero", "None"], ans: 1}
+            ],
+            "Equilibrium": [
+                {q: "Q1: 1st condition of equilibrium?", opts: ["ΣF=0", "Στ=0", "Both", "None"], ans: 0},
+                {q: "Q2: 2nd condition of equilibrium?", opts: ["ΣF=0", "Στ=0", "Σm=0", "Σv=0"], ans: 1},
+                {q: "Q3: Body at rest is in?", opts: ["Dynamic eq", "Static eq", "Both", "None"], ans: 1},
+                {q: "Q4: Stable equilibrium?", opts: ["Returns to original", "Moves away", "Stays", "None"], ans: 0},
+                {q: "Q5: Unstable equilibrium?", opts: ["Returns", "Moves away", "Stays", "None"], ans: 1},
+                {q: "Q6: Neutral equilibrium?", opts: ["Returns", "Moves away", "Stays new position", "None"], ans: 2},
+                {q: "Q7: COG of triangle?", opts: ["Vertex", "Midpoint", "Centroid", "None"], ans: 2},
+                {q: "Q8: COG of ring?", opts: ["Center", "Edge", "Outside", "None"], ans: 0},
+                {q: "Q9: Three forces in eq must?", opts: ["Parallel", "Concurrent", "Perpendicular", "None"], ans: 1},
+                {q: "Q10: Lami's theorem?", opts: ["F1/sinA=F2/sinB=F3/sinC", "F=ma", "W=mg", "None"], ans: 0},
+                {q: "Q11: Beam supported at ends?", opts: ["1 eq condition", "2 eq conditions", "3 eq conditions", "None"], ans: 1},
+                {q: "Q12: Ladder against wall?", opts: ["Static eq", "Dynamic eq", "No eq", "None"], ans: 0},
+                {q: "Q13: Number of eq conditions in 2D?", opts: ["1", "2", "3", "4"], ans: 2},
+                {q: "Q14: Number of eq conditions in 3D?", opts: ["3", "4", "5", "6"], ans: 3},
+                {q: "Q15: Stable eq example?", opts: ["Ball in bowl", "Ball on hill", "Ball on floor", "None"], ans: 0}
+            ],
+            "Center of Mass": [
+                {q: "Q1: COG of uniform rod?", opts: ["End", "Center", "1/3rd", "None"], ans: 1},
+                {q: "Q2: COG of circle?", opts: ["Center", "Edge", "Outside", "None"], ans: 0},
+                {q: "Q3: COG of triangle?", opts: ["Vertex", "Midpoint", "Centroid", "None"], ans: 2},
+                {q: "Q4: COG of rectangle?", opts: ["Corner", "Center", "Edge", "None"], ans: 1},
+                {q: "Q5: COG of sphere?", opts: ["Center", "Surface", "Outside", "None"], ans: 0},
+                {q: "Q6: COG of hollow cylinder?", opts: ["Center", "Base", "Top", "None"], ans: 0},
+                {q: "Q7: COG and COM same for?", opts: ["Uniform g", "Non-uniform g", "Always", "Never"], ans: 0},
+                {q: "Q8: COG of L-shape?", opts: ["Center", "Outside", "Inside", "None"], ans: 1},
+                {q: "Q9: COG of cone?", opts: ["Base", "Apex", "h/4 from base", "h/3 from base"], ans: 2},
+                {q: "Q10: COG of semi-circle?", opts: ["Center", "4r/3π", "2r/π", "None"], ans: 1},
+                {q: "Q11: COG changes with?", opts: ["Shape", "Mass", "Both", "None"], ans: 2},
+                {q: "Q12: COG of person?", opts: ["Head", "Chest", "Near navel", "Feet"], ans: 2},
+                {q: "Q13: COG of cube?", opts: ["Vertex", "Center", "Edge", "None"], ans: 1},
+                {q: "Q14: COG of torus?", opts: ["Center", "Inside", "Outside", "None"], ans: 0},
+                {q: "Q15: COM velocity of system?", opts: ["Zero", "Constant if no external force", "Changes", "None"], ans: 1}
+            ]
+        }
+    },
+    CH3: {
+    name: "Chapter 3: Motion and Force",
+    formula: "v = u+at | s = ut+1/2at² | v² = u²+2as | F = ma | Fc = mv²/r | f = μN",
+    topics: {
+        "Kinematics": [
+            {q: "Q1: Area under v-t graph?", opts: ["Velocity", "Acceleration", "Displacement", "Force"], ans: 2},
+            {q: "Q2: Slope of v-t graph?", opts: ["Velocity", "Acceleration", "Displacement", "Force"], ans: 1},
+            {q: "Q3: 1st equation of motion?", opts: ["v = u+at", "s = ut+1/2at²", "v² = u²+2as", "F=ma"], ans: 0},
+            {q: "Q4: 2nd equation of motion?", opts: ["v = u+at", "s = ut+1/2at²", "v² = u²+2as", "F=ma"], ans: 1},
+            {q: "Q5: 3rd equation of motion?", opts: ["v = u+at", "s = ut+1/2at²", "v² = u²+2as", "F=ma"], ans: 2},
+            {q: "Q6: g value on earth?", opts: ["8.9 m/s²", "9.8 m/s²", "10 m/s²", "6.6 m/s²"], ans: 1},
+            {q: "Q7: Free fall acceleration?", opts: ["0", "g", "2g", "-g"], ans: 1},
+            {q: "Q8: Projectile path?", opts: ["Circle", "Ellipse", "Parabola", "Straight"], ans: 2},
+            {q: "Q9: Time of flight?", opts: ["2u/g", "u/g", "u/2g", "u²/g"], ans: 0},
+            {q: "Q10: Max height?", opts: ["u²/2g", "u²/g", "2u²/g", "u/g"], ans: 0},
+            {q: "Q11: Range is max at?", opts: ["30°", "45°", "60°", "90°"], ans: 1},
+            {q: "Q12: Horizontal velocity in projectile?", opts: ["Changes", "Constant", "Zero", "Infinite"], ans: 1},
+            {q: "Q13: Vertical velocity at top?", opts: ["Max", "Min", "Zero", "g"], ans: 2},
+            {q: "Q14: Uniform motion means?", opts: ["a=0", "v=0", "s=0", "F=0"], ans: 0},
+            {q: "Q15: SI unit of acceleration?", opts: ["m/s", "m/s²", "N", "J"], ans: 1}
+        ],
+        "Newton Laws": [
+            {q: "Q1: 1st law is also called?", opts: ["Law of inertia", "Law of force", "Law of action", "None"], ans: 0},
+            {q: "Q2: F = ma is?", opts: ["1st law", "2nd law", "3rd law", "Gravitation"], ans: 1},
+            {q: "Q3: Action-reaction act on?", opts: ["Same body", "Different bodies", "Both", "None"], ans: 1},
+            {q: "Q4: Inertia depends on?", opts: ["Mass", "Velocity", "Force", "Area"], ans: 0},
+            {q: "Q5: Unit of momentum?", opts: ["Ns", "Nm", "J", "W"], ans: 0},
+            {q: "Q6: Rocket works on?", opts: ["1st law", "2nd law", "3rd law", "Gravitation"], ans: 2},
+            {q: "Q7: Force required to stop body depends on?", opts: ["Mass", "Velocity", "Time", "All"], ans: 3},
+            {q: "Q8: Impulse =?", opts: ["F.t", "F/s", "m.v", "m.a"], ans: 0},
+            {q: "Q9: Conservation of momentum?", opts: ["No external force", "External force", "Always", "Never"], ans: 0},
+            {q: "Q10: 1 N =?", opts: ["1 kg m/s²", "1 kg m/s", "1 kg/s²", "1 kg/m"], ans: 0},
+            {q: "Q11: Weight =?", opts: ["m.a", "m.g", "m.v", "m/s"], ans: 1},
+            {q: "Q12: Apparent weight in lift going up?", opts: ["Increases", "Decreases", "Same", "Zero"], ans: 0},
+            {q: "Q13: Apparent weight in free fall?", opts: ["Increases", "Decreases", "Same", "Zero"], ans: 3},
+            {q: "Q14: SI unit of force?", opts: ["Joule", "Watt", "Newton", "Pascal"], ans: 2},
+            {q: "Q15: Dimension of force?", opts: ["[MLT-1]", "[MLT-2]", "[ML2T-2]", "[M2LT-2]"], ans: 1}
+        ],
+        "Friction": [
+            {q: "Q1: Static friction is?", opts: ["< Kinetic", "> Kinetic", "= Kinetic", "Zero"], ans: 1},
+            {q: "Q2: f =?", opts: ["μN", "μ/m", "N/μ", "m/μ"], ans: 0},
+            {q: "Q3: Friction opposes?", opts: ["Motion", "Rest", "Both", "None"], ans: 0},
+            {q: "Q4: Rolling friction is?", opts: ["Max", "Min", "Equal to static", "Zero"], ans: 1},
+            {q: "Q5: μ has unit?", opts: ["N", "m", "No unit", "kg"], ans: 2},
+            {q: "Q6: Friction depends on?", opts: ["Area", "Nature of surfaces", "Both", "None"], ans: 1},
+            {q: "Q7: To reduce friction?", opts: ["Oil", "Ball bearings", "Both", "Rough surface"], ans: 2},
+            {q: "Q8: Limiting friction?", opts: ["Max static", "Min static", "Kinetic", "Rolling"], ans: 0},
+            {q: "Q9: Angle of friction?", opts: ["tanθ = μ", "sinθ = μ", "cosθ = μ", "θ = μ"], ans: 0},
+            {q: "Q10: Friction is?", opts: ["Advantage", "Disadvantage", "Both", "None"], ans: 2},
+            {q: "Q11: Car brakes use?", opts: ["Static", "Kinetic", "Rolling", "Fluid"], ans: 1},
+            {q: "Q12: Walking possible due to?", opts: ["Static friction", "Kinetic friction", "Gravity", "None"], ans: 0},
+            {q: "Q13: Friction produces?", opts: ["Heat", "Cold", "Light", "Sound"], ans: 0},
+            {q: "Q14: μs > μk?", opts: ["True", "False", "Equal", "None"], ans: 0},
+            {q: "Q15: SI unit of μ?", opts: ["N", "m", "No unit", "kg"], ans: 2}
+        ],
+        "Circular Motion": [
+            {q: "Q1: Centripetal force?", opts: ["F=mv²/r", "F=mr²/v", "F=mv/r", "F=mr/v²"], ans: 0},
+            {q: "Q2: Centripetal force acts towards?", opts: ["Center", "Outside", "Tangent", "None"], ans: 0},
+            {q: "Q3: Centrifugal force is?", opts: ["Real", "Pseudo", "Both", "None"], ans: 1},
+            {q: "Q4: Angular velocity unit?", opts: ["rad/s", "m/s", "Hz", "N"], ans: 0},
+            {q: "Q5: ω =?", opts: ["2πf", "2π/T", "Both", "f/T"], ans: 2},
+            {q: "Q6: 1 revolution =?", opts: ["π rad", "2π rad", "360 rad", "180 rad"], ans: 1},
+            {q: "Q7: Banking of road provides?", opts: ["Centripetal force", "Centrifugal force", "Friction", "None"], ans: 0},
+            {q: "Q8: v = rω is for?", opts: ["Linear motion", "Circular motion", "Projectile", "None"], ans: 1},
+            {q: "Q9: Conical pendulum?", opts: ["Vertical circle", "Horizontal circle", "Ellipse", "None"], ans: 1},
+            {q: "Q10: Centripetal acceleration?", opts: ["v²/r", "r²/v", "v/r", "r/v²"], ans: 0},
+            {q: "Q11: Direction of centripetal acc?", opts: ["Center", "Outside", "Tangent", "Up"], ans: 0},
+            {q: "Q12: Satellites move due to?", opts: ["Centripetal force", "Gravity", "Both", "None"], ans: 2},
+            {q: "Q13: Formula for frequency?", opts: ["f=1/T", "f=T", "f=2π/T", "f=ω/2π"], ans: 0},
+            {q: "Q14: Period T =?", opts: ["1/f", "f", "2πf", "ω"], ans: 0},
+            {q: "Q15: Dimension of ω?", opts: ["[T-1]", "[T]", "[L]", "[M]"], ans: 0}
+        ]
+    }
+}
+    CH4: {
+    name: "Chapter 4: Work and Energy",
+    formula: "W = F.d cosθ | KE = 1/2mv² | PE = mgh | P = W/t | Efficiency = Wo/Wi x 100",
+    topics: {
+        "Work": [
+            {q: "Q1: Work =?", opts: ["F.d", "F.d cosθ", "F/d", "d/F"], ans: 1},
+            {q: "Q2: Unit of work?", opts: ["N", "J", "W", "kg"], ans: 1},
+            {q: "Q3: Work is?", opts: ["Scalar", "Vector", "Tensor", "None"], ans: 0},
+            {q: "Q4: Work done when θ=90?", opts: ["Max", "Min", "Zero", "Infinite"], ans: 2},
+            {q: "Q5: Work done when θ=0?", opts: ["Max", "Min", "Zero", "Infinite"], ans: 0},
+            {q: "Q6: 1 Joule =?", opts: ["1 Nm", "1 N/m", "1 N", "1 kg"], ans: 0},
+            {q: "Q7: Work done by centripetal force?", opts: ["Positive", "Negative", "Zero", "Infinite"], ans: 2},
+            {q: "Q8: Dimension of work?", opts: ["[MLT-2]", "[ML2T-2]", "[ML-1T-2]", "[M2LT-2]"], ans: 1},
+            {q: "Q9: Work done against gravity?", opts: ["mgh", "1/2mv²", "Fv", "ma"], ans: 0},
+            {q: "Q10: Work done by friction?", opts: ["Positive", "Negative", "Zero", "None"], ans: 1},
+            {q: "Q11: If F=0, Work=?", opts: ["Max", "Zero", "Min", "Infinite"], ans: 1},
+            {q: "Q12: Work done in circular motion?", opts: ["2πrF", "0", "Fv", "ma"], ans: 1},
+            {q: "Q13: Work done to stretch spring?", opts: ["1/2kx²", "kx", "kx²", "1/2kx"], ans: 0},
+            {q: "Q14: Negative work means?", opts: ["Energy given", "Energy taken", "No change", "None"], ans: 1},
+            {q: "Q15: Area under F-x graph?", opts: ["Force", "Work", "Power", "Energy"], ans: 1}
+        ],
+        "Energy": [
+            {q: "Q1: KE =?", opts: ["mv", "1/2mv²", "mgh", "Fv"], ans: 1},
+            {q: "Q2: PE =?", opts: ["mv", "1/2mv²", "mgh", "Fv"], ans: 2},
+            {q: "Q3: Unit of energy?", opts: ["N", "J", "W", "kg"], ans: 1},
+            {q: "Q4: KE depends on?", opts: ["Mass", "Velocity", "Both", "None"], ans: 2},
+            {q: "Q5: PE depends on?", opts: ["Mass", "Height", "g", "All"], ans: 3},
+            {q: "Q6: Work-Energy theorem?", opts: ["W=ΔKE", "W=ΔPE", "W=KE", "W=PE"], ans: 0},
+            {q: "Q7: Total energy in free fall?", opts: ["Constant", "Increases", "Decreases", "Zero"], ans: 0},
+            {q: "Q8: Energy of stretched spring?", opts: ["KE", "PE", "Both", "None"], ans: 1},
+            {q: "Q9: 1 eV =?", opts: ["1.6x10^-19 J", "9.8 J", "746 J", "1000 J"], ans: 0},
+            {q: "Q10: Solar energy is?", opts: ["Renewable", "Non-renewable", "Both", "None"], ans: 0},
+            {q: "Q11: Nuclear energy is?", opts: ["Renewable", "Non-renewable", "Both", "None"], ans: 1},
+            {q: "Q12: Energy can be?", opts: ["Created", "Destroyed", "Converted", "All"], ans: 2},
+            {q: "Q13: Law of conservation of energy?", opts: ["Energy constant", "Energy increases", "Energy decreases", "None"], ans: 0},
+            {q: "Q14: KE at highest point?", opts: ["Max", "Min", "Zero", "Constant"], ans: 2},
+            {q: "Q15: PE at ground?", opts: ["Max", "Min", "Zero", "Constant"], ans: 2}
+        ],
+        "Power": [
+            {q: "Q1: Power =?", opts: ["W/t", "F.v", "Both", "W.t"], ans: 2},
+            {q: "Q2: Unit of power?", opts: ["J", "W", "N", "kg"], ans: 1},
+            {q: "Q3: 1 HP =?", opts: ["746 W", "1000 W", "500 W", "860 W"], ans: 0},
+            {q: "Q4: Power is?", opts: ["Scalar", "Vector", "Tensor", "None"], ans: 0},
+            {q: "Q5: Dimension of power?", opts: ["[ML2T-2]", "[ML2T-3]", "[MLT-2]", "[ML-1T-2]"], ans: 1},
+            {q: "Q6: 1 kW =?", opts: ["100 W", "1000 W", "10 W", "10000 W"], ans: 1},
+            {q: "Q7: Power of engine?", opts: ["Fv", "mgh", "1/2mv²", "ma"], ans: 0},
+            {q: "Q8: More power means?", opts: ["More work", "Less time", "Both", "None"], ans: 2},
+            {q: "Q9: Electric power =?", opts: ["VI", "IR", "V/I", "I/V"], ans: 0},
+            {q: "Q10: Power consumed by 100W bulb in 1h?", opts: ["100 J", "360 kJ", "100 kJ", "1 kJ"], ans: 1},
+            {q: "Q11: Average power =?", opts: ["Total W/Total t", "F.a", "mgh", "1/2mv²"], ans: 0},
+            {q: "Q12: Instantaneous power =?", opts: ["F.v", "W/t", "mgh", "1/2mv²"], ans: 0},
+            {q: "Q13: SI unit of power?", opts: ["Joule", "Watt", "Newton", "Pascal"], ans: 1},
+            {q: "Q14: Power of human?", opts: ["100 W", "500 W", "1000 W", "10 W"], ans: 0},
+            {q: "Q15: Power of car?", opts: ["10 kW", "100 kW", "1000 kW", "1 kW"], ans: 1}
+        ],
+        "Efficiency": [
+            {q: "Q1: Efficiency =?", opts: ["Wi/Wo", "Wo/Wi x 100", "Wi-Wo", "Wo+Wi"], ans: 1},
+            {q: "Q2: Efficiency unit?", opts: ["%", "J", "W", "No unit"], ans: 0},
+            {q: "Q3: Efficiency can be?", opts: ["<100%", ">100%", "=100%", "All"], ans: 0},
+            {q: "Q4: 100% efficient machine?", opts: ["Possible", "Impossible", "Sometimes", "None"], ans: 1},
+            {q: "Q5: Losses due to?", opts: ["Friction", "Heat", "Sound", "All"], ans: 3},
+            {q: "Q6: Input energy =?", opts: ["Useful + Wasted", "Useful - Wasted", "Useful x Wasted", "None"], ans: 0},
+            {q: "Q7: Output energy =?", opts: ["Input - Loss", "Input + Loss", "Input x Loss", "None"], ans: 0},
+            {q: "Q8: Efficiency of bulb?", opts: ["100%", "10%", "50%", "90%"], ans: 1},
+            {q: "Q9: Efficiency of motor?", opts: ["50-90%", "100%", "10%", "5%"], ans: 0},
+            {q: "Q10: To increase efficiency?", opts: ["Reduce friction", "Lubricate", "Both", "None"], ans: 2},
+            {q: "Q11: Efficiency formula?", opts: ["Pout/Pin", "Pin/Pout", "Wout/Win", "Win/Wout"], ans: 2},
+            {q: "Q12: Energy loss is?", opts: ["Heat", "Sound", "Vibration", "All"], ans: 3},
+            {q: "Q13: Carnot engine efficiency?", opts: ["Max", "Min", "Zero", "Infinite"], ans: 0},
+            {q: "Q14: Real machines have?", opts: ["100% efficiency", "<100% efficiency", ">100% efficiency", "0% efficiency"], ans: 1},
+            {q: "Q15: Efficiency depends on?", opts: ["Design", "Material", "Friction", "All"], ans: 3}
+        ]
+    }
+},
+CH5: {
+    name: "Chapter 5: Rotational Motion",
+    formula: "τ = Iα | L = Iω | KErot = 1/2Iω² | v = rω",
+    topics: {
+        "Angular Motion": [
+            {q: "Q1: Unit of angular displacement?", opts: ["m", "rad", "s", "kg"], ans: 1},
+            {q: "Q2: 1 revolution =?", opts: ["π rad", "2π rad", "360 rad", "180 rad"], ans: 1},
+            {q: "Q3: Angular velocity =?", opts: ["dθ/dt", "ds/dt", "dv/dt", "da/dt"], ans: 0},
+            {q: "Q4: Unit of ω?", opts: ["rad/s", "m/s", "Hz", "N"], ans: 0},
+            {q: "Q5: Angular acceleration =?", opts: ["dω/dt", "dθ/dt", "dv/dt", "ds/dt"], ans: 0},
+            {q: "Q6: Relation v and ω?", opts: ["v=rω", "v=ω/r", "v=r/ω", "v=ω²r"], ans: 0},
+            {q: "Q7: Direction of ω?", opts: ["Along axis", "Perpendicular", "Tangent", "Radial"], ans: 0},
+            {q: "Q8: Right hand rule for?", opts: ["ω direction", "v direction", "a direction", "F direction"], ans: 0},
+            {q: "Q9: 1 rad =?", opts: ["57.3°", "90°", "180°", "360°"], ans: 0},
+            {q: "Q10: Angular displacement is?", opts: ["Scalar", "Vector", "Tensor", "None"], ans: 1},
+            {q: "Q11: Centripetal acc =?", opts: ["rω²", "r/ω²", "ω²/r", "ω/r²"], ans: 0},
+            {q: "Q12: Tangential acc =?", opts: ["rα", "α/r", "r/α", "α²r"], ans: 0},
+            {q: "Q13: Time period T =?", opts: ["2π/ω", "ω/2π", "1/ω", "ω"], ans: 0},
+            {q: "Q14: Frequency f =?", opts: ["ω/2π", "2π/ω", "1/ω", "ω"], ans: 0},
+            {q: "Q15: Uniform circular motion has?", opts: ["Constant ω", "Constant v", "Both", "None"], ans: 0}
+        ],
+        "Moment of Inertia": [
+            {q: "Q1: I =?", opts: ["Σmr²", "Σmr", "Σm/r²", "Σm/r"], ans: 0},
+            {q: "Q2: Unit of I?", opts: ["kg m", "kg m²", "kg/m²", "kg"], ans: 1},
+            {q: "Q3: I depends on?", opts: ["Mass", "Distribution", "Axis", "All"], ans: 3},
+            {q: "Q4: I of rod about center?", opts: ["ML²/12", "ML²/3", "ML²", "1/2ML²"], ans: 0},
+            {q: "Q5: I of disc?", opts: ["1/2MR²", "MR²", "2/5MR²", "2/3MR²"], ans: 0},
+            {q: "Q6: I of sphere?", opts: ["1/2MR²", "MR²", "2/5MR²", "2/3MR²"], ans: 2},
+            {q: "Q7: I of ring?", opts: ["1/2MR²", "MR²", "2/5MR²", "2/3MR²"], ans: 1},
+            {q: "Q8: Parallel axis theorem?", opts: ["I = Icm + Md²", "I = Icm - Md²", "I = Icm x Md²", "None"], ans: 0},
+            {q: "Q9: Perpendicular axis theorem?", opts: ["Iz = Ix + Iy", "Iz = Ix - Iy", "Iz = Ix x Iy", "None"], ans: 0},
+            {q: "Q10: Radius of gyration K?", opts: ["I = MK²", "I = M/K²", "I = K/M", "None"], ans: 0},
+            {q: "Q11: More I means?", opts: ["Easy to rotate", "Hard to rotate", "No effect", "None"], ans: 1},
+            {q: "Q12: I of hollow sphere?", opts: ["2/3MR²", "2/5MR²", "1/2MR²", "MR²"], ans: 0},
+            {q: "Q13: I minimum when axis?", opts: ["Through COM", "Away from COM", "Anywhere", "None"], ans: 0},
+            {q: "Q14: Dimension of I?", opts: ["[ML2]", "[ML]", "[M2L]", "[L2]"], ans: 0},
+            {q: "Q15: I is analog of?", opts: ["Mass", "Force", "Velocity", "Acceleration"], ans: 0}
+        ],
+        "Torque and Angular Momentum": [
+            {q: "Q1: τ =?", opts: ["Iα", "Fv", "ma", "mgh"], ans: 0},
+            {q: "Q2: L =?", opts: ["Iω", "mv", "F.t", "mgh"], ans: 0},
+            {q: "Q3: Unit of L?", opts: ["kg m²/s", "kg m/s", "Nm", "J"], ans: 0},
+            {q: "Q4: τ = dL/dt is?", opts: ["1st law", "2nd law", "3rd law", "None"], ans: 1},
+            {q: "Q5: Conservation of L when?", opts: ["τ=0", "F=0", "a=0", "v=0"], ans: 0},
+            {q: "Q6: Ice skater example of?", opts: ["Conservation of L", "Conservation of E", "Both", "None"], ans: 0},
+            {q: "Q7: Direction of L?", opts: ["Along ω", "Perpendicular to ω", "Opposite to ω", "None"], ans: 0},
+            {q: "Q8: τ = r x F gives?", opts: ["Scalar", "Vector", "Tensor", "None"], ans: 1},
+            {q: "Q9: L = r x p gives?", opts: ["Scalar", "Vector", "Tensor", "None"], ans: 1},
+            {q: "Q10: If I increases, ω?", opts: ["Increases", "Decreases", "Constant", "Zero"], ans: 1},
+            {q: "Q11: Dimension of τ?", opts: ["[ML2T-2]", "[MLT-2]", "[ML-1T-2]", "[M2LT-2]"], ans: 0},
+            {q: "Q12: Dimension of L?", opts: ["[ML2T-1]", "[MLT-1]", "[ML2T-2]", "[M2LT-2]"], ans: 0},
+            {q: "Q13: Couple produces?", opts: ["Torque", "Force", "Momentum", "Energy"], ans: 0},
+            {q: "Q14: Angular impulse =?", opts: ["τ.t", "F.t", "m.v", "I.ω"], ans: 0},
+            {q: "Q15: Gyroscope works on?", opts: ["Conservation of L", "Conservation of E", "Both", "None"], ans: 0}
+        ],
+        "Rotational KE": [
+            {q: "Q1: KErot =?", opts: ["1/2mv²", "1/2Iω²", "mgh", "Fv"], ans: 1},
+            {q: "Q2: Total KE =?", opts: ["KEt + KErot", "KEt - KErot", "KEt x KErot", "None"], ans: 0},
+            {q: "Q3: Rolling object has?", opts: ["Only KEt", "Only KErot", "Both", "None"], ans: 2},
+            {q: "Q4: KErot of disc?", opts: ["1/4MR²ω²", "1/2MR²ω²", "MR²ω²", "2MR²ω²"], ans: 1},
+            {q: "Q5: Sphere rolling down?", opts: ["Slips", "Rolls", "Both", "None"], ans: 1},
+            {q: "Q6: Work done by torque?", opts: ["τθ", "F.d", "mgh", "1/2mv²"], ans: 0},
+            {q: "Q7: Power in rotation?", opts: ["τω", "Fv", "ma", "mgh"], ans: 0},
+            {q: "Q8: Flywheel stores?", opts: ["KErot", "PE", "Heat", "None"], ans: 0},
+            {q: "Q9: More I, more?", opts: ["KErot", "Less KErot", "No effect", "None"], ans: 0},
+            {q: "Q10: Rotational analog of F?", opts: ["τ", "L", "I", "ω"], ans: 0},
+            {q: "Q11: Rotational analog of p?", opts: ["L", "τ", "I", "ω"], ans: 0},
+            {q: "Q12: Rotational analog of m?", opts: ["I", "L", "τ", "ω"], ans: 0},
+            {q: "Q13: Rotational analog of v?", opts: ["ω", "L", "τ", "I"], ans: 0},
+            {q: "Q14: Rotational analog of a?", opts: ["α", "ω", "L", "τ"], ans: 0},
+            {q: "Q15: Work-energy theorem in rotation?", opts: ["W = ΔKErot", "W = ΔPE", "W = KE", "None"], ans: 0}
+        ]
+    }
+},
+CH6: {
+    name: "Chapter 6: Gravitation",
+    formula: "F = G.m1.m2/r² | g = GM/R² | ve = √(2GM/R) | T² ∝ r³",
+    topics: {
+        "Newton Law of Gravitation": [
+            {q: "Q1: F =?", opts: ["G.m1.m2/r", "G.m1.m2/r²", "G.m1.m2.r", "G.m1.m2.r²"], ans: 1},
+            {q: "Q2: Value of G?", opts: ["9.8", "6.67x10^-11", "3x10^8", "1.6x10^-19"], ans: 1},
+            {q: "Q3: Unit of G?", opts: ["Nm/kg", "Nm²/kg²", "N/kg²", "Nm/kg²"], ans: 1},
+            {q: "Q4: Gravitational force is?", opts: ["Repulsive", "Attractive", "Both", "None"], ans: 1},
+            {q: "Q5: g =?", opts: ["GM/R", "GM/R²", "G/R²", "M/R²"], ans: 1},
+            {q: "Q6: g on moon?", opts: ["9.8", "1.6", "3.7", "24.7"], ans: 1},
+            {q: "Q7: g changes with?", opts: ["Height", "Depth", "Latitude", "All"], ans: 3},
+            {q: "Q8: g at center of earth?", opts: ["9.8", "0", "Max", "Infinite"], ans: 1},
+            {q: "Q9: Weight on moon?", opts: ["1/6 of earth", "6 times earth", "Same", "Zero"], ans: 0},
+            {q: "Q10: Dimension of G?", opts: ["[M-1L3T-2]", "[MLT-2]", "[ML2T-2]", "[L3T-2]"], ans: 0},
+            {q: "Q11: Gravitational field?", opts: ["Vector", "Scalar", "Tensor", "None"], ans: 0},
+            {q: "Q12: Gravitational force between 2 masses?", opts: ["Increases with r", "Decreases with r²", "Constant", "Zero"], ans: 1},
+            {q: "Q13: Cavendish experiment measured?", opts: ["g", "G", "M", "R"], ans: 1},
+            {q: "Q14: Inverse square law?", opts: ["F ∝ 1/r", "F ∝ 1/r²", "F ∝ r", "F ∝ r²"], ans: 1},
+            {q: "Q15: Gravitational constant is?", opts: ["Universal", "Local", "Variable", "Zero"], ans: 0}
+        ],
+        "Orbital Motion": [
+            {q: "Q1: Orbital velocity vo =?", opts: ["√(GM/R)", "√(2GM/R)", "GM/R", "2GM/R"], ans: 0},
+            {q: "Q2: Escape velocity ve =?", opts: ["√(GM/R)", "√(2GM/R)", "GM/R", "2GM/R"], ans: 1},
+            {q: "Q3: Relation ve and vo?", opts: ["ve = vo", "ve = √2 vo", "ve = 2vo", "ve = vo/√2"], ans: 1},
+            {q: "Q4: Satellite in orbit?", opts: ["Free fall", "Zero g", "Both", "None"], ans: 2},
+            {q: "Q5: Period of satellite?", opts: ["T² ∝ r³", "T ∝ r", "T ∝ r²", "T ∝ 1/r"], ans: 0},
+            {q: "Q6: Geostationary satellite period?", opts: ["12 h", "24 h", "48 h", "1 h"], ans: 1},
+            {q: "Q7: Height of geo satellite?", opts: ["3600 km", "36000 km", "360 km", "360000 km"], ans: 1},
+            {q: "Q8: Weightlessness due to?", opts: ["No gravity", "Free fall", "No mass", "None"], ans: 1},
+            {q: "Q9: Orbital energy?", opts: ["KE + PE", "KE - PE", "KE x PE", "None"], ans: 0},
+            {q: "Q10: Binding energy?", opts: ["-E", "E", "2E", "0"], ans: 0},
+            {q: "Q11: Kepler's 1st law?", opts: ["Equal areas", "Elliptical orbit", "T² ∝ r³", "None"], ans: 1},
+            {q: "Q12: Kepler's 2nd law?", opts: ["Equal areas", "Elliptical orbit", "T² ∝ r³", "None"], ans: 0},
+            {q: "Q13: Kepler's 3rd law?", opts: ["Equal areas", "Elliptical orbit", "T² ∝ r³", "None"], ans: 2},
+            {q: "Q14: Communication satellite?", opts: ["LEO", "GEO", "MEO", "HEO"], ans: 1},
+            {q: "Q15: GPS satellites?", opts: ["LEO", "GEO", "MEO", "HEO"], ans: 2}
+        ],
+        "Gravitational PE": [
+            {q: "Q1: GPE =?", opts: ["-GMm/r", "GMm/r", "mgh", "1/2mv²"], ans: 0},
+            {q: "Q2: GPE at infinity?", opts: ["Max", "Min", "Zero", "Infinite"], ans: 2},
+            {q: "Q3: GPE near earth?", opts: ["mgh", "-GMm/r", "Both", "None"], ans: 2},
+            {q: "Q4: Work done to move mass?", opts: ["ΔGPE", "KE", "Power", "None"], ans: 0},
+            {q: "Q5: GPE negative because?", opts: ["Attractive force", "Repulsive", "No force", "None"], ans: 0},
+            {q: "Q6: Potential at point?", opts: ["-GM/r", "GM/r", "GMr", "-GMr"], ans: 0},
+            {q: "Q7: Escape energy?", opts: ["GMm/R", "2GMm/R", "1/2GMm/R", "0"], ans: 0},
+            {q: "Q8: Binding energy of satellite?", opts: ["GMm/2r", "GMm/r", "2GMm/r", "0"], ans: 0},
+            {q: "Q9: GPE increases when?", opts: ["r increases", "r decreases", "m increases", "Both a and c"], ans: 3},
+            {q: "Q10: Unit of potential?", opts: ["J/kg", "N/kg", "m/s²", "All"], ans: 3},
+            {q: "Q11: Gravitational field strength?", opts: ["g", "G", "GM", "R"], ans: 0},
+            {q: "Q12: Equipotential surface?", opts: ["Sphere", "Circle", "Line", "Point"], ans: 0},
+            {q: "Q13: Work to lift mass h?", opts: ["mgh", "GMm/h", "1/2mv²", "Fv"], ans: 0},
+            {q: "Q14: GPE at earth surface?", opts: ["-GMm/R", "GMm/R", "0", "∞"], ans: 0},
+            {q: "Q15: GPE difference?", opts: ["Work done", "Force", "Power", "Energy"], ans: 0}
+        ],
+        "Kepler Laws": [
+            {q: "Q1: Orbits are?", opts: ["Circle", "Ellipse", "Parabola", "Hyperbola"], ans: 1},
+            {q: "Q2: Sun at?", opts: ["Center", "Focus", "Vertex", "Outside"], ans: 1},
+            {q: "Q3: Line joining planet-sun sweeps?", opts: ["Equal areas", "Equal distances", "Equal times", "None"], ans: 0},
+            {q: "Q4: T² ∝?", opts: ["r", "r²", "r³", "1/r"], ans: 2},
+            {q: "Q5: Near sun, speed?", opts: ["Max", "Min", "Constant", "Zero"], ans: 0},
+            {q: "Q6: Far from sun, speed?", opts: ["Max", "Min", "Constant", "Zero"], ans: 1},
+            {q: "Q7: Angular momentum?", opts: ["Constant", "Increases", "Decreases", "Zero"], ans: 0},
+            {q: "Q8: Law of orbits?", opts: ["1st", "2nd", "3rd", "None"], ans: 0},
+            {q: "Q9: Law of areas?", opts: ["1st", "2nd", "3rd", "None"], ans: 1},
+            {q: "Q10: Law of periods?", opts: ["1st", "2nd", "3rd", "None"], ans: 2},
+            {q: "Q11: T²/r³ =?", opts: ["Constant", "Variable", "Zero", "Infinite"], ans: 0},
+            {q: "Q12: For earth, T =?", opts: ["1 year", "365 days", "Both", "None"], ans: 2},
+            {q: "Q13: Mars T > Earth T because?", opts: ["r larger", "r smaller", "m larger", "m smaller"], ans: 0},
+            {q: "Q14: Kepler laws derived from?", opts: ["Newton law", "Einstein", "Galileo", "None"], ans: 0},
+            {q: "Q15: All planets obey?", opts: ["Kepler laws", "Newton laws", "Both", "None"], ans: 2}
+        ]
+    }
+}
+    CH7: {
+    name: "Chapter 7: Oscillatory Motion",
+    formula: "T = 2π√(m/k) | T = 2π√(L/g) | f = 1/T | ω = 2πf",
+    topics: {
+        "Simple Harmonic Motion": [
+            {q: "Q1: SHM is?", opts: ["Periodic", "Non-periodic", "Random", "None"], ans: 0},
+            {q: "Q2: Condition for SHM?", opts: ["F ∝ x", "F ∝ -x", "F ∝ x²", "F constant"], ans: 1},
+            {q: "Q3: Time period T =?", opts: ["2π√(m/k)", "2π√(k/m)", "√(m/k)", "√(k/m)"], ans: 0},
+            {q: "Q4: Frequency f =?", opts: ["1/T", "T", "2π/T", "T/2π"], ans: 0},
+            {q: "Q5: Angular frequency ω =?", opts: ["2πf", "2π/T", "Both", "f/T"], ans: 2},
+            {q: "Q6: Amplitude is?", opts: ["Max displacement", "Min displacement", "Average", "Zero"], ans: 0},
+            {q: "Q7: Phase of SHM?", opts: ["ωt + φ", "ωt - φ", "ω + φ", "ω - φ"], ans: 0},
+            {q: "Q8: Velocity in SHM is max at?", opts: ["Extreme", "Mean", "Both", "None"], ans: 1},
+            {q: "Q9: Acceleration in SHM is max at?", opts: ["Extreme", "Mean", "Both", "None"], ans: 0},
+            {q: "Q10: Energy in SHM?", opts: ["Constant", "Increases", "Decreases", "Zero"], ans: 0},
+            {q: "Q11: KE in SHM max at?", opts: ["Extreme", "Mean", "Both", "None"], ans: 1},
+            {q: "Q12: PE in SHM max at?", opts: ["Extreme", "Mean", "Both", "None"], ans: 0},
+            {q: "Q13: Simple pendulum T =?", opts: ["2π√(L/g)", "2π√(g/L)", "√(L/g)", "√(g/L)"], ans: 0},
+            {q: "Q14: Spring-mass T =?", opts: ["2π√(m/k)", "2π√(k/m)", "√(m/k)", "√(k/m)"], ans: 0},
+            {q: "Q15: Damped oscillation?", opts: ["Amplitude decreases", "Amplitude increases", "Constant", "None"], ans: 0}
+        ],
+        "Waves": [
+            {q: "Q1: Wave carries?", opts: ["Matter", "Energy", "Both", "None"], ans: 1},
+            {q: "Q2: Transverse wave?", opts: ["Particles ⊥ to wave", "Particles || to wave", "Both", "None"], ans: 0},
+            {q: "Q3: Longitudinal wave?", opts: ["Particles ⊥ to wave", "Particles || to wave", "Both", "None"], ans: 1},
+            {q: "Q4: Sound wave is?", opts: ["Transverse", "Longitudinal", "Both", "None"], ans: 1},
+            {q: "Q5: Light wave is?", opts: ["Transverse", "Longitudinal", "Both", "None"], ans: 0},
+            {q: "Q6: v = fλ is?", opts: ["Wave equation", "Energy equation", "Force equation", "None"], ans: 0},
+            {q: "Q7: Unit of frequency?", opts: ["Hz", "m/s", "m", "s"], ans: 0},
+            {q: "Q8: Wavelength unit?", opts: ["Hz", "m/s", "m", "s"], ans: 2},
+            {q: "Q9: Speed of sound in air?", opts: ["300 m/s", "330 m/s", "340 m/s", "3x10^8 m/s"], ans: 2},
+            {q: "Q10: Speed of light?", opts: ["300 m/s", "330 m/s", "340 m/s", "3x10^8 m/s"], ans: 3},
+            {q: "Q11: Doppler effect?", opts: ["Change in f", "Change in λ", "Change in v", "All"], ans: 0},
+            {q: "Q12: Interference?", opts: ["Superposition", "Reflection", "Refraction", "Diffraction"], ans: 0},
+            {q: "Q13: Standing wave?", opts: ["Nodes + Antinodes", "Only nodes", "Only antinodes", "None"], ans: 0},
+            {q: "Q14: Resonance?", opts: ["Max amplitude", "Min amplitude", "Zero amplitude", "None"], ans: 0},
+            {q: "Q15: Beat frequency =?", opts: ["f1 - f2", "f1 + f2", "f1 x f2", "f1 / f2"], ans: 0}
+        ],
+        "Sound": [
+            {q: "Q1: Sound needs?", opts: ["Medium", "Vacuum", "Both", "None"], ans: 0},
+            {q: "Q2: Pitch depends on?", opts: ["Frequency", "Amplitude", "Wavelength", "Speed"], ans: 0},
+            {q: "Q3: Loudness depends on?", opts: ["Frequency", "Amplitude", "Wavelength", "Speed"], ans: 1},
+            {q: "Q4: Quality of sound?", opts: ["Waveform", "Frequency", "Amplitude", "Speed"], ans: 0},
+            {q: "Q5: Human hearing range?", opts: ["20-20000 Hz", "20-2000 Hz", "200-20000 Hz", "2-20000 Hz"], ans: 0},
+            {q: "Q6: Infrasound < ?", opts: ["20 Hz", "200 Hz", "2000 Hz", "20000 Hz"], ans: 0},
+            {q: "Q7: Ultrasound > ?", opts: ["20 Hz", "200 Hz", "2000 Hz", "20000 Hz"], ans: 3},
+            {q: "Q8: Speed of sound in solid?", opts: ["< liquid", "> liquid", "= liquid", "Zero"], ans: 1},
+            {q: "Q9: Echo time t =?", opts: ["2d/v", "d/v", "v/d", "v/2d"], ans: 0},
+            {q: "Q10: Intensity I =?", opts: ["P/A", "P.v", "P/t", "A/P"], ans: 0},
+            {q: "Q11: Unit of intensity?", opts: ["W/m²", "W/m", "J/m²", "N/m²"], ans: 0},
+            {q: "Q12: Decibel is unit of?", opts: ["Intensity level", "Frequency", "Pitch", "Loudness"], ans: 0},
+            {q: "Q13: Open pipe has?", opts: ["Even harmonics", "Odd harmonics", "Both", "None"], ans: 2},
+            {q: "Q14: Closed pipe has?", opts: ["Even harmonics", "Odd harmonics", "Both", "None"], ans: 1},
+            {q: "Q15: String vibration?", opts: ["Transverse", "Longitudinal", "Both", "None"], ans: 0}
+        ]
+    }
+},
+CH8: {
+    name: "Chapter 8: Thermodynamics",
+    formula: "ΔU = Q - W | PV = nRT | η = 1 - T2/T1 | Q = mcΔT",
+    topics: {
+        "Laws of Thermodynamics": [
+            {q: "Q1: Zeroth law deals with?", opts: ["Energy", "Temperature", "Heat", "Work"], ans: 1},
+            {q: "Q2: 1st law is?", opts: ["Energy conservation", "Entropy", "Temperature", "Pressure"], ans: 0},
+            {q: "Q3: ΔU =?", opts: ["Q + W", "Q - W", "W - Q", "Q x W"], ans: 1},
+            {q: "Q4: 2nd law?", opts: ["Entropy increases", "Energy constant", "T constant", "P constant"], ans: 0},
+            {q: "Q5: 3rd law?", opts: ["S → 0 at 0K", "S → ∞ at 0K", "S constant", "None"], ans: 0},
+            {q: "Q6: Isothermal process?", opts: ["T constant", "P constant", "V constant", "Q=0"], ans: 0},
+            {q: "Q7: Adiabatic process?", opts: ["T constant", "P constant", "V constant", "Q=0"], ans: 3},
+            {q: "Q8: Isochoric process?", opts: ["T constant", "P constant", "V constant", "Q=0"], ans: 2},
+            {q: "Q9: Isobaric process?", opts: ["T constant", "P constant", "V constant", "Q=0"], ans: 1},
+            {q: "Q10: Work in isothermal?", opts: ["nRT ln(V2/V1)", "PΔV", "0", "nCvΔT"], ans: 0},
+            {q: "Q11: Work in adiabatic?", opts: ["nRT ln(V2/V1)", "PΔV", "0", "nCvΔT"], ans: 3},
+            {q: "Q12: Internal energy depends on?", opts: ["T", "P", "V", "All"], ans: 0},
+            {q: "Q13: Cp > Cv because?", opts: ["Work done", "Heat loss", "Volume", "Pressure"], ans: 0},
+            {q: "Q14: γ =?", opts: ["Cp/Cv", "Cv/Cp", "Cp + Cv", "Cp - Cv"], ans: 0},
+            {q: "Q15: For monoatomic gas γ =?", opts: ["1.4", "1.67", "1.33", "1.0"], ans: 1}
+        ],
+        "Heat and Temperature": [
+            {q: "Q1: Heat is?", opts: ["Energy", "Temperature", "Work", "Force"], ans: 0},
+            {q: "Q2: Unit of heat?", opts: ["J", "W", "N", "kg"], ans: 0},
+            {q: "Q3: 1 calorie =?", opts: ["4.2 J", "42 J", "420 J", "0.42 J"], ans: 0},
+            {q: "Q4: Specific heat c =?", opts: ["Q/mΔT", "mQ/ΔT", "QΔT/m", "mΔT/Q"], ans: 0},
+            {q: "Q5: Unit of c?", opts: ["J/kgK", "J/kg", "J/K", "kg/JK"], ans: 0},
+            {q: "Q6: Water c =?", opts: ["4186 J/kgK", "1000 J/kgK", "2000 J/kgK", "500 J/kgK"], ans: 0},
+            {q: "Q7: Latent heat?", opts: ["Q/m", "Q.m", "m/Q", "Q/m²"], ans: 0},
+            {q: "Q8: L for ice?", opts: ["3.34x10^5 J/kg", "2.26x10^6 J/kg", "4186 J/kg", "1000 J/kg"], ans: 0},
+            {q: "Q9: L for steam?", opts: ["3.34x10^5 J/kg", "2.26x10^6 J/kg", "4186 J/kg", "1000 J/kg"], ans: 1},
+            {q: "Q10: Thermal expansion?", opts: ["ΔL = αLΔT", "ΔL = L/αΔT", "ΔL = α/ΔT", "None"], ans: 0},
+            {q: "Q11: Conduction?", opts: ["Contact", "No contact", "Vacuum", "None"], ans: 0},
+            {q: "Q12: Convection?", opts: ["Fluid motion", "Solid", "Radiation", "None"], ans: 0},
+            {q: "Q13: Radiation?", opts: ["EM waves", "Matter", "Contact", "None"], ans: 0},
+            {q: "Q14: Black body?", opts: ["Absorbs all", "Reflects all", "Transmits all", "None"], ans: 0},
+            {q: "Q15: Stefan law?", opts: ["E ∝ T⁴", "E ∝ T²", "E ∝ T", "E ∝ 1/T"], ans: 0}
+        ],
+        "Heat Engine": [
+            {q: "Q1: Heat engine converts?", opts: ["Heat to Work", "Work to Heat", "Heat to Cold", "None"], ans: 0},
+            {q: "Q2: Efficiency η =?", opts: ["W/Q1", "Q1/W", "Q2/Q1", "W/Q2"], ans: 0},
+            {q: "Q3: Carnot engine?", opts: ["Reversible", "Irreversible", "Both", "None"], ans: 0},
+            {q: "Q4: Carnot η =?", opts: ["1 - T2/T1", "T2/T1", "T1/T2", "1 - T1/T2"], ans: 0},
+            {q: "Q5: Refrigerator?", opts: ["Work to Heat", "Heat to Work", "Cold to Hot", "None"], ans: 2},
+            {q: "Q6: COP =?", opts: ["Q2/W", "W/Q2", "Q1/W", "W/Q1"], ans: 0},
+            {q: "Q7: 2nd law says?", opts: ["100% η impossible", "100% η possible", "η > 100%", "None"], ans: 0},
+            {q: "Q8: Entropy?", opts: ["Disorder", "Order", "Energy", "Work"], ans: 0},
+            {q: "Q9: ΔS =?", opts: ["Q/T", "T/Q", "Q.T", "Q - T"], ans: 0},
+            {q: "Q10: For reversible process?", opts: ["ΔS = 0", "ΔS > 0", "ΔS < 0", "None"], ans: 0},
+            {q: "Q11: For irreversible process?", opts: ["ΔS = 0", "ΔS > 0", "ΔS < 0", "None"], ans: 1},
+            {q: "Q12: Petrol engine?", opts: ["Otto cycle", "Diesel cycle", "Carnot cycle", "None"], ans: 0},
+            {q: "Q13: Diesel engine?", opts: ["Otto cycle", "Diesel cycle", "Carnot cycle", "None"], ans: 1},
+            {q: "Q14: Heat sink?", opts: ["Cold body", "Hot body", "Work", "None"], ans: 0},
+            {q: "Q15: Heat source?", opts: ["Cold body", "Hot body", "Work", "None"], ans: 1}
+        ]
+    }
+},
+CH9: {
+    name: "Chapter 9: Physical Optics",
+    formula: "c = fλ | n = c/v | 1/f = 1/u + 1/v | m = v/u",
+    topics: {
+        "Wave Nature of Light": [
+            {q: "Q1: Light is?", opts: ["Particle", "Wave", "Both", "None"], ans: 2},
+            {q: "Q2: Speed of light?", opts: ["3x10^8 m/s", "3x10^6 m/s", "3x10^10 m/s", "3x10^5 m/s"], ans: 0},
+            {q: "Q3: Refractive index n =?", opts: ["c/v", "v/c", "cλ", "vλ"], ans: 0},
+            {q: "Q4: n for air?", opts: ["1", "1.33", "1.5", "2.4"], ans: 0},
+            {q: "Q5: n for water?", opts: ["1", "1.33", "1.5", "2.4"], ans: 1},
+            {q: "Q6: n for glass?", opts: ["1", "1.33", "1.5", "2.4"], ans: 2},
+            {q: "Q7: Snell's law?", opts: ["n1sinθ1 = n2sinθ2", "n1cosθ1 = n2cosθ2", "n1tanθ1 = n2tanθ2", "None"], ans: 0},
+            {q: "Q8: Critical angle?", opts: ["sinC = n2/n1", "sinC = n1/n2", "cosC = n2/n1", "None"], ans: 0},
+            {q: "Q9: Total internal reflection?", opts: ["θ > C", "θ < C", "θ = C", "None"], ans: 0},
+            {q: "Q10: Optical fiber works on?", opts: ["TIR", "Refraction", "Reflection", "Diffraction"], ans: 0},
+            {q: "Q11: Rainbow?", opts: ["Dispersion", "Reflection", "Refraction", "All"], ans: 3},
+            {q: "Q12: Prism?", opts: ["Dispersion", "Reflection", "Diffraction", "Interference"], ans: 0},
+            {q: "Q13: Mirage?", opts: ["TIR", "Refraction", "Reflection", "Dispersion"], ans: 1},
+            {q: "Q14: Polarization?", opts: ["Transverse", "Longitudinal", "Both", "None"], ans: 0},
+            {q: "Q15: Huygens principle?", opts: ["Wavelets", "Particles", "Rays", "None"], ans: 0}
+        ],
+        "Interference": [
+            {q: "Q1: Interference needs?", opts: ["Coherent sources", "Incoherent", "Any source", "None"], ans: 0},
+            {q: "Q2: Constructive interference?", opts: ["Δ = nλ", "Δ = (n+1/2)λ", "Δ = 0", "None"], ans: 0},
+            {q: "Q3: Destructive interference?", opts: ["Δ = nλ", "Δ = (n+1/2)λ", "Δ = 0", "None"], ans: 1},
+            {q: "Q4: Young's double slit?", opts: ["Interference", "Diffraction", "Polarization", "None"], ans: 0},
+            {q: "Q5: Fringe width β =?", opts: ["λD/d", "dD/λ", "λd/D", "D/λd"], ans: 0},
+            {q: "Q6: Bright fringe?", opts: ["Constructive", "Destructive", "Both", "None"], ans: 0},
+            {q: "Q7: Dark fringe?", opts: ["Constructive", "Destructive", "Both", "None"], ans: 1},
+            {q: "Q8: Thin film colors?", opts: ["Interference", "Diffraction", "Dispersion", "Reflection"], ans: 0},
+            {q: "Q9: Newton's rings?", opts: ["Interference", "Diffraction", "Polarization", "None"], ans: 0},
+            {q: "Q10: Path difference?", opts: ["d sinθ", "d cosθ", "d tanθ", "d/θ"], ans: 0},
+            {q: "Q11: Coherence length?", opts: ["c/Δf", "Δf/c", "c.Δf", "Δf.c"], ans: 0},
+            {q: "Q12: Laser is?", opts: ["Coherent", "Incoherent", "Both", "None"], ans: 0},
+            {q: "Q13: White light fringes?", opts: ["Colored", "White", "Black", "None"], ans: 0},
+            {q: "Q14: Fringe spacing ∝ ?", opts: ["λ", "1/λ", "d", "1/d"], ans: 0},
+            {q: "Q15: Michelson interferometer?", opts: ["Interference", "Diffraction", "Polarization", "None"], ans: 0}
+        ],
+        "Diffraction and Polarization": [
+            {q: "Q1: Diffraction?", opts: ["Bending of light", "Reflection", "Refraction", "None"], ans: 0},
+            {q: "Q2: Single slit diffraction?", opts: ["a sinθ = nλ", "d sinθ = nλ", "Both", "None"], ans: 0},
+            {q: "Q3: Central maxima?", opts: ["Brightest", "Darkest", "Medium", "None"], ans: 0},
+            {q: "Q4: Resolving power?", opts: ["1.22λ/D", "D/1.22λ", "λD", "D/λ"], ans: 0},
+            {q: "Q5: Telescope RP?", opts: ["D/1.22λ", "1.22λ/D", "λ/D", "D/λ"], ans: 0},
+            {q: "Q6: Polarizer?", opts: ["Plane polarized", "Unpolarized", "Circular", "None"], ans: 0},
+            {q: "Q7: Malus law?", opts: ["I = I0 cos²θ", "I = I0 sin²θ", "I = I0 tan²θ", "None"], ans: 0},
+            {q: "Q8: Brewster angle?", opts: ["tanθ = n", "sinθ = n", "cosθ = n", "None"], ans: 0},
+            {q: "Q9: Polarization by?", opts: ["Reflection", "Refraction", "Scattering", "All"], ans: 3},
+            {q: "Q10: X-rays?", opts: ["Polarized", "Unpolarized", "Both", "None"], ans: 1},
+            {q: "Q11: Diffraction grating?", opts: ["d sinθ = nλ", "a sinθ = nλ", "Both", "None"], ans: 0},
+            {q: "Q12: Rayleigh criterion?", opts: ["Resolving", "Diffraction", "Interference", "None"], ans: 0},
+            {q: "Q13: Polaroid?", opts: ["Polarizer", "Reflector", "Refractor", "None"], ans: 0},
+            {q: "Q14: Circular polarization?", opts: ["Spiral", "Plane", "Elliptical", "None"], ans: 0},
+            {q: "Q15: Optical activity?", opts: ["Rotation", "Reflection", "Refraction", "None"], ans: 0}
+        ]
+    }
+},
+CH10: {
+    name: "Chapter 10: Electronics",
+    formula: "V = IR | P = VI | β = Ic/Ib | f = 1/2πRC",
+    topics: {
+        "Semiconductors": [
+            {q: "Q1: Semiconductor?", opts: ["Si", "Cu", "Glass", "Plastic"], ans: 0},
+            {q: "Q2: Band gap of Si?", opts: ["1.1 eV", "0.7 eV", "3 eV", "5 eV"], ans: 0},
+            {q: "Q3: n-type?", opts: ["Excess e-", "Excess holes", "Equal", "None"], ans: 0},
+            {q: "Q4: p-type?", opts: ["Excess e-", "Excess holes", "Equal", "None"], ans: 1},
+            {q: "Q5: Doping?", opts: ["Impurity addition", "Heat", "Light", "None"], ans: 0},
+            {q: "Q6: Donor impurity?", opts: ["P", "B", "Al", "Ga"], ans: 0},
+            {q: "Q7: Acceptor impurity?", opts: ["P", "B", "As", "Sb"], ans: 1},
+            {q: "Q8: Intrinsic?", opts: ["Pure", "Doped", "Both", "None"], ans: 0},
+            {q: "Q9: Extrinsic?", opts: ["Pure", "Doped", "Both", "None"], ans: 1},
+            {q: "Q10: Conductivity?", opts: ["σ = 1/ρ", "ρ = 1/σ", "σ = ρ", "None"], ans: 0},
+            {q: "Q11: Temperature ↑, resistance?", opts: ["↓", "↑", "Constant", "None"], ans: 0},
+            {q: "Q12: Holes are?", opts: ["+ charge", "- charge", "No charge", "None"], ans: 0},
+            {q: "Q13: Electrons are?", opts: ["+ charge", "- charge", "No charge", "None"], ans: 1},
+            {q: "Q14: Fermi level?", opts: ["Energy level", "Current", "Voltage", "None"], ans: 0},
+            {q: "Q15: PN junction?", opts: ["Diode", "Transistor", "IC", "None"], ans: 0}
+        ],
+        "Diodes and Transistors": [
+            {q: "Q1: Diode?", opts: ["One way", "Two way", "No way", "None"], ans: 0},
+            {q: "Q2: Forward bias?", opts: ["Low R", "High R", "Infinite R", "None"], ans: 0},
+            {q: "Q3: Reverse bias?", opts: ["Low R", "High R", "Infinite R", "None"], ans: 1},
+            {q: "Q4: LED?", opts: ["Light", "Heat", "Sound", "None"], ans: 0},
+            {q: "Q5: Zener diode?", opts: ["Voltage regulator", "Amplifier", "Oscillator", "None"], ans: 0},
+            {q: "Q6: Transistor has?", opts: ["3 terminals", "2 terminals", "4 terminals", "None"], ans: 0},
+            {q: "Q7: NPN transistor?", opts: ["N-P-N", "P-N-P", "N-N-P", "None"], ans: 0},
+            {q: "Q8: PNP transistor?", opts: ["N-P-N", "P-N-P", "P-P-N", "None"], ans: 1},
+            {q: "Q9: β =?", opts: ["Ic/Ib", "Ib/Ic", "Ie/Ib", "Ib/Ie"], ans: 0},
+            {q: "Q10: Transistor used as?", opts: ["Amplifier", "Switch", "Both", "None"], ans: 2},
+            {q: "Q11: Common base?", opts: ["Low gain", "High gain", "No gain", "None"], ans: 0},
+            {q: "Q12: Common emitter?", opts: ["Low gain", "High gain", "No gain", "None"], ans: 1},
+            {q: "Q13: Cutoff region?", opts: ["OFF", "ON", "Active", "None"], ans: 0},
+            {q: "Q14: Saturation region?", opts: ["OFF", "ON", "Active", "None"], ans: 1},
+            {q: "Q15: Active region?", opts: ["Amplification", "Switching", "Both", "None"], ans: 0}
+        ],
+        "Logic Gates": [
+            {q: "Q1: AND gate output?", opts: ["1 if all 1", "1 if any 1", "0 always", "None"], ans: 0},
+            {q: "Q2: OR gate output?", opts: ["1 if all 1", "1 if any 1", "0 always", "None"], ans: 1},
+            {q: "Q3: NOT gate?", opts: ["Inverter", "Amplifier", "Oscillator", "None"], ans: 0},
+            {q: "Q4: NAND =?", opts: ["NOT AND", "NOT OR", "AND OR", "None"], ans: 0},
+            {q: "Q5: NOR =?", opts: ["NOT AND", "NOT OR", "AND OR", "None"], ans: 1},
+            {q: "Q6: XOR output 1 when?", opts: ["Inputs different", "Inputs same", "Both 1", "Both 0"], ans: 0},
+            {q: "Q7: XNOR output 1 when?", opts: ["Inputs different", "Inputs same", "Both 1", "Both 0"], ans: 1},
+            {q: "Q8: Universal gates?", opts: ["NAND, NOR", "AND, OR", "XOR, XNOR", "None"], ans: 0},
+            {q: "Q9: 2 input AND truth table rows?", opts: ["2", "3", "4", "5"], ans: 2},
+            {q: "Q10: Boolean algebra?", opts: ["0,1", "1-10", "A-Z", "None"], ans: 0},
+            {q: "Q11: IC?", opts: ["Integrated Circuit", "Internal Circuit", "Input Circuit", "None"], ans: 0},
+            {q: "Q12: Digital signal?", opts: ["0,1", "Continuous", "Analog", "None"], ans: 0},
+            {q: "Q13: Analog signal?", opts: ["0,1", "Continuous", "Digital", "None"], ans: 1},
+            {q: "Q14: ADC?", opts: ["Analog to Digital", "Digital to Analog", "Both", "None"], ans: 0},
+            {q: "Q15: DAC?", opts: ["Analog to Digital", "Digital to Analog", "Both", "None"], ans: 1}
+        ]
+    }
+}
+            }
         },
         "12th": {}
     },
-    Maths: { name: "Mathematics", "11th": {}, "12th": {} },
-    CS: { name: "Computer Science", "11th": {}, "12th": {} }
+    Maths: {
+        name: "Mathematics",
+        "11th": {
+            CH1: {
+                name: "Chapter 1: Sets and Functions",
+                formula: "n(A∪B) = n(A)+n(B)-n(A∩B)",
+                topics: {
+                    "Sets": [
+                        {q: "Q1: A collection of well defined objects is:", opts: ["Group", "Set", "Class", "Team"], ans: 1},
+                        {q: "Q2: Symbol for 'belongs to':", opts: ["⊂", "∈", "∪", "∩"], ans: 1},
+                        {q: "Q3: Empty set is denoted by:", opts: ["{0}", "∅", "{ }", "Both B and C"], ans: 3},
+                        {q: "Q4: n(A∪B) =?", opts: ["n(A)+n(B)", "n(A)+n(B)-n(A∩B)", "n(A)*n(B)", "n(A)-n(B)"], ans: 1},
+                        {q: "Q5: A⊂B means:", opts: ["A=B", "A is subset of B", "A∩B=∅", "A∪B=B"], ans: 1},
+                        {q: "Q6: Universal set is denoted by:", opts: ["U", "E", "S", "Ω"], ans: 0},
+                        {q: "Q7: Complement of A:", opts: ["A'", "A*", "Ā", "All"], ans: 3},
+                        {q: "Q8: A∩A =?", opts: ["∅", "A", "U", "1"], ans: 1},
+                        {q: "Q9: De Morgan Law:", opts: ["(A∪B)'=A'∩B'", "(A∩B)'=A'∪B'", "Both", "None"], ans: 2},
+                        {q: "Q10: Power set of {1,2} has:", opts: ["2", "3", "4", "5"], ans: 2},
+                        {q: "Q11: Disjoint sets:", opts: ["A∩B=∅", "A∪B=U", "A=B", "A⊂B"], ans: 0},
+                        {q: "Q12: n(P(A)) =?", opts: ["n(A)", "2^n(A)", "n(A)^2", "1"], ans: 1},
+                        {q: "Q13: Venn diagram was given by:", opts: ["Euler", "Venn", "Newton", "Gauss"], ans: 1},
+                        {q: "Q14: A-B =?", opts: ["A∩B'", "A∪B", "A∩B", "B-A"], ans: 0},
+                        {q: "Q15: Finite set has:", opts: ["Limited elements", "Infinite elements", "No elements", "None"], ans: 0}
+                    ],
+                    "Functions": [ {q: "Q1: f(x)=2x+3 is:", opts: ["Linear", "Quadratic", "Constant", "None"], ans: 0} ],
+                    "Trigonometry": [ {q: "Q1: sin²θ+cos²θ=?", opts: ["0", "1", "2", "-1"], ans: 1} ],
+                    "Statistics": [ {q: "Q1: Mean of 2,4,6:", opts: ["3", "4", "5", "6"], ans: 1} ]
+                }
+            }
+        },
+        "12th": {}
+    },
+    CS: {
+        name: "Computer Science",
+        "11th": {
+            CH1: {
+                name: "Chapter 1: Basics of IT",
+                formula: "1 Byte = 8 Bits | 1 KB = 1024 Bytes",
+                topics: {
+                    "Hardware": [
+                        {q: "Q1: CPU stands for:", opts: ["Central Processing Unit", "Computer Processing Unit", "Control Unit", "None"], ans: 0},
+                        {q: "Q2: RAM is:", opts: ["Primary Memory", "Secondary Memory", "Cache", "Register"], ans: 0},
+                        {q: "Q3: 1 Byte =?", opts: ["4 Bits", "8 Bits", "16 Bits", "32 Bits"], ans: 1},
+                        {q: "Q4: Input device:", opts: ["Monitor", "Printer", "Keyboard", "Speaker"], ans: 2},
+                        {q: "Q5: Output device:", opts: ["Mouse", "Scanner", "Monitor", "Mic"], ans: 2},
+                        {q: "Q6: Storage device:", opts: ["CPU", "RAM", "Hard Disk", "ALU"], ans: 2},
+                        {q: "Q7: 1 KB =?", opts: ["1000 Bytes", "1024 Bytes", "512 Bytes", "2048 Bytes"], ans: 1},
+                        {q: "Q8: Motherboard is:", opts: ["Software", "Hardware", "Data", "Program"], ans: 1},
+                        {q: "Q9: ALU is part of:", opts: ["CPU", "RAM", "ROM", "Cache"], ans: 0},
+                        {q: "Q10: Volatile memory:", opts: ["RAM", "ROM", "Hard Disk", "CD"], ans: 0},
+                        {q: "Q11: Non-volatile memory:", opts: ["RAM", "ROM", "Cache", "Register"], ans: 1},
+                        {q: "Q12: Scanner is:", opts: ["Input", "Output", "Storage", "Processing"], ans: 0},
+                        {q: "Q13: GPU stands for:", opts: ["Graphics Processing Unit", "General Unit", "Game Unit", "None"], ans: 0},
+                        {q: "Q14: 1 GB =?", opts: ["1024 MB", "1000 MB", "512 MB", "2048 MB"], ans: 0},
+                        {q: "Q15: BIOS is stored in:", opts: ["RAM", "ROM", "Cache", "Hard Disk"], ans: 1}
+                    ],
+                    "Software": [ {q: "Q1: OS is:", opts: ["Application", "System Software", "Utility", "None"], ans: 1} ],
+                    "Programming": [ {q: "Q1: C++ is:", opts: ["High Level", "Low Level", "Machine", "Assembly"], ans: 0} ],
+                    "Internet": [ {q: "Q1: www stands for:", opts: ["World Wide Web", "World Wide Work", "Web World Wide", "None"], ans: 0} ]
+                }
+            }
+        },
+        "12th": {}
+    }
 };
 
-let currentSubject="", currentClass="", currentChapter="", currentTopic="", currentQs=[], qIndex=0, score=0, answers=[];
+let currentSubject="", currentClass="", currentChapter="", currentTopic="", currentQs=[], qIndex=0, score=0, answers=[], gameLevel=1, gameQs=[];
 
 function showHome(){
     ['home','chapterMenu','topicMenu','quizBox','resultBox','gameBox','aiBot'].forEach(id=>document.getElementById(id).classList.add('hidden'));
@@ -215,15 +890,47 @@ function nextQ(){ if(qIndex<currentQs.length-1) {qIndex++; showQuestion();} }
 function prevQ(){ if(qIndex>0) {qIndex--; showQuestion();} }
 function submitQuiz(){
     score = answers.filter((a,i)=>a===currentQs[i].ans).length;
-    document.getElementById('resultBox').innerHTML = `<h2 class="text-2xl font-bold">Score: ${score}/${currentQs.length}</h2>`;
+    let per = ((score/currentQs.length)*100).toFixed(1);
+    document.getElementById('resultBox').innerHTML = `<h2 class="text-2xl font-bold">Score: ${score}/${currentQs.length}</h2><p>${per}%</p>`;
     showHome(); document.getElementById('resultBox').classList.remove('hidden');
 }
-function showGame(){}
+
+// GAME 15 LEVELS
+function showGame(){
+    gameLevel=1;
+    gameQs = DATA.Physics["11th"].CH1.topics["Physical Quantities"].concat(
+        DATA.Maths["11th"].CH1.topics["Sets"],
+        DATA.CS["11th"].CH1.topics["Hardware"]
+    ).slice(0,15);
+    loadGameLevel();
+    showHome(); document.getElementById('gameBox').classList.remove('hidden');
+}
+function loadGameLevel(){
+    document.getElementById('levelNum').innerText = gameLevel;
+    let q = gameQs[gameLevel-1];
+    document.getElementById('gameQ').innerText = q.q;
+    document.getElementById('hintText').innerText = "Hint: Read the question carefully";
+    document.getElementById('hintText').classList.add('hidden');
+    let opts='';
+    q.opts.forEach((opt,i)=> opts+=`<button class="btn-option" onclick="checkGame(${i},${q.ans})">${opt}</button>`);
+    document.getElementById('gameOptions').innerHTML=opts;
+}
+function checkGame(i,ans){
+    if(i==ans && gameLevel<15) gameLevel++;
+    loadGameLevel();
+}
+function showHint(){ document.getElementById('hintText').classList.remove('hidden'); }
+
+// AI BOT
 function showAIBot(){ showHome(); document.getElementById('aiBot').classList.remove('hidden'); }
 function askBot(){
-    let input = document.getElementById('chatInput').value;
-    document.getElementById('chatLog').innerHTML += `<div class="text-right">You: ${input}</div>`;
-    document.getElementById('chatLog').innerHTML += `<div class="text-left text-cyan-400">Bot: Ask me about Physics, Maths or CS formulas.</div>`;
+    let input = document.getElementById('chatInput').value.toLowerCase();
+    document.getElementById('chatLog').innerHTML += `<div class="text-right mb-1">You: ${input}</div>`;
+    let reply = "I can help with Physics, Maths and CS. Ask about any formula or concept.";
+    if(input.includes("force")) reply = "Formula: F = ma";
+    if(input.includes("set")) reply = "Formula: n(A∪B) = n(A)+n(B)-n(A∩B)";
+    if(input.includes("byte")) reply = "Formula: 1 Byte = 8 Bits";
+    document.getElementById('chatLog').innerHTML += `<div class="text-left text-cyan-400 mb-1">Bot: ${reply}</div>`;
     document.getElementById('chatInput').value='';
 }
 </script>
