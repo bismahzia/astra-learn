@@ -1,702 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AstraLearn - PHYSICS MATH CS 11 12</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astra Learn - PHY 11 Part 1</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-body{background:#0B1120;color:#E5E7EB;font-family:Arial;padding:20px;margin:0;}
-.header{text-align:center;padding:20px;background:#131C31;border-radius:15px;margin-bottom:20px;}
-.header h1{color:#00D9FF;margin:0;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:15px;}
-.card{background:#131C31;padding:20px;border-radius:15px;border:1px solid #7C3AED;}
-.btn{background:#7C3AED;color:#fff;border:none;padding:10px;border-radius:8px;width:100%;margin:5px 0;cursor:pointer;}
-.topic{background:#0B1120;padding:10px;margin:8px 0;border-radius:8px;border-left:3px solid #00D9FF;}
-#quizBox{background:#131C31;padding:20px;margin:20px auto;max-width:800px;border-radius:15px;display:none;}
+    body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); font-family: 'Segoe UI', sans-serif; }
+  .glass { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+  .btn { padding: 0.5rem 1rem; border-radius: 0.75rem; font-weight: 600; transition: all 0.2s; cursor: pointer; }
+  .btn-primary { background: #06b6d4; color: white; }
+  .btn-primary:hover { background: #0891b2; }
+  .btn-option { width: 100%; text-align: left; padding: 0.75rem; margin: 0.5rem 0; border-radius: 0.5rem; background: #334155; border: 1px solid #475569; }
+  .btn-option:hover { background: #475569; }
+  .correct { background: rgba(34,197,94,0.3)!important; border-color: #22c55e!important; }
+  .wrong { background: rgba(239,68,68,0.3)!important; border-color: #ef4444!important; }
+  .hidden { display: none; }
 </style>
 </head>
-<body>
-<p>All Subjects | 1900+ MCQs | Bug Game</p>
- 
+<body class="text-slate-100 min-h-screen">
 
-<div id="menu"></div>
-<div id="quizBox" style="display:none;"></div>
-<div id="finalResult" style="display:none;"></div>
+<div class="max-w-6xl mx-auto p-4">
+    <header class="glass p-4 rounded-2xl mb-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold text-cyan-400">Astra Learn 🚀 PHY 11 Part 1</h1>
+        <button onclick="showHome()" class="btn btn-primary">Home</button>
+    </header>
 
-<script>
-const D = {};
+    <div id="home">
+        <div class="glass p-6 rounded-2xl mb-4 text-center">
+            <h2 class="text-3xl font-bold mb-2">Physics 11th - Part 1</h2>
+            <p class="text-slate-400">CH1 to CH3 | 15 MCQs per Topic + 20 MCQs Full Chapter Test</p>
+        </div>
+        <div id="chapterList" class="grid md:grid-cols-3 gap-4"></div>
 
-// ========== CH 1: MEASUREMENTS - 75 MCQs ==========
-D['phy11-ch1']={name:"Ch 1: Measurements",
-topics:[
-{t:"1.1 Introduction",test:[{q:"Q1: Physics deals with?",o:["Matter and Energy","Chemicals","Plants","Numbers"],a:"Matter and Energy"},{q:"Q2: Mechanics?",o:["Motion","Heat","Light","Sound"],a:"Motion"},{q:"Q3: Optics?",o:["Light","Heat","Motion","Electricity"],a:"Light"},{q:"Q4: Thermo?",o:["Heat","Light","Sound","Motion"],a:"Heat"},{q:"Q5: Laws by?",o:["Newton","Einstein","Galileo","Maxwell"],a:"Newton"},{q:"Q6: Modern father?",o:["Einstein","Newton","Galileo","Bohr"],a:"Einstein"},{q:"Q7: Nuclear?",o:["Nucleus","Atom","Molecule","Crystal"],a:"Nucleus"},{q:"Q8: Solid state?",o:["Solids","Liquids","Gases","Plasma"],a:"Solids"},{q:"Q9: Plasma?",o:["Ionized gas","Solid","Liquid","Vacuum"],a:"Ionized gas"},{q:"Q10: Electronics?",o:["Electrons","Protons","Neutrons","Photons"],a:"Electrons"},{q:"Q11: Quantum?",o:["Atomic","Macro","Both","None"],a:"Atomic"},{q:"Q12: Astro?",o:["Stars","Atoms","Molecules","Crystals"],a:"Stars"},{q:"Q13: Bio physics?",o:["Bio+Physics","Chem+Physics","Math+Physics","None"],a:"Bio+Physics"},{q:"Q14: Geo physics?",o:["Earth","Space","Atom","Nucleus"],a:"Earth"},{q:"Q15: Not branch?",o:["Sociology","Mechanics","Optics","Thermo"],a:"Sociology"}]},
-{t:"1.2 Quantities",test:[{q:"Q1: Base?",o:["7","5","9","3"],a:"7"},{q:"Q2: Mass?",o:["Base","Derived","Both","None"],a:"Base"},{q:"Q3: Force?",o:["Derived","Base","Both","None"],a:"Derived"},{q:"Q4: Length unit?",o:["Meter","Kg","Second","Ampere"],a:"Meter"},{q:"Q5: Time unit?",o:["Second","Meter","Kg","Kelvin"],a:"Second"},{q:"Q6: Current unit?",o:["Ampere","Volt","Ohm","Watt"],a:"Ampere"},{q:"Q7: Temp unit?",o:["Kelvin","Celsius","F","J"],a:"Kelvin"},{q:"Q8: Luminous?",o:["Candela","Lux","Lumen","Watt"],a:"Candela"},{q:"Q9: Amount?",o:["Mole","Gram","Kg","Litre"],a:"Mole"},{q:"Q10: Dim v?",o:["LT-1","L2T-2","MT-2","MLT-2"],a:"LT-1"},{q:"Q11: Dim F?",o:["MLT-2","MLT-1","L2T-2","MT-2"],a:"MLT-2"},{q:"Q12: Dim E?",o:["ML2T-2","MLT-2","MLT-1","L2T-2"],a:"ML2T-2"},{q:"Q13: Dimensionless?",o:["Angle","Force","Energy","Power"],a:"Angle"},{q:"Q14: Supplementary?",o:["Radian","Meter","Kg","Second"],a:"Radian"},{q:"Q15: Pressure unit?",o:["Pascal","Newton","Joule","Watt"],a:"Pascal"}]},
-{t:"1.3 SI Units",test:[{q:"Q1: 10^-3?",o:["Milli","Micro","Nano","Pico"],a:"Milli"},{q:"Q2: 10^6?",o:["Mega","Kilo","Giga","Tera"],a:"Mega"},{q:"Q3: 10^-9?",o:["Nano","Micro","Pico","Femto"],a:"Nano"},{q:"Q4: 1 micron?",o:["10^-6 m","10^-3","10^-9","10^-12"],a:"10^-6 m"},{q:"Q5: 1 nm?",o:["10^-9 m","10^-6","10^-3","10^-12"],a:"10^-9 m"},{q:"Q6: 1 Angstrom?",o:["10^-10 m","10^-9","10^-8","10^-11"],a:"10^-10 m"},{q:"Q7: 1 ly?",o:["9.46x10^15","3x10^8","1.5x10^11","None"],a:"9.46x10^15"},{q:"Q8: 1 parsec?",o:["3.08x10^16","9.46x10^15","1.5x10^11","None"],a:"3.08x10^16"},{q:"Q9: 1 atm?",o:["1.013x10^5","1x10^5","760","None"],a:"1.013x10^5"},{q:"Q10: 1 HP?",o:["746 W","1000","550","3600"],a:"746 W"},{q:"Q11: 1 eV?",o:["1.6x10^-19","1.6x10^-18","1.6x10^-20","None"],a:"1.6x10^-19"},{q:"Q12: Charge SI?",o:["Coulomb","Ampere","Volt","Ohm"],a:"Coulomb"},{q:"Q13: Energy SI?",o:["Joule","Newton","Watt","Pascal"],a:"Joule"},{q:"Q14: Power SI?",o:["Watt","Joule","Newton","Pascal"],a:"Watt"},{q:"Q15: Frequency SI?",o:["Hertz","Second","Meter","Radian"],a:"Hertz"}]},
-{t:"1.4 Errors",test:[{q:"Q1: Zero error?",o:["Systematic","Random","Gross","Personal"],a:"Systematic"},{q:"Q2: Reduce random?",o:["Average","Ignore","Guess","None"],a:"Average"},{q:"Q3: Reading mistake?",o:["Gross","Systematic","Random","Instrumental"],a:"Gross"},{q:"Q4: Least count?",o:["Instrumental","Personal","Random","Systematic"],a:"Instrumental"},{q:"Q5: Absolute?",o:["|M-T|","M+T","M/T","None"],a:"|M-T|"},{q:"Q6: Relative?",o:["Abs/True","Abs x True","Abs + True","None"],a:"Abs/True"},{q:"Q7: % error?",o:["Relative x100","Relative/100","Abs x100","None"],a:"Relative x100"},{q:"Q8: Parallax?",o:["Personal","Systematic","Random","Gross"],a:"Personal"},{q:"Q9: Calibration?",o:["Systematic","Random","Gross","Personal"],a:"Systematic"},{q:"Q10: Reduce?",o:["Multiple","Single","Guess","None"],a:"Multiple"},{q:"Q11: Vernier LC?",o:["0.01 cm","0.1","1","0.001"],a:"0.01 cm"},{q:"Q12: Screw LC?",o:["0.001 cm","0.01","0.1","1"],a:"0.001 cm"},{q:"Q13: Accuracy?",o:["Close true","Close each","Both","None"],a:"Close true"},{q:"Q14: Precision?",o:["Close each","Close true","Both","None"],a:"Close each"},{q:"Q15: SF show?",o:["Precision","Accuracy","Both","None"],a:"Precision"}]},
-{t:"1.5 SF",test:[{q:"Q1: 0.005040 SF?",o:["4","3","5","2"],a:"4"},{q:"Q2: 1200 SF?",o:["2","3","4","1"],a:"2"},{q:"Q3: 1.2300 SF?",o:["5","4","3","2"],a:"5"},{q:"Q4: 100.50 SF?",o:["5","4","3","2"],a:"5"},{q:"Q5: 3.14159 to 3SF?",o:["3.14","3.15","3.142","3.1"],a:"3.14"},{q:"Q6: 0.004567 to 2SF?",o:["0.0046","0.0045","0.00457","None"],a:"0.0046"},{q:"Q7: 1234 SF?",o:["4","3","2","1"],a:"4"},{q:"Q8: 0.0012 SF?",o:["2","3","4","1"],a:"2"},{q:"Q9: Trailing zeros?",o:["If decimal","Always","Never","None"],a:"If decimal"},{q:"Q10: Leading zeros?",o:["Never","Always","Sometimes","None"],a:"Never"},{q:"Q11: 5.00 SF?",o:["3","2","1","4"],a:"3"},{q:"Q12: 500 SF?",o:["1","2","3","4"],a:"1"},{q:"Q13: 500. SF?",o:["3","2","1","4"],a:"3"},{q:"Q14: Result SF?",o:["Least data","Most data","Average","None"],a:"Least data"},{q:"Q15: 2.340x10^3 SF?",o:["4","3","2","1"],a:"4"}]}],
-full:[{q:"Q1: Dim p?",o:["MLT-1","ML2T-2","MLT-2","ML-1T-2"],a:"MLT-1"},{q:"Q2: 1 fermi?",o:["10^-15","10^-12","10^-9","10^-6"],a:"10^-15"},{q:"Q3: Best instrument?",o:["Screw","Meter","Vernier","Tape"],a:"Screw"},{q:"Q4: Sub error?",o:["Add abs","Subtract","Multiply","Divide"],a:"Add abs"},{q:"Q5: Order 3456?",o:["10^3","10^4","10^2","10^5"],a:"10^3"},{q:"Q6: 1 barn?",o:["10^-28","10^-24","10^-20","None"],a:"10^-28"},{q:"Q7: Std meter?",o:["Kr-86","Earth","Platinum","None"],a:"Kr-86"},{q:"Q8: Dim P?",o:["ML-1T-2","MLT-2","ML2T-2","ML-2T-2"],a:"ML-1T-2"},{q:"Q9: Dim Power?",o:["ML2T-3","ML2T-2","MLT-2","MLT-3"],a:"ML2T-3"},{q:"Q10: 1 cal?",o:["4.2 J","4.18","4","3.8"],a:"4.18"},{q:"Q11: Precise?",o:["Micrometer","Meter","Tape","None"],a:"Micrometer"},{q:"Q12: Backlash?",o:["Systematic","Random","Gross","Personal"],a:"Systematic"},{q:"Q13: 0.0001 SF?",o:["1","2","3","4"],a:"1"},{q:"Q14: 1001 SF?",o:["4","3","2","1"],a:"4"},{q:"Q15: 1.00x10^2 SF?",o:["3","2","1","4"],a:"3"},{q:"Q16: G unit?",o:["Nm²/kg²","N/kg","J/kg","None"],a:"Nm²/kg²"},{q:"Q17: 1 Tesla?",o:["N/Am","N/C","J/C","V/m"],a:"N/Am"},{q:"Q18: 1 Weber?",o:["T.m²","N.m","J.s","None"],a:"T.m²"},{q:"Q19: Dim G?",o:["M-1L3T-2","ML3T-2","M-1L2T-2","None"],a:"M-1L3T-2"},{q:"Q20: 1 Curie?",o:["3.7x10^10","1","10^6","None"],a:"3.7x10^10"}]}};
+        <button onclick="showGame()" class="glass p-6 rounded-2xl hover:bg-purple-500/10 w-full mt-4"><h3 class="text-xl font-bold">MCQ Game - 15 Levels</h3></button>
+        <button onclick="showAIBot()" class="glass p-6 rounded-2xl hover:bg-green-500/10 w-full mt-4"><h3 class="text-xl font-bold">AI Bot</h3></button>
+    </div>
 
-// ========== CH 2: VECTORS ==========
-D['phy11-ch2']={name:"Ch 2: Vectors",
-topics:[
-{t:"2.1 Scalar Vector",test:[{q:"Q1: Vector?",o:["Force","Mass","Time","Energy"],a:"Force"},{q:"Q2: Scalar?",o:["Work","Displacement","Velocity","Accel"],a:"Work"},{q:"Q3: Mag+Dir?",o:["Vector","Scalar","Both","None"],a:"Vector"},{q:"Q4: Only mag?",o:["Scalar","Vector","Both","None"],a:"Scalar"},{q:"Q5: Vector ex?",o:["Momentum","Temp","Mass","Density"],a:"Momentum"},{q:"Q6: Scalar ex?",o:["Speed","Velocity","Force","Field"],a:"Speed"},{q:"Q7: Can -?",o:["Vector","Scalar","Both","None"],a:"Vector"},{q:"Q8: Always +?",o:["Scalar","Vector","Both","None"],a:"Scalar"},{q:"Q9: Position?",o:["Vector","Scalar","Both","None"],a:"Vector"},{q:"Q10: Distance?",o:["Scalar","Vector","Both","None"],a:"Scalar"},{q:"Q11: Displacement?",o:["Vector","Scalar","Both","None"],a:"Vector"},{q:"Q12: E-field?",o:["Vector","Scalar","Both","None"],a:"Vector"},{q:"Q13: Potential?",o:["Scalar","Vector","Both","None"],a:"Scalar"},{q:"Q14: Torque?",o:["Vector","Scalar","Both","None"],a:"Vector"},{q:"Q15: Power?",o:["Scalar","Vector","Both","None"],a:"Scalar"}]},
-{t:"2.2 Addition",test:[{q:"Q1: 3N+4N@90?",o:["5N","7N","1N","12N"],a:"5N"},{q:"Q2: Max R?",o:["A+B","A-B","AB","A/B"],a:"A+B"},{q:"Q3: Min R?",o:["|A-B|","A+B","AB","0"],a:"|A-B|"},{q:"Q4: Triangle?",o:["Vector add","Scalar","Product","None"],a:"Vector add"},{q:"Q5: Parallelogram?",o:["Resultant","Diff","Product","None"],a:"Resultant"},{q:"Q6: Polygon?",o:["Multiple","2","3","None"],a:"Multiple"},{q:"Q7: R=0?",o:["Closed","Open","Single","None"],a:"Closed"},{q:"Q8: Commutative?",o:["A+B=B+A","A+B≠B+A","Sometimes","None"],a:"A+B=B+A"},{q:"Q9: Associative?",o:["(A+B)+C","No","Sometimes","None"],a:"(A+B)+C"},{q:"Q10: Equal opp?",o:["0","2A","A","None"],a:"0"},{q:"Q11: 5N E + 5N W?",o:["0","10N","5N","None"],a:"0"},{q:"Q12: Angle max?",o:["0°","90°","180°","270°"],a:"0°"},{q:"Q13: Angle min?",o:["180°","0°","90°","270°"],a:"180°"},{q:"Q14: R formula?",o:["√A²+B²+2ABcosθ","A+B","AB","None"],a:"√A²+B²+2ABcosθ"},{q:"Q15: Dir formula?",o:["tanα=Bsinθ/A+Bcosθ","sinα","cosα","None"],a:"tanα=Bsinθ/A+Bcosθ"}]},
-{t:"2.3 Resolution",test:[{q:"Q1: Fx=?",o:["Fcosθ","Fsinθ","Ftanθ","F"],a:"Fcosθ"},{q:"Q2: Fy=?",o:["Fsinθ","Fcosθ","Ftanθ","F"],a:"Fsinθ"},{q:"Q3: θ=0 Fx?",o:["F","0","F/2","2F"],a:"F"},{q:"Q4: θ=90 Fy?",o:["F","0","F/2","2F"],a:"F"},{q:"Q5: θ=45?",o:["Fx=Fy","Fx>Fy","Fx<Fy","None"],a:"Fx=Fy"},{q:"Q6: F=√Fx²+Fy²?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q7: tanθ?",o:["Fy/Fx","Fx/Fy","F/F","None"],a:"Fy/Fx"},{q:"Q8: 3D?",o:["Fx,Fy,Fz","Fx,Fy","F,θ","None"],a:"Fx,Fy,Fz"},{q:"Q9: i?",o:["x-dir","y-dir","z-dir","None"],a:"x-dir"},{q:"Q10: j?",o:["y-dir","x-dir","z-dir","None"],a:"y-dir"},{q:"Q11: k?",o:["z-dir","x-dir","y-dir","None"],a:"z-dir"},{q:"Q12: |i|?",o:["1","0","∞","None"],a:"1"},{q:"Q13: i.i?",o:["1","0","i","None"],a:"1"},{q:"Q14: i.j?",o:["0","1","i","None"],a:"0"},{q:"Q15: i×j?",o:["k","0","i","None"],a:"k"}]},
-{t:"2.4 Product",test:[{q:"Q1: Work=?",o:["F.dcosθ","Fdsinθ","Fd","F/d"],a:"F.dcosθ"},{q:"Q2: Dot?",o:["Scalar","Vector","Zero","None"],a:"Scalar"},{q:"Q3: Cross?",o:["Vector","Scalar","Zero","None"],a:"Vector"},{q:"Q4: A.B=?",o:["|A||B|cosθ","|A||B|sinθ","AB","None"],a:"|A||B|cosθ"},{q:"Q5: |AxB|=?",o:["|A||B|sinθ","|A||B|cosθ","AB","None"],a:"|A||B|sinθ"},{q:"Q6: A.B=0?",o:["90°","0°","180°","45°"],a:"90°"},{q:"Q7: |AxB| max?",o:["90°","0°","180°","45°"],a:"90°"},{q:"Q8: i.j?",o:["0","1","i","None"],a:"0"},{q:"Q9: i×j?",o:["k","0","i","None"],a:"k"},{q:"Q10: j×k?",o:["i","0","j","None"],a:"i"},{q:"Q11: k×i?",o:["j","0","k","None"],a:"j"},{q:"Q12: Dot comm?",o:["Yes","No","Sometimes","None"],a:"Yes"},{q:"Q13: Cross comm?",o:["No","Yes","Sometimes","None"],a:"No"},{q:"Q14: A×A?",o:["0","A","2A","None"],a:"0"},{q:"Q15: A.A?",o:["|A|²","|A|","0","None"],a:"|A|²"}]},
-{t:"2.5 Equilibrium",test:[{q:"Q1: ΣF=0?",o:["1st","2nd","3rd","None"],a:"1st"},{q:"Q2: Στ=0?",o:["2nd","1st","3rd","None"],a:"2nd"},{q:"Q3: Stable?",o:["Ball bowl","Ball hill","Ball table","None"],a:"Ball bowl"},{q:"Q4: Unstable?",o:["Ball hill","Ball bowl","Ball table","None"],a:"Ball hill"},{q:"Q5: Neutral?",o:["Ball table","Ball bowl","Ball hill","None"],a:"Ball table"},{q:"Q6: Torque unit?",o:["Nm","J","W","N"],a:"Nm"},{q:"Q7: τ=r×F?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q8: Couple?",o:["2 equal opp","1 force","3 forces","None"],a:"2 equal opp"},{q:"Q9: CM?",o:["Avg position","Geo center","Both","None"],a:"Avg position"},{q:"Q10: CG?",o:["Geo center","Edge","Corner","None"],a:"Geo center"},{q:"Q11: Lever?",o:["τ1=τ2","F1=F2","W1=W2","None"],a:"τ1=τ2"},{q:"Q12: See-saw?",o:["Both","1st","2nd","None"],a:"Both"},{q:"Q13: Ladder?",o:["Both","1st","2nd","None"],a:"Both"},{q:"Q14: Moment arm?",o:["⊥ dist","Parallel","Any","None"],a:"⊥ dist"},{q:"Q15: Static?",o:["No motion","Const motion","Accelerated","None"],a:"No motion"}]}],
-full:[{q:"Q1: R 5N,5N@60?",o:["5√3","10","0","5"],a:"5√3"},{q:"Q2: A+B=A-B?",o:["B=0","A=0","θ=90","None"],a:"B=0"},{q:"Q3: i×j×k?",o:["1","0","-1","None"],a:"1"},{q:"Q4: Scalar triple?",o:["A.(BxC)","Ax(BxC)","(AxB).C","None"],a:"A.(BxC)"},{q:"Q5: Vector triple?",o:["Ax(BxC)","A.(BxC)","(AxB).C","None"],a:"Ax(BxC)"},{q:"Q6: Gradient?",o:["Vector","Scalar","Both","None"],a:"Vector"},{q:"Q7: Divergence?",o:["Scalar","Vector","Both","None"],a:"Scalar"},{q:"Q8: Curl?",o:["Vector","Scalar","Both","None"],a:"Vector"},{q:"Q9: ∇.A?",o:["Divergence","Gradient","Curl","None"],a:"Divergence"},{q:"Q10: ∇×A?",o:["Curl","Gradient","Divergence","None"],a:"Curl"},{q:"Q11: Conservative?",o:["Curl=0","Div=0","Both","None"],a:"Curl=0"},{q:"Q12: Solenoidal?",o:["Div=0","Curl=0","Both","None"],a:"Div=0"},{q:"Q13: Position?",o:["ri+xj+zk","i+j+k","r","None"],a:"ri+xj+zk"},{q:"Q14: Unit vector?",o:["A/|A|","|A|","A","None"],a:"A/|A|"},{q:"Q15: Null?",o:["Mag 0","Mag 1","No dir","None"],a:"Mag 0"},{q:"Q16: Equal?",o:["Same mag+dir","Same mag","Same dir","None"],a:"Same mag+dir"},{q:"Q17: Negative?",o:["Opp dir","Same dir","Zero","None"],a:"Opp dir"},{q:"Q18: Lami?",o:["A/sinα=B/sinβ","A+B=C","AB=C","None"],a:"A/sinα=B/sinβ"},{q:"Q19: Rel vel?",o:["Va-Vb","Va+Vb","Va.Vb","None"],a:"Va-Vb"},{q:"Q20: Range?",o:["u²sin2θ/g","u²/g","u/g","None"],a:"u²sin2θ/g"}]}};
+    <div id="quizBox" class="hidden glass p-6 rounded-2xl">
+        <h3 id="quizTitle" class="text-xl font-bold mb-2"></h3>
+        <p id="formulaBox" class="text-xs bg-slate-800 p-2 rounded mb-4 text-cyan-300"></p>
+        <p id="qText" class="text-lg mb-4"></p>
+        <div id="options"></div>
+        <div class="flex justify-between mt-4">
+            <button onclick="prevQ()" class="btn bg-slate-700">Prev</button>
+            <span id="qCount" class="font-mono"></span>
+            <button onclick="nextQ()" class="btn btn-primary">Next</button>
+        </div>
+        <button onclick="submitQuiz()" class="btn btn-primary w-full mt-4">Submit Test</button>
+    </div>
+    <div id="resultBox" class="hidden glass p-6 rounded-2xl text-center"></div>
 
-// ========== CH 3: MOTION ==========
-D['phy11-ch3']={name:"Ch 3: Motion",
-topics:[
-{t:"3.1 Kinematics",test:[{q:"Q1: v-u/t?",o:["a","v","s","t"],a:"a"},{q:"Q2: v²-u²?",o:["2as","at","2t","as"],a:"2as"},{q:"Q3: s=ut+?",o:["1/2at²","at²","at","t²"],a:"1/2at²"},{q:"Q4: Slope v-t?",o:["Accel","Velocity","Dist","None"],a:"Accel"},{q:"Q5: Area v-t?",o:["Displacement","Velocity","Accel","None"],a:"Displacement"},{q:"Q6: v=ds/dt?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q7: a=dv/dt?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q8: Uniform motion?",o:["a=0","a=const","v=0","None"],a:"a=0"},{q:"Q9: Uniformly accel?",o:["a=const","a=0","v=const","None"],a:"a=const"},{q:"Q10: Free fall a?",o:["g","0","-g","None"],a:"g"},{q:"Q11: Projectile a?",o:["g down","0","g up","None"],a:"g down"},{q:"Q12: Range?",o:["u²sin2θ/g","u²/g","u/g","None"],a:"u²sin2θ/g"},{q:"Q13: Max H?",o:["u²sin²θ/2g","u²/2g","u/g","None"],a:"u²sin²θ/2g"},{q:"Q14: TOF?",o:["2usinθ/g","usinθ/g","u/g","None"],a:"2usinθ/g"},{q:"Q15: Path?",o:["Parabola","Circle","Line","None"],a:"Parabola"}]},
-{t:"3.2 Newton's Laws",test:[{q:"Q1: F=ma?",o:["2nd","1st","3rd","None"],a:"2nd"},{q:"Q2: Inertia?",o:["1st","2nd","3rd","None"],a:"1st"},{q:"Q3: Action-Reaction?",o:["3rd","1st","2nd","None"],a:"3rd"},{q:"Q4: F unit?",o:["N","J","W","kg"],a:"N"},{q:"Q5: 1N=?",o:["kgm/s²","kgm/s","kgm²/s²","None"],a:"kgm/s²"},{q:"Q6: Law of inertia?",o:["1st","2nd","3rd","None"],a:"1st"},{q:"Q7: Rocket?",o:["3rd","1st","2nd","None"],a:"3rd"},{q:"Q8: Seat belt?",o:["1st","2nd","3rd","None"],a:"1st"},{q:"Q9: Impulse?",o:["F.t","F.d","m.v","None"],a:"F.t"},{q:"Q10: Momentum?",o:["mv","ma","Fd","None"],a:"mv"},{q:"Q11: p unit?",o:["kgm/s","N","J","W"],a:"kgm/s"},{q:"Q12: Conservation?",o:["p","E","Both","None"],a:"Both"},{q:"Q13: Collision?",o:["p cons","E cons","Both","None"],a:"p cons"},{q:"Q14: Elastic?",o:["p+E cons","p cons","E cons","None"],a:"p+E cons"},{q:"Q15: Inelastic?",o:["p cons","E cons","Both","None"],a:"p cons"}]},
-{t:"3.3 Friction",test:[{q:"Q1: f=μN?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q2: μ<1?",o:["Usually","Always","Never","None"],a:"Usually"},{q:"Q3: Static>Kinetic?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q4: Rolling<Sliding?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q5: Opp motion?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q6: Smooth μ?",o:["Low","High","Zero","None"],a:"Low"},{q:"Q7: Rough μ?",o:["High","Low","Zero","None"],a:"High"},{q:"Q8: Depends on?",o:["Nature","Area","Both","None"],a:"Nature"},{q:"Q9: Lubricant?",o:["Reduces μ","Increases","No effect","None"],a:"Reduces μ"},{q:"Q10: Ball bearing?",o:["Rolling","Sliding","Fluid","None"],a:"Rolling"},{q:"Q11: Limiting?",o:["Max static","Min static","Kinetic","None"],a:"Max static"},{q:"Q12: Angle friction?",o:["tan⁻¹μ","sin⁻¹μ","cos⁻¹μ","None"],a:"tan⁻¹μ"},{q:"Q13: Banking?",o:["Reduces friction","Increases","No effect","None"],a:"Reduces friction"},{q:"Q14: Friction?",o:["Non-conservative","Conservative","Both","None"],a:"Non-conservative"},{q:"Q15: Work by friction?",o:["Negative","Positive","Zero","None"],a:"Negative"}]}],
-full:[{q:"Q1: g?",o:["9.8","10","0","-9.8"],a:"9.8"},{q:"Q2: Terminal v?",o:["Constant","Increasing","Decreasing","None"],a:"Constant"},{q:"Q3: Lift up?",o:["W>","W<","W=","None"],a:"W>"},{q:"Q4: Lift down?",o:["Weightless","Heavy","Normal","None"],a:"Weightless"},{q:"Q5: Circular a?",o:["v²/r","v/r","r/v","None"],a:"v²/r"},{q:"Q6: Centripetal?",o:["Toward","Away","Tangent","None"],a:"Toward"},{q:"Q7: Banking?",o:["Reduces friction","Increases","No effect","None"],a:"Reduces friction"},{q:"Q8: Satellite?",o:["Centripetal","Centrifugal","Gravity","None"],a:"Centripetal"},{q:"Q9: Angular p?",o:["mvr","mv²","mr²","None"],a:"mvr"},{q:"Q10: Cons angular p?",o:["No torque","Torque","Force","None"],a:"No torque"}]}};
- // ========== CH 4: WORK AND ENERGY ==========
-D['phy11-ch4']={name:"Ch 4: Work and Energy",
-topics:[
-{t:"4.1 Work",test:[{q:"Q1: W=0 when θ?",o:["90°","0°","180°","45°"],a:"90°"},{q:"Q2: W unit?",o:["J","N","W","kg"],a:"J"},{q:"Q3: W=F.dcosθ?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q4: Negative work?",o:["Force opp motion","Force with motion","Perp","None"],a:"Force opp motion"},{q:"Q5: Positive work?",o:["Force with motion","Force opp motion","Perp","None"],a:"Force with motion"},{q:"Q6: Zero work ex?",o:["Centripetal","Gravity","Friction","None"],a:"Centripetal"},{q:"Q7: Work scalar?",o:["Yes","No","Sometimes","None"],a:"Yes"},{q:"Q8: Work done by gravity?",o:["mgh","1/2mv²","Fd","None"],a:"mgh"},{q:"Q9: Work area?",o:["F-x graph","v-t graph","a-t graph","None"],a:"F-x graph"},{q:"Q10: 1 J=?",o:["1 Nm","1 kgm/s","1 W","1 N"],a:"1 Nm"},{q:"Q11: Work by variable force?",o:["∫F.dx","F.d","F/t","None"],a:"∫F.dx"},{q:"Q12: Work by spring?",o:["1/2kx²","kx","k/x","None"],a:"1/2kx²"},{q:"Q13: Work by friction?",o:["Negative","Positive","Zero","None"],a:"Negative"},{q:"Q14: Work by normal?",o:["0","Positive","Negative","None"],a:"0"},{q:"Q15: Work-energy theorem?",o:["W=ΔKE","W=ΔPE","W=ΔE","None"],a:"W=ΔKE"}]},
-{t:"4.2 Energy",test:[{q:"Q1: KE=?",o:["1/2mv²","mgh","Fd","P/t"],a:"1/2mv²"},{q:"Q2: PE=?",o:["mgh","1/2mv²","Fd","P/t"],a:"mgh"},{q:"Q3: Energy unit?",o:["J","N","W","kg"],a:"J"},{q:"Q4: Law of cons?",o:["Energy","Mass","Momentum","All"],a:"Energy"},{q:"Q5: KE depends on?",o:["v²","m","Both","None"],a:"Both"},{q:"Q6: PE depends on?",o:["h","m","Both","None"],a:"Both"},{q:"Q7: Elastic PE?",o:["1/2kx²","mgh","1/2mv²","None"],a:"1/2kx²"},{q:"Q8: Internal energy?",o:["KE+PE","KE","PE","None"],a:"KE+PE"},{q:"Q9: Energy can?",o:["Convert","Destroy","Create","None"],a:"Convert"},{q:"Q10: K.E of rotating?",o:["1/2Iω²","1/2mv²","mgh","None"],a:"1/2Iω²"},{q:"Q11: Work done =?",o:["Change in energy","Force","Power","None"],a:"Change in energy"},{q:"Q12: Energy of photon?",o:["hf","mc²","1/2mv²","None"],a:"hf"},{q:"Q13: Binding energy?",o:["Energy to separate","KE","PE","None"],a:"Energy to separate"},{q:"Q14: Heat is?",o:["Energy","Force","Power","None"],a:"Energy"},{q:"Q15: Energy lost as?",o:["Heat","Light","Sound","All"] ,a:"All"}]},
-{t:"4.3 Power",test:[{q:"Q1: Power unit?",o:["W","J","N","kg"],a:"W"},{q:"Q2: P=W/t?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q3: 1 HP=?",o:["746W","1000W","550W","3600W"],a:"746W"},{q:"Q4: P=F.v?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q5: Power scalar?",o:["Yes","No","Sometimes","None"],a:"Yes"},{q:"Q6: 1 kW=?",o:["1000W","100W","10W","1W"],a:"1000W"},{q:"Q7: Power of car?",o:["F.v","m.a","mgh","None"],a:"F.v"},{q:"Q8: Efficiency?",o:["Output/Input","Input/Output","W/t","None"],a:"Output/Input"},{q:"Q9: % efficiency?",o:["Eff x100","Eff/100","Eff+100","None"],a:"Eff x100"},{q:"Q10: Power lost?",o:["Input-Output","Output-Input","W/t","None"],a:"Input-Output"},{q:"Q11: Instantaneous P?",o:["F.v","W/t","F/t","None"],a:"F.v"},{q:"Q12: Average P?",o:["W/t","F.v","F/t","None"],a:"W/t"},{q:"Q13: Unit of kWh?",o:["Energy","Power","Force","None"],a:"Energy"},{q:"Q14: 1 kWh=?",o:["3.6x10^6 J","1000 J","3600 J","None"],a:"3.6x10^6 J"},{q:"Q15: Power by engine?",o:["Torque x ω","F.v","Both","None"],a:"Both"}]}],
-full:[{q:"Q1: Conservative force?",o:["Gravity","Friction","Air drag","None"],a:"Gravity"},{q:"Q2: Non-conservative?",o:["Friction","Gravity","Spring","None"],a:"Friction"},{q:"Q3: Path independent?",o:["Conservative","Non-conservative","Both","None"],a:"Conservative"},{q:"Q4: P.E of spring?",o:["1/2kx²","mgh","1/2mv²","None"],a:"1/2kx²"},{q:"Q5: K.E at max height?",o:["0","Max","Half","None"],a:"0"},{q:"Q6: P.E at ground?",o:["0","Max","Half","None"],a:"0"},{q:"Q7: Work done by gas?",o:["PΔV","VΔP","P/V","None"],a:"PΔV"},{q:"Q8: Power of pump?",o:["ρgQh","mgh","F.v","None"],a:"ρgQh"},{q:"Q9: Energy of wave?",o:["f²A²","fA","A²","None"],a:"f²A²"},{q:"Q10: Unit of energy?",o:["J","N","W","kg"],a:"J"}]}};
+    <div id="gameBox" class="hidden glass p-6 rounded-2xl">
+        <h3 class="text-xl font-bold mb-2">Level <span id="levelNum">1</span> / 15</h3>
+        <p id="gameQ" class="text-lg mb-4"></p>
+        <div id="gameOptions"></div>
+        <button onclick="showHint()" class="btn bg-amber-600 mt-2">💡 Hint</button>
+        <p id="hintText" class="text-sm text-amber-300 mt-2 hidden"></p>
+    </div>
 
-// ========== CH 5: CIRCULAR MOTION ==========
-D['phy11-ch5']={name:"Ch 5: Circular Motion",
-topics:[
-{t:"5.1 Angular Motion",test:[{q:"Q1: ω unit?",o:["rad/s","m/s","Hz","N"],a:"rad/s"},{q:"Q2: v=rω?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q3: 1 rev=?",o:["2π rad","π rad","360 rad","None"],a:"2π rad"},{q:"Q4: Frequency unit?",o:["Hz","rad/s","m/s","N"],a:"Hz"},{q:"Q5: ω=2πf?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q6: T=1/f?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q7: Angular displacement?",o:["θ","s","v","a"],a:"θ"},{q:"Q8: Angular velocity?",o:["dθ/dt","ds/dt","dv/dt","None"],a:"dθ/dt"},{q:"Q9: Angular acceleration?",o:["dω/dt","dv/dt","ds/dt","None"],a:"dω/dt"},{q:"Q10: α unit?",o:["rad/s²","m/s²","Hz","N"],a:"rad/s²"},{q:"Q11: Relation v and ω?",o:["v=rω","v=ω/r","v=r/ω","None"],a:"v=rω"},{q:"Q12: Direction of ω?",o:["Axis","Tangent","Radial","None"],a:"Axis"},{q:"Q13: Uniform circular?",o:["ω const","α=0","Both","None"],a:"Both"},{q:"Q14: Period?",o:["Time for 1 rev","Time for 2 rev","Frequency","None"],a:"Time for 1 rev"},{q:"Q15: Angular momentum unit?",o:["kgm²/s","kgm/s","Nm","J"],a:"kgm²/s"}]},
-{t:"5.2 Centripetal Force",test:[{q:"Q1: Fc=?",o:["mv²/r","mg","ma","F=ma"],a:"mv²/r"},{q:"Q2: Direction?",o:["Toward center","Away","Tangent","None"],a:"Toward center"},{q:"Q3: Fc= mω²r?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q4: Banked road?",o:["Reduces friction","Increases","No effect","None"],a:"Reduces friction"},{q:"Q5: Conical pendulum?",o:["Tsinθ=Fc","Tcosθ=mg","Both","None"],a:"Both"},{q:"Q6: Satellite?",o:["Centripetal","Centrifugal","Gravity","None"],a:"Centripetal"},{q:"Q7: Centrifugal?",o:["Pseudo force","Real force","Both","None"],a:"Pseudo force"},{q:"Q8: Car turning?",o:["Friction provides Fc","Engine","Gravity","None"],a:"Friction provides Fc"},{q:"Q9: Critical velocity?",o:["√rg","√r/g","r/g","None"],a:"√rg"},{q:"Q10: Max speed on flat?",o:["√μrg","μrg","√r/μg","None"],a:"√μrg"},{q:"Q11: Vertical circle top?",o:["T+mg=mv²/r","T-mg=mv²/r","T=mg","None"],a:"T+mg=mv²/r"},{q:"Q12: Minimum v at top?",o:["√gr","√2gr","√5gr","None"],a:"√gr"},{q:"Q13: Centripetal acceleration?",o:["v²/r","v/r","r/v","None"],a:"v²/r"},{q:"Q14: Tangential acceleration?",o:["rα","v²/r","ω²r","None"],a:"rα"},{q:"Q15: Total acceleration?",o:["√a²t+ac²","at+ac","at-ac","None"],a:"√a²t+ac²"}]}],
-full:[{q:"Q1: Moment of inertia?",o:["mr²","mr","m/r","None"],a:"mr²"},{q:"Q2: Torque?",o:["r×F","F×r","r.F","None"],a:"r×F"},{q:"Q3: Angular momentum?",o:["mvr","mv²","mr²","None"],a:"mvr"},{q:"Q4: Conservation angular p?",o:["No torque","Torque","Force","None"],a:"No torque"},{q:"Q5: Rotational KE?",o:["1/2Iω²","1/2mv²","Iω","None"],a:"1/2Iω²"},{q:"Q6: Work done in rotation?",o:["τθ","F.d","P.t","None"],a:"τθ"},{q:"Q7: Radius of gyration?",o:["√I/m","I/m","m/I","None"],a:"√I/m"},{q:"Q8: Flywheel?",o:["Store energy","Generate","Both","None"],a:"Store energy"},{q:"Q9: Banking angle?",o:["tanθ=v²/rg","sinθ=v²/rg","cosθ=v²/rg","None"],a:"tanθ=v²/rg"},{q:"Q10: Centrifuge?",o:["Separate","Mix","Heat","None"],a:"Separate"}]}};
-
-// ========== CH 6: FLUID DYNAMICS ==========
-D['phy11-ch6']={name:"Ch 6: Fluid Dynamics",
-topics:[
-{t:"6.1 Ideal Fluid",test:[{q:"Q1: Ideal fluid?",o:["Non-viscous","Viscous","Turbulent","Compress"],a:"Non-viscous"},{q:"Q2: Density unit?",o:["kg/m³","N/m³","Pa","J"],a:"kg/m³"},{q:"Q3: Pressure unit?",o:["Pa","N","J","W"],a:"Pa"},{q:"Q4: Pascal Law?",o:["P transmitted","F transmitted","V constant","None"],a:"P transmitted"},{q:"Q5: P=hρg?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q6: 1 atm=?",o:["1.013x10^5 Pa","1x10^5","760","None"],a:"1.013x10^5 Pa"},{q:"Q7: Gauge pressure?",o:["P-Patm","P+Patm","P/Patm","None"],a:"P-Patm"},{q:"Q8: Absolute pressure?",o:["Pgauge+Patm","Pgauge-Patm","Pgauge","None"],a:"Pgauge+Patm"},{q:"Q9: Barometer?",o:["P atm","Flow","Density","None"],a:"P atm"},{q:"Q10: Manometer?",o:["P diff","Flow","Density","None"],a:"P diff"},{q:"Q11: Archimedes?",o:["Buoyant force","Pressure","Flow","None"],a:"Buoyant force"},{q:"Q12: Buoyant force=?",o:["Vρg","mg","F/A","None"],a:"Vρg"},{q:"Q13: Float condition?",o:["ρbody<ρfluid","ρbody>ρfluid","ρbody=ρfluid","None"],a:"ρbody<ρfluid"},{q:"Q14: Viscosity unit?",o:["Pa.s","N","J","W"],a:"Pa.s"},{q:"Q15: Surface tension?",o:["N/m","N/m²","J","W"],a:"N/m"}]},
-{t:"6.2 Equation of Continuity",test:[{q:"Q1: Continuity eq?",o:["A1v1=A2v2","P1=P2","F1=F2","None"],a:"A1v1=A2v2"},{q:"Q2: Based on?",o:["Mass cons","Energy","Momentum","Charge"],a:"Mass cons"},{q:"Q3: Av=constant?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q4: Narrow pipe v?",o:["Increases","Decreases","Same","None"],a:"Increases"},{q:"Q5: Wide pipe v?",o:["Decreases","Increases","Same","None"],a:"Decreases"},{q:"Q6: Mass flow rate?",o:["ρAv","Av","ρv","None"],a:"ρAv"},{q:"Q7: Incompressible?",o:["ρ constant","ρ change","V change","None"],a:"ρ constant"},{q:"Q8: Streamline?",o:["No cross","Cross","Turbulent","None"],a:"No cross"},{q:"Q9: Tube of flow?",o:["Bundle of streamlines","1 streamline","Vortex","None"],a:"Bundle of streamlines"},{q:"Q10: Steady flow?",o:["v constant","v change","P change","None"],a:"v constant"}]},
-{t:"6.3 Bernoulli's Equation",test:[{q:"Q1: Bernoulli based on?",o:["Energy","Mass","Momentum","Charge"],a:"Energy"},{q:"Q2: P+1/2ρv²+ρgh=?",o:["Constant","Increase","Decrease","None"],a:"Constant"},{q:"Q3: Fast fluid P?",o:["Low","High","Same","None"],a:"Low"},{q:"Q4: Slow fluid P?",o:["High","Low","Same","None"],a:"High"},{q:"Q5: Airplane wing?",o:["Bernoulli","Pascal","Archimedes","None"],a:"Bernoulli"},{q:"Q6: Venturi meter?",o:["Flow rate","Pressure","Density","None"],a:"Flow rate"},{q:"Q7: Torricelli law?",o:["v=√2gh","v=gh","v=2gh","None"],a:"v=√2gh"},{q:"Q8: Pitot tube?",o:["Speed","Pressure","Density","None"],a:"Speed"},{q:"Q9: Lift force?",o:["P below > P above","P above > P below","Equal","None"],a:"P below > P above"},{q:"Q10: Atomizer?",o:["Bernoulli","Pascal","Archimedes","None"],a:"Bernoulli"}]}],
-full:[{q:"Q1: Viscosity?",o:["Resistance to flow","Density","Pressure","None"],a:"Resistance to flow"},{q:"Q2: Turbulent flow?",o:["Irregular","Smooth","Steady","None"],a:"Irregular"},{q:"Q3: Reynolds number?",o:["ρvd/η","vd/ρ","η/ρv","None"],a:"ρvd/η"},{q:"Q4: Poiseuille eq?",o:["πPr⁴/8ηl","P/A","F/A","None"],a:"πPr⁴/8ηl"},{q:"Q5: Capillary rise?",o:["2Tcosθ/rρg","T/r","ρg/r","None"],a:"2Tcosθ/rρg"}]}};
-  // ========== CH 7: OSCILLATIONS ==========
-D['phy11-ch7']={name:"Ch 7: Oscillations",
-topics:[
-{t:"7.1 SHM",test:[{q:"Q1: SHM condition?",o:["F∝-x","F∝x","F=0","F=c"],a:"F∝-x"},{q:"Q2: SHM eq?",o:["a=-ω²x","a=ω²x","a=0","a=c"],a:"a=-ω²x"},{q:"Q3: ω=?",o:["2π/T","2πf","√k/m","All"],a:"All"},{q:"Q4: T of mass-spring?",o:["2π√m/k","2π√k/m","√m/k","None"],a:"2π√m/k"},{q:"Q5: Energy in SHM?",o:["Conserved","Increase","Decrease","None"],a:"Conserved"},{q:"Q6: KE in SHM?",o:["1/2k(A²-x²)","1/2kx²","1/2kA²","None"],a:"1/2k(A²-x²)"},{q:"Q7: PE in SHM?",o:["1/2kx²","1/2kA²","1/2k(A²-x²)","None"],a:"1/2kx²"},{q:"Q8: v max?",o:["ωA","ω²A","A","None"],a:"ωA"},{q:"Q9: a max?",o:["ω²A","ωA","A","None"],a:"ω²A"},{q:"Q10: Phase?",o:["ωt+φ","ωt","φ","None"],a:"ωt+φ"},{q:"Q11: Displacement?",o:["Asin(ωt+φ)","Acos","Atan","None"],a:"Asin(ωt+φ)"},{q:"Q12: Damped?",o:["Amplitude decreases","Constant","Increases","None"],a:"Amplitude decreases"},{q:"Q13: Forced?",o:["External force","No force","Gravity","None"],a:"External force"},{q:"Q14: Resonance?",o:["f=f0","f>f0","f<f0","None"],a:"f=f0"},{q:"Q15: Q factor?",o:["Energy stored/loss","f0/Δf","Both","None"],a:"Both"}]},
-{t:"7.2 Pendulum",test:[{q:"Q1: T pendulum?",o:["2π√l/g","2π√g/l","√l/g","None"],a:"2π√l/g"},{q:"Q2: T depends on?",o:["l","g","Both","None"],a:"Both"},{q:"Q3: T independent?",o:["mass","length","g","None"],a:"mass"},{q:"Q4: Seconds pendulum?",o:["2s","1s","0.5s","None"],a:"2s"},{q:"Q5: Length for 1s?",o:["0.25m","1m","2m","None"],a:"0.25m"},{q:"Q6: g increase T?",o:["Decreases","Increases","Same","None"],a:"Decreases"},{q:"Q7: l increase T?",o:["Increases","Decreases","Same","None"],a:"Increases"},{q:"Q8: On moon T?",o:["Increase","Decrease","Same","None"],a:"Increase"},{q:"Q9: Physical pendulum?",o:["Rigid body","Point mass","Spring","None"],a:"Rigid body"},{q:"Q10: Torsional?",o:["Twist","Swing","Spring","None"],a:"Twist"},{q:"Q11: Amplitude effect?",o:["Small angle ok","Large angle ok","No effect","None"],a:"Small angle ok"},{q:"Q12: Damped pendulum?",o:["T increases","T decreases","T same","None"],a:"T increases"},{q:"Q13: Driven pendulum?",o:["External force","No force","Gravity","None"],a:"External force"},{q:"Q14: Resonance in pendulum?",o:["Max amplitude","Min amplitude","Zero","None"],a:"Max amplitude"},{q:"Q15: Foucault pendulum?",o:["Earth rotation","Gravity","Length","None"],a:"Earth rotation"}]}],
-full:[{q:"Q1: Spring constant unit?",o:["N/m","N","J","W"],a:"N/m"},{q:"Q2: Series springs?",o:["1/k=1/k1+1/k2","k=k1+k2","k=k1*k2","None"],a:"1/k=1/k1+1/k2"},{q:"Q3: Parallel springs?",o:["k=k1+k2","1/k=1/k1+1/k2","k=k1*k2","None"],a:"k=k1+k2"},{q:"Q4: Damping types?",o:["Under,critical,over","1 type","2 types","None"],a:"Under,critical,over"},{q:"Q5: Critical damping?",o:["Fastest no osc","Slow osc","No return","None"],a:"Fastest no osc"}]}};
-
-// ========== CH 8: WAVES ==========
-D['phy11-ch8']={name:"Ch 8: Waves",
-topics:[
-{t:"8.1 Types of Waves",test:[{q:"Q1: Sound wave?",o:["Longitudinal","Transverse","Both","None"],a:"Longitudinal"},{q:"Q2: Light wave?",o:["Transverse","Longitudinal","Both","None"],a:"Transverse"},{q:"Q3: Mechanical wave?",o:["Need medium","No medium","Both","None"],a:"Need medium"},{q:"Q4: EM wave?",o:["No medium","Need medium","Both","None"],a:"No medium"},{q:"Q5: Water wave?",o:["Both","Long","Trans","None"],a:"Both"},{q:"Q6: Wave speed?",o:["fλ","f/λ","λ/f","None"],a:"fλ"},{q:"Q7: v=fλ?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q8: λ unit?",o:["m","Hz","m/s","N"],a:"m"},{q:"Q9: f unit?",o:["Hz","m","m/s","N"],a:"Hz"},{q:"Q10: v unit?",o:["m/s","Hz","m","N"],a:"m/s"},{q:"Q11: Pulse?",o:["Single disturbance","Continuous","Stationary","None"],a:"Single disturbance"},{q:"Q12: Periodic?",o:["Repeating","Single","Random","None"],a:"Repeating"},{q:"Q13: Amplitude?",o:["Max displacement","Min","Average","None"],a:"Max displacement"},{q:"Q14: Period?",o:["1/f","f","λ","None"],a:"1/f"},{q:"Q15: Wavefront?",o:["Same phase","Different phase","Node","None"],a:"Same phase"}]},
-{t:"8.2 Wave Equation",test:[{q:"Q1: y=Asin(kx-ωt)?",o:["Traveling","Standing","Stationary","None"],a:"Traveling"},{q:"Q2: k=?",o:["2π/λ","2πf","ω/v","None"],a:"2π/λ"},{q:"Q3: ω=?",o:["2πf","2π/λ","v/λ","None"],a:"2πf"},{q:"Q4: v=ω/k?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q5: Intensity?",o:["Energy/time/area","Energy","Power","None"],a:"Energy/time/area"},{q:"Q6: I∝?",o:["A²","A","1/A","None"],a:"A²"},{q:"Q7: Doppler effect?",o:["f change","λ change","v change","None"],a:"f change"},{q:"Q8: Source moving to?",o:["f increase","f decrease","f same","None"],a:"f increase"},{q:"Q9: Source moving away?",o:["f decrease","f increase","f same","None"],a:"f decrease"},{q:"Q10: Beats?",o:["|f1-f2|","f1+f2","f1*f2","None"],a:"|f1-f2|"},{q:"Q11: Beat freq?",o:["Difference","Sum","Product","None"],a:"Difference"},{q:"Q12: Superposition?",o:["y=y1+y2","y=y1*y2","y=y1/y2","None"],a:"y=y1+y2"},{q:"Q13: Constructive?",o:["In phase","Out phase","180°","None"],a:"In phase"},{q:"Q14: Destructive?",o:["180° out","In phase","0°","None"],a:"180° out"},{q:"Q15: Wave energy?",o:["Carried","Not carried","Destroyed","None"],a:"Carried"}]}],
-full:[{q:"Q1: Standing wave?",o:["Nodes+Antinodes","Traveling","Pulse","None"],a:"Nodes+Antinodes"},{q:"Q2: Node?",o:["Zero amplitude","Max amplitude","Constant","None"],a:"Zero amplitude"},{q:"Q3: Antinode?",o:["Max amplitude","Zero","Constant","None"],a:"Max amplitude"},{q:"Q4: String λn?",o:["2L/n","L/n","nL","None"],a:"2L/n"},{q:"Q5: Pipe open fn?",o:["nv/2L","nv/4L","v/nL","None"],a:"nv/2L"}]}};
-
-// ========== CH 9: PHYSICAL OPTICS ==========
-D['phy11-ch9']={name:"Ch 9: Physical Optics",
-topics:[
-{t:"9.1 Interference",test:[{q:"Q1: Bright fringe?",o:["nλ","(n+0.5)λ","λ/2","None"],a:"nλ"},{q:"Q2: Dark fringe?",o:["(n+0.5)λ","nλ","λ","None"],a:"(n+0.5)λ"},{q:"Q3: Young's double slit?",o:["Interference","Diffraction","Reflection","None"],a:"Interference"},{q:"Q4: Fringe width?",o:["λD/d","dD/λ","λd/D","None"],a:"λD/d"},{q:"Q5: λ increase fringe?",o:["Width increase","Width decrease","Same","None"],a:"Width increase"},{q:"Q6: d increase fringe?",o:["Width decrease","Width increase","Same","None"],a:"Width decrease"},{q:"Q7: Coherent sources?",o:["Same f,phase","Diff f","Diff phase","None"],a:"Same f,phase"},{q:"Q8: Path difference?",o:["d sinθ","d cosθ","d tanθ","None"],a:"d sinθ"},{q:"Q9: Constructive?",o:["nλ","(n+0.5)λ","λ/2","None"],a:"nλ"},{q:"Q10: Destructive?",o:["(n+0.5)λ","nλ","λ","None"],a:"(n+0.5)λ"},{q:"Q11: Central fringe?",o:["Bright","Dark","Zero","None"],a:"Bright"},{q:"Q12: Thin film?",o:["Interference","Diffraction","Polarization","None"],a:"Interference"},{q:"Q13: Oil film colors?",o:["Interference","Diffraction","Dispersion","None"],a:"Interference"},{q:"Q14: Newton's rings?",o:["Interference","Diffraction","Refraction","None"],a:"Interference"},{q:"Q15: Michelson?",o:["Interferometer","Spectrometer","Polarimeter","None"],a:"Interferometer"}]},
-{t:"9.2 Diffraction",test:[{q:"Q1: Diffraction?",o:["Bending","Reflection","Refraction","None"],a:"Bending"},{q:"Q2: Single slit?",o:["Diffraction","Interference","Reflection","None"],a:"Diffraction"},{q:"Q3: Central maxima?",o:["Brightest widest","Dark","Small","None"],a:"Brightest widest"},{q:"Q4: Width ∝?",o:["λ/a","a/λ","1/λa","None"],a:"λ/a"},{q:"Q5: λ increase?",o:["Width increase","Width decrease","Same","None"],a:"Width increase"},{q:"Q6: a decrease?",o:["Width increase","Width decrease","Same","None"],a:"Width increase"},{q:"Q7: Grating?",o:["Multiple slits","Single slit","Double slit","None"],a:"Multiple slits"},{q:"Q8: Resolving power?",o:["λ/Δλ","Δλ/λ","λ+Δλ","None"],a:"λ/Δλ"},{q:"Q9: Rayleigh criterion?",o:["Resolving limit","Diffraction","Interference","None"],a:"Resolving limit"},{q:"Q10: X-ray diffraction?",o:["Crystal structure","Surface","Color","None"],a:"Crystal structure"}]}],
-full:[{q:"Q1: λ visible?",o:["400-700nm","100-400","700-1000","None"],a:"400-700nm"},{q:"Q2: Polarization?",o:["Transverse","Longitudinal","Both","None"],a:"Transverse"},{q:"Q3: Brewster angle?",o:["tan⁻¹n","sin⁻¹n","cos⁻¹n","None"],a:"tan⁻¹n"},{q:"Q4: Huygens principle?",o:["Wavelets","Rays","Particles","None"],a:"Wavelets"},{q:"Q5: Polarizer?",o:["Passes 1 plane","Blocks all","Reflects","None"],a:"Passes 1 plane"}]}};
-  // ========== CH 10: THERMODYNAMICS ==========
-D['phy11-ch10']={name:"Ch 10: Thermodynamics",
-topics:[
-{t:"10.1 Laws of Thermodynamics",test:[{q:"Q1: 1st Law?",o:["ΔQ=ΔU+ΔW","PV=nRT","W=Fd","F=ma"],a:"ΔQ=ΔU+ΔW"},{q:"Q2: 2nd Law?",o:["Heat flows hot to cold","Cold to hot","Both","None"],a:"Heat flows hot to cold"},{q:"Q3: 3rd Law?",o:["0K entropy=0","0K U=0","0K V=0","None"],a:"0K entropy=0"},{q:"Q4: Zeroth Law?",o:["Thermal equilibrium","Energy cons","Entropy","None"],a:"Thermal equilibrium"},{q:"Q5: Internal energy?",o:["KE+PE","KE","PE","None"],a:"KE+PE"},{q:"Q6: Work done by gas?",o:["PΔV","VΔP","P/V","None"],a:"PΔV"},{q:"Q7: ΔU=0 in?",o:["Isothermal","Adiabatic","Isobaric","None"],a:"Isothermal"},{q:"Q8: Q=0 in?",o:["Adiabatic","Isothermal","Isobaric","None"],a:"Adiabatic"},{q:"Q9: V=0 in?",o:["Isochoric","Isobaric","Isothermal","None"],a:"Isochoric"},{q:"Q10: P=0 in?",o:["Isobaric","Isochoric","Isothermal","None"],a:"Isobaric"},{q:"Q11: Heat unit?",o:["J","N","W","kg"],a:"J"},{q:"Q12: Specific heat?",o:["J/kgK","J/K","J/kg","None"],a:"J/kgK"},{q:"Q13: Latent heat?",o:["Phase change","Temp change","Both","None"],a:"Phase change"},{q:"Q14: Cp>Cv?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q15: γ=Cp/Cv?",o:["True","False","Sometimes","None"],a:"True"}]},
-{t:"10.2 Thermodynamic Processes",test:[{q:"Q1: Isothermal?",o:["T constant","P constant","V constant","Q=0"],a:"T constant"},{q:"Q2: Adiabatic?",o:["Q=0","T constant","P constant","None"],a:"Q=0"},{q:"Q3: Isobaric?",o:["P constant","T constant","V constant","None"],a:"P constant"},{q:"Q4: Isochoric?",o:["V constant","P constant","T constant","None"],a:"V constant"},{q:"Q5: PV=const?",o:["Isothermal","Adiabatic","Isobaric","None"],a:"Isothermal"},{q:"Q6: PV^γ=const?",o:["Adiabatic","Isothermal","Isobaric","None"],a:"Adiabatic"},{q:"Q7: W in isothermal?",o:["nRTln(V2/V1)","PΔV","0","None"],a:"nRTln(V2/V1)"},{q:"Q8: W in adiabatic?",o:["ΔU","PΔV","nRT","None"],a:"ΔU"},{q:"Q9: W in isobaric?",o:["PΔV","0","nRT","None"],a:"PΔV"},{q:"Q10: W in isochoric?",o:["0","PΔV","nRT","None"],a:"0"},{q:"Q11: Carnot cycle?",o:["2 iso + 2 adi","4 iso","4 adi","None"],a:"2 iso + 2 adi"},{q:"Q12: Carnot efficiency?",o:["1-T2/T1","T2/T1","T1/T2","None"],a:"1-T2/T1"},{q:"Q13: Refrigerator?",o:["Heat pump","Engine","Both","None"],a:"Heat pump"},{q:"Q14: COP?",o:["Qc/W","W/Qc","Qh/W","None"],a:"Qc/W"},{q:"Q15: Entropy?",o:["Disorder","Order","Energy","None"],a:"Disorder"}]},
-{t:"10.3 Ideal Gas & Kinetic Theory",test:[{q:"Q1: Ideal gas law?",o:["PV=nRT","P1V1=P2V2","P/T=const","None"],a:"PV=nRT"},{q:"Q2: R value?",o:["8.31","4.18","1.38","None"],a:"8.31"},{q:"Q3: k Boltzmann?",o:["1.38x10^-23","8.31","4.18","None"],a:"1.38x10^-23"},{q:"Q4: RMS speed?",o:["√3RT/M","√RT/M","√2RT/M","None"],a:"√3RT/M"},{q:"Q5: Mean free path?",o:["1/√2πd²n","πd²n","1/πd²n","None"],a:"1/√2πd²n"},{q:"Q6: Pressure of gas?",o:["1/3ρv²rms","ρv²","1/2mv²","None"],a:"1/3ρv²rms"},{q:"Q7: KE per molecule?",o:["3/2kT","1/2kT","kT","None"],a:"3/2kT"},{q:"Q8: Degrees of freedom?",o:["Mono=3, Di=5","Mono=5, Di=3","Both=3","None"],a:"Mono=3, Di=5"},{q:"Q9: Equipartition?",o:["1/2kT per DOF","kT per DOF","2kT per DOF","None"],a:"1/2kT per DOF"},{q:"Q10: Avogadro number?",o:["6.02x10^23","8.31","1.38","None"],a:"6.02x10^23"},{q:"Q11: Boyle's law?",o:["PV=const","P/T=const","V/T=const","None"],a:"PV=const"},{q:"Q12: Charles law?",o:["V/T=const","PV=const","P/T=const","None"],a:"V/T=const"},{q:"Q13: Gay-Lussac?",o:["P/T=const","PV=const","V/T=const","None"],a:"P/T=const"},{q:"Q14: Real gas?",o:["Van der Waals","Ideal","Both","None"],a:"Van der Waals"},{q:"Q15: Brownian motion?",o:["Random motion","Straight","Circular","None"],a:"Random motion"}]}],
-full:[{q:"Q1: Heat engine?",o:["Qh to W+Qc","Qc to W+Qh","W to Q","None"],a:"Qh to W+Qc"},{q:"Q2: Efficiency max?",o:["Carnot","Otto","Diesel","None"],a:"Carnot"},{q:"Q3: 1 cal=?",o:["4.18 J","1 J","1000 J","None"],a:"4.18 J"},{q:"Q4: 0°C=?",o:["273K","373K","0K","None"],a:"273K"},{q:"Q5: Triple point?",o:["273.16K","273K","373K","None"],a:"273.16K"},{q:"Q6: Conduction?",o:["Heat transfer by contact","Radiation","Convection","None"],a:"Heat transfer by contact"},{q:"Q7: Convection?",o:["By fluid motion","By contact","By waves","None"],a:"By fluid motion"},{q:"Q8: Radiation?",o:["EM waves","Contact","Fluid","None"],a:"EM waves"},{q:"Q9: Black body?",o:["Absorbs all","Reflects all","Transmits all","None"],a:"Absorbs all"},{q:"Q10: Stefan law?",o:["E∝T⁴","E∝T","E∝T²","None"],a:"E∝T⁴"},{q:"Q11: Wien law?",o:["λmaxT=const","λT=const","λ/T=const","None"],a:"λmaxT=const"},{q:"Q12: Free expansion?",o:["W=0","W>0","W<0","None"],a:"W=0"},{q:"Q13: Throttling?",o:["h constant","P constant","T constant","None"],a:"h constant"},{q:"Q14: Joule Thomson?",o:["μ=(∂T/∂P)h","μ=(∂P/∂T)h","μ=(∂T/∂V)h","None"],a:"μ=(∂T/∂P)h"},{q:"Q15: Maxwell relation?",o:["(∂T/∂V)s=-(∂P/∂S)v","PV=nRT","ΔU=Q-W","None"],a:"(∂T/∂V)s=-(∂P/∂S)v"}]}};
-// ========== CH 1: ELECTROSTATICS ==========
-D['phy12-ch1']={name:"Ch 1: Electrostatics",
-topics:[
-{t:"1.1 Coulomb's Law",test:[{q:"Q1: Coulomb's Law?",o:["F=kq1q2/r²","F=ma","F=qvB","None"],a:"F=kq1q2/r²"},{q:"Q2: k value?",o:["9x10^9","8.85x10^-12","1.6x10^-19","None"],a:"9x10^9"},{q:"Q3: Unit of charge?",o:["Coulomb","Newton","Volt","Ampere"],a:"Coulomb"},{q:"Q4: e charge?",o:["1.6x10^-19 C","9x10^9","8.85x10^-12","None"],a:"1.6x10^-19 C"},{q:"Q5: Force nature?",o:["Attractive/Repulsive","Always attractive","Always repulsive","None"],a:"Attractive/Repulsive"},{q:"Q6: ε0 value?",o:["8.85x10^-12","9x10^9","1.6x10^-19","None"],a:"8.85x10^-12"},{q:"Q7: Medium effect?",o:["F decreases","F increases","No effect","None"],a:"F decreases"},{q:"Q8: Vector form?",o:["F=kq1q2r^/r²","F=ma","F=qE","None"],a:"F=kq1q2r^/r²"},{q:"Q9: Superposition?",o:["Vector sum","Scalar sum","Product","None"],a:"Vector sum"},{q:"Q10: Like charges?",o:["Repel","Attract","Neutral","None"],a:"Repel"},{q:"Q11: Unlike charges?",o:["Attract","Repel","Neutral","None"],a:"Attract"},{q:"Q12: Charge quantized?",o:["Yes","No","Sometimes","None"],a:"Yes"},{q:"Q13: Charge conserved?",o:["Yes","No","Sometimes","None"],a:"Yes"},{q:"Q14: Force medium?",o:["Independent","Depends","Both","None"],a:"Depends"},{q:"Q15: 1C has?",o:["6.25x10^18 e","1 e","100 e","None"],a:"6.25x10^18 e"}]},
-{t:"1.2 Electric Field",test:[{q:"Q1: E=?",o:["F/q","q/F","Fq","None"],a:"F/q"},{q:"Q2: E unit?",o:["N/C","C/N","J","W"],a:"N/C"},{q:"Q3: E of point charge?",o:["kq/r²","kq/r","q/r²","None"],a:"kq/r²"},{q:"Q4: E direction?",o:["Away + charge","Toward +","Both","None"],a:"Away + charge"},{q:"Q5: Dipole moment?",o:["q.2l","q/l","2q/l","None"],a:"q.2l"},{q:"Q6: E on dipole axis?",o:["2kp/r³","kp/r³","kp/r²","None"],a:"2kp/r³"},{q:"Q7: E on equator?",o:["kp/r³","2kp/r³","kp/r²","None"],a:"kp/r³"},{q:"Q8: Electric lines?",o:["Never cross","Cross","Sometimes","None"],a:"Never cross"},{q:"Q9: Field due to dipole?",o:["Decreases as 1/r³","1/r²","1/r","None"],a:"Decreases as 1/r³"},{q:"Q10: Torque on dipole?",o:["p×E","p.E","p/E","None"],a:"p×E"},{q:"Q11: PE of dipole?",o:["-p.E","p.E","p/E","None"],a:"-p.E"},{q:"Q12: E inside conductor?",o:["0","Max","kq/r²","None"],a:"0"},{q:"Q13: Gauss Law?",o:["∮E.ds=q/ε0","F=kq1q2/r²","E=F/q","None"],a:"∮E.ds=q/ε0"},{q:"Q14: Flux unit?",o:["Nm²/C","N/C","J","W"],a:"Nm²/C"},{q:"Q15: E due to sheet?",o:["σ/2ε0","σ/ε0","2σ/ε0","None"],a:"σ/2ε0"}]},
-{t:"1.3 Electric Potential",test:[{q:"Q1: V=?",o:["W/q","q/W","F/q","None"],a:"W/q"},{q:"Q2: V unit?",o:["Volt","Joule","N/C","W"],a:"Volt"},{q:"Q3: V of point charge?",o:["kq/r","kq/r²","q/r","None"],a:"kq/r"},{q:"Q4: Equipotential?",o:["V same","E same","Both","None"],a:"V same"},{q:"Q5: E = -?",o:["dV/dr","dV/dt","dE/dr","None"],a:"dV/dr"},{q:"Q6: V inside conductor?",o:["Constant","0","Max","None"],a:"Constant"},{q:"Q7: PE of charge?",o:["qV","V/q","F.d","None"],a:"qV"},{q:"Q8: 1 eV=?",o:["1.6x10^-19 J","1 J","9x10^9 J","None"],a:"1.6x10^-19 J"},{q:"Q9: V due to dipole?",o:["kpcosθ/r²","kq/r","kq/r²","None"],a:"kpcosθ/r²"},{q:"Q10: Capacitor C=?",o:["Q/V","V/Q","QV","None"],a:"Q/V"},{q:"Q11: C unit?",o:["Farad","Volt","Ohm","W"],a:"Farad"},{q:"Q12: Energy of capacitor?",o:["1/2CV²","CV","QV","None"],a:"1/2CV²"},{q:"Q13: Parallel C?",o:["C1+C2","1/C1+1/C2","C1*C2","None"],a:"C1+C2"},{q:"Q14: Series C?",o:["1/C1+1/C2","C1+C2","C1*C2","None"],a:"1/C1+1/C2"},{q:"Q15: Dielectric K?",o:["C/C0","C0/C","C*C0","None"],a:"C/C0"}]}],
-full:[{q:"Q1: Force between 2C,3C at 1m?",o:["54x10^9 N","9x10^9","6x10^9","None"],a:"54x10^9 N"},{q:"Q2: E at 1m from 1C?",o:["9x10^9 N/C","1 N/C","8.85x10^-12","None"],a:"9x10^9 N/C"},{q:"Q3: PE of 2 charges?",o:["kq1q2/r","kq1q2/r²","q1q2/r","None"],a:"kq1q2/r"}]}};
-
-// ========== CH 2: CURRENT ELECTRICITY ==========
-D['phy12-ch2']={name:"Ch 2: Current Electricity",
-topics:[
-{t:"2.1 Current and Ohm's Law",test:[{q:"Q1: I=?",o:["Q/t","t/Q","VQ","None"],a:"Q/t"},{q:"Q2: I unit?",o:["Ampere","Volt","Ohm","W"],a:"Ampere"},{q:"Q3: Drift velocity?",o:["Vd=I/nAe","I/nA","nAe/I","None"],a:"Vd=I/nAe"},{q:"Q4: Current density?",o:["J=I/A","I*A","A/I","None"],a:"J=I/A"},{q:"Q5: Ohm's Law?",o:["V=IR","I=VR","R=VI","None"],a:"V=IR"},{q:"Q6: R unit?",o:["Ohm","Volt","Ampere","W"],a:"Ohm"},{q:"Q7: Resistivity?",o:["ρ=RA/l","Rl/A","A/Rl","None"],a:"ρ=RA/l"},{q:"Q8: ρ unit?",o:["Ωm","Ω","m/Ω","None"],a:"Ωm"},{q:"Q9: Conductor ρ?",o:["Low","High","Zero","None"],a:"Low"},{q:"Q10: Insulator ρ?",o:["High","Low","Zero","None"],a:"High"},{q:"Q11: R∝T?",o:["Metals","Semiconductors","Both","None"],a:"Metals"},{q:"Q12: R decreases T?",o:["Semiconductors","Metals","Both","None"],a:"Semiconductors"},{q:"Q13: Superconductor?",o:["R=0","R=∞","R high","None"],a:"R=0"},{q:"Q14: Power?",o:["VI","I²R","V²/R","All"],a:"All"},{q:"Q15: 1 kWh=?",o:["3.6x10^6 J","1000 J","3600 J","None"],a:"3.6x10^6 J"}]},
-{t:"2.2 Kirchhoff Laws",test:[{q:"Q1: KCL?",o:["ΣI=0","ΣV=0","ΣR=0","None"],a:"ΣI=0"},{q:"Q2: KVL?",o:["ΣV=0","ΣI=0","ΣR=0","None"],a:"ΣV=0"},{q:"Q3: Wheatstone bridge?",o:["P/Q=R/S","P/Q=S/R","P*R=Q*S","None"],a:"P/Q=R/S"},{q:"Q4: Balanced bridge I?",o:["0","Max","V/R","None"],a:"0"},{q:"Q5: Potentiometer?",o:["Measure emf","Measure R","Measure I","None"],a:"Measure emf"},{q:"Q6: Galvanometer?",o:["Current detect","Voltage","Resistance","None"],a:"Current detect"},{q:"Q7: Shunt?",o:["Convert G to Ammeter","Convert G to Voltmeter","Increase R","None"],a:"Convert G to Ammeter"},{q:"Q8: Series R?",o:["R1+R2","1/R1+1/R2","R1*R2","None"],a:"R1+R2"},{q:"Q9: Parallel R?",o:["1/R1+1/R2","R1+R2","R1*R2","None"],a:"1/R1+1/R2"},{q:"Q10: Cell emf?",o:["Open circuit V","Closed circuit V","Current","None"],a:"Open circuit V"},{q:"Q11: Internal resistance?",o:["r=E/I - R","E/I","V/I","None"],a:"r=E/I - R"},{q:"Q12: Max power?",o:["R=r","R>r","R<r","None"],a:"R=r"},{q:"Q13: Temperature coeff?",o:["α=ΔR/RΔT","R/ΔT","ΔT/R","None"],a:"α=ΔR/RΔT"},{q:"Q14: Superposition?",o:["Sum of effects","Product","Division","None"],a:"Sum of effects"},{q:"Q15: Thevenin theorem?",o:["Vth, Rth","Ith, Vth","Rth, Ith","None"],a:"Vth, Rth"}]},
-{t:"2.3 Energy and Power",test:[{q:"Q1: Electric energy?",o:["VIt","I²Rt","V²t/R","All"],a:"All"},{q:"Q2: Electric power?",o:["VI","I²R","V²/R","All"],a:"All"},{q:"Q3: 1 Unit?",o:["1 kWh","1000 Wh","3600000 J","All"],a:"All"},{q:"Q4: Heating effect?",o:["I²R","V²/R","VI","All"],a:"All"},{q:"Q5: Fuse?",o:["High resistance","Low melting point","Both","None"],a:"Both"}]}],
-full:[{q:"Q1: R of 2Ω,3Ω series?",o:["5Ω","1.2Ω","6Ω","None"],a:"5Ω"},{q:"Q2: R of 2Ω,3Ω parallel?",o:["1.2Ω","5Ω","6Ω","None"],a:"1.2Ω"}]}};
-
-// ========== CH 3: MAGNETISM ==========
-D['phy12-ch3']={name:"Ch 3: Magnetism",
-topics:[
-{t:"3.1 Magnetic Force and Field",test:[{q:"Q1: F=qvBsinθ?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q2: F unit?",o:["N","T","A","W"],a:"N"},{q:"Q3: B unit?",o:["Tesla","N","A","W"],a:"Tesla"},{q:"Q4: 1T=?",o:["N/Am","N/C","J/C","V/m"],a:"N/Am"},{q:"Q5: Force on current?",o:["BILsinθ","BIL","BI/L","None"],a:"BILsinθ"},{q:"Q6: Force parallel?",o:["0","Max","BIL","None"],a:"0"},{q:"Q7: Force ⊥?",o:["Max","0","BIL/2","None"],a:"Max"},{q:"Q8: B due to wire?",o:["μ0I/2πr","μ0I/2r","μ0I/r","None"],a:"μ0I/2πr"},{q:"Q9: μ0 value?",o:["4πx10^-7","8.85x10^-12","9x10^9","None"],a:"4πx10^-7"},{q:"Q10: B at center loop?",o:["μ0I/2r","μ0I/2πr","μ0NI/2r","None"],a:"μ0I/2r"},{q:"Q11: B in solenoid?",o:["μ0nI","μ0I","nI","None"],a:"μ0nI"},{q:"Q12: Ampere Law?",o:["∮B.dl=μ0I","∮E.ds=q/ε0","F=qvB","None"],a:"∮B.dl=μ0I"},{q:"Q13: Cyclotron radius?",o:["mv/qB","qB/mv","mvB/q","None"],a:"mv/qB"},{q:"Q14: Cyclotron freq?",o:["qB/m","m/qB","qvB","None"],a:"qB/m"},{q:"Q15: Torque on loop?",o:["NIBA sinθ","NIB","IA","None"],a:"NIBA sinθ"}]},
-{t:"3.2 Galvanometer and Devices",test:[{q:"Q1: Galvanometer?",o:["Current measure","Voltage","Resistance","None"],a:"Current measure"},{q:"Q2: Ammeter R?",o:["Low","High","Infinite","None"],a:"Low"},{q:"Q3: Voltmeter R?",o:["High","Low","Zero","None"],a:"High"},{q:"Q4: Shunt S?",o:["IgG/(I-Ig)","IgG/I","I/G","None"],a:"IgG/(I-Ig)"},{q:"Q5: Voltmeter multiplier?",o:["R=V/Ig - G","V/Ig","G/Ig","None"],a:"R=V/Ig - G"},{q:"Q6: Moving coil?",o:["Sensitive","Rugged","Cheap","None"],a:"Sensitive"},{q:"Q7: Hall effect?",o:["E=Bvd","E=B/vd","E=vd/B","None"],a:"E=Bvd"},{q:"Q8: Cyclotron?",o:["Accelerate charges","Produce B","Measure I","None"],a:"Accelerate charges"},{q:"Q9: Mass spectrometer?",o:["m/q ratio","Speed","Energy","None"],a:"m/q ratio"},{q:"Q10: Magnetic dipole?",o:["NIA","BIL","F/q","None"],a:"NIA"},{q:"Q11: Magnetic moment?",o:["NIA","BIL","F/q","None"],a:"NIA"},{q:"Q12: Torque max?",o:["θ=90°","θ=0°","θ=180°","None"],a:"θ=90°"},{q:"Q13: Magnetic flux?",o:["BAcosθ","BA","B/A","None"],a:"BAcosθ"},{q:"Q14: Solenoid?",o:["Long coil","Short coil","Loop","None"],a:"Long coil"},{q:"Q15: Toroid?",o:["Ring solenoid","Straight solenoid","Loop","None"],a:"Ring solenoid"}]},
-{t:"3.3 Properties of Magnetic Materials",test:[{q:"Q1: Diamagnetic?",o:["Weakly repelled","Strongly attracted","No effect","None"],a:"Weakly repelled"},{q:"Q2: Paramagnetic?",o:["Weakly attracted","Strongly attracted","Repelled","None"],a:"Weakly attracted"},{q:"Q3: Ferromagnetic?",o:["Strongly attracted","Weakly attracted","Repelled","None"],a:"Strongly attracted"},{q:"Q4: Curie temp?",o:["Ferromagnetic to paramagnetic","Melting point","Boiling point","None"],a:"Ferromagnetic to paramagnetic"},{q:"Q5: Hysteresis?",o:["Lag of B behind H","Lead of B","No lag","None"],a:"Lag of B behind H"}]}],
-full:[{q:"Q1: Earth B at equator?",o:["Horizontal","Vertical","Zero","None"],a:"Horizontal"},{q:"Q2: Earth B at pole?",o:["Vertical","Horizontal","Zero","None"],a:"Vertical"}]}};
-// ========== CH 4: ELECTROMAGNETIC INDUCTION ==========
-D['phy12-ch4']={name:"Ch 4: Electromagnetic Induction",
-topics:[
-{t:"4.1 Faraday's Law and Lenz Law",test:[{q:"Q1: e=-dΦ/dt?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q2: Φ=?",o:["BAcosθ","BA","B/A","None"],a:"BAcosθ"},{q:"Q3: Flux unit?",o:["Weber","Tesla","Henry","None"],a:"Weber"},{q:"Q4: 1 Weber=?",o:["T.m²","N.m","J","None"],a:"T.m²"},{q:"Q5: Lenz Law?",o:["Opposes change","Supports change","No effect","None"],a:"Opposes change"},{q:"Q6: Motional emf?",o:["Bvl","Blv","vl/B","None"],a:"Bvl"},{q:"Q7: Generator principle?",o:["EMI","Ohm","Coulomb","None"],a:"EMI"},{q:"Q8: AC generator emf?",o:["e=NABωsinωt","V=IR","F=BIL","None"],a:"e=NABωsinωt"},{q:"Q9: DC generator?",o:["Split rings","Slip rings","Both","None"],a:"Split rings"},{q:"Q10: Induced current direction?",o:["Lenz Law","Right hand","Left hand","None"],a:"Lenz Law"},{q:"Q11: Eddy currents?",o:["Waste energy","Useful","No effect","None"],a:"Waste energy"},{q:"Q12: Eddy current use?",o:["Brakes","Waste","Heat","None"],a:"Brakes"},{q:"Q13: EMI depends on?",o:["Rate of change","Magnitude","Both","None"],a:"Rate of change"},{q:"Q14: Induced emf in coil?",o:["-N dΦ/dt","dΦ/dt","NΦ","None"],a:"-N dΦ/dt"},{q:"Q15: EMI application?",o:["Transformer","Motor","Battery","None"],a:"Transformer"}]},
-{t:"4.2 Self and Mutual Inductance",test:[{q:"Q1: Self inductance?",o:["L=NΦ/I","Φ/NI","NI/Φ","None"],a:"L=NΦ/I"},{q:"Q2: L unit?",o:["Henry","Tesla","Weber","None"],a:"Henry"},{q:"Q3: Mutual inductance?",o:["M=N2Φ21/I1","NΦ/I","Φ/I","None"],a:"M=N2Φ21/I1"},{q:"Q4: M unit?",o:["Henry","Tesla","Weber","None"],a:"Henry"},{q:"Q5: Energy in inductor?",o:["1/2LI²","LI","I²/L","None"],a:"1/2LI²"},{q:"Q6: L of solenoid?",o:["μ0N²A/l","μ0N/l","N²A","None"],a:"μ0N²A/l"},{q:"Q7: Transformer?",o:["Mutual induction","Self induction","Both","None"],a:"Mutual induction"},{q:"Q8: Step up?",o:["Ns>Np","Ns<Np","Ns=Np","None"],a:"Ns>Np"},{q:"Q9: Step down?",o:["Ns<Np","Ns>Np","Ns=Np","None"],a:"Ns<Np"},{q:"Q10: Transformer ratio?",o:["Ns/Np=Vs/Vp","Np/Ns","Vs*Vp","None"],a:"Ns/Np=Vs/Vp"},{q:"Q11: Ideal transformer?",o:["No loss","Loss","Both","None"],a:"No loss"},{q:"Q12: L in series?",o:["L1+L2","1/L1+1/L2","L1*L2","None"],a:"L1+L2"},{q:"Q13: L in parallel?",o:["1/L1+1/L2","L1+L2","L1*L2","None"],a:"1/L1+1/L2"},{q:"Q14: Choke coil?",o:["High L, Low R","Low L, High R","Both high","None"],a:"High L, Low R"},{q:"Q15: RL time constant?",o:["L/R","R/L","LR","None"],a:"L/R"}]}],
-full:[{q:"Q1: Dynamometer?",o:["Power measure","Voltage","Current","None"],a:"Power measure"},{q:"Q2: Back emf?",o:["Opposes current","Supports current","No effect","None"],a:"Opposes current"}]}};
-
-// ========== CH 5: ALTERNATING CURRENT ==========
-D['phy12-ch5']={name:"Ch 5: Alternating Current",
-topics:[
-{t:"5.1 AC Basics",test:[{q:"Q1: AC?",o:["Direction changes","Direction same","No direction","None"],a:"Direction changes"},{q:"Q2: f in Pakistan?",o:["50 Hz","60 Hz","100 Hz","None"],a:"50 Hz"},{q:"Q3: ω=?",o:["2πf","πf","f/2π","None"],a:"2πf"},{q:"Q4: V=V0sinωt?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q5: I=I0sinωt?",o:["True","False","Sometimes","None"],a:"True"}]},
-{t:"5.2 RMS and Reactance",test:[{q:"Q1: Vrms=?",o:["V0/√2","V0","√2V0","None"],a:"V0/√2"},{q:"Q2: Irms=?",o:["I0/√2","I0","√2I0","None"],a:"I0/√2"},{q:"Q3: XL=?",o:["ωL","1/ωC","R","None"],a:"ωL"},{q:"Q4: XC=?",o:["1/ωC","ωL","R","None"],a:"1/ωC"},{q:"Q5: XL at f=0?",o:["0","∞","R","None"],a:"0"},{q:"Q6: XC at f=0?",o:["∞","0","R","None"],a:"∞"},{q:"Q7: XL∝?",o:["f","1/f","f²","None"],a:"f"},{q:"Q8: XC∝?",o:["1/f","f","f²","None"],a:"1/f"},{q:"Q9: Impedance?",o:["√R²+(XL-XC)²","R+XL+XC","R*XL*XC","None"],a:"√R²+(XL-XC)²"},{q:"Q10: Z unit?",o:["Ohm","Henry","Farad","None"],a:"Ohm"}]},
-{t:"5.3 AC Circuits and Power",test:[{q:"Q1: R circuit φ?",o:["0°","90°","180°","None"],a:"0°"},{q:"Q2: L circuit φ?",o:["90°","0°","180°","None"],a:"90°"},{q:"Q3: C circuit φ?",o:["-90°","90°","0°","None"],a:"-90°"},{q:"Q4: Resonance?",o:["XL=XC","XL>XC","XL<XC","None"],a:"XL=XC"},{q:"Q5: Resonant freq?",o:["1/2π√LC","2π√LC","√LC","None"],a:"1/2π√LC"},{q:"Q6: Q factor?",o:["ωL/R","R/ωL","1/ωCR","None"],a:"ωL/R"},{q:"Q7: Power factor?",o:["cosφ","sinφ","tanφ","None"],a:"cosφ"},{q:"Q8: Wattless current?",o:["φ=90°","φ=0°","φ=45°","None"],a:"φ=90°"},{q:"Q9: Real power?",o:["VrmsIrmscosφ","VrmsIrms","Vrms²/R","None"],a:"VrmsIrmscosφ"},{q:"Q10: AC through L?",o:["V leads I","I leads V","In phase","None"],a:"V leads I"},{q:"Q11: AC through C?",o:["I leads V","V leads I","In phase","None"],a:"I leads V"},{q:"Q12: LCR at resonance?",o:["Z=R","Z=∞","Z=0","None"],a:"Z=R"},{q:"Q13: Bandwidth?",o:["f2-f1","f2+f1","f2*f1","None"],a:"f2-f1"},{q:"Q14: Sharpness?",o:["Q","1/Q","Q²","None"],a:"Q"},{q:"Q15: Power in L?",o:["0","V²/R","I²R","None"],a:"0"}]}],
-full:[{q:"Q1: Transformer efficiency?",o:["Output/Input","Input/Output","Output-Input","None"],a:"Output/Input"}]}};
-
-// ========== CH 6: ELECTROMAGNETIC WAVES ==========
-D['phy12-ch6']={name:"Ch 6: Electromagnetic Waves",
-topics:[
-{t:"6.1 Displacement Current and Maxwell",test:[{q:"Q1: Displacement current?",o:["ε0 dΦE/dt","dΦB/dt","I","None"],a:"ε0 dΦE/dt"},{q:"Q2: Maxwell eqns?",o:["4","2","1","None"],a:"4"},{q:"Q3: EM wave speed?",o:["1/√μ0ε0","√μ0ε0","μ0/ε0","None"],a:"1/√μ0ε0"},{q:"Q4: c value?",o:["3x10^8","9x10^9","8.85x10^-12","None"],a:"3x10^8"},{q:"Q5: EM wave?",o:["E⊥B⊥c","E||B||c","E||B⊥c","None"],a:"E⊥B⊥c"}]},
-{t:"6.2 EM Spectrum",test:[{q:"Q1: Radio λ?",o:[">1m","1mm-1m","1nm-400nm","None"],a:">1m"},{q:"Q2: Microwave λ?",o:["1mm-1m",">1m","1nm-400nm","None"],a:"1mm-1m"},{q:"Q3: IR λ?",o:["700nm-1mm","400-700nm","1nm-400nm","None"],a:"700nm-1mm"},{q:"Q4: Visible λ?",o:["400-700nm","700nm-1mm","1nm-400nm","None"],a:"400-700nm"},{q:"Q5: UV λ?",o:["10-400nm","400-700nm","1nm-10nm","None"],a:"10-400nm"},{q:"Q6: X-ray λ?",o:["0.01-10nm","10-400nm","1nm-10nm","None"],a:"0.01-10nm"},{q:"Q7: Gamma λ?",o:["<0.01nm","0.01-10nm","10-400nm","None"],a:"<0.01nm"},{q:"Q8: Ozone absorbs?",o:["UV","IR","Radio","None"],a:"UV"},{q:"Q9: Greenhouse effect?",o:["IR","UV","Radio","None"],a:"IR"},{q:"Q10: Radio use?",o:["Communication","Heating","Sterilize","None"],a:"Communication"}]},
-{t:"6.3 Properties of EM Waves",test:[{q:"Q1: Poynting vector?",o:["E×B/μ0","E.B","E/B","None"],a:"E×B/μ0"},{q:"Q2: Intensity?",o:["Energy/area/time","Energy/time","Power","None"],a:"Energy/area/time"},{q:"Q3: Momentum of light?",o:["U/c","U*c","U","None"],a:"U/c"},{q:"Q4: Radiation pressure?",o:["I/c","I*c","I","None"],a:"I/c"},{q:"Q5: EM wave energy?",o:["E² and B²","Only E²","Only B²","None"],a:"E² and B²"}]}],
-full:[{q:"Q1: Radar uses?",o:["Microwave","Radio","IR","None"],a:"Microwave"},{q:"Q2: Night vision?",o:["IR","UV","X-ray","None"],a:"IR"}]}};
-// ========== CH 7: OPTICS ==========
-D['phy12-ch7']={name:"Ch 7: Optics",
-topics:[
-{t:"7.1 Reflection and Refraction",test:[{q:"Q1: n=c/v?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q2: Snell Law?",o:["n1sinθ1=n2sinθ2","n1=n2","θ1=θ2","None"],a:"n1sinθ1=n2sinθ2"},{q:"Q3: Critical angle?",o:["sin⁻¹(1/n)","tan⁻¹n","cos⁻¹n","None"],a:"sin⁻¹(1/n)"},{q:"Q4: TIR condition?",o:["θ>θc, n1>n2","θ<θc","n1<n2","None"],a:"θ>θc, n1>n2"},{q:"Q5: Optical fiber?",o:["Total internal reflection","Refraction","Diffraction","None"],a:"Total internal reflection"},{q:"Q6: Real depth/App depth?",o:["n","1/n","n²","None"],a:"n"},{q:"Q7: Prism deviation?",o:["δ=(n-1)A","nA","A/n","None"],a:"δ=(n-1)A"},{q:"Q8: Angle of minimum D?",o:["i1=i2","i1>i2","i1<i2","None"],a:"i1=i2"},{q:"Q9: Rainbow?",o:["Dispersion+TIR","Only refraction","Only reflection","None"],a:"Dispersion+TIR"},{q:"Q10: Mirage?",o:["TIR in air","Refraction","Diffraction","None"],a:"TIR in air"}]},
-{t:"7.2 Lenses and Mirrors",test:[{q:"Q1: Lens formula?",o:["1/f=1/v-1/u","f=v-u","v=u/f","None"],a:"1/f=1/v-1/u"},{q:"Q2: Magnification?",o:["v/u","u/v","f/v","None"],a:"v/u"},{q:"Q3: Power of lens?",o:["1/f in m","f","1/f²","None"],a:"1/f in m"},{q:"Q4: Power unit?",o:["Dioptre","Watt","Joule","None"],a:"Dioptre"},{q:"Q5: Convex lens?",o:["Converging","Diverging","Both","None"],a:"Converging"},{q:"Q6: Concave lens?",o:["Diverging","Converging","Both","None"],a:"Diverging"},{q:"Q7: Mirror formula?",o:["1/f=1/v+1/u","f=v-u","v=u/f","None"],a:"1/f=1/v+1/u"},{q:"Q8: Concave mirror f?",o:["Negative","Positive","Zero","None"],a:"Negative"},{q:"Q9: Convex mirror f?",o:["Positive","Negative","Zero","None"],a:"Positive"},{q:"Q10: Lens in liquid?",o:["f increases","f decreases","f same","None"],a:"f increases"}]},
-{t:"7.3 Wave Optics",test:[{q:"Q1: Huygens principle?",o:["Wavelets","Rays","Particles","None"],a:"Wavelets"},{q:"Q2: Young's experiment?",o:["Interference","Diffraction","Polarization","None"],a:"Interference"},{q:"Q3: Fringe width?",o:["λD/d","dD/λ","λd/D","None"],a:"λD/d"},{q:"Q4: λ increase fringe?",o:["Width increase","Width decrease","Same","None"],a:"Width increase"},{q:"Q5: d increase fringe?",o:["Width decrease","Width increase","Same","None"],a:"Width decrease"},{q:"Q6: Single slit?",o:["Diffraction","Interference","Reflection","None"],a:"Diffraction"},{q:"Q7: Central maxima?",o:["Brightest widest","Dark","Small","None"],a:"Brightest widest"},{q:"Q8: Resolving power?",o:["λ/d","d/λ","1/λd","None"],a:"λ/d"},{q:"Q9: Polarization?",o:["Transverse waves","Longitudinal","Both","None"],a:"Transverse waves"},{q:"Q10: Brewster angle?",o:["tan⁻¹n","sin⁻¹n","cos⁻¹n","None"],a:"tan⁻¹n"},{q:"Q11: Microscope M?",o:["v/u * D/fe","D/fe","v/u","None"],a:"v/u * D/fe"},{q:"Q12: Telescope M?",o:["fo/fe","fe/fo","fo*fe","None"],a:"fo/fe"},{q:"Q13: Human eye lens?",o:["Convex","Concave","Flat","None"],a:"Convex"},{q:"Q14: Defect myopia?",o:["Far not clear","Near not clear","Both","None"],a:"Far not clear"},{q:"Q15: Defect hyperopia?",o:["Near not clear","Far not clear","Both","None"],a:"Near not clear"}]}],
-full:[{q:"Q1: Coherent sources?",o:["Same f,phase","Diff f","Diff phase","None"],a:"Same f,phase"}]}};
-
-// ========== CH 8: QUANTUM PHYSICS ==========
-D['phy12-ch8']={name:"Ch 8: Quantum Physics",
-topics:[
-{t:"8.1 Photoelectric Effect",test:[{q:"Q1: E=hf?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q2: Work function?",o:["Min energy","Max energy","Average","None"],a:"Min energy"},{q:"Q3: KE max=?",o:["hf-φ","hf+φ","hf*φ","None"],a:"hf-φ"},{q:"Q4: Threshold freq?",o:["φ/h","h/φ","φ*h","None"],a:"φ/h"},{q:"Q5: Threshold λ?",o:["hc/φ","h/φ","c/φ","None"],a:"hc/φ"},{q:"Q6: Stopping potential?",o:["eV0=hf-φ","V0=hf","V0=φ","None"],a:"eV0=hf-φ"},{q:"Q7: Photo current ∝?",o:["Intensity","Frequency","Wavelength","None"],a:"Intensity"},{q:"Q8: KE max ∝?",o:["Frequency","Intensity","Wavelength","None"],a:"Frequency"},{q:"Q9: Einstein equation?",o:["hf=φ+KEmax","E=mc²","F=ma","None"],a:"hf=φ+KEmax"},{q:"Q10: Photon energy unit?",o:["eV","Joule","Both","None"],a:"Both"}]},
-{t:"8.2 Matter Waves and Uncertainty",test:[{q:"Q1: λ=h/p?",o:["de Broglie","Planck","Einstein","None"],a:"de Broglie"},{q:"Q2: Electron λ?",o:["h/√2meV","√2meV/h","meV/h","None"],a:"h/√2meV"},{q:"Q3: Davisson-Germer?",o:["Wave nature","Particle nature","Both","None"],a:"Wave nature"},{q:"Q4: Compton effect?",o:["Photon scattering","Electron scattering","Both","None"],a:"Photon scattering"},{q:"Q5: Photon momentum?",o:["h/λ","hλ","λ/h","None"],a:"h/λ"},{q:"Q6: Uncertainty principle?",o:["ΔxΔp≥h/4π","ΔxΔp=0","ΔxΔp<h","None"],a:"ΔxΔp≥h/4π"},{q:"Q7: Wave function ψ?",o:["Probability amplitude","Energy","Momentum","None"],a:"Probability amplitude"},{q:"Q8: |ψ|²?",o:["Probability density","Energy","Momentum","None"],a:"Probability density"},{q:"Q9: Planck constant?",o:["6.6x10^-34","9x10^9","8.85x10^-12","None"],a:"6.6x10^-34"},{q:"Q10: Quantization?",o:["Energy levels","Continuous","Both","None"],a:"Energy levels"}]},
-{t:"8.3 Laser",test:[{q:"Q1: LASER?",o:["Light Amplification","Light Absorption","Light Emission","None"],a:"Light Amplification"},{q:"Q2: Stimulated emission?",o:["Laser","LED","Bulb","None"],a:"Laser"},{q:"Q3: Population inversion?",o:["N2>N1","N1>N2","N1=N2","None"],a:"N2>N1"},{q:"Q4: Laser properties?",o:["Coherent,Monochromatic","Incoherent","Polychromatic","None"],a:"Coherent,Monochromatic"},{q:"Q5: Ruby laser?",o:["3 level","4 level","2 level","None"],a:"3 level"}]}],
-full:[{q:"Q1: Photoelectric application?",o:["Solar cell","Motor","Generator","None"],a:"Solar cell"}]}};
-
-// ========== CH 9: ATOMIC PHYSICS ==========
-D['phy12-ch9']={name:"Ch 9: Atomic Physics",
-topics:[
-{t:"9.1 Bohr Model",test:[{q:"Q1: rn∝?",o:["n²","n","1/n","None"],a:"n²"},{q:"Q2: En∝?",o:["1/n²","n²","n","None"],a:"1/n²"},{q:"Q3: L=nħ?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q4: Bohr radius?",o:["0.53 Å","1 Å","5.3 Å","None"],a:"0.53 Å"},{q:"Q5: Ionization energy H?",o:["13.6 eV","10 eV","5 eV","None"],a:"13.6 eV"},{q:"Q6: Excitation?",o:["Electron jump up","Electron jump down","No jump","None"],a:"Electron jump up"},{q:"Q7: De-excitation?",o:["Photon emit","Photon absorb","No photon","None"],a:"Photon emit"},{q:"Q8: Franck-Hertz?",o:["Energy levels","Ionization","Scattering","None"],a:"Energy levels"},{q:"Q9: Ground state n?",o:["1","0","2","None"],a:"1"},{q:"Q10: Energy negative?",o:["Bound electron","Free electron","Both","None"],a:"Bound electron"}]},
-{t:"9.2 Atomic Spectra",test:[{q:"Q1: Lyman series?",o:["UV","Visible","IR","None"],a:"UV"},{q:"Q2: Balmer series?",o:["Visible","UV","IR","None"],a:"Visible"},{q:"Q3: Paschen series?",o:["IR","UV","Visible","None"],a:"IR"},{q:"Q4: Brackett series?",o:["IR","UV","Visible","None"],a:"IR"},{q:"Q5: Pfund series?",o:["IR","UV","Visible","None"],a:"IR"},{q:"Q6: Hα line?",o:["n=3 to n=2","n=2 to n=1","n=4 to n=2","None"],a:"n=3 to n=2"},{q:"Q7: X-ray?",o:["Inner shell","Outer shell","Nucleus","None"],a:"Inner shell"},{q:"Q8: Moseley law?",o:["√v ∝ Z","v ∝ Z","v ∝ 1/Z","None"],a:"√v ∝ Z"},{q:"Q9: Emission spectrum?",o:["Bright lines","Dark lines","Continuous","None"],a:"Bright lines"},{q:"Q10: Absorption spectrum?",o:["Dark lines","Bright lines","Continuous","None"],a:"Dark lines"}]}],
-full:[{q:"Q1: Hydrogen atom?",o:["1 electron","2 electron","Many electron","None"],a:"1 electron"}]}};
-// ========== CH 10: NUCLEAR PHYSICS ==========
-D['phy12-ch10']={name:"Ch 10: Nuclear Physics",
-topics:[
-{t:"10.1 Nucleus Structure",test:[{q:"Q1: Nuclear radius?",o:["R=R0 A^1/3","R0/A","R0*A","None"],a:"R=R0 A^1/3"},{q:"Q2: R0 value?",o:["1.2 fm","1.6 fm","1.0 fm","None"],a:"1.2 fm"},{q:"Q3: Nuclear density?",o:["Constant","∝A","∝1/A","None"],a:"Constant"},{q:"Q4: Mass defect?",o:["Δm = Zmp+Nmn - M","M-Zmp-Nmn","Zmp+Nmn","None"],a:"Δm = Zmp+Nmn - M"},{q:"Q5: Binding energy?",o:["Energy to break nucleus","Energy to form","Kinetic","None"],a:"Energy to break nucleus"},{q:"Q6: BE formula?",o:["Δm c²","mc²","1/2mv²","None"],a:"Δm c²"},{q:"Q7: 1 amu=?",o:["931 MeV","1 MeV","100 MeV","None"],a:"931 MeV"},{q:"Q8: BE per nucleon max?",o:["Fe-56","U-238","H-1","None"],a:"Fe-56"},{q:"Q9: Nuclear force?",o:["Short range","Long range","Infinite","None"],a:"Short range"},{q:"Q10: Nuclear force nature?",o:["Attractive","Repulsive","Both","None"],a:"Attractive"}]},
-{t:"10.2 Radioactivity",test:[{q:"Q1: N=N0e^-λt?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q2: T1/2=?",o:["0.693/λ","λ/0.693","1/λ","None"],a:"0.693/λ"},{q:"Q3: Activity unit?",o:["Becquerel","Curie","Rutherford","All"],a:"All"},{q:"Q4: 1 Ci=?",o:["3.7x10^10 Bq","1x10^10","6.02x10^23","None"],a:"3.7x10^10 Bq"},{q:"Q5: Alpha decay?",o:["He nucleus","Electron","Photon","None"],a:"He nucleus"},{q:"Q6: Beta decay?",o:["Electron","Proton","Neutron","None"],a:"Electron"},{q:"Q7: Gamma decay?",o:["Photon","Electron","Alpha","None"],a:"Photon"},{q:"Q8: α,β,γ penetrating?",o:["γ>β>α","α>β>γ","β>α>γ","None"],a:"γ>β>α"},{q:"Q9: Geiger counter?",o:["Radiation detect","Speed","Mass","None"],a:"Radiation detect"},{q:"Q10: Half life?",o:["Time for N to half","Time for N to double","Constant","None"],a:"Time for N to half"}]},
-{t:"10.3 Nuclear Reactions",test:[{q:"Q1: Fission?",o:["Heavy to light","Light to heavy","Same","None"],a:"Heavy to light"},{q:"Q2: Fusion?",o:["Light to heavy","Heavy to light","Same","None"],a:"Light to heavy"},{q:"Q3: Chain reaction?",o:["Neutron multiplication","Alpha","Beta","None"],a:"Neutron multiplication"},{q:"Q4: Reactor moderator?",o:["Slow neutrons","Fast neutrons","Absorb","None"],a:"Slow neutrons"},{q:"Q5: Moderator example?",o:["Heavy water","Lead","Steel","None"],a:"Heavy water"},{q:"Q6: Control rods?",o:["Absorb neutrons","Produce neutrons","Slow neutrons","None"],a:"Absorb neutrons"},{q:"Q7: E=mc²?",o:["Mass-energy","Momentum","Force","None"],a:"Mass-energy"},{q:"Q8: Sun energy?",o:["Nuclear fusion","Fission","Chemical","None"],a:"Nuclear fusion"},{q:"Q9: Critical mass?",o:["Min mass for chain","Max mass","Average mass","None"],a:"Min mass for chain"},{q:"Q10: Nuclear waste?",o:["Radioactive","Non-radioactive","Both","None"],a:"Radioactive"}]}],
-full:[{q:"Q1: Isotopes?",o:["Same Z, diff A","Same A, diff Z","Same Z=A","None"],a:"Same Z, diff A"},{q:"Q2: Isobars?",o:["Same A, diff Z","Same Z, diff A","Same Z=A","None"],a:"Same A, diff Z"}]}};
- // ========== CH 1: SETS AND FUNCTIONS ==========
-D['math11-ch1']={name:"Ch 1: Sets and Functions",
-topics:[
-{t:"1.1 Sets",test:[{q:"Q1: A∪B=?",o:["Elements in A or B","Elements in A and B","Elements in A only","None"],a:"Elements in A or B"},{q:"Q2: A∩B=?",o:["Elements in A and B","Elements in A or B","Elements in B only","None"],a:"Elements in A and B"},{q:"Q3: A-B=?",o:["In A not in B","In B not in A","In both","None"],a:"In A not in B"},{q:"Q4: Universal set?",o:["All elements","Empty set","Subset","None"],a:"All elements"},{q:"Q5: Null set?",o:["{}","{0}","{1}","None"],a:"{}"},{q:"Q6: n(A∪B)=?",o:["nA+nB-nA∩B","nA+nB","nA-nB","None"],a:"nA+nB-nA∩B"},{q:"Q7: Subset?",o:["A⊆B","A⊂B","A=B","None"],a:"A⊆B"},{q:"Q8: Power set?",o:["Set of all subsets","Set of elements","Union","None"],a:"Set of all subsets"},{q:"Q9: De Morgan?",o:["(A∪B)'=A'∩B'","(A∩B)'=A'∪B'","Both","None"],a:"Both"},{q:"Q10: Venn diagram?",o:["Set representation","Function","Graph","None"],a:"Set representation"},{q:"Q11: Disjoint sets?",o:["A∩B=∅","A∪B=∅","A=B","None"],a:"A∩B=∅"},{q:"Q12: Complement?",o:["U-A","A-U","U∩A","None"],a:"U-A"},{q:"Q13: Finite set?",o:["Countable elements","Infinite","Empty","None"],a:"Countable elements"},{q:"Q14: Equal sets?",o:["Same elements","Same size","Both","None"],a:"Same elements"},{q:"Q15: Cardinality?",o:["nA","A","|A|","None"],a:"nA"}]},
-{t:"1.2 Functions",test:[{q:"Q1: Function?",o:["Each x has 1 y","Each x has 2 y","No y","None"],a:"Each x has 1 y"},{q:"Q2: Domain?",o:["Input values","Output values","Both","None"],a:"Input values"},{q:"Q3: Range?",o:["Output values","Input values","Both","None"],a:"Output values"},{q:"Q4: f(x)=x²?",o:["One-one","Many-one","Neither","None"],a:"Many-one"},{q:"Q5: f(x)=2x+1?",o:["One-one","Many-one","Constant","None"],a:"One-one"},{q:"Q6: Composite?",o:["fog","f+g","f-g","None"],a:"fog"},{q:"Q7: Inverse?",o:["f⁻¹","1/f","-f","None"],a:"f⁻¹"},{q:"Q8: Identity function?",o:["f(x)=x","f(x)=1","f(x)=0","None"],a:"f(x)=x"},{q:"Q9: Constant function?",o:["f(x)=c","f(x)=x","f(x)=x²","None"],a:"f(x)=c"},{q:"Q10: Even function?",o:["f(-x)=f(x)","f(-x)=-f(x)","f(x)=0","None"],a:"f(-x)=f(x)"},{q:"Q11: Odd function?",o:["f(-x)=-f(x)","f(-x)=f(x)","f(x)=0","None"],a:"f(-x)=-f(x)"},{q:"Q12: Vertical line test?",o:["Function test","Range test","Domain test","None"],a:"Function test"},{q:"Q13: Graph of y=x?",o:["Straight line","Parabola","Circle","None"],a:"Straight line"},{q:"Q14: Graph of y=x²?",o:["Parabola","Line","Hyperbola","None"],a:"Parabola"},{q:"Q15: Real function?",o:["R→R","N→N","Z→Z","None"],a:"R→R"}]}],
-full:[{q:"Q1: A={1,2}, B={2,3}, A∪B=?",o:["{1,2,3}","{2}","{1,3}","None"],a:"{1,2,3}"}]}};
-
-// ========== CH 2: QUADRATIC EQUATIONS ==========
-D['math11-ch2']={name:"Ch 2: Quadratic Equations",
-topics:[
-{t:"2.1 Basics",test:[{q:"Q1: Quadratic form?",o:["ax²+bx+c=0","ax+b=0","a/x+b=0","None"],a:"ax²+bx+c=0"},{q:"Q2: a≠?",o:["0","1","-1","None"],a:"0"},{q:"Q3: Roots formula?",o:["-b±√D/2a","b±√D/2a","-b±D/2a","None"],a:"-b±√D/2a"},{q:"Q4: D=?",o:["b²-4ac","b²+4ac","4ac-b²","None"],a:"b²-4ac"},{q:"Q5: D>0?",o:["2 real roots","1 root","No real root","None"],a:"2 real roots"},{q:"Q6: D=0?",o:["1 real root","2 roots","No root","None"],a:"1 real root"},{q:"Q7: D<0?",o:["No real root","1 root","2 roots","None"],a:"No real root"},{q:"Q8: Sum of roots?",o:["-b/a","c/a","b/a","None"],a:"-b/a"},{q:"Q9: Product of roots?",o:["c/a","-b/a","b/a","None"],a:"c/a"},{q:"Q10: Nature from D?",o:["Real/Imaginary","Positive","Negative","None"],a:"Real/Imaginary"},{q:"Q11: Completing square?",o:["Method to solve","Factor","Formula","None"],a:"Method to solve"},{q:"Q12: Factorization?",o:["(x-α)(x-β)=0","ax+b=0","ax²=0","None"],a:"(x-α)(x-β)=0"},{q:"Q13: Quadratic with roots 2,3?",o:["x²-5x+6=0","x²+5x+6","x²-6x+5","None"],a:"x²-5x+6=0"},{q:"Q14: If α,β roots then?",o:["a(x-α)(x-β)=0","x-α=0","x-β=0","None"],a:"a(x-α)(x-β)=0"},{q:"Q15: Discriminant unit?",o:["b²","ac","abc","None"],a:"b²"}]},
-{t:"2.2 Applications",test:[{q:"Q1: Word problem?",o:["Quadratic model","Linear model","Constant","None"],a:"Quadratic model"},{q:"Q2: Max/min?",o:["Vertex","Root","Axis","None"],a:"Vertex"},{q:"Q3: Graph shape?",o:["Parabola","Line","Circle","None"],a:"Parabola"},{q:"Q4: Opens up?",o:["a>0","a<0","a=0","None"],a:"a>0"},{q:"Q5: Opens down?",o:["a<0","a>0","a=0","None"],a:"a<0"}]}],
-full:[{q:"Q1: Solve x²-5x+6=0?",o:["2,3","1,6","-2,-3","None"],a:"2,3"}]}};
-
-// ========== CH 3: SEQUENCES AND SERIES ==========
-D['math11-ch3']={name:"Ch 3: Sequences and Series",
-topics:[
-{t:"3.1 Arithmetic Progression",test:[{q:"Q1: AP?",o:["Common difference","Common ratio","Both","None"],a:"Common difference"},{q:"Q2: nth term?",o:["a+(n-1)d","ar^n-1","a+nd","None"],a:"a+(n-1)d"},{q:"Q3: Sum n terms?",o:["n/2[2a+(n-1)d]","n[a+l]/2","Both","None"],a:"Both"},{q:"Q4: d=?",o:["a2-a1","a1-a2","a2+a1","None"],a:"a2-a1"},{q:"Q5: AP example?",o:["2,4,6,8","2,4,8,16","1,2,4,8","None"],a:"2,4,6,8"},{q:"Q6: Arithmetic mean?",o:["(a+b)/2","√ab","ab","None"],a:"(a+b)/2"},{q:"Q7: Insert n AM?",o:["(b-a)/(n+1)","(b-a)/n","b-a","None"],a:"(b-a)/(n+1)"},{q:"Q8: 1,3,5...10th term?",o:["19","20","21","None"],a:"19"},{q:"Q9: Sum 1 to 10?",o:["55","50","45","None"],a:"55"},{q:"Q10: AP graph?",o:["Straight line","Parabola","Curve","None"],a:"Straight line"}]},
-{t:"3.2 Geometric Progression",test:[{q:"Q1: GP?",o:["Common ratio","Common difference","Both","None"],a:"Common ratio"},{q:"Q2: nth term?",o:["ar^n-1","a+(n-1)d","an","None"],a:"ar^n-1"},{q:"Q3: Sum n terms?",o:["a(r^n-1)/(r-1)","n/2[2a+(n-1)d]","ar","None"],a:"a(r^n-1)/(r-1)"},{q:"Q4: r=?",o:["a2/a1","a1/a2","a2-a1","None"],a:"a2/a1"},{q:"Q5: GP example?",o:["2,4,8,16","2,4,6,8","1,2,3,4","None"],a:"2,4,8,16"},{q:"Q6: Geometric mean?",o:["√ab","(a+b)/2","ab","None"],a:"√ab"},{q:"Q7: Sum infinite?",o:["a/(1-r)","a/(1+r)","a/r","None"],a:"a/(1-r)"},{q:"Q8: Condition for infinite?",o:["|r|<1","|r|>1","r=1","None"],a:"|r|<1"},{q:"Q9: 2,6,18...4th term?",o:["54","36","72","None"],a:"54"},{q:"Q10: GP graph?",o:["Exponential","Line","Parabola","None"],a:"Exponential"}]},
-{t:"3.3 Harmonic and Other Series",test:[{q:"Q1: HP?",o:["Reciprocal in AP","Same as AP","Same as GP","None"],a:"Reciprocal in AP"},{q:"Q2: HM?",o:["2ab/(a+b)","√ab","(a+b)/2","None"],a:"2ab/(a+b)"},{q:"Q3: AM>GM>HM?",o:["True","False","Sometimes","None"],a:"True"},{q:"Q4: Σn=?",o:["n(n+1)/2","n²","n(n+1)","None"],a:"n(n+1)/2"},{q:"Q5: Σn²=?",o:["n(n+1)(2n+1)/6","n²","n³","None"],a:"n(n+1)(2n+1)/6"}]}],
-full:[{q:"Q1: 5,8,11...d?",o:["3","2","4","None"],a:"3"}]}};
-// ========== CH 4: PERMUTATIONS AND COMBINATIONS ==========
-D['math11-ch4']={name:"Ch 4: Permutations and Combinations",
-topics:[
-{t:"4.1 Fundamental Principle",test:[{q:"Q1: Fundamental principle?",o:["m×n ways","m+n ways","m-n ways","None"],a:"m×n ways"},{q:"Q2: n! =?",o:["n(n-1)!","n+1","n²","None"],a:"n(n-1)!"},{q:"Q3: 0! =?",o:["1","0","Undefined","None"],a:"1"},{q:"Q4: 5! =?",o:["120","60","24","None"],a:"120"},{q:"Q5: Arrangement?",o:["Permutation","Combination","Both","None"],a:"Permutation"}]},
-{t:"4.2 Permutations",test:[{q:"Q1: nPr =?",o:["n!/(n-r)!","n!/r!","n!/(r!(n-r)!)","None"],a:"n!/(n-r)!"},{q:"Q2: nPn =?",o:["n!","1","n","None"],a:"n!"},{q:"Q3: nP1 =?",o:["n","1","n!","None"],a:"n"},{q:"Q4: All different?",o:["n!","n^r","r!","None"],a:"n!"},{q:"Q5: With repetition?",o:["n^r","n!","r!","None"],a:"n^r"},{q:"Q6: Circular perm?",o:["(n-1)!","n!","n","None"],a:"(n-1)!"}]},
-{t:"4.3 Combinations",test:[{q:"Q1: nCr =?",o:["n!/(r!(n-r)!)","n!/(n-r)!","n!/r!","None"],a:"n!/(r!(n-r)!)"},{q:"Q2: nCn =?",o:["1","n","0","None"],a:"1"},{q:"Q3: nC0 =?",o:["1","n","0","None"],a:"1"},{q:"Q4: nCr = nC?",o:["n-r","r","n","None"],a:"n-r"},{q:"Q5: nCr + nCr-1 =?",o:["n+1Cr","nCr","nCr-1","None"],a:"n+1Cr"},{q:"Q6: Selection?",o:["Combination","Permutation","Both","None"],a:"Combination"}]}],
-full:[{q:"Q1: 5C2 =?",o:["10","20","5","None"],a:"10"}]}};
-
-// ========== CH 5: MATHEMATICAL INDUCTION ==========
-D['math11-ch5']={name:"Ch 5: Mathematical Induction",
-topics:[
-{t:"5.1 Principle of Induction",test:[{q:"Q1: Induction has steps?",o:["2","3","4","None"],a:"2"},{q:"Q2: Base step?",o:["P(1) true","P(n) true","P(n+1)","None"],a:"P(1) true"},{q:"Q3: Inductive step?",o:["P(k)→P(k+1)","P(1)→P(2)","P(n)=0","None"],a:"P(k)→P(k+1)"},{q:"Q4: Used for?",o:["Prove statements","Solve equation","Graph","None"],a:"Prove statements"},{q:"Q5: Σk=1 to n k =?",o:["n(n+1)/2","n²","n(n-1)/2","None"],a:"n(n+1)/2"},{q:"Q6: Σk=1 to n k² =?",o:["n(n+1)(2n+1)/6","n²","n³","None"],a:"n(n+1)(2n+1)/6"},{q:"Q7: Σk=1 to n k³ =?",o:["[n(n+1)/2]²","n²","n³","None"],a:"[n(n+1)/2]²"},{q:"Q8: 2^n > n?",o:["For n≥1","For n≥2","For n≥3","None"],a:"For n≥1"},{q:"Q9: n! > 2^n?",o:["For n≥4","For n≥1","For n≥2","None"],a:"For n≥4"},{q:"Q10: Divisibility?",o:["Prove by induction","Not possible","Only direct","None"],a:"Prove by induction"}]}],
-full:[{q:"Q1: 1+2+...+n=?",o:["n(n+1)/2","n²","2n","None"],a:"n(n+1)/2"}]}};
-
-// ========== CH 6: BINOMIAL THEOREM ==========
-D['math11-ch6']={name:"Ch 6: Binomial Theorem",
-topics:[
-{t:"6.1 Binomial Expansion",test:[{q:"Q1: (a+b)^n =?",o:["Σ nCr a^n-r b^r","a^n+b^n","n(a+b)","None"],a:"Σ nCr a^n-r b^r"},{q:"Q2: nCr =?",o:["Coefficient","Term","Power","None"],a:"Coefficient"},{q:"Q3: Total terms?",o:["n+1","n","n-1","None"],a:"n+1"},{q:"Q4: Middle term?",o:["n even: 1 term","n odd: 2 terms","Both","None"],a:"Both"},{q:"Q5: rth term?",o:["nCr-1 a^n-r+1 b^r-1","nCr a^n-r b^r","nCr+1","None"],a:"nCr-1 a^n-r+1 b^r-1"},{q:"Q6: (1+x)^n?",o:["Σ nCr x^r","1+nx","(1+x)^n","None"],a:"Σ nCr x^r"},{q:"Q7: Pascal triangle?",o:["Coefficients","Powers","Variables","None"],a:"Coefficients"},{q:"Q8: (a-b)^n?",o:["Σ nCr a^n-r (-b)^r","a^n-b^n","a^n+b^n","None"],a:"Σ nCr a^n-r (-b)^r"},{q:"Q9: Independent term?",o:["No x","With x","Constant","None"],a:"No x"},{q:"Q10: (x+1/x)^n?",o:["Binomial","Trinomial","Monomial","None"],a:"Binomial"}]},
-{t:"6.2 Applications",test:[{q:"Q1: Approximation?",o:["(1+x)^n≈1+nx","Exact","No use","None"],a:"(1+x)^n≈1+nx"},{q:"Q2: Greatest term?",o:["Compare Tr and Tr+1","First term","Last term","None"],a:"Compare Tr and Tr+1"},{q:"Q3: (99)^4?",o:["Binomial expand","Direct multiply","Calculator","None"],a:"Binomial expand"},{q:"Q4: Divisibility?",o:["By binomial","Not possible","Only prime","None"],a:"By binomial"}]}],
-full:[{q:"Q1: (x+2)^3 expansion?",o:["x³+6x²+12x+8","x³+8","x³+2x²","None"],a:"x³+6x²+12x+8"}]}};
-// ========== CH 7: TRIGONOMETRY ==========
-D['math11-ch7']={name:"Ch 7: Trigonometry",
-topics:[
-{t:"7.1 Angles and Trigonometric Ratios",test:[{q:"Q1: 1 radian=?",o:["57.3°","180°","90°","None"],a:"57.3°"},{q:"Q2: 180°=?",o:["π rad","2π rad","π/2 rad","None"],a:"π rad"},{q:"Q3: sinθ=?",o:["opp/hyp","adj/hyp","opp/adj","None"],a:"opp/hyp"},{q:"Q4: cosθ=?",o:["adj/hyp","opp/hyp","hyp/adj","None"],a:"adj/hyp"},{q:"Q5: tanθ=?",o:["sin/cos","cos/sin","1/tan","None"],a:"sin/cos"},{q:"Q6: sin²+cos²=?",o:["1","0","2","None"],a:"1"},{q:"Q7: 1+tan²=?",o:["sec²","cosec²","1","None"],a:"sec²"},{q:"Q8: 1+cot²=?",o:["cosec²","sec²","1","None"],a:"cosec²"},{q:"Q9: sin(-θ)=?",o:["-sinθ","sinθ","cosθ","None"],a:"-sinθ"},{q:"Q10: cos(-θ)=?",o:["cosθ","-cosθ","sinθ","None"],a:"cosθ"}]},
-{t:"7.2 Trigonometric Identities",test:[{q:"Q1: sin2θ=?",o:["2sinθcosθ","sin²θ-cos²θ","sinθ+cosθ","None"],a:"2sinθcosθ"},{q:"Q2: cos2θ=?",o:["cos²-sin²","2sinθcosθ","1-2sin²","All"],a:"All"},{q:"Q3: tan2θ=?",o:["2tan/1-tan²","tan²","2tan","None"],a:"2tan/1-tan²"},{q:"Q4: sin(A+B)=?",o:["sinAcosB+cosAsinB","sinAcosB","cosAsinB","None"],a:"sinAcosB+cosAsinB"},{q:"Q5: cos(A+B)=?",o:["cosAcosB-sinAsinB","cosAcosB","sinAsinB","None"],a:"cosAcosB-sinAsinB"},{q:"Q6: sinC+sinD=?",o:["2sin(C+D)/2 cos(C-D)/2","sinCsinD","cosCcosD","None"],a:"2sin(C+D)/2 cos(C-D)/2"},{q:"Q7: cosC+cosD=?",o:["2cos(C+D)/2 cos(C-D)/2","2sin","sin","None"],a:"2cos(C+D)/2 cos(C-D)/2"},{q:"Q8: 2sinAcosB=?",o:["sin(A+B)+sin(A-B)","sinA+sinB","cosA+cosB","None"],a:"sin(A+B)+sin(A-B)"}]},
-{t:"7.3 Laws and Applications",test:[{q:"Q1: Sine Law?",o:["a/sinA=b/sinB=c/sinC","a²=b²+c²","a=b=c","None"],a:"a/sinA=b/sinB=c/sinC"},{q:"Q2: Cosine Law?",o:["c²=a²+b²-2abcosC","a²=b²+c²","c²=a²+b²","None"],a:"c²=a²+b²-2abcosC"},{q:"Q3: Area Δ=?",o:["1/2 ab sinC","abc","a+b+c","None"],a:"1/2 ab sinC"},{q:"Q4: Height of object?",o:["Trigonometry","Algebra","Geometry","None"],a:"Trigonometry"}]}],
-full:[{q:"Q1: sin30°=?",o:["1/2","√3/2","1","None"],a:"1/2"}]}};
-
-// ========== CH 8: PROPERTIES OF TRIANGLES ==========
-D['math11-ch8']={name:"Ch 8: Properties of Triangles",
-topics:[
-{t:"8.1 Triangle Solutions",test:[{q:"Q1: Inradius r=?",o:["Δ/s","2Δ/a+b+c","abc/4R","None"],a:"Δ/s"},{q:"Q2: Circumradius R=?",o:["abc/4Δ","Δ/s","2Δ/abc","None"],a:"abc/4Δ"},{q:"Q3: Area Δ=?",o:["√s(s-a)(s-b)(s-c)","1/2 bh","abc/4R","None"],a:"√s(s-a)(s-b)(s-c)"},{q:"Q4: s=?",o:["(a+b+c)/2","a+b+c","abc","None"],a:"(a+b+c)/2"},{q:"Q5: Projection formula?",o:["a=bcosC+ccosB","a²=b²+c²","a/sinA","None"],a:"a=bcosC+ccosB"}]}],
-full:[{q:"Q1: Equilateral Δ area?",o:["√3/4 a²","a²","1/2 a²","None"],a:"√3/4 a²"}]}};
-
-// ========== CH 9: ANALYTICAL GEOMETRY ==========
-D['math11-ch9']={name:"Ch 9: Analytical Geometry",
-topics:[
-{t:"9.1 Straight Lines",test:[{q:"Q1: Slope m=?",o:["(y2-y1)/(x2-x1)","y2-y1","x2-x1","None"],a:"(y2-y1)/(x2-x1)"},{q:"Q2: Eq of line?",o:["y=mx+c","x²+y²=r²","ax+by+c=0","Both B and C"],a:"Both B and C"},{q:"Q3: Parallel lines m?",o:["m1=m2","m1*m2=-1","m1+m2=0","None"],a:"m1=m2"},{q:"Q4: Perpendicular?",o:["m1*m2=-1","m1=m2","m1+m2=0","None"],a:"m1*m2=-1"},{q:"Q5: Distance formula?",o:["√(x2-x1)²+(y2-y1)²","x2-x1","y2-y1","None"],a:"√(x2-x1)²+(y2-y1)²"},{q:"Q6: Point-slope?",o:["y-y1=m(x-x1)","y=mx","ax+by+c=0","None"],a:"y-y1=m(x-x1)"},{q:"Q7: Intercept form?",o:["x/a+y/b=1","y=mx+c","ax+by=c","None"],a:"x/a+y/b=1"}]},
-{t:"9.2 Conic Sections",test:[{q:"Q1: Circle eq?",o:["(x-h)²+(y-k)²=r²","y=mx+c","ax+by=c","None"],a:"(x-h)²+(y-k)²=r²"},{q:"Q2: Parabola?",o:["y²=4ax","x²+y²=r²","x/a+y/b=1","None"],a:"y²=4ax"},{q:"Q3: Ellipse?",o:["x²/a²+y²/b²=1","y²=4ax","x²-y²=1","None"],a:"x²/a²+y²/b²=1"},{q:"Q4: Hyperbola?",o:["x²/a²-y²/b²=1","x²/a²+y²/b²=1","y²=4ax","None"],a:"x²/a²-y²/b²=1"},{q:"Q5: Focus of parabola?",o:["(a,0)","(0,a)","(h,k)","None"],a:"(a,0)"}]}],
-full:[{q:"Q1: Distance (0,0) to (3,4)?",o:["5","7","1","None"],a:"5"}]}};
-
-// ========== CH 10: INTRODUCTION TO TRIGONOMETRY ==========
-D['math11-ch10']={name:"Ch 10: Introduction to Trigonometry",
-topics:[
-{t:"10.1 Basic Concepts",test:[{q:"Q1: Trigonometry?",o:["Triangle measurement","Circle","Square","None"],a:"Triangle measurement"},{q:"Q2: Quadrant I?",o:["All +","sin +","cos +","All + and sin +, cos +"],a:"All +"},{q:"Q3: Quadrant II?",o:["sin +","cos +","tan +","None"],a:"sin +"},{q:"Q4: Quadrant III?",o:["tan +","sin +","cos +","None"],a:"tan +"},{q:"Q5: Quadrant IV?",o:["cos +","sin +","tan +","None"],a:"cos +"},{q:"Q6: sin90°=?",o:["1","0","-1","None"],a:"1"},{q:"Q7: cos90°=?",o:["0","1","-1","None"],a:"0"},{q:"Q8: tan45°=?",o:["1","0","√3","None"],a:"1"},{q:"Q9: sin0°=?",o:["0","1","-1","None"],a:"0"},{q:"Q10: cos0°=?",o:["1","0","-1","None"],a:"1"}]}],
-full:[{q:"Q1: sin²θ+cos²θ=?",o:["1","0","2","None"],a:"1"}]}};
-// ========== CH 1: FUNCTIONS AND LIMITS ==========
-D['math12-ch1']={name:"Ch 1: Functions and Limits",
-topics:[
-{t:"1.1 Functions",test:[{q:"Q1: Domain of √x?",o:["x≥0","x>0","All R","None"],a:"x≥0"},{q:"Q2: Range of x²?",o:["y≥0","y>0","All R","None"],a:"y≥0"},{q:"Q3: One-one?",o:["Different x→Different y","Same x→Same y","Both","None"],a:"Different x→Different y"},{q:"Q4: Onto?",o:["Range=Codomain","Domain=Range","Range⊂Codomain","None"],a:"Range=Codomain"},{q:"Q5: Inverse exists?",o:["One-one Onto","Only One-one","Only Onto","None"],a:"One-one Onto"}]},
-{t:"1.2 Limits",test:[{q:"Q1: lim x→2 x²=?",o:["4","2","0","None"],a:"4"},{q:"Q2: lim 1/x as x→∞=?",o:["0","1","∞","None"],a:"0"},{q:"Q3: lim sinx/x as x→0=?",o:["1","0","∞","None"],a:"1"},{q:"Q4: lim (x²-1)/(x-1) as x→1=?",o:["2","1","0","None"],a:"2"},{q:"Q5: LHL=RHL?",o:["Limit exists","Limit not exist","Both","None"],a:"Limit exists"}]},
-{t:"1.3 Continuity",test:[{q:"Q1: Continuous at a?",o:["lim f(x)=f(a)","lim f(x)≠f(a)","f(a)=0","None"],a:"lim f(x)=f(a)"},{q:"Q2: Polynomial?",o:["Continuous","Discontinuous","Both","None"],a:"Continuous"},{q:"Q3: 1/x at x=0?",o:["Discontinuous","Continuous","Both","None"],a:"Discontinuous"}]}],
-full:[{q:"Q1: lim (x-2)/(x²-4) as x→2=?",o:["1/4","1/2","0","None"],a:"1/4"}]}};
-
-// ========== CH 2: DIFFERENTIATION ==========
-D['math12-ch2']={name:"Ch 2: Differentiation",
-topics:[
-{t:"2.1 Derivative Rules",test:[{q:"Q1: d/dx x^n=?",o:["nx^n-1","x^n","n","None"],a:"nx^n-1"},{q:"Q2: d/dx sinx=?",o:["cosx","-sinx","tanx","None"],a:"cosx"},{q:"Q3: d/dx cosx=?",o:["-sinx","cosx","-cosx","None"],a:"-sinx"},{q:"Q4: d/dx e^x=?",o:["e^x","x e^x-1","lnx","None"],a:"e^x"},{q:"Q5: d/dx lnx=?",o:["1/x","x","lnx","None"],a:"1/x"}]},
-{t:"2.2 Product and Chain Rule",test:[{q:"Q1: d/dx(uv)=?",o:["u'v+uv'","u'v'","uv","None"],a:"u'v+uv'"},{q:"Q2: d/dx(u/v)=?",o:["(u'v-uv')/v²","u'/v'","uv","None"],a:"(u'v-uv')/v²"},{q:"Q3: Chain rule?",o:["dy/dx=dy/du * du/dx","dy/dx=dy*du","dy/dx=dy/du","None"],a:"dy/dx=dy/du * du/dx"},{q:"Q4: d/dx sinx²=?",o:["2x cosx²","cosx²","2x sinx","None"],a:"2x cosx²"}]},
-{t:"2.3 Applications",test:[{q:"Q1: Rate of change?",o:["Derivative","Integral","Limit","None"],a:"Derivative"},{q:"Q2: Increasing?",o:["f'(x)>0","f'(x)<0","f'(x)=0","None"],a:"f'(x)>0"},{q:"Q3: Decreasing?",o:["f'(x)<0","f'(x)>0","f'(x)=0","None"],a:"f'(x)<0"},{q:"Q4: Max/Min?",o:["f'(x)=0","f(x)=0","f''(x)=0","None"],a:"f'(x)=0"}]}],
-full:[{q:"Q1: d/dx x³+2x=?",o:["3x²+2","3x²","x²+2","None"],a:"3x²+2"}]}};
-
-// ========== CH 3: INTEGRATION ==========
-D['math12-ch3']={name:"Ch 3: Integration",
-topics:[
-{t:"3.1 Basic Integrals",test:[{q:"Q1: ∫x^n dx=?",o:["x^n+1/(n+1)+C","nx^n-1","x^n","None"],a:"x^n+1/(n+1)+C"},{q:"Q2: ∫1/x dx=?",o:["ln|x|+C","1/x²","x","None"],a:"ln|x|+C"},{q:"Q3: ∫e^x dx=?",o:["e^x+C","x e^x","lnx","None"],a:"e^x+C"},{q:"Q4: ∫sinx dx=?",o:["-cosx+C","cosx","sinx","None"],a:"-cosx+C"},{q:"Q5: ∫cosx dx=?",o:["sinx+C","-sinx","cosx","None"],a:"sinx+C"}]},
-{t:"3.2 Methods",test:[{q:"Q1: ∫f'(x)/f(x) dx=?",o:["ln|f(x)|+C","f(x)","f'(x)","None"],a:"ln|f(x)|+C"},{q:"Q2: Integration by parts?",o:["∫u dv=uv-∫v du","∫uv dx","∫u+v","None"],a:"∫u dv=uv-∫v du"},{q:"Q3: Substitution?",o:["Change variable","Direct","No method","None"],a:"Change variable"}]},
-{t:"3.3 Definite Integral",test:[{q:"Q1: ∫a to b f(x)dx=?",o:["F(b)-F(a)","F(a)-F(b)","F(b)+F(a)","None"],a:"F(b)-F(a)"},{q:"Q2: Area under curve?",o:["Definite integral","Derivative","Limit","None"],a:"Definite integral"},{q:"Q3: ∫0 to π sinx dx=?",o:["2","1","0","None"],a:"2"}]}],
-full:[{q:"Q1: ∫2x dx=?",o:["x²+C","2x","x+C","None"],a:"x²+C"}]}};
-// ========== CH 4: VECTORS ==========
-D['math12-ch4']={name:"Ch 4: Vectors",
-topics:[
-{t:"4.1 Vector Basics",test:[{q:"Q1: Vector?",o:["Magnitude + Direction","Only Magnitude","Only Direction","None"],a:"Magnitude + Direction"},{q:"Q2: Scalar?",o:["Only Magnitude","Magnitude + Direction","Direction","None"],a:"Only Magnitude"},{q:"Q3: Unit vector?",o:["|a|=1","|a|>1","|a|<1","None"],a:"|a|=1"},{q:"Q4: Zero vector?",o:["|a|=0","|a|=1","|a|>0","None"],a:"|a|=0"},{q:"Q5: i.j=?",o:["0","1","-1","None"],a:"0"}]},
-{t:"4.2 Operations",test:[{q:"Q1: a.b=?",o:["|a||b|cosθ","|a||b|sinθ","|a|+|b|","None"],a:"|a||b|cosθ"},{q:"Q2: a×b=?",o:["|a||b|sinθ n̂","|a||b|cosθ","|a|+|b|","None"],a:"|a||b|sinθ n̂"},{q:"Q3: a⊥b if?",o:["a.b=0","a×b=0","a=b","None"],a:"a.b=0"},{q:"Q4: a||b if?",o:["a×b=0","a.b=0","a=b","None"],a:"a×b=0"},{q:"Q5: |a|=?",o:["√(x²+y²+z²)","x+y+z","x²+y²+z²","None"],a:"√(x²+y²+z²)"}]},
-{t:"4.3 Applications",test:[{q:"Q1: Work =?",o:["F.d","|F||d|","F/d","None"],a:"F.d"},{q:"Q2: Torque =?",o:["r×F","r.F","r/F","None"],a:"r×F"},{q:"Q3: Area of parallelogram?",o:["|a×b|","a.b","|a|+|b|","None"],a:"|a×b|"}]}],
-full:[{q:"Q1: i×j=?",o:["k","-k","0","None"],a:"k"}]}};
-
-// ========== CH 5: 3D GEOMETRY ==========
-D['math12-ch5']={name:"Ch 5: 3D Geometry",
-topics:[
-{t:"5.1 Lines and Planes",test:[{q:"Q1: Distance formula 3D?",o:["√(x2-x1)²+(y2-y1)²+(z2-z1)²","√(x2-x1)²+(y2-y1)²","x2-x1","None"],a:"√(x2-x1)²+(y2-y1)²+(z2-z1)²"},{q:"Q2: Direction cosines?",o:["l,m,n","x,y,z","a,b,c","None"],a:"l,m,n"},{q:"Q3: l²+m²+n²=?",o:["1","0","2","None"],a:"1"},{q:"Q4: Plane eq?",o:["ax+by+cz+d=0","y=mx+c","x²+y²+z²=r²","None"],a:"ax+by+cz+d=0"},{q:"Q5: Line eq?",o:["(x-x1)/a=(y-y1)/b=(z-z1)/c","y=mx+c","ax+by+c=0","None"],a:"(x-x1)/a=(y-y1)/b=(z-z1)/c"}]},
-{t:"5.2 Angles and Distance",test:[{q:"Q1: Angle between planes?",o:["cosθ=(a1a2+b1b2+c1c2)/√","sinθ","tanθ","None"],a:"cosθ=(a1a2+b1b2+c1c2)/√"},{q:"Q2: Distance point to plane?",o:["|ax1+by1+cz1+d|/√a²+b²+c²","ax+by+cz","d","None"],a:"|ax1+by1+cz1+d|/√a²+b²+c²"},{q:"Q3: Parallel planes?",o:["a1/a2=b1/b2=c1/c2","a1=a2","b1=b2","None"],a:"a1/a2=b1/b2=c1/c2"}]}],
-full:[{q:"Q1: Distance (0,0,0) to (1,2,2)?",o:["3","5","1","None"],a:"3"}]}};
-
-// ========== CH 6: STATISTICS ==========
-D['math12-ch6']={name:"Ch 6: Statistics",
-topics:[
-{t:"6.1 Measures",test:[{q:"Q1: Mean?",o:["Σx/n","Σf/n","n/Σx","None"],a:"Σx/n"},{q:"Q2: Median?",o:["Middle value","Most frequent","Average","None"],a:"Middle value"},{q:"Q3: Mode?",o:["Most frequent","Middle","Average","None"],a:"Most frequent"},{q:"Q4: Range?",o:["Max-Min","Max+Min","Max/Min","None"],a:"Max-Min"}]},
-{t:"6.2 Dispersion",test:[{q:"Q1: Variance?",o:["Σ(x-mean)²/n","Σx/n","√variance","None"],a:"Σ(x-mean)²/n"},{q:"Q2: SD?",o:["√variance","variance²","mean","None"],a:"√variance"},{q:"Q3: CV=?",o:["SD/Mean ×100","Mean/SD","SD+Mean","None"],a:"SD/Mean ×100"}]},
-{t:"6.3 Probability",test:[{q:"Q1: P(A)=?",o:["nA/nS","nS/nA","nA+nS","None"],a:"nA/nS"},{q:"Q2: P(A∪B)=?",o:["P(A)+P(B)-P(A∩B)","P(A)+P(B)","P(A)*P(B)","None"],a:"P(A)+P(B)-P(A∩B)"},{q:"Q3: Independent?",o:["P(A∩B)=P(A)P(B)","P(A∩B)=0","P(A)=P(B)","None"],a:"P(A∩B)=P(A)P(B)"}]}],
-full:[{q:"Q1: Mean of 2,4,6?",o:["4","6","2","None"],a:"4"}]}};
-// ========== CH 7: MATRICES AND DETERMINANTS ==========
-D['math12-ch7']={name:"Ch 7: Matrices and Determinants",
-topics:[
-{t:"7.1 Matrices",test:[{q:"Q1: Matrix?",o:["Rectangular array","Square array","Single number","None"],a:"Rectangular array"},{q:"Q2: Order 2×3?",o:["2 rows 3 cols","3 rows 2 cols","2×3 elements","None"],a:"2 rows 3 cols"},{q:"Q3: A+B=?",o:["a_ij + b_ij","a_ij - b_ij","a_ij * b_ij","None"],a:"a_ij + b_ij"},{q:"Q4: AB defined if?",o:["colsA=rowsB","rowsA=colsB","A=B","None"],a:"colsA=rowsB"},{q:"Q5: Identity matrix?",o:["I","A","0","None"],a:"I"}]},
-{t:"7.2 Determinants",test:[{q:"Q1: |A| for 2×2?",o:["ad-bc","ab-cd","a+d","None"],a:"ad-bc"},{q:"Q2: Singular matrix?",o:["|A|=0","|A|≠0","|A|=1","None"],a:"|A|=0"},{q:"Q3: Inverse exists if?",o:["|A|≠0","|A|=0","A=I","None"],a:"|A|≠0"},{q:"Q4: A⁻¹=?",o:["adjA/|A|","|A|/adjA","A","None"],a:"adjA/|A|"}]},
-{t:"7.3 Applications",test:[{q:"Q1: Solve by Cramer's rule?",o:["Determinants","Matrix","Both","None"],a:"Both"},{q:"Q2: 3 equations 3 variables?",o:["3×3 matrix","2×2 matrix","1×1 matrix","None"],a:"3×3 matrix"}]}],
-full:[{q:"Q1: |2 3| |1 4|=?",o:["5","8","11","None"],a:"5"}]}};
-
-// ========== CH 8: DIFFERENTIAL EQUATIONS ==========
-D['math12-ch8']={name:"Ch 8: Differential Equations",
-topics:[
-{t:"8.1 Basics",test:[{q:"Q1: DE?",o:["Equation with derivative","Algebraic eq","Linear eq","None"],a:"Equation with derivative"},{q:"Q2: Order?",o:["Highest derivative","Lowest derivative","Power","None"],a:"Highest derivative"},{q:"Q3: Degree?",o:["Power of highest derivative","Order","Coefficient","None"],a:"Power of highest derivative"},{q:"Q4: dy/dx = y?",o:["1st order","2nd order","0 order","None"],a:"1st order"}]},
-{t:"8.2 Methods",test:[{q:"Q1: Variables separable?",o:["dy/dx=f(x)g(y)","dy/dx=y","dy/dx=x","None"],a:"dy/dx=f(x)g(y)"},{q:"Q2: Solution?",o:["∫dy/g(y)=∫f(x)dx","dy=dx","y=x","None"],a:"∫dy/g(y)=∫f(x)dx"},{q:"Q3: General solution?",o:["With constant","Without constant","Particular","None"],a:"With constant"}]}],
-full:[{q:"Q1: Order of d²y/dx² + dy/dx = 0?",o:["2","1","0","None"],a:"2"}]}};
-
-// ========== CH 9: MATHEMATICAL LOGIC ==========
-D['math12-ch9']={name:"Ch 9: Mathematical Logic",
-topics:[
-{t:"9.1 Statements",test:[{q:"Q1: Statement?",o:["True or False","Both","Neither","None"],a:"True or False"},{q:"Q2: ~p?",o:["Not p","p and q","p or q","None"],a:"Not p"},{q:"Q3: p∧q?",o:["p and q","p or q","Not p","None"],a:"p and q"},{q:"Q4: p∨q?",o:["p or q","p and q","Not p","None"],a:"p or q"},{q:"Q5: p→q?",o:["If p then q","p and q","p or q","None"],a:"If p then q"}]},
-{t:"9.2 Truth Tables",test:[{q:"Q1: T∧T=?",o:["T","F","Maybe","None"],a:"T"},{q:"Q2: T∨F=?",o:["T","F","Maybe","None"],a:"T"},{q:"Q3: T→F=?",o:["F","T","Maybe","None"],a:"F"},{q:"Q4: T↔T=?",o:["T","F","Maybe","None"],a:"T"},{q:"Q5: Contradiction?",o:["Always False","Always True","Sometimes","None"],a:"Always False"}]}],
-full:[{q:"Q1: p∨~p?",o:["Tautology","Contradiction","Contingency","None"],a:"Tautology"}]}};
-
-// ========== CH 10: PROBABILITY DISTRIBUTIONS ==========
-D['math12-ch10']={name:"Ch 10: Probability Distributions",
-topics:[
-{t:"10.1 Random Variable",test:[{q:"Q1: Random variable?",o:["Function from S to R","Constant","Set","None"],a:"Function from S to R"},{q:"Q2: Discrete RV?",o:["Countable values","Continuous values","Both","None"],a:"Countable values"},{q:"Q3: Continuous RV?",o:["Interval values","Countable","Discrete","None"],a:"Interval values"}]},
-{t:"10.2 Distributions",test:[{q:"Q1: Binomial?",o:["n trials, 2 outcomes","1 trial","Infinite","None"],a:"n trials, 2 outcomes"},{q:"Q2: P(x)=nCx p^x q^n-x?",o:["Binomial","Normal","Poisson","None"],a:"Binomial"},{q:"Q3: Mean of Binomial?",o:["np","n","p","None"],a:"np"},{q:"Q4: Variance Binomial?",o:["npq","np","n","None"],a:"npq"},{q:"Q5: Normal curve?",o:["Bell shaped","Straight","Parabola","None"],a:"Bell shaped"}]}],
-full:[{q:"Q1: Coin toss 2 times, P(2 heads)?",o:["1/4","1/2","1","None"],a:"1/4"}]}};
-// ========== CH 1: INTRODUCTION TO COMPUTER ==========
-D['cs11-ch1']={name:"Ch 1: Introduction to Computer",
-topics:[
-{t:"1.1 Basics",test:[{q:"Q1: Computer?",o:["Electronic device","Mechanical device","Human","None"],a:"Electronic device"},{q:"Q2: Input device?",o:["Keyboard","Monitor","Printer","None"],a:"Keyboard"},{q:"Q3: Output device?",o:["Monitor","Mouse","Scanner","None"],a:"Monitor"},{q:"Q4: CPU stands for?",o:["Central Processing Unit","Computer Processing Unit","Central Program Unit","None"],a:"Central Processing Unit"},{q:"Q5: RAM?",o:["Random Access Memory","Read Access Memory","Run Access Memory","None"],a:"Random Access Memory"},{q:"Q6: ROM?",o:["Read Only Memory","Random Only Memory","Run Only Memory","None"],a:"Read Only Memory"},{q:"Q7: Software?",o:["Programs","Hardware","CPU","None"],a:"Programs"},{q:"Q8: Hardware?",o:["Physical parts","Programs","Data","None"],a:"Physical parts"},{q:"Q9: 1 Byte=?",o:["8 bits","4 bits","16 bits","None"],a:"8 bits"},{q:"Q10: 1 KB=?",o:["1024 Bytes","1000 Bytes","512 Bytes","None"],a:"1024 Bytes"},{q:"Q11: OS?",o:["Operating System","Office Software","Output System","None"],a:"Operating System"},{q:"Q12: Windows?",o:["OS","Software","Hardware","None"],a:"OS"},{q:"Q13: Application software?",o:["MS Word","Windows","Linux","None"],a:"MS Word"},{q:"Q14: System software?",o:["Windows","MS Word","Excel","None"],a:"Windows"},{q:"Q15: Data?",o:["Raw facts","Information","Program","None"],a:"Raw facts"}]},
-{t:"1.2 Types",test:[{q:"Q1: Analog computer?",o:["Continuous data","Discrete data","Digital data","None"],a:"Continuous data"},{q:"Q2: Digital computer?",o:["Discrete data","Continuous","Both","None"],a:"Discrete data"}]}],
-full:[{q:"Q1: ALU present in?",o:["CPU","RAM","ROM","None"],a:"CPU"}]}};
-
-// ========== CH 2: PROGRAMMING FUNDAMENTALS ==========
-D['cs11-ch2']={name:"Ch 2: Programming Fundamentals",
-topics:[
-{t:"2.1 Algorithms",test:[{q:"Q1: Algorithm?",o:["Step by step procedure","Program","Hardware","None"],a:"Step by step procedure"},{q:"Q2: Flowchart symbol for input?",o:["Parallelogram","Rectangle","Diamond","None"],a:"Parallelogram"},{q:"Q3: Decision symbol?",o:["Diamond","Rectangle","Oval","None"],a:"Diamond"},{q:"Q4: Process symbol?",o:["Rectangle","Diamond","Circle","None"],a:"Rectangle"}]},
-{t:"2.2 Programming",test:[{q:"Q1: High level language?",o:["C++","Assembly","Machine","None"],a:"C++"},{q:"Q2: Compiler?",o:["Translates whole program","Line by line","Executes","None"],a:"Translates whole program"},{q:"Q3: Interpreter?",o:["Line by line","Whole program","Hardware","None"],a:"Line by line"},{q:"Q4: Variable?",o:["Storage location","Constant","Function","None"],a:"Storage location"},{q:"Q5: int, float, char?",o:["Data types","Variables","Operators","None"],a:"Data types"},{q:"Q6: + - * /?",o:["Operators","Keywords","Identifiers","None"],a:"Operators"},{q:"Q7: if-else?",o:["Decision","Loop","Function","None"],a:"Decision"},{q:"Q8: for, while?",o:["Loop","Decision","Array","None"],a:"Loop"}]}],
-full:[{q:"Q1: Syntax error?",o:["Grammar mistake","Logic error","Runtime error","None"],a:"Grammar mistake"}]}};
-
-// ========== CH 3: C++ BASICS ==========
-D['cs11-ch3']={name:"Ch 3: C++ Basics",
-topics:[
-{t:"3.1 Syntax",test:[{q:"Q1: #include?",o:["Preprocessor","Keyword","Function","None"],a:"Preprocessor"},{q:"Q2: main()?",o:["Entry point","Function","Variable","None"],a:"Entry point"},{q:"Q3: cout?",o:["Output","Input","Variable","None"],a:"Output"},{q:"Q4: cin?",o:["Input","Output","Variable","None"],a:"Input"},{q:"Q5: ;?",o:["Statement end","Start","Comment","None"],a:"Statement end"}]},
-{t:"3.2 Data Types",test:[{q:"Q1: int size?",o:["4 bytes","2 bytes","8 bytes","None"],a:"4 bytes"},{q:"Q2: char?",o:["Single character","Number","Decimal","None"],a:"Single character"},{q:"Q3: float?",o:["Decimal","Integer","Character","None"],a:"Decimal"},{q:"Q4: bool?",o:["true/false","0/1","Both","None"],a:"Both"}]},
-{t:"3.3 Control Statements",test:[{q:"Q1: if(x>5)?",o:["Condition","Loop","Function","None"],a:"Condition"},{q:"Q2: for loop?",o:["Known iterations","Unknown iterations","Decision","None"],a:"Known iterations"},{q:"Q3: while loop?",o:["Unknown iterations","Known iterations","Decision","None"],a:"Unknown iterations"}]}],
-full:[{q:"Q1: cout<<\"Hello\"; output?",o:["Hello","\"Hello\"","Error","None"],a:"Hello"}]}};
-// ========== CH 4: FUNCTIONS IN C++ ==========
-D['cs11-ch4']={name:"Ch 4: Functions in C++",
-topics:[
-{t:"4.1 Function Basics",test:[{q:"Q1: Function?",o:["Reusable code block","Variable","Loop","None"],a:"Reusable code block"},{q:"Q2: Function definition?",o:["returnType name(){}","name()","int x","None"],a:"returnType name(){}"},{q:"Q3: Function call?",o:["name()","name{}","name[]","None"],a:"name()"},{q:"Q4: Parameter?",o:["Input to function","Output","Variable","None"],a:"Input to function"},{q:"Q5: Return type?",o:["Type of value returned","Function name","Parameter","None"],a:"Type of value returned"}]},
-{t:"4.2 Types",test:[{q:"Q1: void function?",o:["No return value","Return int","Return float","None"],a:"No return value"},{q:"Q2: Library function?",o:["Predefined","User defined","Both","None"],a:"Predefined"},{q:"Q3: User defined?",o:["Made by programmer","Predefined","System","None"],a:"Made by programmer"},{q:"Q4: sqrt()?",o:["Library function","User function","Variable","None"],a:"Library function"}]},
-{t:"4.3 Scope",test:[{q:"Q1: Local variable?",o:["Inside function","Outside function","Global","None"],a:"Inside function"},{q:"Q2: Global variable?",o:["Outside all functions","Inside function","Parameter","None"],a:"Outside all functions"}]}],
-full:[{q:"Q1: int add(int a,int b)? This is?",o:["Function declaration","Variable","Loop","None"],a:"Function declaration"}]}};
-
-// ========== CH 5: ARRAYS ==========
-D['cs11-ch5']={name:"Ch 5: Arrays",
-topics:[
-{t:"5.1 1D Array",test:[{q:"Q1: Array?",o:["Collection of same type","Different types","Single value","None"],a:"Collection of same type"},{q:"Q2: int arr[5]; size?",o:["5","4","6","None"],a:"5"},{q:"Q3: Index starts?",o:["0","1","-1","None"],a:"0"},{q:"Q4: arr[0]?",o:["First element","Last element","Error","None"],a:"First element"},{q:"Q5: arr[4] in arr[5]?",o:["Last element","First","Error","None"],a:"Last element"}]},
-{t:"5.2 2D Array",test:[{q:"Q1: 2D array?",o:["Matrix","List","Single","None"],a:"Matrix"},{q:"Q2: int a[3][4]; rows?",o:["3","4","7","None"],a:"3"},{q:"Q3: int a[3][4]; cols?",o:["4","3","7","None"],a:"4"},{q:"Q4: a[0][0]?",o:["First element","Last element","Middle","None"],a:"First element"}]},
-{t:"5.3 Operations",test:[{q:"Q1: Traversing?",o:["Access each element","Delete","Insert","None"],a:"Access each element"},{q:"Q2: Searching?",o:["Find element","Sort","Delete","None"],a:"Find element"},{q:"Q3: Sorting?",o:["Arrange order","Find","Delete","None"],a:"Arrange order"}]}],
-full:[{q:"Q1: int x[3]={1,2,3}; x[1]=?",o:["2","1","3","None"],a:"2"}]}};
-
-// ========== CH 6: DATABASE CONCEPTS ==========
-D['cs11-ch6']={name:"Ch 6: Database Concepts",
-topics:[
-{t:"6.1 DBMS",test:[{q:"Q1: DBMS?",o:["Database Management System","Data Base Main System","Digital Base","None"],a:"Database Management System"},{q:"Q2: Data?",o:["Raw facts","Processed info","Program","None"],a:"Raw facts"},{q:"Q3: Information?",o:["Processed data","Raw data","Hardware","None"],a:"Processed data"},{q:"Q4: Table?",o:["Rows and Columns","Only Rows","Only Cols","None"],a:"Rows and Columns"},{q:"Q5: Record?",o:["Row","Column","Table","None"],a:"Row"},{q:"Q6: Field?",o:["Column","Row","Table","None"],a:"Column"}]},
-{t:"6.2 Keys",test:[{q:"Q1: Primary key?",o:["Unique identifier","Duplicate allowed","Null allowed","None"],a:"Unique identifier"},{q:"Q2: Foreign key?",o:["Links tables","Unique","Primary","None"],a:"Links tables"}]},
-{t:"6.3 SQL",test:[{q:"Q1: SELECT?",o:["Retrieve data","Insert data","Delete data","None"],a:"Retrieve data"},{q:"Q2: INSERT?",o:["Add data","Delete data","Update","None"],a:"Add data"},{q:"Q3: DELETE?",o:["Remove data","Add data","Show data","None"],a:"Remove data"},{q:"Q4: UPDATE?",o:["Modify data","Delete data","Add data","None"],a:"Modify data"}]}],
-full:[{q:"Q1: SELECT * FROM student; does?",o:["Show all student data","Delete student","Add student","None"],a:"Show all student data"}]}};
- // ========== CH 7: NETWORKING ==========
-D['cs11-ch7']={name:"Ch 7: Networking",
-topics:[
-{t:"7.1 Basics",test:[{q:"Q1: Network?",o:["Connected computers","Single computer","Software","None"],a:"Connected computers"},{q:"Q2: LAN?",o:["Local Area Network","Large Area Network","Long Area Network","None"],a:"Local Area Network"},{q:"Q3: WAN?",o:["Wide Area Network","Wireless Area Network","Web Area Network","None"],a:"Wide Area Network"},{q:"Q4: Internet?",o:["Network of networks","Single network","Software","None"],a:"Network of networks"}]},
-{t:"7.2 Devices",test:[{q:"Q1: Modem?",o:["Modulate/Demodulate","Router","Switch","None"],a:"Modulate/Demodulate"},{q:"Q2: Router?",o:["Connects networks","Single PC","Printer","None"],a:"Connects networks"},{q:"Q3: Switch?",o:["Connects devices in LAN","Connects networks","Modem","None"],a:"Connects devices in LAN"}]},
-{t:"7.3 Protocols",test:[{q:"Q1: HTTP?",o:["HyperText Transfer Protocol","High Transfer","Hyper Transfer","None"],a:"HyperText Transfer Protocol"},{q:"Q2: IP?",o:["Internet Protocol","Internal Protocol","Input Protocol","None"],a:"Internet Protocol"},{q:"Q3: URL?",o:["Uniform Resource Locator","Universal URL","User URL","None"],a:"Uniform Resource Locator"}]}],
-full:[{q:"Q1: www stands for?",o:["World Wide Web","World Web","Web Wide","None"],a:"World Wide Web"}]}};
-
-// ========== CH 8: WEB DESIGNING ==========
-D['cs11-ch8']={name:"Ch 8: Web Designing",
-topics:[
-{t:"8.1 HTML",test:[{q:"Q1: HTML?",o:["HyperText Markup Language","High Markup","Hyper Markup","None"],a:"HyperText Markup Language"},{q:"Q2: <html> tag?",o:["Root tag","Body tag","Head tag","None"],a:"Root tag"},{q:"Q3: <body>?",o:["Content goes here","Heading","Link","None"],a:"Content goes here"},{q:"Q4: <h1>?",o:["Heading 1","Paragraph","Link","None"],a:"Heading 1"},{q:"Q5: <p>?",o:["Paragraph","Link","Image","None"],a:"Paragraph"}]},
-{t:"8.2 Tags",test:[{q:"Q1: <a>?",o:["Anchor/Link","Image","Table","None"],a:"Anchor/Link"},{q:"Q2: <img>?",o:["Image","Link","Paragraph","None"],a:"Image"},{q:"Q3: <table>?",o:["Table","List","Form","None"],a:"Table"},{q:"Q4: <ul>?",o:["Unordered list","Ordered list","Table","None"],a:"Unordered list"},{q:"Q5: <ol>?",o:["Ordered list","Unordered list","Table","None"],a:"Ordered list"}]}],
-full:[{q:"Q1: <br> tag does?",o:["Line break","Bold","Italic","None"],a:"Line break"}]}};
-
-// ========== CH 9: GRAPHICS ==========
-D['cs11-ch9']={name:"Ch 9: Graphics",
-topics:[
-{t:"9.1 Types",test:[{q:"Q1: Bitmap?",o:["Pixel based","Vector based","Both","None"],a:"Pixel based"},{q:"Q2: Vector?",o:["Mathematical formulas","Pixels","Both","None"],a:"Mathematical formulas"},{q:"Q3: JPG?",o:["Bitmap","Vector","Text","None"],a:"Bitmap"},{q:"Q4: SVG?",o:["Vector","Bitmap","Audio","None"],a:"Vector"}]},
-{t:"9.2 Software",test:[{q:"Q1: Photoshop?",o:["Image editing","Video editing","Audio","None"],a:"Image editing"},{q:"Q2: CorelDRAW?",o:["Vector graphics","Bitmap","Text","None"],a:"Vector graphics"}]}],
-full:[{q:"Q1: Resolution measured in?",o:["Pixels","Bytes","KB","None"],a:"Pixels"}]}};
-
-// ========== CH 10: ETHICS AND IT ==========
-D['cs11-ch10']={name:"Ch 10: Ethics and IT",
-topics:[
-{t:"10.1 Cyber Laws",test:[{q:"Q1: Cyber crime?",o:["Crime using computer","Physical crime","Both","None"],a:"Crime using computer"},{q:"Q2: Hacking?",o:["Unauthorized access","Legal access","Software","None"],a:"Unauthorized access"},{q:"Q3: Virus?",o:["Malicious program","Hardware","Network","None"],a:"Malicious program"}]},
-{t:"10.2 Ethics",test:[{q:"Q1: Plagiarism?",o:["Copying without credit","Legal use","Free use","None"],a:"Copying without credit"},{q:"Q2: Privacy?",o:["Personal data protection","Public data","Open data","None"],a:"Personal data protection"},{q:"Q3: Digital footprint?",o:["Online activity record","File size","Memory","None"],a:"Online activity record"}]}],
-full:[{q:"Q1: Strong password?",o:["Mix of chars","12345","abc","None"],a:"Mix of chars"}]}};
-// ========== CH 1: OBJECT ORIENTED PROGRAMMING ==========
-D['cs12-ch1']={name:"Ch 1: Object Oriented Programming",
-topics:[
-{t:"1.1 OOP Concepts",test:[{q:"Q1: OOP?",o:["Object Oriented Programming","Object Only Programming","Oriented Object Programming","None"],a:"Object Oriented Programming"},{q:"Q2: Object?",o:["Instance of class","Data type","Function","None"],a:"Instance of class"},{q:"Q3: Class?",o:["Blueprint of objects","Object","Variable","None"],a:"Blueprint of objects"},{q:"Q4: Encapsulation?",o:["Data + Functions together","Inheritance","Polymorphism","None"],a:"Data + Functions together"},{q:"Q5: Inheritance?",o:["Acquiring properties","Hiding data","Multiple forms","None"],a:"Acquiring properties"},{q:"Q6: Polymorphism?",o:["Many forms","One form","No form","None"],a:"Many forms"},{q:"Q7: Abstraction?",o:["Show essential details","Show all details","Hide all","None"],a:"Show essential details"}]},
-{t:"1.2 C++ OOP",test:[{q:"Q1: class keyword?",o:["Define class","Define function","Define variable","None"],a:"Define class"},{q:"Q2: public?",o:["Access specifier","Data type","Loop","None"],a:"Access specifier"},{q:"Q3: private?",o:["Access specifier","Function","Object","None"],a:"Access specifier"},{q:"Q4: Constructor?",o:["Special function","Normal function","Variable","None"],a:"Special function"},{q:"Q5: Destructor?",o:["~classname()","classname()","void","None"],a:"~classname()"}]}],
-full:[{q:"Q1: class Student{}; Student is?",o:["Class","Object","Function","None"],a:"Class"}]}};
-
-// ========== CH 2: DATA STRUCTURES ==========
-D['cs12-ch2']={name:"Ch 2: Data Structures",
-topics:[
-{t:"2.1 Basics",test:[{q:"Q1: Data structure?",o:["Way to organize data","Programming language","Hardware","None"],a:"Way to organize data"},{q:"Q2: Array?",o:["Linear DS","Non-linear","Graph","None"],a:"Linear DS"},{q:"Q3: Stack?",o:["LIFO","FIFO","Random","None"],a:"LIFO"},{q:"Q4: Queue?",o:["FIFO","LIFO","Random","None"],a:"FIFO"}]},
-{t:"2.2 Stack",test:[{q:"Q1: push()?",o:["Add element","Remove element","View element","None"],a:"Add element"},{q:"Q2: pop()?",o:["Remove element","Add element","View","None"],a:"Remove element"},{q:"Q3: top?",o:["Last element","First element","Middle","None"],a:"Last element"}]},
-{t:"2.3 Queue",test:[{q:"Q1: enqueue()?",o:["Add at rear","Remove from front","View","None"],a:"Add at rear"},{q:"Q2: dequeue()?",o:["Remove from front","Add at rear","View","None"],a:"Remove from front"}]}],
-full:[{q:"Q1: Stack overflow?",o:["Stack full","Stack empty","Normal","None"],a:"Stack full"}]}};
-
-// ========== CH 3: ALGORITHMS ==========
-D['cs12-ch3']={name:"Ch 3: Algorithms",
-topics:[
-{t:"3.1 Searching",test:[{q:"Q1: Linear search?",o:["Check one by one","Divide and conquer","Binary","None"],a:"Check one by one"},{q:"Q2: Binary search?",o:["Divide and conquer","Sequential","Random","None"],a:"Divide and conquer"},{q:"Q3: Binary needs?",o:["Sorted array","Unsorted","Any array","None"],a:"Sorted array"}]},
-{t:"3.2 Sorting",test:[{q:"Q1: Bubble sort?",o:["Compare adjacent","Divide array","Merge","None"],a:"Compare adjacent"},{q:"Q2: Selection sort?",o:["Find minimum","Compare adjacent","Merge","None"],a:"Find minimum"},{q:"Q3: Insertion sort?",o:["Insert in correct place","Swap adjacent","Divide","None"],a:"Insert in correct place"}]},
-{t:"3.3 Complexity",test:[{q:"Q1: O(n)?",o:["Linear","Constant","Quadratic","None"],a:"Linear"},{q:"Q2: O(1)?",o:["Constant","Linear","Log","None"],a:"Constant"},{q:"Q3: O(n²)?",o:["Quadratic","Linear","Log","None"],a:"Quadratic"}]}],
-full:[{q:"Q1: Best case binary search?",o:["O(1)","O(n)","O(n²)","None"],a:"O(1)"}]}};
-// ========== CH 4: FILE HANDLING ==========
-D['cs12-ch4']={name:"Ch 4: File Handling in C++",
-topics:[
-{t:"4.1 Basics",test:[{q:"Q1: File?",o:["Collection of data","Variable","Function","None"],a:"Collection of data"},{q:"Q2: fstream?",o:["File stream header","Input header","Output header","None"],a:"File stream header"},{q:"Q3: ofstream?",o:["Output file stream","Input file stream","Both","None"],a:"Output file stream"},{q:"Q4: ifstream?",o:["Input file stream","Output file stream","Both","None"],a:"Input file stream"}]},
-{t:"4.2 Operations",test:[{q:"Q1: open()?",o:["Open file","Close file","Read file","None"],a:"Open file"},{q:"Q2: close()?",o:["Close file","Open file","Write","None"],a:"Close file"},{q:"Q3: << operator?",o:["Write to file","Read from file","Open file","None"],a:"Write to file"},{q:"Q4: >> operator?",o:["Read from file","Write to file","Close","None"],a:"Read from file"}]},
-{t:"4.3 Modes",test:[{q:"Q1: ios::out?",o:["Write mode","Read mode","Append","None"],a:"Write mode"},{q:"Q2: ios::in?",o:["Read mode","Write mode","Append","None"],a:"Read mode"},{q:"Q3: ios::app?",o:["Append mode","Read mode","Write mode","None"],a:"Append mode"}]}],
-full:[{q:"Q1: To read and write both?",o:["fstream","ifstream","ofstream","None"],a:"fstream"}]}};
-
-// ========== CH 5: DATABASE MANAGEMENT SYSTEM ==========
-D['cs12-ch5']={name:"Ch 5: Database Management System",
-topics:[
-{t:"5.1 DBMS Concepts",test:[{q:"Q1: DBMS?",o:["Database Management System","Data Base Main System","Digital Base","None"],a:"Database Management System"},{q:"Q2: RDBMS?",o:["Relational DBMS","Random DBMS","Remote DBMS","None"],a:"Relational DBMS"},{q:"Q3: Table?",o:["Relation","Entity","Attribute","None"],a:"Relation"},{q:"Q4: Tuple?",o:["Row","Column","Table","None"],a:"Row"},{q:"Q5: Attribute?",o:["Column","Row","Table","None"],a:"Column"}]},
-{t:"5.2 Keys",test:[{q:"Q1: Primary key?",o:["Unique, Not Null","Duplicate allowed","Null allowed","None"],a:"Unique, Not Null"},{q:"Q2: Foreign key?",o:["Reference other table","Unique key","Primary key","None"],a:"Reference other table"},{q:"Q3: Candidate key?",o:["Possible primary key","Foreign key","Composite","None"],a:"Possible primary key"}]},
-{t:"5.3 SQL Commands",test:[{q:"Q1: DDL?",o:["Create, Alter, Drop","Select, Insert","Update, Delete","None"],a:"Create, Alter, Drop"},{q:"Q2: DML?",o:["Select, Insert, Update","Create, Drop","Alter","None"],a:"Select, Insert, Update"},{q:"Q3: SELECT * FROM?",o:["Display all data","Delete data","Create table","None"],a:"Display all data"},{q:"Q4: WHERE clause?",o:["Filter records","Sort records","Join tables","None"],a:"Filter records"}]}],
-full:[{q:"Q1: INSERT INTO student VALUES? This is?",o:["DML","DDL","DCL","None"],a:"DML"}]}};
-
-// ========== CH 6: WEB TECHNOLOGIES ==========
-D['cs12-ch6']={name:"Ch 6: Web Technologies",
-topics:[
-{t:"6.1 HTML/CSS",test:[{q:"Q1: CSS?",o:["Cascading Style Sheets","Computer Style Sheet","Creative Style","None"],a:"Cascading Style Sheets"},{q:"Q2: color:red;?",o:["CSS property","HTML tag","JS code","None"],a:"CSS property"},{q:"Q3: <div>?",o:["Container tag","Heading tag","Link tag","None"],a:"Container tag"}]},
-{t:"6.2 JavaScript",test:[{q:"Q1: JS?",o:["Client side scripting","Server language","Database","None"],a:"Client side scripting"},{q:"Q2: alert()?",o:["Show popup","Print","Input","None"],a:"Show popup"},{q:"Q3: var?",o:["Declare variable","Function","Loop","None"],a:"Declare variable"}]},
-{t:"6.3 Web Server",test:[{q:"Q1: HTTP?",o:["HyperText Transfer Protocol","High Transfer","Hyper Transfer","None"],a:"HyperText Transfer Protocol"},{q:"Q2: URL?",o:["Web address","Email","File","None"],a:"Web address"},{q:"Q3: Browser?",o:["Client software","Server","Database","None"],a:"Client software"}]}],
-full:[{q:"Q1: <script> tag used for?",o:["JavaScript","CSS","HTML","None"],a:"JavaScript"}]}};
- // ========== CH 7: NETWORKING AND COMMUNICATION ==========
-D['cs12-ch7']={name:"Ch 7: Networking and Communication",
-topics:[
-{t:"7.1 Network Types",test:[{q:"Q1: LAN range?",o:["1 km","100 km","1000 km","None"],a:"1 km"},{q:"Q2: MAN range?",o:["City","1 km","Country","None"],a:"City"},{q:"Q3: WAN range?",o:["Country/World","City","1 km","None"],a:"Country/World"},{q:"Q4: PAN?",o:["Personal Area Network","Public Area Network","Private Area Network","None"],a:"Personal Area Network"}]},
-{t:"7.2 Transmission Media",test:[{q:"Q1: Twisted pair?",o:["Copper cable","Fiber","Wireless","None"],a:"Copper cable"},{q:"Q2: Fiber optic?",o:["Light signals","Electric signals","Radio","None"],a:"Light signals"},{q:"Q3: WiFi?",o:["Wireless","Wired","Cable","None"],a:"Wireless"}]},
-{t:"7.3 Network Devices",test:[{q:"Q1: Hub?",o:["Broadcasts to all","Smart","Connects networks","None"],a:"Broadcasts to all"},{q:"Q2: Switch?",o:["Smart, sends to specific","Broadcasts","Router","None"],a:"Smart, sends to specific"},{q:"Q3: Gateway?",o:["Connects different networks","LAN device","PC","None"],a:"Connects different networks"}]}],
-full:[{q:"Q1: IP address example?",o:["192.168.1.1","www.google.com","http://","None"],a:"192.168.1.1"}]}};
-
-// ========== CH 8: E-COMMERCE AND E-GOVERNANCE ==========
-D['cs12-ch8']={name:"Ch 8: E-Commerce and E-Governance",
-topics:[
-{t:"8.1 E-Commerce",test:[{q:"Q1: E-commerce?",o:["Online business","Offline business","Government","None"],a:"Online business"},{q:"Q2: B2C?",o:["Business to Customer","Business to Business","Customer to Customer","None"],a:"Business to Customer"},{q:"Q3: B2B?",o:["Business to Business","Business to Customer","Customer to Business","None"],a:"Business to Business"}]},
-{t:"8.2 Payment",test:[{q:"Q1: Online payment?",o:["Credit card","Cash","Cheque","None"],a:"Credit card"},{q:"Q2: Digital wallet?",o:["JazzCash, Easypaisa","Bank","ATM","None"],a:"JazzCash, Easypaisa"}]},
-{t:"8.3 E-Governance",test:[{q:"Q1: E-governance?",o:["Govt services online","Offline services","Private services","None"],a:"Govt services online"},{q:"Q2: Example?",o:["NADRA online","Shop","School","None"],a:"NADRA online"}]}],
-full:[{q:"Q1: Amazon is example of?",o:["E-commerce","E-governance","Social media","None"],a:"E-commerce"}]}};
-
-// ========== CH 9: COMPUTER SECURITY ==========
-D['cs12-ch9']={name:"Ch 9: Computer Security",
-topics:[
-{t:"9.1 Threats",test:[{q:"Q1: Virus?",o:["Self replicating malware","Hardware","Network","None"],a:"Self replicating malware"},{q:"Q2: Worm?",o:["Spreads through network","File virus","Trojan","None"],a:"Spreads through network"},{q:"Q3: Trojan?",o:["Disguised malware","Antivirus","Firewall","None"],a:"Disguised malware"},{q:"Q4: Phishing?",o:["Fake email to steal data","Virus","Spam","None"],a:"Fake email to steal data"}]},
-{t:"9.2 Protection",test:[{q:"Q1: Antivirus?",o:["Removes malware","Creates virus","Hardware","None"],a:"Removes malware"},{q:"Q2: Firewall?",o:["Blocks unauthorized access","Virus","Internet","None"],a:"Blocks unauthorized access"},{q:"Q3: Encryption?",o:["Convert data to code","Delete data","Copy data","None"],a:"Convert data to code"}]},
-{t:"9.3 Backup",test:[{q:"Q1: Backup?",o:["Copy of data","Original data","Virus","None"],a:"Copy of data"},{q:"Q2: Cloud storage?",o:["Online storage","Local storage","RAM","None"],a:"Online storage"}]}],
-full:[{q:"Q1: Strong password should have?",o:["Letters, numbers, symbols","123456","password","None"],a:"Letters, numbers, symbols"}]}};
-
-// ========== CH 10: ARTIFICIAL INTELLIGENCE ==========
-D['cs12-ch10']={name:"Ch 10: Artificial Intelligence",
-topics:[
-{t:"10.1 AI Basics",test:[{q:"Q1: AI?",o:["Artificial Intelligence","Automatic Input","Advanced Internet","None"],a:"Artificial Intelligence"},{q:"Q2: AI goal?",o:["Mimic human intelligence","Fast computer","Big data","None"],a:"Mimic human intelligence"},{q:"Q3: Chatbot?",o:["AI conversational agent","Game","Database","None"],a:"AI conversational agent"}]},
-{t:"10.2 Applications",test:[{q:"Q1: Siri/Alexa?",o:["AI Voice assistant","Game","Browser","None"],a:"AI Voice assistant"},{q:"Q2: Self driving car?",o:["AI application","Hardware","Network","None"],a:"AI application"},{q:"Q3: Recommendation system?",o:["YouTube, Netflix","Word","Excel","None"],a:"YouTube, Netflix"}]},
-{t:"10.3 ML",test:[{q:"Q1: ML?",o:["Machine Learning","Manual Learning","Memory Learning","None"],a:"Machine Learning"},{q:"Q2: ML learns from?",o:["Data","Hardware","Code only","None"],a:"Data"}]}],
-full:[{q:"Q1: AI that plays chess is?",o:["Narrow AI","General AI","Super AI","None"],a:"Narrow AI"}]}};
-// ========== BUG CRACKER GAME FOR CS 12 ==========
-D['cs12-buggame']={name:"Bug Cracker Game - 20 Levels CS",
-topics:[
-{t:"Game",test:[
-{q:"Level 1: int x = \"5\"; // Error? Fix it",o:["int x = 5;","int x = '5';","string x = 5;","None"],a:"int x = 5;",hint:"Integer ko quotes me mat likho"},
-{q:"Level 2: cout <<\"Hello // Error?",o:["cout <<\"Hello\";","cout <<Hello;","cout Hello;","None"],a:"cout <<\"Hello\";",hint:"String band karo \" se aur ; lagao"},
-{q:"Level 3: if x > 5 cout<<x; // Error?",o:["if(x > 5) cout<<x;","if x > 5 cout<<x;","if[x > 5] cout<<x;","None"],a:"if(x > 5) cout<<x;",hint:"if ke sath () lagte hain"},
-{q:"Level 4: for i=0 to 10 // Error?",o:["for(i=0; i<=10; i++)","for i=0 to 10","for(i=0 to 10)","None"],a:"for(i=0; i<=10; i++)",hint:"C++ for = init; condition; increment"},
-{q:"Level 5: arr[5]; arr[5]=10; // Error?",o:["arr[4]=10;","arr[5]=10;","arr[6]=10;","None"],a:"arr[4]=10;",hint:"Index 0 se start. arr[5] me last index 4 hai"},
-{q:"Level 6: void main() // Error?",o:["int main()","void main","main()","None"],a:"int main()",hint:"C++ me main ka return type int hota hai"},
-{q:"Level 7: #includ iostream // Error?",o:["#include <iostream>","#include iostream","include <iostream>","None"],a:"#include <iostream>",hint:"include spelling + < > check karo"},
-{q:"Level 8: cin >> x >> // Error?",o:["cin >> x;","cin >> x >>;","cin x;","None"],a:"cin >> x;",hint:"Last me extra >> hatao"},
-{q:"Level 9: class Student { // Error?",o:["class Student { };","class Student {}","class Student","None"],a:"class Student { };",hint:"Class ke end me ; lagta hai"},
-{q:"Level 10: cout <<\"5+5=\" << 5+5 // Error?",o:["cout <<\"5+5=\" << 5+5;","cout <<5+5","cout 5+5;","None"],a:"cout <<\"5+5=\" << 5+5;",hint="Statement ke end me ; missing hai"},
-{q:"Level 11: while x < 10 x++; // Error?",o:["while(x < 10) x++;","while x < 10 x++;","while[x < 10] x++;","None"],a:"while(x < 10) x++;",hint:"while ke sath () lagte hain"},
-{q:"Level 12: string name = John; // Error?",o:["string name = \"John\";","string name = John;","string name = 'John';","None"],a:"string name = \"John\";",hint:"Text ko \" \" me likhte hain"},
-{q:"Level 13: int a,b,c = a+b // Error?",o:["int a,b,c; c=a+b;","int a,b,c = a+b","int c = a+b;","None"],a:"int a,b,c; c=a+b;",hint:"Pehle declare karo phir assign karo"},
-{q:"Level 14: if(a=b) // Bug?",o:["if(a==b)","if(a=b)","if(a===b)","None"],a:"if(a==b)",hint:"Assignment = vs Comparison =="},
-{q:"Level 15: return; // in int function // Error?",o:["return 0;","return;","return x;","None"],a:"return 0;",hint:"int function me value return karo"},
-{q:"Level 16: cout <<\"Result:\" x; // Error?",o:["cout <<\"Result:\" << x;","cout <<\"Result:\" x;","cout Result: x;","None"],a:"cout <<\"Result:\" << x;",hint:"2 cheezon ke beech << missing hai"},
-{q:"Level 17: int 2num; // Error?",o:["int num2;","int 2num;","int _2num;","None"],a:"int num2;",hint:"Variable name number se start nahi ho sakta"},
-{q:"Level 18: switch(x) case 1: // Error?",o:["switch(x){ case 1: break; }","switch(x) case 1:","switch x case 1:","None"],a:"switch(x){ case 1: break; }",hint:"switch me {} aur break lagta hai"},
-{q:"Level 19: delete arr; // for array?",o:["delete[] arr;","delete arr;","free(arr);","None"],a:"delete[] arr;",hint:"Array ke liye delete[] use hota hai"},
-{q:"Level 20 BOSS: void add(int a,int b){} add(5,10) // Call it",o:["add(5,10);","add 5,10;","add[5,10];","None"],a:"add(5,10);",hint:"Function call = name();"}
-]},
-{game:true, levels:20, hintButton:true}
-]}};
- // ========== FULL MIX TEST 50 MCQs CS + MATHS + PHY ==========
-D['allmix-test']={name:"Full Mix Test - 50 MCQs CS + MATHS + PHY",
-topics:[
-{t:"Test",test:[
-{q:"Q1: CPU stands for?",o:["Central Processing Unit","Computer Processing Unit","Central Program Unit","None"],a:"Central Processing Unit"},
-{q:"Q2: 1 Byte =?",o:["8 bits","4 bits","16 bits","None"],a:"8 bits"},
-{q:"Q3: Algorithm?",o:["Step by step procedure","Program","Hardware","None"],a:"Step by step procedure"},
-{q:"Q4: cout?",o:["Output","Input","Variable","None"],a:"Output"},
-{q:"Q5: Array index starts?",o:["0","1","-1","None"],a:"0"},
-{q:"Q6: Primary key?",o:["Unique identifier","Duplicate allowed","Null allowed","None"],a:"Unique identifier"},
-{q:"Q7: OOP?",o:["Object Oriented Programming","Object Only Programming","Oriented Object Programming","None"],a:"Object Oriented Programming"},
-{q:"Q8: Stack follows?",o:["LIFO","FIFO","Random","None"],a:"LIFO"},
-{q:"Q9: Binary search needs?",o:["Sorted array","Unsorted","Any array","None"],a:"Sorted array"},
-{q:"Q10: DDL?",o:["Create, Alter, Drop","Select, Insert","Update, Delete","None"],a:"Create, Alter, Drop"},
-{q:"Q11: BUG: int x = \"5\"; Fix?",o:["int x = 5;","int x = '5';","string x = 5;","None"],a:"int x = 5;"},
-{q:"Q12: BUG: if x > 5 cout<<x; Fix?",o:["if(x > 5) cout<<x;","if x > 5 cout<<x;","if[x > 5] cout<<x;","None"],a:"if(x > 5) cout<<x;"},
-{q:"Q13: if(a=b) Fix?",o:["if(a==b)","if(a=b)","if(a===b)","None"],a:"if(a==b)"},
-{q:"Q14: delete[] arr; used for?",o:["Delete array","Delete variable","Delete function","None"],a:"Delete array"},
-{q:"Q15: AI?",o:["Artificial Intelligence","Automatic Input","Advanced Internet","None"],a:"Artificial Intelligence"},
-
-{q:"Q16: d/dx (x^2) = ?",o:["2x","x^2","2","None"],a:"2x"},
-{q:"Q17: ∫ 2x dx = ?",o:["x^2 + C","2x^2 + C","x + C","None"],a:"x^2 + C"},
-{q:"Q18: sin(90°) = ?",o:["1","0","-1","None"],a:"1"},
-{q:"Q19: cos(0°) = ?",o:["1","0","-1","None"],a:"1"},
-{q:"Q20: Area of circle?",o:["πr^2","2πr","πd","None"],a:"πr^2"},
-{q:"Q21: (a+b)^2 = ?",o:["a^2 + 2ab + b^2","a^2 + b^2","a^2 - 2ab + b^2","None"],a:"a^2 + 2ab + b^2"},
-{q:"Q22: log(a*b) = ?",o:["log a + log b","log a * log b","log a - log b","None"],a:"log a + log b"},
-{q:"Q23: Matrix 2x2 determinant?",o:["ad - bc","ab - cd","a+b - c-d","None"],a:"ad - bc"},
-{q:"Q24: lim x->0 sinx/x = ?",o:["1","0","∞","None"],a:"1"},
-{q:"Q25: Derivative of sinx?",o:["cosx","-sinx","-cosx","None"],a:"cosx"},
-
-{q:"Q26: F = ma. m=5kg, a=10. F=?",o:["50N","15N","510N","None"],a:"50N"},
-{q:"Q27: V = IR. I=2A, R=10Ω. V=?",o:["20V","12V","5V","None"],a:"20V"},
-{q:"Q28: E = mc^2. c=3e8, m=1. E=?",o:["9e16 J","6e8 J","3e8 J","None"],a:"9e16 J"},
-{q:"Q29: λ = v/f. v=340, f=170. λ=?",o:["2m","510m","170m","None"],a:"2m"},
-{q:"Q30: P = W/t. W=100J, t=5s. P=?",o:["20W","500W","95W","None"],a:"20W"},
-{q:"Q31: Q = mcΔT. m=2, c=4200, ΔT=10. Q=?",o:["84000 J","4200 J","8400 J","None"],a:"84000 J"},
-{q:"Q32: n = c/λ. c=3e8, λ=500nm. n=?",o:["6e14 Hz","1.5e8 Hz","500 Hz","None"],a:"6e14 Hz"},
-{q:"Q33: E = hf. h=6.6e-34, f=5e14. E=?",o:["3.3e-19 J","6.6e-34 J","5e14 J","None"],a:"3.3e-19 J"},
-{q:"Q34: Gravitation formula?",o:["F = G*m1*m2/r^2","F = ma","V = IR","None"],a:"F = G*m1*m2/r^2"},
-{q:"Q35: Unit of Power?",o:["Watt","Joule","Newton","None"],a:"Watt"},
-
-{q:"Q36: LAN?",o:["Local Area Network","Large Area Network","Long Area Network","None"],a:"Local Area Network"},
-{q:"Q37: HTML?",o:["HyperText Markup Language","High Markup","Hyper Markup","None"],a:"HyperText Markup Language"},
-{q:"Q38: Virus?",o:["Malicious program","Hardware","Network","None"],a:"Malicious program"},
-{q:"Q39: Firewall?",o:["Blocks unauthorized access","Virus","Internet","None"],a:"Blocks unauthorized access"},
-{q:"Q40: CSS?",o:["Cascading Style Sheets","Computer Style Sheet","Creative Style","None"],a:"Cascading Style Sheets"},
-
-{q:"Q41: d/dx (sinx * cosx) = ?",o:["cos2x","sin2x","-sin2x","None"],a:"cos2x"},
-{q:"Q42: ∫ dx/x = ?",o:["ln|x| + C","x + C","1/x + C","None"],a:"ln|x| + C"},
-{q:"Q43: If a=3, b=4, c=? in a^2+b^2=c^2",o:["5","7","12","None"],a:"5"},
-{q:"Q44: Force unit?",o:["Newton","Watt","Joule","None"],a:"Newton"},
-{q:"Q45: Frequency unit?",o:["Hz","m","s","None"],a:"Hz"},
-{q:"Q46: 1KB = ? Bytes",o:["1024","1000","512","None"],a:"1024"},
-{q:"Q47: SQL command to show data?",o:["SELECT","INSERT","DELETE","None"],a:"SELECT"},
-{q:"Q48: Derivative of e^x?",o:["e^x","x*e^x","e","None"],a:"e^x"},
-{q:"Q49: Refraction law?",o:["Snell Law","Ohm Law","Newton Law","None"],a:"Snell Law"},
-{q:"Q50: FINAL: cout<<\"You Win!\" Fix?",o:["cout<<\"You Win!\";","cout<<You Win!","cout You Win;","None"],a:"cout<<\"You Win!\";"}
-]},
-{total:50, passing:30, time:"90 minutes", subjects:["CS","MATHS","PHY"]}
-]}};
-</script>
-
-<!-- UI SECTION -->
-<div id="app">
-  <h1>📚 FULL MIX QUIZ SYSTEM</h1>
-  <div id="menu">
-    <button onclick="startQuiz('allmix-test')">Start 50 MCQ Full Test</button>
-    <button onclick="startQuiz('cs12-buggame')">Play Bug Cracker Game</button>
-    <button onclick="showChapters()">All Chapters</button>
-  </div>
-
-  <div id="quizBox" style="display:none;">
-    <h2 id="qTitle"></h2>
-    <p id="question"></p>
-    <div id="options"></div>
-    <button onclick="submitAns()">Submit</button>
-    <button onclick="showHint()">💡 Hint</button>
-    <p id="hintText" style="display:none;color:yellow;"></p>
-    <p id="result"></p>
-    <p id="progress"></p>
-  </div>
-
-  <div id="finalResult" style="display:none;"></div>
+    <div id="aiBot" class="hidden glass p-6 rounded-2xl">
+        <h3 class="text-xl font-bold mb-4">AI Study Bot</h3>
+        <div id="chatLog" class="h-64 overflow-y-auto bg-slate-900 p-3 rounded mb-4"></div>
+        <input id="chatInput" class="w-full p-2 rounded bg-slate-800" placeholder="Ask: Define Newton's Law">
+        <button onclick="askBot()" class="btn btn-primary mt-2 w-full">Ask</button>
+    </div>
 </div>
 
 <script>
-let currentChapter, currentIndex=0, score=0, selectedAns="", wrongList=[];
+const DATA = {
+    PHY11: {
+        name: "Physics 11th",
+        chapters: {
+            CH1: {
+                name: "Chapter 1: Measurements",
+                formula: "Relative Error = ΔA / A | %Error = (ΔA/A)*100% | Dimension of Velocity = [LT-1]",
+                topics: ["Physical Quantities", "SI Units", "Errors", "Significant Figures"],
+                mcqs: [
+                    {q: "Q1: SI unit of force is:", opts: ["Joule", "Watt", "Newton", "Pascal"], ans: 2},
+                    {q: "Q2: Which is a base quantity?", opts: ["Velocity", "Force", "Mass", "Energy"], ans: 2},
+                    {q: "Q3: 1 light year is a unit of:", opts: ["Time", "Distance", "Speed", "Mass"], ans: 1},
+                    {q: "Q4: Precision means:", opts: ["Closeness to true value", "Reproducibility", "Least count", "Zero error"], ans: 1},
+                    {q: "Q5: Dimensional formula of velocity:", opts: ["[LT-1]", "[L2T-2]", "[MT-1]", "[L]"], ans: 0},
+                    {q: "Q6: Significant figures in 0.00500:", opts: ["2", "3", "4", "5"], ans: 1},
+                    {q: "Q7: Random errors can be reduced by:", opts: ["Calibration", "Taking average", "Zero correction", "Better instrument"], ans: 1},
+                    {q: "Q8: Unit of G is:", opts: ["Nm2kg-2", "Nmkg-2", "N2mkg-1", "kgm/s2"], ans: 0},
+                    {q: "Q9: Which is dimensionless?", opts: ["Angle", "Velocity", "Force", "Pressure"], ans: 0},
+                    {q: "Q10: Vernier calipers measure:", opts: ["Mass", "Time", "Small length", "Current"], ans: 2},
+                    {q: "Q11: 1 micron =?", opts: ["10-3 m", "10-6 m", "10-9 m", "10-12 m"], ans: 1},
+                    {q: "Q12: Systematic error is due to:", opts: ["Instrument", "Observer", "Environment", "All"], ans: 3},
+                    {q: "Q13: Dimension of momentum:", opts: ["[MLT-1]", "[MLT-2]", "[ML2T-1]", "[M2LT-1]"], ans: 0},
+                    {q: "Q14: Least count of screw gauge:", opts: ["0.1 mm", "0.01 mm", "0.001 mm", "1 mm"], ans: 1},
+                    {q: "Q15: Which is not a derived unit?", opts: ["Newton", "Joule", "Kelvin", "Watt"], ans: 2}
+                ]
+            },
+            CH2: {
+                name: "Chapter 2: Vectors and Equilibrium",
+                formula: "R = √(A²+B²+2ABcosθ) | τ = r × F | Condition: ΣF=0, Στ=0",
+                topics: ["Vector Addition", "Torque", "Equilibrium", "Center of Mass"],
+                mcqs: [
+                    {q: "Q1: Vector quantity is:", opts: ["Mass", "Time", "Force", "Energy"], ans: 2},
+                    {q: "Q2: Resultant of 2 equal vectors at 60°:", opts: ["A", "A√2", "A√3", "2A"], ans: 2},
+                    {q: "Q3: Dot product of perpendicular vectors:", opts: ["0", "1", "AB", "-AB"], ans: 0},
+                    {q: "Q4: Torque is:", opts: ["Scalar", "Vector", "Tensor", "None"], ans: 1},
+                    {q: "Q5: Condition for 1st equilibrium:", opts: ["ΣF=0", "Στ=0", "Both", "None"], ans: 2},
+                    {q: "Q6: Cross product gives:", opts: ["Scalar", "Vector", "Number", "Angle"], ans: 1},
+                    {q: "Q7: Unit of torque:", opts: ["N", "J", "Nm", "W"], ans: 2},
+                    {q: "Q8: Null vector has:", opts: ["Zero magnitude", "No direction", "Both", "None"], ans: 2},
+                    {q: "Q9: Head to tail rule is for:", opts: ["Dot product", "Vector addition", "Cross product", "Division"], ans: 1},
+                    {q: "Q10: Couple produces:", opts: ["Translation", "Rotation", "Both", "None"], ans: 1},
+                    {q: "Q11: Angle between i and j:", opts: ["0°", "45°", "90°", "180°"], ans: 2},
+                    {q: "Q12: Scalar product is:", opts: ["Commutative", "Non-commutative", "Associative", "None"], ans: 0},
+                    {q: "Q13: Center of gravity of ring:", opts: ["Center", "Edge", "Outside", "None"], ans: 0},
+                    {q: "Q14: Moment arm is:", opts: ["r sinθ", "r cosθ", "r tanθ", "r"], ans: 0},
+                    {q: "Q15: 2nd condition of equilibrium:", opts: ["ΣF=0", "Στ=0", "Σm=0", "Σv=0"], ans: 1}
+                ]
+            },
+            CH3: {
+                name: "Chapter 3: Motion and Force",
+                formula: "v = u+at | s = ut+1/2at² | F = ma | Fc = mv²/r",
+                topics: ["Kinematics", "Newton Laws", "Friction", "Circular Motion"],
+                mcqs: [
+                    {q: "Q1: 1st law is also called:", opts: ["Law of inertia", "Law of force", "Law of action", "None"], ans: 0},
+                    {q: "Q2: Unit of momentum:", opts: ["Ns", "Nm", "J", "W"], ans: 0},
+                    {q: "Q3: Acceleration is:", opts: ["Scalar", "Vector", "Both", "None"], ans: 1},
+                    {q: "Q4: g value on earth:", opts: ["9.8 m/s2", "10 m/s2", "8.9 m/s2", "6.6 m/s2"], ans: 0},
+                    {q: "Q5: Force required to stop body depends on:", opts: ["Mass", "Velocity", "Time", "All"], ans: 3},
+                    {q: "Q6: Static friction is:", opts: ["< Kinetic", "> Kinetic", "= Kinetic", "Zero"], ans: 1},
+                    {q: "Q7: Centripetal force:", opts: ["F=mv2/r", "F=mr2/v", "F=mv/r", "F=mr/v2"], ans: 0},
+                    {q: "Q8: Rocket works on:", opts: ["1st law", "2nd law", "3rd law", "Gravitation"], ans: 2},
+                    {q: "Q9: Area under v-t graph:", opts: ["Velocity", "Acceleration", "Displacement", "Force"], ans: 2},
+                    {q: "Q10: Free fall acceleration:", opts: ["0", "g", "2g", "9.8"], ans: 1},
+                    {q: "Q11: Inertia depends on:", opts: ["Mass", "Velocity", "Force", "Area"], ans: 0},
+                    {q: "Q12: Action-reaction act on:", opts: ["Same body", "Different bodies", "Both", "None"], ans: 1},
+                    {q: "Q13: Projectile path:", opts: ["Circle", "Ellipse", "Parabola", "Straight"], ans: 2},
+                    {q: "Q14: Time of flight:", opts: ["2u/g", "u/g", "u/2g", "u2/g"], ans: 0},
+                    {q: "Q15: Range is max at:", opts: ["30°", "45°", "60°", "90°"], ans: 1}
+                ]
+            }
+        }
+    }
+};
 
-let menu = document.getElementById('menu');
-menu.innerHTML = "<h3>📚 Select Chapter:</h3>";
-Object.keys(D).forEach(key=>{
-  menu.innerHTML += `<button class="btn" onclick="startQuiz('${key}')">${D[key].name}</button><br><br>`;
-});
+let currentQs = [], qIndex = 0, score = 0, answers = [], gameLevel = 1, gameQs = [];
 
-function startQuiz(key){
-  currentChapter = key;
-  currentIndex = 0; score = 0; wrongList = [];
-  document.getElementById('menu').style.display='none';
-  document.getElementById('quizBox').style.display='block';
-  document.getElementById('finalResult').style.display='none';
-  loadQ();
+// Load chapters on home
+window.onload = () => {
+    let list = document.getElementById('chapterList');
+    for(let key in DATA.PHY11.chapters){
+        let ch = DATA.PHY11.chapters[key];
+        list.innerHTML += `
+        <div class="glass p-4 rounded-xl">
+            <h4 class="font-bold text-cyan-400">${ch.name}</h4>
+            <p class="text-xs text-slate-400 mb-2">Topics: ${ch.topics.join(', ')}</p>
+            <button onclick="startQuiz('${key}',15)" class="btn bg-slate-700 mr-2 text-sm">Topic Test 15</button>
+            <button onclick="startFullTest('${key}')" class="btn btn-primary text-sm">Full Test 20</button>
+        </div>`;
+    }
 }
 
-function loadQ(){
-  let ch = D[currentChapter];
-  let flatQ = [];
-  ch.topics.forEach(t=> flatQ = flatQ.concat(t.test, t.full || []));
-  let q = flatQ[currentIndex];
-
-  if(!q){ showFinal(); return; }
-
-  document.getElementById('qTitle').innerText = `${ch.name} - Q${currentIndex+1}/${flatQ.length}`;
-  document.getElementById('question').innerText = q.q;
-  document.getElementById('progress').innerText = `Progress: ${currentIndex+1}/${flatQ.length} | Score: ${score}`;
-  document.getElementById('hintText').style.display='none';
-  document.getElementById('result').innerText='';
-
-  let optDiv = document.getElementById('options');
-  optDiv.innerHTML='';
-  q.o.forEach(opt=>{
-    optDiv.innerHTML += `<label><input type="radio" name="ans" value="${opt}"> ${opt}</label><br>`;
-  });
+function showHome(){
+    ['home','quizBox','resultBox','gameBox','aiBot'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+    document.getElementById('home').classList.remove('hidden');
 }
 
-function submitAns(){
-  let ans = document.querySelector('input[name="ans"]:checked');
-  if(!ans){ alert("Option select karo"); return; }
-  selectedAns = ans.value;
-  
-  let ch = D[currentChapter];
-  let flatQ = [];
-  ch.topics.forEach(t=> flatQ = flatQ.concat(t.test, t.full || []));
-  let q = flatQ[currentIndex];
-
-  if(selectedAns === q.a){
-    score++; 
-    document.getElementById('result').innerHTML="✅ Correct!";
-    document.getElementById('result').style.color="lightgreen";
-  } else {
-    document.getElementById('result').innerHTML=`❌ Wrong! Correct: ${q.a}`;
-    document.getElementById('result').style.color="red";
-    wrongList.push({q:q.q, a:q.a});
-  }
-  currentIndex++;
-  setTimeout(loadQ, 1200);
+function startQuiz(ch, count){
+    currentQs = [...DATA.PHY11.chapters[ch].mcqs].slice(0,count);
+    qIndex=0; score=0; answers=[];
+    document.getElementById('quizTitle').innerText = DATA.PHY11.chapters[ch].name + " - Topic Test";
+    document.getElementById('formulaBox').innerText = "Formula: " + DATA.PHY11.chapters[ch].formula;
+    showQuestion();
+    showHome(); document.getElementById('quizBox').classList.remove('hidden');
 }
 
-function showHint(){
-  let ch = D[currentChapter];
-  let flatQ = [];
-  ch.topics.forEach(t=> flatQ = flatQ.concat(t.test, t.full || []));
-  let q = flatQ[currentIndex];
-  if(q.hint){
-    document.getElementById('hintText').innerText = "💡 Hint: " + q.hint;
-    document.getElementById('hintText').style.display="block";
-  } else {
-    alert("Is sawal ka hint nahi hai");
-  }
+function startFullTest(ch){
+    currentQs = [...DATA.PHY11.chapters[ch].mcqs,...DATA.PHY11.chapters[ch].mcqs].slice(0,20);
+    qIndex=0; score=0; answers=[];
+    document.getElementById('quizTitle').innerText = DATA.PHY11.chapters[ch].name + " - Full Chapter Test 20 MCQs";
+    document.getElementById('formulaBox').innerText = "Formula: " + DATA.PHY11.chapters[ch].formula;
+    showQuestion();
+    showHome(); document.getElementById('quizBox').classList.remove('hidden');
 }
 
-function showFinal(){
-  document.getElementById('quizBox').style.display='none';
-  
-  let total = 0;
-  D[currentChapter].topics.forEach(t=> total += t.test.length + (t.full? t.full.length : 0));
-  let per = (score/total)*100;
-  
-  let res = `<h2>🎉 Quiz Complete</h2>
-  <h3>${D[currentChapter].name}</h3>
-  <p>Score: ${score}/${total}</p>
-  <p>Percentage: ${per.toFixed(2)}%</p>`;
-
-  if(per >= 60){
-    res += `<p style="color:lightgreen; font-size:20px;">PASSED ✅</p>`;
-  } else {
-    res += `<p style="color:red; font-size:20px;">FAILED ❌ Try Again</p>`;
-  }
-
-  if(wrongList.length > 0){
-    res += "<h3>📝 Wrong Answers Review:</h3>";
-    wrongList.forEach(w => {
-      res += `<p><b>Q:</b> ${w.q} <br> <b>Correct Ans:</b> ${w.a}</p><hr>`;
-    });
-  }
-
-  res += `<button class="btn" onclick="startQuiz(currentChapter)">🔄 Restart Chapter</button>
-          <button class="btn" onclick="showChapters()">🏠 Back to Menu</button>`;
-
-  document.getElementById('finalResult').innerHTML = res;
-  document.getElementById('finalResult').style.display = 'block';
+function showQuestion(){
+    let q = currentQs[qIndex];
+    document.getElementById('qText').innerText = q.q;
+    document.getElementById('qCount').innerText = `${qIndex+1}/${currentQs.length}`;
+    let opts = '';
+    q.opts.forEach((opt,i)=> opts += `<button class="btn-option" onclick="selectAns(${i}, this)">${opt}</button>`);
+    document.getElementById('options').innerHTML = opts;
 }
 
-function showChapters(){
-  let menu = document.getElementById('menu');
-  menu.style.display = 'block';
-  document.getElementById('quizBox').style.display = 'none';
-  document.getElementById('finalResult').style.display = 'none';
-  document.getElementById('gameBox').style.display = 'none';
-  
-  menu.innerHTML = "<h3>📚 Select Chapter:</h3>";
-  Object.keys(D).forEach(key=>{
-    menu.innerHTML += `<button class="btn" onclick="startQuiz('${key}')">${D[key].name}</button><br><br>`;
-  });
+function selectAns(i, el){
+    answers[qIndex]=i;
+    document.querySelectorAll('.btn-option').forEach(b=>b.disabled=true);
+    if(i==currentQs[qIndex].ans) el.classList.add('correct'); else el.classList.add('wrong');
 }
-// Website load hote hi chapters show karo
-showChapters();
+
+function nextQ(){ if(qIndex<currentQs.length-1) {qIndex++; showQuestion();} }
+function prevQ(){ if(qIndex>0) {qIndex--; showQuestion();} }
+
+function submitQuiz(){
+    score = answers.filter((a,i)=>a===currentQs[i].ans).length;
+    let per = ((score/currentQs.length)*100).toFixed(1);
+    document.getElementById('resultBox').innerHTML = `<h2 class="text-2xl font-bold mb-2">Score: ${score}/${currentQs.length}</h2><p class="text-lg">${per}%</p>`;
+    showHome(); document.getElementById('resultBox').classList.remove('hidden');
+}
+
+// GAME 15 LEVELS
+function showGame(){
+    gameLevel=1;
+    gameQs = DATA.PHY11.CH1.mcqs.concat(DATA.PHY11.CH2.mcqs, DATA.PHY11.CH3.mcqs).slice(0,15);
+    loadGameLevel();
+    showHome(); document.getElementById('gameBox').classList.remove('hidden');
+}
+function loadGameLevel(){
+    document.getElementById('levelNum').innerText = gameLevel;
+    let q = gameQs[gameLevel-1];
+    document.getElementById('gameQ').innerText = q.q;
+    document.getElementById('hintText').innerText = "Hint: Recall the formula for this topic";
+    document.getElementById('hintText').classList.add('hidden');
+    let opts='';
+    q.opts.forEach((opt,i)=> opts+=`<button class="btn-option" onclick="checkGame(${i},${q.ans})">${opt}</button>`);
+    document.getElementById('gameOptions').innerHTML=opts;
+}
+function checkGame(i,ans){
+    if(i==ans && gameLevel<15) gameLevel++;
+    loadGameLevel();
+}
+function showHint(){ document.getElementById('hintText').classList.remove('hidden'); }
+
+// AI BOT
+function showAIBot(){ showHome(); document.getElementById('aiBot').classList.remove('hidden'); }
+function askBot(){
+    let input = document.getElementById('chatInput').value;
+    document.getElementById('chatLog').innerHTML += `<div class="text-right mb-1">You: ${input}</div>`;
+    let reply = "Astra Bot: For formulas check the formula box above. Ask me about CH1, CH2, CH3 concepts.";
+    document.getElementById('chatLog').innerHTML += `<div class="text-left text-cyan-400 mb-1">Bot: ${reply}</div>`;
+    document.getElementById('chatInput').value='';
+}
 </script>
 </body>
 </html>
