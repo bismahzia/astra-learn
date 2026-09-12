@@ -684,12 +684,17 @@ function showFinal(){
 }
 
 function showChapters(){
-  document.getElementById('menu').style.display = 'block';
+  let menu = document.getElementById('menu');
+  menu.style.display = 'block';
   document.getElementById('quizBox').style.display = 'none';
   document.getElementById('finalResult').style.display = 'none';
   document.getElementById('gameBox').style.display = 'none';
+  
+  menu.innerHTML = "<h3>📚 Select Chapter:</h3>";
+  Object.keys(D).forEach(key=>{
+    menu.innerHTML += `<button class="btn" onclick="startQuiz('${key}')">${D[key].name}</button><br><br>`;
+  });
 }
-
 // Website load hote hi chapters show karo
 showChapters();
 </script>
