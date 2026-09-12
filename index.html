@@ -7,12 +7,14 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
  body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); font-family: 'Segoe UI', sans-serif; }
-.glass { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(148, 163, 184, 0.2); }
-.btn { padding: 0.5rem 1rem; border-radius: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-.btn-primary { background: #0ea5e9; color: white; }
-.btn-primary:hover { background: #0284c7; }
-.btn-option { width: 100%; text-align: left; padding: 0.75rem; margin: 0.5rem 0; border-radius: 0.5rem; background: #334155; }
-.btn-option:hover { background: #475569; }
+.glass { background: rgba(30, 41, 59, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(148, 163, 184, 0.2); }
+.btn { padding: 0.75rem 1.5rem; border-radius: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+.btn-primary { background: linear-gradient(90deg, #0ea5e9, #0284c7); color: white; }
+.btn-primary:hover { transform: scale(1.05); box-shadow: 0 0 15px #0ea5e9; }
+.btn-subject { width: 100%; padding: 1.2rem; border-radius: 1rem; background: rgba(51, 65, 85, 0.6); text-align: center; font-size: 1.1rem; }
+.btn-subject:hover { background: linear-gradient(90deg, #0ea5e9, #06b6d4); transform: translateY(-3px); }
+.btn-option { width: 100%; text-align: left; padding: 1rem; margin: 0.5rem 0; border-radius: 0.75rem; background: #334155; border: 2px solid transparent; }
+.btn-option:hover { background: #475569; border-color: #0ea5e9; }
 .correct { background: rgba(34,197,94,0.3)!important; border: 2px solid #22c55e!important; }
 .wrong { background: rgba(239,68,68,0.3)!important; border: 2px solid #ef4444!important; }
 .hidden { display: none; }
@@ -20,31 +22,30 @@
 </head>
 <body class="text-slate-200 min-h-screen">
 
-<div class="max-w-6xl mx-auto p-4">
+<div class="max-w-7xl mx-auto p-4">
  <header class="glass p-4 rounded-2xl mb-6 flex justify-between items-center">
-  <h1 class="text-3xl font-bold text-cyan-300">Astra Learn</h1>
+  <h1 class="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Astra Learn</h1>
   <button onclick="showHome()" class="btn btn-primary">Home</button>
  </header>
 
  <div id="home">
-  <div class="glass p-6 rounded-2xl mb-6 text-center">
-   <h2 class="text-3xl font-bold mb-2">Welcome Back!</h2>
+  <div class="glass p-8 rounded-2xl mb-6 text-center">
+   <h2 class="text-4xl font-bold mb-2">Welcome Back!</h2>
    <p class="text-slate-400">Physics | Mathematics | Computer Science | Game | AI Bot</p>
   </div>
-  <div class="grid md:grid-cols-3 gap-4">
-   <button onclick="showSubjects('PHY11')" class="glass p-6 rounded-2xl hover:bg-cyan-900">Physics 11</button>
-   <button onclick="showSubjects('PHY12')" class="glass p-6 rounded-2xl hover:bg-cyan-900">Physics 12</button>
-   <button onclick="showSubjects('MATHS11')" class="glass p-6 rounded-2xl hover:bg-cyan-900">Maths 11</button>
-   <button onclick="showSubjects('MATHS12')" class="glass p-6 rounded-2xl hover:bg-cyan-900">Maths 12</button>
-   <button onclick="showSubjects('CS11')" class="glass p-6 rounded-2xl hover:bg-cyan-900">CS 11</button>
-   <button onclick="showSubjects('CS12')" class="glass p-6 rounded-2xl hover:bg-cyan-900">CS 12</button>
+  <div class="grid md:grid-cols-3 gap-6">
+   <button onclick="showSubjects('PHY11')" class="btn-subject">⚛️ Physics 11</button>
+   <button onclick="showSubjects('PHY12')" class="btn-subject">⚛️ Physics 12</button>
+   <button onclick="showSubjects('MATHS11')" class="btn-subject">📊 Maths 11</button>
+   <button onclick="showSubjects('MATHS12')" class="btn-subject">📊 Maths 12</button>
+   <button onclick="showSubjects('CS11')" class="btn-subject">💻 CS 11</button>
+   <button onclick="showSubjects('CS12')" class="btn-subject">💻 CS 12</button>
   </div>
-  <button onclick="showGame()" class="glass p-6 rounded-2xl hover:bg-green-900 w-full mt-4">Game - 15 Levels</button>
-  <button onclick="showAiBot()" class="glass p-6 rounded-2xl hover:bg-purple-900 w-full mt-4">AI Bot</button>
+  <button onclick="showGame()" class="btn-subject w-full mt-6 bg-gradient-to-r from-green-800 to-emerald-700">🎮 Game - 15 Levels</button>
+  <button onclick="showAiBot()" class="btn-subject w-full mt-4 bg-gradient-to-r from-purple-800 to-violet-700">🤖 AI Bot</button>
  </div>
 
  <div id="chapterMenu" class="hidden"></div>
- <div id="topicMenu" class="hidden"></div>
  <div id="quizBox" class="hidden"></div>
  <div id="resultBox" class="hidden"></div>
  <div id="gameBox" class="hidden"></div>
@@ -53,484 +54,290 @@
 
 <script>
 const QUIZ_DATA = {
-"PHY11": {
-    name: "Physics 11th",
-    CH1: { name: "CH1: Measurements", formula: "ΔA = |Aavg - A|", topics: { "MCQs": [
-      {q: "Q1: SI unit of length?", opts: ["kg","m","s","A"], ans: 1}, {q: "Q2: 1 micron = ?", opts: ["10^-3 m","10^-6 m","10^-9 m","10^-12 m"], ans: 1},
-      {q: "Q3: Least count of Vernier?", opts: ["0.1cm","0.01cm","0.001cm","0.1mm"], ans: 1}, {q: "Q4: Sig figs in 0.0050?", opts: ["1","2","3","4"], ans: 1},
-      {q: "Q5: Dimensional formula of Force?", opts: ["MLT-2","ML2T-2","MLT-1","M2LT-2"], ans: 0}, {q: "Q6: Base quantity?", opts: ["Velocity","Force","Mass","Work"], ans: 2},
-      {q: "Q7: 1 light year = ?", opts: ["9.46*10^15 m","3*10^8 m","1.5*10^11 m","9.46*10^12 km"], ans: 0}, {q: "Q8: Accuracy means?", opts: ["Close to true","Close to each other","Large value","Small value"], ans: 0},
-      {q: "Q9: Precision means?", opts: ["Close to true","Close to each other","Large value","Small value"], ans: 1}, {q: "Q10: Zero error is?", opts: ["Random","Systematic","Gross","Personal"], ans: 1},
-      {q: "Q11: Unit of Power?", opts: ["J","W","N","Pa"], ans: 1}, {q: "Q12: Which is dimensionless?", opts: ["Strain","Force","Work","Power"], ans: 0},
-      {q: "Q13: 1 parsec = ?", opts: ["3.26 ly","1 ly","10 ly","100 ly"], ans: 0}, {q: "Q14: Vernier calipers used for?", opts: ["Time","Temp","Length","Current"], ans: 2},
-      {q: "Q15: Order of earth radius?", opts: ["10^6 m","10^7 m","10^8 m","10^5 m"], ans: 1}, {q: "Q16: Absolute error formula?", opts: ["Aavg-A","|Aavg-A|","A/Aavg","Aavg/A"], ans: 1},
-      {q: "Q17: Mean value?", opts: ["Sum/N","N/Sum","Max-Min","Max+Min"], ans: 0}, {q: "Q18: Unit of G?", opts: ["Nm2/kg2","Nm/kg","N/kg2","kgm/s2"], ans: 0},
-      {q: "Q19: Random error?", opts: ["One direction","Both directions","No error","Systematic"], ans: 1}, {q: "Q20: 1 Angstrom = ?", opts: ["10^-8 m","10^-10 m","10^-12 m","10^-9 m"], ans: 1}
-    ]}},
-    CH2: { name: "CH2: Vectors", formula: "R = sqrt(A^2+B^2+2ABcosθ)", topics: { "MCQs": [
-      {q: "Q1: Scalar quantity?", opts: ["Force","Velocity","Mass","Acceleration"], ans: 2}, {q: "Q2: Vector quantity?", opts: ["Time","Mass","Temperature","Displacement"], ans: 3},
-      {q: "Q3: Dot product gives?", opts: ["Vector","Scalar","Zero","Infinite"], ans: 1}, {q: "Q4: Cross product gives?", opts: ["Vector","Scalar","Zero","Infinite"], ans: 0},
-      {q: "Q5: Angle between i and j?", opts: ["0","45","90","180"], ans: 2}, {q: "Q6: Unit vector magnitude?", opts: ["0","1","2","-1"], ans: 1},
-      {q: "Q7: i.i = ?", opts: ["0","1","i","j"], ans: 1}, {q: "Q8: i x j = ?", opts: ["0","i","j","k"], ans: 3},
-      {q: "Q9: Null vector?", opts: ["Zero magnitude","Unit magnitude","Large magnitude","Negative magnitude"], ans: 0}, {q: "Q10: Equal vectors?", opts: ["Same magnitude","Same direction","Same mag+dir","Different"], ans: 2},
-      {q: "Q11: Resolution of vector?", opts: ["1 component","2 components","3 components","4 components"], ans: 1}, {q: "Q12: A+B = B+A is?", opts: ["Associative","Commutative","Distributive","None"], ans: 1},
-      {q: "Q13: Work = F.d is?", opts: ["Dot product","Cross product","Division","Sum"], ans: 0}, {q: "Q14: Torque = r x F is?", opts: ["Dot product","Cross product","Division","Sum"], ans: 1},
-      {q: "Q15: Max resultant?", opts: ["0 deg","90 deg","180 deg","270 deg"], ans: 0}, {q: "Q16: Min resultant?", opts: ["0 deg","90 deg","180 deg","270 deg"], ans: 2},
-      {q: "Q17: i x i = ?", opts: ["0","1","i","k"], ans: 0}, {q: "Q18: A.(BxC) = ?", opts: ["0","Scalar triple","Vector triple","None"], ans: 1},
-      {q: "Q19: Law of parallelogram?", opts: ["Add vectors","Multiply vectors","Divide vectors","Subtract vectors"], ans: 0}, {q: "Q20: j x k = ?", opts: ["0","i","j","k"], ans: 1}
-    ]}},
-    CH3: { name: "CH3: Motion", formula: "v = u+at", topics: { "MCQs": [
-      {q: "Q1: Unit of acceleration?", opts: ["m/s","m/s2","N","J"], ans: 1}, {q: "Q2: 1st equation?", opts: ["v=u+at","s=ut+1/2at2","v2=u2+2as","All"], ans: 3},
-      {q: "Q3: Free fall g = ?", opts: ["9.8 m/s2","10 m/s2","9.8 cm/s2","10 cm/s2"], ans: 0}, {q: "Q4: Distance-time graph slope?", opts: ["Velocity","Acceleration","Force","Work"], ans: 0},
-      {q: "Q5: Velocity-time graph slope?", opts: ["Velocity","Acceleration","Force","Work"], ans: 1}, {q: "Q6: Projectile path?", opts: ["Line","Circle","Parabola","Ellipse"], ans: 2},
-      {q: "Q7: Time of flight?", opts: ["2usinθ/g","usinθ/g","2ucosθ/g","ucosθ/g"], ans: 0}, {q: "Q8: Max height?", opts: ["u2sin2θ/2g","u2sin2θ/g","u2cos2θ/2g","u2cos2θ/g"], ans: 0},
-      {q: "Q9: Range formula?", opts: ["u2sin2θ/g","u2sinθ/g","u2cos2θ/g","u2cosθ/g"], ans: 0}, {q: "Q10: Uniform motion?", opts: ["Zero accel","Constant accel","Variable accel","No motion"], ans: 0},
-      {q: "Q11: Retardation?", opts: ["+ve accel","-ve accel","Zero accel","Constant velocity"], ans: 1}, {q: "Q12: Instantaneous velocity?", opts: ["ds/dt","dv/dt","da/dt","dF/dt"], ans: 0},
-      {q: "Q13: Instantaneous accel?", opts: ["ds/dt","dv/dt","da/dt","dF/dt"], ans: 1}, {q: "Q14: Angular velocity unit?", opts: ["rad/s","rad/s2","m/s","m/s2"], ans: 0},
-      {q: "Q15: Centripetal accel?", opts: ["v2/r","r/v2","v/r","r/v"], ans: 0}, {q: "Q16: Circular motion?", opts: ["Constant speed","Constant velocity","Variable speed","No accel"], ans: 0},
-      {q: "Q17: 1 rpm = ?", opts: ["2π/60 rad/s","π/60 rad/s","60/2π rad/s","60/π rad/s"], ans: 0}, {q: "Q18: Displacement?", opts: ["Scalar","Vector","Both","None"], ans: 1},
-      {q: "Q19: Speed?", opts: ["Scalar","Vector","Both","None"], ans: 0}, {q: "Q20: Velocity?", opts: ["Scalar","Vector","Both","None"], ans: 1}
-    ]}},
-    CH4: { name: "CH4: Forces", formula: "F = ma", topics: { "MCQs": [
-      {q: "Q1: SI unit of force?", opts: ["J","W","N","Pa"], ans: 2}, {q: "Q2: 1st law?", opts: ["F=ma","Action=Reaction","Inertia","Energy"], ans: 2},
-      {q: "Q3: 2nd law?", opts: ["F=ma","Action=Reaction","Inertia","Energy"], ans: 0}, {q: "Q4: 3rd law?", opts: ["F=ma","Action=Reaction","Inertia","Energy"], ans: 1},
-      {q: "Q5: Momentum?", opts: ["mv","ma","Fd","mgh"], ans: 0}, {q: "Q6: Impulse?", opts: ["F.t","m.v","F.d","m.a"], ans: 0},
-      {q: "Q7: Friction direction?", opts: ["Motion","Opposite motion","Perpendicular","Any"], ans: 1}, {q: "Q8: Static friction >", opts: ["Kinetic","Rolling","Both","None"], ans: 0},
-      {q: "Q9: μ = ?", opts: ["F/N","N/F","F*d","N*d"], ans: 0}, {q: "Q10: Centripetal force?", opts: ["mv2/r","mr2/v","mvr","mv/r"], ans: 0},
-      {q: "Q11: Inertia depends on?", opts: ["Mass","Velocity","Force","Acceleration"], ans: 0}, {q: "Q12: Rocket works on?", opts: ["1st law","2nd law","3rd law","Energy"], ans: 2},
-      {q: "Q13: Tension in rope?", opts: ["Pulling force","Pushing force","Normal force","Friction"], ans: 0}, {q: "Q14: Normal force?", opts: ["Parallel","Perpendicular","Opposite","Along"], ans: 1},
-      {q: "Q15: Weight = ?", opts: ["mg","ma","mv","md"], ans: 0}, {q: "Q16: Apparent weight in lift up?", opts: ["Increases","Decreases","Same","Zero"], ans: 0},
-      {q: "Q17: Apparent weight in free fall?", opts: ["Increases","Decreases","Same","Zero"], ans: 3}, {q: "Q18: Conservation of momentum?", opts: ["Elastic","Inelastic","Both","None"], ans: 2},
-      {q: "Q19: 1 N = ?", opts: ["kgm/s","kgm/s2","kgm2/s","kgm2/s2"], ans: 1}, {q: "Q20: Force is?", opts: ["Scalar","Vector","Both","None"], ans: 1}
-    ]}},
-    CH5: { name: "CH5: Work Energy", formula: "W = Fdcosθ", topics: { "MCQs": [
-      {q: "Q1: Unit of work?", opts: ["N","J","W","kg"], ans: 1}, {q: "Q2: KE formula?", opts: ["1/2mv2","mgh","F.d","P.t"], ans: 0},
-      {q: "Q3: PE formula?", opts: ["1/2mv2","mgh","F.d","P.t"], ans: 1}, {q: "Q4: Power unit?", opts: ["J","W","N","Pa"], ans: 1},
-      {q: "Q5: Work done = 0 when?", opts: ["0 deg","90 deg","180 deg","360 deg"], ans: 1}, {q: "Q6: Conservative force?", opts: ["Friction","Gravity","Air resistance","All"], ans: 1},
-      {q: "Q7: Non-conservative?", opts: ["Gravity","Electrostatic","Friction","Magnetic"], ans: 2}, {q: "Q8: Energy conservation?", opts: ["KE+PE","W=F.d","P=W/t","F=ma"], ans: 0},
-      {q: "Q9: 1 HP = ?", opts: ["746 W","786 W","764 W","476 W"], ans: 0}, {q: "Q10: Work-Energy theorem?", opts: ["W=ΔKE","W=ΔPE","W=KE+PE","W=F"], ans: 0},
-      {q: "Q11: Elastic collision?", opts: ["KE conserved","PE conserved","Momentum conserved","KE+Momentum"], ans: 3}, {q: "Q12: Inelastic collision?", opts: ["KE conserved","PE conserved","Momentum conserved","None"], ans: 2},
-      {q: "Q13: Spring PE?", opts: ["1/2kx2","kx","k/x","x/k"], ans: 0}, {q: "Q14: Efficiency?", opts: ["Output/Input","Input/Output","W/t","F.d"], ans: 0},
-      {q: "Q15: Positive work?", opts: ["0-90 deg","90-180 deg","180 deg","270 deg"], ans: 0}, {q: "Q16: Negative work?", opts: ["0-90 deg","90-180 deg","180 deg","270 deg"], ans: 1},
-      {q: "Q17: Zero work?", opts: ["0 deg","90 deg","180 deg","360 deg"], ans: 1}, {q: "Q18: Unit of energy?", opts: ["N","J","W","kg"], ans: 1},
-      {q: "Q19: P = ?", opts: ["W/t","F.d","m.v","m.a"], ans: 0}, {q: "Q20: 1 kWh = ?", opts: ["3.6e6 J","3.6e3 J","36e6 J","36e3 J"], ans: 0}
-    ]}}
-  },
-"PHY12": {
-    name: "Physics 12th",
-    CH1: { name: "CH1: Electrostatics", formula: "F = kq1q2/r^2", topics: { "MCQs": [
-      {q: "Q1: Unit of charge?", opts: ["N","C","V","J"], ans: 1}, {q: "Q2: k = ?", opts: ["9e9","8.99e9","9e8","8.99e8"], ans: 1},
-      {q: "Q3: Electric field?", opts: ["F/q","q/F","F.q","q/F2"], ans: 0}, {q: "Q4: Potential?", opts: ["W/q","q/W","W.q","q/W2"], ans: 0},
-      {q: "Q5: Gauss law?", opts: ["∮E.dA=q/ε0","F=kq1q2/r2","V=W/q","E=F/q"], ans: 0}, {q: "Q6: Dipole moment?", opts: ["q.d","q/d","d/q","q+d"], ans: 0},
-      {q: "Q7: Capacitance?", opts: ["Q/V","V/Q","Q.V","Q2/C"], ans: 0}, {q: "Q8: Energy in capacitor?", opts: ["1/2CV2","CV","QV","Q2/C"], ans: 0},
-      {q: "Q9: Dielectric constant?", opts: ["C/C0","C0/C","C*C0","C+C0"], ans: 0}, {q: "Q10: Electric flux?", opts: ["E.A","E/A","A/E","E+A"], ans: 0},
-      {q: "Q11: Field lines?", opts: ["Never cross","Always cross","Sometimes","None"], ans: 0}, {q: "Q12: Equipotential surface?", opts: ["V constant","E constant","F constant","q constant"], ans: 0},
-      {q: "Q13: Millikan experiment?", opts: ["Charge quantization","Electron mass","Proton charge","Neutron"], ans: 0}, {q: "Q14: Coulomb force nature?", opts: ["Attractive","Repulsive","Both","None"], ans: 2},
-      {q: "Q15: Superposition principle?", opts: ["Vector sum","Scalar sum","Product","Division"], ans: 0}, {q: "Q16: Energy density?", opts: ["1/2ε0E2","ε0E2","E2/ε0","ε0/E2"], ans: 0},
-      {q: "Q17: Parallel plate C?", opts: ["ε0A/d","ε0d/A","A/ε0d","d/ε0A"], ans: 0}, {q: "Q18: Series capacitors?", opts: ["1/C=Σ1/Ci","C=ΣCi","C=ΠCi","C=Σ1/Ci"], ans: 0},
-      {q: "Q19: Parallel capacitors?", opts: ["1/C=Σ1/Ci","C=ΣCi","C=ΠCi","C=Σ1/Ci"], ans: 1}, {q: "Q20: Force on dipole?", opts: ["p.dE/dx","p.E","q.E","F=qvB"], ans: 0}
-    ]}},
-    CH2: { name: "CH2: Current Electricity", formula: "V = IR", topics: { "MCQs": [
-      {q: "Q1: Unit of R?", opts: ["V","A","Ω","C"], ans: 2}, {q: "Q2: Current?", opts: ["Q/t","t/Q","Q.t","Q/t2"], ans: 0},
-      {q: "Q3: Power?", opts: ["VI","V/I","I/V","V2/I"], ans: 0}, {q: "Q4: Resistivity?", opts: ["RA/L","L/RA","R/LA","A/RL"], ans: 0},
-      {q: "Q5: Kirchhoff 1st?", opts: ["ΣI=0","ΣV=0","ΣP=0","ΣR=0"], ans: 0}, {q: "Q6: Kirchhoff 2nd?", opts: ["ΣI=0","ΣV=0","ΣP=0","ΣR=0"], ans: 1},
-      {q: "Q7: Series R?", opts: ["R=R1+R2","1/R=1/R1+1/R2","R=R1*R2","R=R1/R2"], ans: 0}, {q: "Q8: Parallel R?", opts: ["R=R1+R2","1/R=1/R1+1/R2","R=R1*R2","R=R1/R2"], ans: 1},
-      {q: "Q9: Drift velocity?", opts: ["I/nAq","nAq/I","I.Aq/n","n.I/Aq"], ans: 0}, {q: "Q10: Mobility?", opts: ["vd/E","E/vd","vd*E","E*vd"], ans: 0},
-      {q: "Q11: Wheatstone bridge?", opts: ["R1/R2=R3/R4","R1*R2=R3*R4","R1+R2=R3+R4","R1-R2=R3-R4"], ans: 0}, {q: "Q12: Meter bridge?", opts: ["R1/R2=L1/L2","R1*R2=L1*L2","R1+R2=L1+L2","R1-R2=L1-L2"], ans: 0},
-      {q: "Q13: Potentiometer?", opts: ["V∝L","V∝1/L","V=L","V=1/L"], ans: 0}, {q: "Q14: EMF unit?", opts: ["V","A","Ω","C"], ans: 0},
-      {q: "Q15: Internal resistance?", opts: ["E-V/I","V-I/E","I/E-V","E/I-V"], ans: 0}, {q: "Q16: Temperature coeff?", opts: ["R=R0[1+αΔT]","R=R0[1-αΔT]","R=R0/αΔT","R=R0*αΔT"], ans: 0},
-      {q: "Q17: Superconductor?", opts: ["R=0","R=∞","R=1","R=10"], ans: 0}, {q: "Q18: Electric energy?", opts: ["VIt","VI/t","I/tV","V/tI"], ans: 0},
-      {q: "Q19: 1 kWh = ?", opts: ["3.6e6 J","3.6e3 J","36e6 J","36e3 J"], ans: 0}, {q: "Q20: Fuse works on?", opts: ["Heating","Magnetic","Chemical","Light"], ans: 0}
-    ]}},
-    CH3: { name: "CH3: Electromagnetism", formula: "F = BILsinθ", topics: { "MCQs": [
-      {q: "Q1: Unit of B?", opts: ["T","Wb","A","N"], ans: 0}, {q: "Q2: Force on current?", opts: ["BILsinθ","BILcosθ","BIL/tanθ","BIL/cosθ"], ans: 0},
-      {q: "Q3: Force on charge?", opts: ["qvBsinθ","qB/vsinθ","vB/qsinθ","q/vBsinθ"], ans: 0}, {q: "Q4: Biot-Savart law?", opts: ["dB∝Idl/r2","B∝I/r","B∝I/r2","B∝r/I"], ans: 0},
-      {q: "Q5: Ampere law?", opts: ["∮B.dl=μ0I","F=BIL","φ=BA","ε=-dφ/dt"], ans: 0}, {q: "Q6: Solenoid B?", opts: ["μ0nI","μ0NI","μ0I/2πr","μ0I/4πr2"], ans: 0},
-      {q: "Q7: Toroid B?", opts: ["μ0NI/2πr","μ0nI","μ0I/2πr","μ0I/4πr2"], ans: 0}, {q: "Q8: Force between wires?", opts: ["μ0I1I2/2πd","μ0I1I2/4πd2","BIL","qvB"], ans: 0},
-      {q: "Q9: Torque on coil?", opts: ["BINA sinθ","BINA cosθ","BIL","qvB"], ans: 0}, {q: "Q10: Galvanometer measures?", opts: ["Current","Voltage","Resistance","Power"], ans: 0},
-      {q: "Q11: Shunt?", opts: ["Parallel","Series","Both","None"], ans: 0}, {q: "Q12: Voltmeter?", opts: ["High R series","Low R parallel","High R parallel","Low R series"], ans: 2},
-      {q: "Q13: Ammeter?", opts: ["High R series","Low R parallel","High R parallel","Low R series"], ans: 3}, {q: "Q14: Cyclotron?", opts: ["Charge acceleration","Particle acceleration","Electron","Proton"], ans: 1},
-      {q: "Q15: Hall effect?", opts: ["B measure","E measure","I measure","R measure"], ans: 0}, {q: "Q16: Magnetic flux?", opts: ["BA","B/A","A/B","B+A"], ans: 0},
-      {q: "Q17: Unit flux?", opts: ["T","Wb","A","N"], ans: 1}, {q: "Q18: μ0 = ?", opts: ["4πe-7","9e9","8.85e-12","6.67e-11"], ans: 0},
-      {q: "Q19: Dia, Para, Ferro?", opts: ["Weak repel","Weak attract","Strong attract","All"], ans: 3}, {q: "Q20: Domain?", opts: ["Ferro","Para","Dia","None"], ans: 0}
-    ]}},
-    CH4: { name: "CH4: EM Induction", formula: "ε = -dφ/dt", topics: { "MCQs": [
-      {q: "Q1: Faraday law?", opts: ["ε=-dφ/dt","F=BIL","φ=BA","V=IR"], ans: 0}, {q: "Q2: Lenz law?", opts: ["Opposite current","Same current","No current","Infinite current"], ans: 0},
-      {q: "Q3: Unit of flux?", opts: ["T","Wb","H","V"], ans: 1}, {q: "Q4: Unit of L?", opts: ["T","Wb","H","V"], ans: 2},
-      {q: "Q5: Motional emf?", opts: ["Bvl","Blv","vlB","lvB"], ans: 0}, {q: "Q6: Eddy current?", opts: ["Heat","Light","Sound","Magnetism"], ans: 0},
-      {q: "Q7: Transformer?", opts: ["AC voltage","DC voltage","AC current","DC current"], ans: 0}, {q: "Q8: Mutual induction?", opts: ["2 coils","1 coil","3 coils","No coil"], ans: 0},
-      {q: "Q9: Self induction?", opts: ["1 coil","2 coils","3 coils","No coil"], ans: 0}, {q: "Q10: AC generator?", opts: ["Mechanical to Electrical","Electrical to Mechanical","Heat to Electrical","Light to Electrical"], ans: 0},
-      {q: "Q11: DC motor?", opts: ["Electrical to Mechanical","Mechanical to Electrical","Heat to Electrical","Light to Electrical"], ans: 0}, {q: "Q12: Eddy current use?", opts: ["Braking","Heating","Both","None"], ans: 2},
-      {q: "Q13: Inductance?", opts: ["L","C","R","Z"], ans: 0}, {q: "Q14: Energy in inductor?", opts: ["1/2LI2","1/2CV2","QV","I2R"], ans: 0},
-      {q: "Q15: Time constant RL?", opts: ["L/R","R/L","LR","1/LR"], ans: 0}, {q: "Q16: Time constant RC?", opts: ["RC","R/C","1/RC","C/R"], ans: 0},
-      {q: "Q17: Transformer ratio?", opts: ["Np/Ns=Vs/Vp","Np/Ns=Vp/Vs","Np*Ns=Vs*Vp","Np+Ns=Vs+Vp"], ans: 0}, {q: "Q18: Step up?", opts: ["Vs>Vp","Vs<Vp","Vs=Vp","Vs=0"], ans: 0},
-      {q: "Q19: Step down?", opts: ["Vs>Vp","Vs<Vp","Vs=Vp","Vs=0"], ans: 1}, {q: "Q20: Core loss?", opts: ["Hysteresis","Eddy","Both","None"], ans: 2}
-    ]}},
-    CH5: { name: "CH5: AC", formula: "XL = 2πfL", topics: { "MCQs": [
-      {q: "Q1: Frequency in PK?", opts: ["50Hz","60Hz","100Hz","220Hz"], ans: 0}, {q: "Q2: XL = ?", opts: ["2πfL","1/2πfC","R","Z"], ans: 0},
-      {q: "Q3: XC = ?", opts: ["2πfL","1/2πfC","R","Z"], ans: 1}, {q: "Q4: Z = ?", opts: ["√R2+XL-XC2","R+XL+XC","R-XL-XC","R*XL*XC"], ans: 0},
-      {q: "Q5: Resonance?", opts: ["XL=XC","XL>XC","XL<XC","XL=0"], ans: 0}, {q: "Q6: Power factor?", opts: ["cosφ","sinφ","tanφ","1/cosφ"], ans: 0},
-      {q: "Q7: True power?", opts: ["VIcosφ","VIsinφ","VI","I2R"], ans: 0}, {q: "Q8: Reactive power?", opts: ["VIsinφ","VIcosφ","VI","I2R"], ans: 0},
-      {q: "Q9: Apparent power?", opts: ["VI","VIcosφ","VIsinφ","I2R"], ans: 0}, {q: "Q10: Q factor?", opts: ["ωL/R","R/ωL","ωC/R","R/ωC"], ans: 0},
-      {q: "Q11: Bandwidth?", opts: ["f2-f1","f2+f1","f2*f1","f2/f1"], ans: 0}, {q: "Q12: LCR series?", opts: ["Current same","Voltage same","Both same","None same"], ans: 0},
-      {q: "Q13: LCR parallel?", opts: ["Current same","Voltage same","Both same","None same"], ans: 1}, {q: "Q14: Phasor?", opts: ["Rotating vector","Static vector","Scalar","None"], ans: 0},
-      {q: "Q15: RMS value?", opts: ["Im/√2","Im*√2","Im/2","Im*2"], ans: 0}, {q: "Q16: Avg value?", opts: ["2Im/π","Im/π","Im*2/π","Im*π/2"], ans: 0},
-      {q: "Q17: Choke coil?", opts: ["High L","Low L","High C","Low C"], ans: 0}, {q: "Q18: Capacitor blocks?", opts: ["DC","AC","Both","None"], ans: 0},
-      {q: "Q19: Inductor blocks?", opts: ["DC","AC","Both","None"], ans: 1}, {q: "Q20: Wattless current?", opts: ["φ=90°","φ=0°","φ=45°","φ=180°"], ans: 0}
-    ]}}
-  },
-  "MATHS11": {
-    name: "Maths 11th",
-    CH1: { name: "CH1: Sets", formula: "n(A∪B) = n(A)+n(B)-n(A∩B)", topics: { "MCQs": [
-      {q: "Q1: Empty set?", opts: ["{}","{0}","0","1"], ans: 0}, {q: "Q2: Universal set symbol?", opts: ["U","A","B","C"], ans: 0},
-      {q: "Q3: A∪B means?", opts: ["All elements","Common elements","No elements","Only A"], ans: 0}, {q: "Q4: A∩B means?", opts: ["All elements","Common elements","No elements","Only A"], ans: 1},
-      {q: "Q5: A-B means?", opts: ["In A not B","In B not A","In both","In none"], ans: 0}, {q: "Q6: Complement of A?", opts: ["U-A","A-U","A∩U","A∪U"], ans: 0},
-      {q: "Q7: Subset symbol?", opts: ["⊂","∈","∪","∩"], ans: 0}, {q: "Q8: Power set contains?", opts: ["All subsets","All elements","Empty set","Universal set"], ans: 0},
-      {q: "Q9: n(P(A)) formula?", opts: ["2^n","n^2","2n","n!"], ans: 0}, {q: "Q10: Disjoint sets?", opts: ["A∩B=∅","A∪B=∅","A=B","A⊂B"], ans: 0},
-      {q: "Q11: De Morgan Law 1?", opts: ["(A∪B)'=A'∩B'","(A∩B)'=A'∪B'","Both","None"], ans: 2}, {q: "Q12: Singleton set?", opts: ["1 element","0 element","2 element","Many element"], ans: 0},
-      {q: "Q13: Finite set?", opts: ["Countable","Uncountable","Infinite","None"], ans: 0}, {q: "Q14: Infinite set example?", opts: ["Natural numbers","{1,2,3}","Empty set","None"], ans: 0},
-      {q: "Q15: Venn diagram used for?", opts: ["Sets","Numbers","Equations","Functions"], ans: 0}, {q: "Q16: n(A∪B∪C) formula?", opts: ["Σn - Σn∩ + n∩","Σn","Σn∩","n∩"], ans: 0},
-      {q: "Q17: Proper subset?", opts: ["A⊂B","A⊆B","A=B","A⊄B"], ans: 0}, {q: "Q18: Equal sets?", opts: ["Same elements","Same size","Same name","Same order"], ans: 0},
-      {q: "Q19: Roster form example?", opts: ["{1,2,3}","{x|x>0}","Both","None"], ans: 0}, {q: "Q20: n(A-B) formula?", opts: ["nA-nA∩B","nB-nA∩B","nA+nB","nA*nB"], ans: 0}
-    ]}},
-    CH2: { name: "CH2: Functions", formula: "f(x) = y", topics: { "MCQs": [
-      {q: "Q1: Domain of function?", opts: ["Input values","Output values","Both","None"], ans: 0}, {q: "Q2: Range of function?", opts: ["Input values","Output values","Both","None"], ans: 1},
-      {q: "Q3: One-one function?", opts: ["Unique image","Same image","No image","Many image"], ans: 0}, {q: "Q4: Onto function?", opts: ["Range=Codomain","Range⊂Codomain","Range>Codomain","None"], ans: 0},
-      {q: "Q5: Bijective function?", opts: ["1-1 + Onto","Only 1-1","Only Onto","None"], ans: 0}, {q: "Q6: f(g(x)) is?", opts: ["Composite","Inverse","Identity","Constant"], ans: 0},
-      {q: "Q7: Inverse of f?", opts: ["f^-1","f^2","1/f","-f"], ans: 0}, {q: "Q8: Identity function?", opts: ["f(x)=x","f(x)=1","f(x)=0","f(x)=c"], ans: 0},
-      {q: "Q9: Constant function?", opts: ["f(x)=c","f(x)=x","f(x)=1/x","f(x)=x2"], ans: 0}, {q: "Q10: Even function?", opts: ["f(-x)=f(x)","f(-x)=-f(x)","f(x)=0","f(x)=1"], ans: 0},
-      {q: "Q11: Odd function?", opts: ["f(-x)=f(x)","f(-x)=-f(x)","f(x)=0","f(x)=1"], ans: 1}, {q: "Q12: f(x)=x2 is?", opts: ["Even","Odd","Both","None"], ans: 0},
-      {q: "Q13: f(x)=x3 is?", opts: ["Even","Odd","Both","None"], ans: 1}, {q: "Q14: f(x)=1/x is?", opts: ["Even","Odd","Both","None"], ans: 1},
-      {q: "Q15: Vertical line test for?", opts: ["Function","Not function","Both","None"], ans: 0}, {q: "Q16: f(x)=|x| is?", opts: ["Even","Odd","Both","None"], ans: 0},
-      {q: "Q17: f(x)=sinx is?", opts: ["Even","Odd","Both","None"], ans: 1}, {q: "Q18: f(x)=cosx is?", opts: ["Even","Odd","Both","None"], ans: 0},
-      {q: "Q19: f(x)=tanx is?", opts: ["Even","Odd","Both","None"], ans: 1}, {q: "Q20: f(x)=x is?", opts: ["Even","Odd","Both","None"], ans: 1}
-    ]}},
-    CH3: { name: "CH3: Trigonometry", formula: "sin^2θ+cos^2θ=1", topics: { "MCQs": [
-      {q: "Q1: sin90° = ?", opts: ["0","1","-1","0.5"], ans: 1}, {q: "Q2: cos0° = ?", opts: ["0","1","-1","0.5"], ans: 1},
-      {q: "Q3: tan45° = ?", opts: ["0","1","-1","∞"], ans: 1}, {q: "Q4: sin30° = ?", opts: ["0","1/2","√3/2","1"], ans: 1},
-      {q: "Q5: cos60° = ?", opts: ["0","1/2","√3/2","1"], ans: 1}, {q: "Q6: 1+tan2θ = ?", opts: ["sec2θ","cosec2θ","sin2θ","cos2θ"], ans: 0},
-      {q: "Q7: 1+cot2θ = ?", opts: ["sec2θ","cosec2θ","sin2θ","cos2θ"], ans: 1}, {q: "Q8: sin(A+B) = ?", opts: ["sinAcosB+cosAsinB","sinAcosB-cosAsinB","cosAcosB-sinAsinB","cosAcosB+sinAsinB"], ans: 0},
-      {q: "Q9: cos(A+B) = ?", opts: ["sinAcosB+cosAsinB","sinAcosB-cosAsinB","cosAcosB-sinAsinB","cosAcosB+sinAsinB"], ans: 2}, {q: "Q10: 2sinAcosB = ?", opts: ["sin(A+B)+sin(A-B)","sin(A+B)-sin(A-B)","cos(A+B)+cos(A-B)","cos(A+B)-cos(A-B)"], ans: 0},
-      {q: "Q11: sin2θ = ?", opts: ["2sinθcosθ","sin2θ-cos2θ","2cos2θ-1","1-2sin2θ"], ans: 0}, {q: "Q12: cos2θ = ?", opts: ["2sinθcosθ","cos2θ-sin2θ","2cos2θ-1","All"], ans: 3},
-      {q: "Q13: tan2θ = ?", opts: ["2tanθ/1-tan2θ","2tanθ/1+tan2θ","tanθ/2","1/tanθ"], ans: 0}, {q: "Q14: π radians = ?", opts: ["180°","90°","360°","270°"], ans: 0},
-      {q: "Q15: 180° = ? radians", opts: ["π","π/2","2π","π/4"], ans: 0}, {q: "Q16: Quadrant 2 sin?", opts: ["+","-","+","-"], ans: 0},
-      {q: "Q17: Quadrant 3 tan?", opts: ["+","-","+","-"], ans: 2}, {q: "Q18: sinθ=0 then θ=?", opts: ["θ=nπ","θ=nπ/2","θ=2nπ","θ=(2n+1)π/2"], ans: 0},
-      {q: "Q19: cosθ=0 then θ=?", opts: ["θ=nπ","θ=nπ/2","θ=2nπ","θ=(2n+1)π/2"], ans: 3}, {q: "Q20: tanθ=0 then θ=?", opts: ["θ=nπ","θ=nπ/2","θ=2nπ","θ=(2n+1)π/2"], ans: 0}
-    ]}},
-    CH4: { name: "CH4: Sequences and Series", formula: "an = a+(n-1)d", topics: { "MCQs": [
-      {q: "Q1: AP example?", opts: ["1,2,4","2,4,6","1,3,9","2,3,5"], ans: 1}, {q: "Q2: GP example?", opts: ["1,2,4","2,4,6","1,3,5","2,3,4"], ans: 0},
-      {q: "Q3: nth term of AP?", opts: ["a+(n-1)d","a*r^n-1","a+nd","a*r^n"], ans: 0}, {q: "Q4: nth term of GP?", opts: ["a+(n-1)d","a*r^n-1","a+nd","a*r^n"], ans: 1},
-      {q: "Q5: Sum of AP?", opts: ["n/2[2a+(n-1)d]","a(r^n-1)/r-1","n*a","a^n"], ans: 0}, {q: "Q6: Sum of GP?", opts: ["n/2[2a+(n-1)d]","a(r^n-1)/r-1","n*a","a^n"], ans: 1},
-      {q: "Q7: Arithmetic Mean?", opts: ["a+b/2","√ab","2ab/a+b","ab"], ans: 0}, {q: "Q8: Geometric Mean?", opts: ["a+b/2","√ab","2ab/a+b","ab"], ans: 1},
-      {q: "Q9: Harmonic Mean?", opts: ["a+b/2","√ab","2ab/a+b","ab"], ans: 2}, {q: "Q10: AM>=GM?", opts: ["True","False","Sometimes","None"], ans: 0},
-      {q: "Q11: Common difference?", opts: ["d","r","a","n"], ans: 0}, {q: "Q12: Common ratio?", opts: ["d","r","a","n"], ans: 1},
-      {q: "Q13: Sum 1 to n?", opts: ["n(n+1)/2","n2","n3","n(n+1)"], ans: 0}, {q: "Q14: Sum of n squares?", opts: ["n(n+1)/2","n(n+1)(2n+1)/6","n2","n3"], ans: 1},
-      {q: "Q15: Sum of n cubes?", opts: ["n(n+1)/2","n(n+1)(2n+1)/6","[n(n+1)/2]2","n3"], ans: 2}, {q: "Q16: Sum of infinite GP?", opts: ["a/1-r","a/1+r","ar","a+r"], ans: 0},
-      {q: "Q17: Condition for infinite GP?", opts: ["|r|<1","|r|>1","|r|=1","|r|=0"], ans: 0}, {q: "Q18: 5th term of AP 2,5,8?", opts: ["14","15","16","17"], ans: 0},
-      {q: "Q19: 3rd term of GP 2,6,18?", opts: ["36","54","18","12"], ans: 1}, {q: "Q20: Sum 1 to 10?", opts: ["45","50","55","60"], ans: 2}
-    ]}},
-    CH5: { name: "CH5: Permutations and Combinations", formula: "nPr = n!/(n-r)!", topics: { "MCQs": [
-      {q: "Q1: 5P2 = ?", opts: ["10","20","25","30"], ans: 1}, {q: "Q2: 5C2 = ?", opts: ["10","20","25","30"], ans: 0},
-      {q: "Q3: nPr formula?", opts: ["n!/(n-r)!","n!/r!","n!/n-r!","n*r"], ans: 0}, {q: "Q4: nCr formula?", opts: ["n!/(n-r)!r!","n!/r!","n!/n-r!","n*r"], ans: 0},
-      {q: "Q5: nPn = ?", opts: ["n!","1","0","n"], ans: 0}, {q: "Q6: nC0 = ?", opts: ["n!","1","0","n"], ans: 1},
-      {q: "Q7: nCn = ?", opts: ["n!","1","0","n"], ans: 1}, {q: "Q8: nCr = nCn-r?", opts: ["True","False","Sometimes","None"], ans: 0},
-      {q: "Q9: nCr + nCr-1 = ?", opts: ["n+1Cr","nCr","n-1Cr","nCr-1"], ans: 0}, {q: "Q10: 0! = ?", opts: ["0","1","∞","undefined"], ans: 1},
-      {q: "Q11: Arrangements of n items?", opts: ["n!","2^n","n^2","n"], ans: 0}, {q: "Q12: Circular permutation?", opts: ["n-1!","n!","n+1!","n/2!"], ans: 0},
-      {q: "Q13: With repetition allowed?", opts: ["n^r","nPr","nCr","r^n"], ans: 0}, {q: "Q14: Arrangements of APPLE?", opts: ["60","120","30","90"], ans: 0},
-      {q: "Q15: 3 boys 2 girls seat?", opts: ["5!","3!*2!","5P3","5C2"], ans: 0}, {q: "Q16: Choose 2 from 5?", opts: ["10","20","5","25"], ans: 0},
-      {q: "Q17: nPr vs nCr?", opts: ["nPr>nCr","nPr<nCr","Equal","r=1"], ans: 0}, {q: "Q18: 4P0 = ?", opts: ["0","1","4","24"], ans: 1},
-      {q: "Q19: 4C4 = ?", opts: ["0","1","4","24"], ans: 1}, {q: "Q20: 4! = ?", opts: ["8","12","20","24"], ans: 3}
-    ]}}
-  },
-"MATHS12": {
-    name: "Maths 12th",
-    CH1: { name: "CH1: Relations and Functions", formula: "f(g(x))", topics: { "MCQs": [
-      {q: "Q1: One-one function?", opts: ["Unique image","Same image","Zero image","Infinite image"], ans: 0}, {q: "Q2: Onto function?", opts: ["Range=Codomain","Range⊂Codomain","Range>Codomain","None"], ans: 0},
-      {q: "Q3: Bijective function?", opts: ["1-1+Onto","Only 1-1","Only Onto","None"], ans: 0}, {q: "Q4: Composite function?", opts: ["f(g(x))","g(f(x))","f(x)+g(x)","f(x)*g(x)"], ans: 0},
-      {q: "Q5: Inverse exists when?", opts: ["Bijective","Injective","Surjective","None"], ans: 0}, {q: "Q6: Inverse of f(x)=2x+3?", opts: ["x-3/2","2x-3","x+3/2","2x+3"], ans: 0},
-      {q: "Q7: fof^-1 = ?", opts: ["x","1","0","f(x)"], ans: 0}, {q: "Q8: Domain of tanx?", opts: ["R","R-{π/2+nπ}","R-{nπ}","R+"], ans: 1},
-      {q: "Q9: Range of sinx?", opts: ["[-1,1]","R","R+","(0,1)"], ans: 0}, {q: "Q10: Domain of logx?", opts: ["R","R+","R-","R-{0}"], ans: 1},
-      {q: "Q11: Inverse of f(x)=x^3?", opts: ["x^1/3","x^3","3√x","x/3"], ans: 0}, {q: "Q12: Even+Odd function?", opts: ["Neither","Even","Odd","Both"], ans: 0},
-      {q: "Q13: f(x)=e^x is?", opts: ["One-one","Onto","Both","None"], ans: 0}, {q: "Q14: f(x)=x2 is?", opts: ["One-one","Onto","Both","None"], ans: 3},
-      {q: "Q15: Constant function?", opts: ["Many-one","One-one","Onto","Bijective"], ans: 0}, {q: "Q16: f(x)=|x| is?", opts: ["Many-one","One-one","Onto","Bijective"], ans: 0},
-      {q: "Q17: f(x)=sinx is?", opts: ["Many-one","One-one","Onto","Bijective"], ans: 0}, {q: "Q18: f(x)=cosx is?", opts: ["Many-one","One-one","Onto","Bijective"], ans: 0},
-      {q: "Q19: Identity function?", opts: ["f(x)=x","f(x)=1","f(x)=0","f(x)=c"], ans: 0}, {q: "Q20: f(g(x))=g(f(x))?", opts: ["Commute","Not always","Always","None"], ans: 1}
-    ]}},
-    CH2: { name: "CH2: Matrices and Determinants", formula: "|A| = ad-bc", topics: { "MCQs": [
-      {q: "Q1: Order of matrix?", opts: ["Rows*Cols","Cols*Rows","Rows+Cols","Rows-Cols"], ans: 0}, {q: "Q2: Square matrix?", opts: ["Rows=Cols","Rows>Cols","Rows<Cols","None"], ans: 0},
-      {q: "Q3: Determinant of 2x2?", opts: ["ad-bc","ab-cd","a+d","a*d"], ans: 0}, {q: "Q4: Singular matrix?", opts: ["|A|=0","|A|≠0","|A|=1","|A|=-1"], ans: 0},
-      {q: "Q5: Inverse exists when?", opts: ["|A|≠0","|A|=0","|A|=1","|A|=-1"], ans: 0}, {q: "Q6: A^-1 formula?", opts: ["adjA/|A|","|A|/adjA","A/|A|","|A|/A"], ans: 0},
-      {q: "Q7: Identity matrix?", opts: ["Diagonal 1s","All 0s","All 1s","Diagonal 0s"], ans: 0}, {q: "Q8: Zero matrix?", opts: ["All 0s","All 1s","Diagonal 1s","Diagonal 0s"], ans: 0},
-      {q: "Q9: Transpose?", opts: ["Rows=Cols","Cols=Rows","Swap diagonal","None"], ans: 0}, {q: "Q10: Symmetric matrix?", opts: ["A=A^T","A=-A^T","A*A^T=I","None"], ans: 0},
-      {q: "Q11: Skew symmetric?", opts: ["A=A^T","A=-A^T","A*A^T=I","None"], ans: 1}, {q: "Q12: |AB| = ?", opts: ["|A||B|","|A|+|B|","|A|-|B|","|A|/|B|"], ans: 0},
-      {q: "Q13: |A^T| = ?", opts: ["|A|","-|A|","1/|A|","0"], ans: 0}, {q: "Q14: |kA| = ?", opts: ["k^n|A|","k|A|","|A|/k","k+|A|"], ans: 0},
-      {q: "Q15: Cofactor?", opts: ["(-1)^i+jMij","Mij","Aij","None"], ans: 0}, {q: "Q16: Minor?", opts: ["Det after delete","Cofactor","Transpose","Inverse"], ans: 0},
-      {q: "Q17: Cramer's rule?", opts: ["x=|Dx|/|D|","x=|D|/|Dx|","x=|D|*|Dx|","x=|Dx|-|D|"], ans: 0}, {q: "Q18: Orthogonal matrix?", opts: ["A*A^T=I","A=A^T","A=-A^T","|A|=1"], ans: 0},
-      {q: "Q19: Scalar matrix?", opts: ["kI","I","0","A"], ans: 0}, {q: "Q20: Diagonal matrix?", opts: ["Only diagonal nonzero","All nonzero","All zero","Only off-diagonal"], ans: 0}
-    ]}},
-    CH3: { name: "CH3: Limits and Continuity", formula: "lim x->a f(x)", topics: { "MCQs": [
-      {q: "Q1: lim 1/x as x->∞?", opts: ["0","1","∞","undefined"], ans: 0}, {q: "Q2: lim sinx/x as x->0?", opts: ["0","1","∞","undefined"], ans: 1},
-      {q: "Q3: Continuous function?", opts: ["lim=f(a)","lim≠f(a)","lim=0","lim=∞"], ans: 0}, {q: "Q4: lim c as x->a?", opts: ["c","0","a","x"], ans: 0},
-      {q: "Q5: lim x as x->a?", opts: ["c","0","a","x"], ans: 2}, {q: "Q6: lim sin0?", opts: ["0","1","-1","∞"], ans: 0},
-      {q: "Q7: lim cos0?", opts: ["0","1","-1","∞"], ans: 1}, {q: "Q8: lim 1/x^n as x->∞?", opts: ["0","1","∞","n"], ans: 0},
-      {q: "Q9: LHL=RHL=f(a) then?", opts: ["Continuous","Discontinuous","Removable","Jump"], ans: 0}, {q: "Q10: lim 1/x as x->0?", opts: ["0","1","∞","undefined"], ans: 3},
-      {q: "Q11: lim |x|/x as x->0?", opts: ["0","1","-1","undefined"], ans: 3}, {q: "Q12: lim x2 as x->2?", opts: ["2","4","0","∞"], ans: 1},
-      {q: "Q13: lim x/x as x->0?", opts: ["0","1","∞","undefined"], ans: 1}, {q: "Q14: lim x*sin1/x as x->0?", opts: ["0","1","-1","undefined"], ans: 0},
-      {q: "Q15: Polynomial function?", opts: ["Continuous everywhere","Nowhere","At 0","At 1"], ans: 0}, {q: "Q16: Rational function continuous when?", opts: ["Denominator≠0","Denominator=0","Everywhere","Nowhere"], ans: 0},
-      {q: "Q17: lim f+g = ?", opts: ["limf+limg","limf*limg","limf/limg","None"], ans: 0}, {q: "Q18: lim k*f = ?", opts: ["k*limf","limf/k","k+limf","k-limf"], ans: 0},
-      {q: "Q19: lim (1-cosx)/x2 as x->0?", opts: ["0","1/2","1","∞"], ans: 1}, {q: "Q20: lim (1-cosx)/x as x->0?", opts: ["0","1","∞","undefined"], ans: 0}
-    ]}},
-    CH4: { name: "CH4: Differentiation", formula: "d/dx x^n = n*x^n-1", topics: { "MCQs": [
-      {q: "Q1: d/dx sinx = ?", opts: ["cosx","-cosx","sinx","-sinx"], ans: 0}, {q: "Q2: d/dx cosx = ?", opts: ["cosx","-cosx","sinx","-sinx"], ans: 1},
-      {q: "Q3: d/dx tanx = ?", opts: ["sec2x","-sec2x","tan2x","cot2x"], ans: 0}, {q: "Q4: d/dx e^x = ?", opts: ["e^x","x*e^x-1","lnx","1/x"], ans: 0},
-      {q: "Q5: d/dx lnx = ?", opts: ["e^x","x*e^x-1","lnx","1/x"], ans: 3}, {q: "Q6: Product rule?", opts: ["uv'+vu'","u'v'","u+v'","uv"], ans: 0},
-      {q: "Q7: Quotient rule?", opts: ["vu'-uv'/v2","uv'-vu'/v2","u'v-uv'","uv'/v"], ans: 0}, {q: "Q8: Chain rule?", opts: ["f'(g)*g'","f'*g'","f(g')","f'*g"], ans: 0},
-      {q: "Q9: d/dx x^n = ?", opts: ["n*x^n-1","x^n","n*x^n","x^n-1"], ans: 0}, {q: "Q10: d/dx c = ?", opts: ["0","c","1","c*x"], ans: 0},
-      {q: "Q11: d/dx x = ?", opts: ["0","c","1","x"], ans: 2}, {q: "Q12: 2nd derivative?", opts: ["d2y/dx2","dy/dx","dx/dy","y/x"], ans: 0},
-      {q: "Q13: Rate of change?", opts: ["dy/dx","dx/dy","y/x","x/y"], ans: 0}, {q: "Q14: Maxima condition?", opts: ["f'=0,f''<0","f'=0,f''>0","f'>0","f'<0"], ans: 0},
-      {q: "Q15: Minima condition?", opts: ["f'=0,f''<0","f'=0,f''>0","f'>0","f'<0"], ans: 1}, {q: "Q16: d/dx logx = ?", opts: ["1/x","x","lnx","e^x"], ans: 0},
-      {q: "Q17: d/dx a^x = ?", opts: ["a^x*lna","x*a^x-1","a^x","lna"], ans: 0}, {q: "Q18: Implicit differentiation?", opts: ["dy/dx from F(x,y)=0","y'=x","x'=y","None"], ans: 0},
-      {q: "Q19: d/dx secx = ?", opts: ["secx*tanx","-secx*tanx","sec2x","-sec2x"], ans: 0}, {q: "Q20: d/dx cosecx = ?", opts: ["-cosecx*cotx","cosecx*cotx","-cosec2x","cosec2x"], ans: 0}
-    ]}},
-    CH5: { name: "CH5: Integration", formula: "∫x^n dx = x^n+1/n+1", topics: { "MCQs": [
-      {q: "Q1: ∫dx = ?", opts: ["x","x2","1","0"], ans: 0}, {q: "Q2: ∫x^n dx = ?", opts: ["x^n+1/n+1","n*x^n-1","x^n","n*x^n"], ans: 0},
-      {q: "Q3: ∫sinx dx = ?", opts: ["-cosx","cosx","sinx","-sinx"], ans: 0}, {q: "Q4: ∫cosx dx = ?", opts: ["-cosx","cosx","sinx","-sinx"], ans: 2},
-      {q: "Q5: ∫e^x dx = ?", opts: ["e^x","x*e^x","lnx","1/x"], ans: 0}, {q: "Q6: ∫1/x dx = ?", opts: ["e^x","x*e^x","ln|x|","1/x"], ans: 2},
-      {q: "Q7: ∫sec2x dx = ?", opts: ["tanx","-tanx","secx","-secx"], ans: 0}, {q: "Q8: ∫1/1+x2 dx = ?", opts: ["tan-1x","sin-1x","cos-1x","sec-1x"], ans: 0},
-      {q: "Q9: ∫1/√1-x2 dx = ?", opts: ["tan-1x","sin-1x","cos-1x","sec-1x"], ans: 1}, {q: "Q10: Area under curve?", opts: ["∫f(x)dx","f'(x)","f''(x)","f(x)"], ans: 0},
-      {q: "Q11: Definite integral?", opts: ["F(b)-F(a)","F(a)-F(b)","F(a)*F(b)","F(a)/F(b)"], ans: 0}, {q: "Q12: ∫f'(x)dx = ?", opts: ["f(x)","f'(x)","f''(x)","0"], ans: 0},
-      {q: "Q13: Integration by parts?", opts: ["∫uv=u∫v-∫u'∫v","uv","u/v","u+v"], ans: 0}, {q: "Q14: ∫secx*tanx dx = ?", opts: ["secx","-secx","tanx","-tanx"], ans: 0},
-      {q: "Q15: ∫cosecx*cotx dx = ?", opts: ["-cosecx","cosecx","-cotx","cotx"], ans: 0}, {q: "Q16: ∫k*f dx = ?", opts: ["k∫f","∫f/k","k+∫f","k-∫f"], ans: 0},
-      {q: "Q17: ∫f+g dx = ?", opts: ["∫f+∫g","∫f*∫g","∫f/∫g","∫f-∫g"], ans: 0}, {q: "Q18: Area between curves?", opts: ["∫|f-g|dx","∫f*gdx","∫f/gdx","∫f+gdx"], ans: 0},
-      {q: "Q19: Volume by disc method?", opts: ["π∫y2dx","∫ydx","2π∫ydx","∫y2dx"], ans: 0}, {q: "Q20: ∫0 to π sinx dx = ?", opts: ["0","1","2","π"], ans: 2}
-    ]}}
-  },
-    "CS11": {
-    name: "CS 11th",
-    CH1: { name: "CH1: Intro to Computer Science", formula: "Data + Instructions = Information", topics: { "MCQs": [
-      {q: "Q1: CPU stands for?", opts: ["Central Processing Unit","Computer Processing Unit","Central Program Unit","Control Processing Unit"], ans: 0},
-      {q: "Q2: RAM stands for?", opts: ["Random Access Memory","Read Access Memory","Run Access Memory","Real Access Memory"], ans: 0},
-      {q: "Q3: ROM stands for?", opts: ["Read Only Memory","Random Only Memory","Run Only Memory","Real Only Memory"], ans: 0},
-      {q: "Q4: 1 Byte =? bits", opts: ["4","8","16","32"], ans: 1},
-      {q: "Q5: Software is?", opts: ["Programs","Hardware","CPU","Monitor"], ans: 0},
-      {q: "Q6: Hardware is?", opts: ["Physical parts","Programs","Data","Algorithm"], ans: 0},
-      {q: "Q7: Operating System example?", opts: ["Windows","MS Word","Excel","Chrome"], ans: 0},
-      {q: "Q8: Input device?", opts: ["Keyboard","Monitor","Printer","Speaker"], ans: 0},
-      {q: "Q9: Output device?", opts: ["Mouse","Keyboard","Monitor","Scanner"], ans: 2},
-      {q: "Q10: Storage device?", opts: ["CPU","RAM","Hard Disk","ALU"], ans: 2},
-      {q: "Q11: 1 KB =? Bytes", opts: ["1000","1024","512","2048"], ans: 1},
-      {q: "Q12: ALU stands for?", opts: ["Arithmetic Logic Unit","Array Logic Unit","Application Logic Unit","Arithmetic Local Unit"], ans: 0},
-      {q: "Q13: 1 GB =? MB", opts: ["1000","1024","512","2048"], ans: 1},
-      {q: "Q14: Compiler?", opts: ["Translates code","Executes code","Stores data","Displays output"], ans: 0},
-      {q: "Q15: Internet?", opts: ["Network of networks","Single computer","Software","Hardware"], ans: 0},
-      {q: "Q16: URL stands for?", opts: ["Uniform Resource Locator","Universal Resource Link","Uniform Reference Link","Universal Resource Locator"], ans: 0},
-      {q: "Q17: Email stands for?", opts: ["Electronic Mail","Electric Mail","Easy Mail","Earn Mail"], ans: 0},
-      {q: "Q18: Virus?", opts: ["Malicious program","Hardware","Browser","OS"], ans: 0},
-      {q: "Q19: Firewall?", opts: ["Security system","Hardware","Browser","Game"], ans: 0},
-      {q: "Q20: Cloud Computing?", opts: ["Internet based computing","Local computing","No computing","Offline computing"], ans: 0}
-    ]}},
-    CH2: { name: "CH2: Number System", formula: "2^8 = 256", topics: { "MCQs": [
-      {q: "Q1: 10 in binary?", opts: ["1010","1100","1001","1110"], ans: 0},
-      {q: "Q2: 15 in hex?", opts: ["E","F","D","A"], ans: 1},
-      {q: "Q3: Binary base?", opts: ["2","8","10","16"], ans: 0},
-      {q: "Q4: Octal base?", opts: ["2","8","10","16"], ans: 1},
-      {q: "Q5: Hex base?", opts: ["2","8","10","16"], ans: 3},
-      {q: "Q6: 1111 in decimal?", opts: ["14","15","16","17"], ans: 1},
-      {q: "Q7: 1A in decimal?", opts: ["25","26","27","28"], ans: 1},
-      {q: "Q8: MSB means?", opts: ["Most Significant Bit","Minimum Significant Bit","Maximum Simple Bit","Most Small Bit"], ans: 0},
-      {q: "Q9: LSB means?", opts: ["Least Significant Bit","Large Significant Bit","Last Significant Bit","Least Small Bit"], ans: 0},
-      {q: "Q10: 2^10 =?", opts: ["512","1024","2048","4096"], ans: 1},
-      {q: "Q11: ASCII code?", opts: ["Character encoding","Number system","Algorithm","Program"], ans: 0},
-      {q: "Q12: Unicode?", opts: ["Universal character encoding","Number","Data","File"], ans: 0},
-      {q: "Q13: 255 in binary?", opts: ["11111","11110","11100","11111000"], ans: 0},
-      {q: "Q14: Complement of 0?", opts: ["1","0","-1","2"], ans: 0},
-      {q: "Q15: 1's complement?", opts: ["Flip bits","Add 1","Subtract 1","Multiply"], ans: 0},
-      {q: "Q16: 2's complement?", opts: ["1's + 1","1's - 1","Flip bits","None"], ans: 0},
-      {q: "Q17: Floating point?", opts: ["Real numbers","Integers","Characters","Booleans"], ans: 0},
-      {q: "Q18: BCD?", opts: ["Binary Coded Decimal","Binary Code Data","Byte Code Decimal","Basic Code Data"], ans: 0},
-      {q: "Q19: 77 in octal to decimal?", opts: ["63","64","65","66"], ans: 0},
-      {q: "Q20: FF in hex to decimal?", opts: ["254","255","256","257"], ans: 1}
-    ]}},
-    CH3: { name: "CH3: Logic Gates", formula: "A.B = AND", topics: { "MCQs": [
-      {q: "Q1: AND gate output 1 when?", opts: ["Both 1","Any 1","Both 0","Any 0"], ans: 0},
-      {q: "Q2: OR gate output 0 when?", opts: ["Both 0","Any 0","Both 1","Any 1"], ans: 0},
-      {q: "Q3: NOT gate?", opts: ["Inverter","Amplifier","Adder","Subtractor"], ans: 0},
-      {q: "Q4: NAND =?", opts: ["NOT AND","NOT OR","AND OR","OR AND"], ans: 0},
-      {q: "Q5: NOR =?", opts: ["NOT OR","NOT AND","AND OR","OR AND"], ans: 0},
-      {q: "Q6: XOR output 1 when?", opts: ["Inputs different","Inputs same","Both 1","Both 0"], ans: 0},
-      {q: "Q7: XNOR output 1 when?", opts: ["Inputs same","Inputs different","Any 1","Any 0"], ans: 0},
-      {q: "Q8: Universal gates?", opts: ["NAND,NOR","AND,OR","XOR,XNOR","NOT"], ans: 0},
-      {q: "Q9: Boolean algebra?", opts: ["0 and 1","1 to 9","A to Z","All"], ans: 0},
-      {q: "Q10: De Morgan Law?", opts: ["(AB)'=A'+B'","AB=A+B","A+A=A","AA=0"], ans: 0},
-      {q: "Q11: Truth table?", opts: ["All input-output","Only input","Only output","None"], ans: 0},
-      {q: "Q12: Half Adder has?", opts: ["Sum,Carry","Only Sum","Only Carry","None"], ans: 0},
-      {q: "Q13: Full Adder has?", opts: ["2 inputs","3 inputs","4 inputs","1 input"], ans: 1},
-      {q: "Q14: Multiplexer?", opts: ["Many to one","One to many","One to one","None"], ans: 0},
-      {q: "Q15: Demultiplexer?", opts: ["One to many","Many to one","One to one","None"], ans: 0},
-      {q: "Q16: Flip Flop?", opts: ["Memory element","Logic gate","Adder","Multiplier"], ans: 0},
-      {q: "Q17: Register?", opts: ["Group of Flip Flops","Single gate","Single wire","None"], ans: 0},
-      {q: "Q18: Encoder?", opts: ["2^n to n","n to 2^n","1 to 1","None"], ans: 0},
-      {q: "Q19: Decoder?", opts: ["n to 2^n","2^n to n","1 to 1","None"], ans: 0},
-      {q: "Q20: K-Map used for?", opts: ["Simplification","Addition","Multiplication","Division"], ans: 0}
-    ]}},
-    CH4: { name: "CH4: Programming Fundamentals", formula: "Algorithm + Data Structure = Program", topics: { "MCQs": [
-      {q: "Q1: Compiler?", opts: ["Translates code","Executes code","Stores data","Displays output"], ans: 0},
-      {q: "Q2: Interpreter?", opts: ["Line by line execution","Full translation","Stores data","None"], ans: 0},
-      {q: "Q3: Algorithm?", opts: ["Step by step solution","Program","Data","Hardware"], ans: 0},
-      {q: "Q4: Flowchart symbol for decision?", opts: ["Diamond","Rectangle","Oval","Parallelogram"], ans: 0},
-      {q: "Q5: Variable?", opts: ["Storage location","Constant","Function","Loop"], ans: 0},
-      {q: "Q6: Data type?", opts: ["int,float,char","Loop","Function","Array"], ans: 0},
-      {q: "Q7: Loop?", opts: ["Repetition","Decision","Input","Output"], ans: 0},
-      {q: "Q8: If-else?", opts: ["Decision","Repetition","Input","Output"], ans: 0},
-      {q: "Q9: Array?", opts: ["Collection of same type","Single value","Function","Loop"], ans: 0},
-      {q: "Q10: Function?", opts: ["Reusable code","Variable","Constant","Loop"], ans: 0},
-      {q: "Q11: Debugging?", opts: ["Error removal","Code writing","Compiling","Running"], ans: 0},
-      {q: "Q12: Syntax error?", opts: ["Language rule break","Logic error","Runtime error","None"], ans: 0},
-      {q: "Q13: Logical error?", opts: ["Wrong output","Spelling mistake","Crash","None"], ans: 0},
-      {q: "Q14: Pseudocode?", opts: ["Algorithm in English","Real code","Diagram","None"], ans: 0},
-      {q: "Q15: IDE?", opts: ["Integrated Dev Environment","Internet","OS","Browser"], ans: 0},
-      {q: "Q16: Comments?", opts: ["For programmer","For compiler","For CPU","None"], ans: 0},
-      {q: "Q17: Recursion?", opts: ["Function calls itself","Loop","Decision","None"], ans: 0},
-      {q: "Q18: Parameter?", opts: ["Function input","Function output","Variable","None"], ans: 0},
-      {q: "Q19: Return?", opts: ["Function output","Function input","Loop","None"], ans: 0},
-      {q: "Q20: Library?", opts: ["Predefined functions","User functions","Variables","None"], ans: 0}
-    ]}},
-    CH5: { name: "CH5: Web Basics", formula: "HTML + CSS + JS = Website", topics: { "MCQs": [
-      {q: "Q1: HTML stands for?", opts: ["Hyper Text Markup Language","High Text Markup Language","Hyper Tool Markup Language","Hyper Text Machine Language"], ans: 0},
-      {q: "Q2: CSS stands for?", opts: ["Cascading Style Sheets","Computer Style Sheets","Creative Style Sheets","Colorful Style Sheets"], ans: 0},
-      {q: "Q3: JS stands for?", opts: ["JavaScript","Java Source","Just Script","Jungle Script"], ans: 0},
-      {q: "Q4: <html> tag?", opts: ["Root tag","Head tag","Body tag","Title tag"], ans: 0},
-      {q: "Q5: <head> tag contains?", opts: ["Meta info","Body content","Images","Links"], ans: 0},
-      {q: "Q6: <body> tag contains?", opts: ["Visible content","Meta info","Code","None"], ans: 0},
-      {q: "Q7: <h1> to <h6>?", opts: ["Headings","Paragraphs","Links","Images"], ans: 0},
-      {q: "Q8: <p> tag?", opts: ["Paragraph","Link","Image","List"], ans: 0},
-      {q: "Q9: <a> tag?", opts: ["Anchor/Link","Image","List","Table"], ans: 0},
-      {q: "Q10: <img> tag?", opts: ["Image","Link","List","Table"], ans: 0},
-      {q: "Q11: CSS used for?", opts: ["Styling","Structure","Logic","Database"], ans: 0},
-      {q: "Q12: JS used for?", opts: ["Interactivity","Structure","Styling","Database"], ans: 0},
-      {q: "Q13: <ul> tag?", opts: ["Unordered list","Ordered list","Table","Form"], ans: 0},
-      {q: "Q14: <ol> tag?", opts: ["Ordered list","Unordered list","Table","Form"], ans: 0},
-      {q: "Q15: <table> tag?", opts: ["Table","List","Form","Image"], ans: 0},
-      {q: "Q16: Attribute?", opts: ["Extra info in tag","Tag name","Content","None"], ans: 0},
-      {q: "Q17: href attribute?", opts: ["Link address","Image source","Class name","ID name"], ans: 0},
-      {q: "Q18: src attribute?", opts: ["Image source","Link address","Class name","ID name"], ans: 0},
-      {q: "Q19: Browser?", opts: ["Chrome,Firefox","Word,Excel","Paint","Notepad"], ans: 0},
-      {q: "Q20: Domain name?", opts: ["Website address","Computer name","File name","Folder name"], ans: 0}
-    ]}}
-  },
-"CS12": {
-    name: "CS 12th",
-    CH1: { name: "CH1: Data Structures", formula: "Array, Stack, Queue, LinkedList", topics: { "MCQs": [
-      {q: "Q1: LIFO structure?", opts: ["Queue","Stack","Array","Tree"], ans: 1},
-      {q: "Q2: FIFO structure?", opts: ["Queue","Stack","Array","Tree"], ans: 0},
-      {q: "Q3: Array?", opts: ["Fixed size collection","Dynamic size","Linked","None"], ans: 0},
-      {q: "Q4: Linked List?", opts: ["Dynamic nodes","Fixed array","Stack","Queue"], ans: 0},
-      {q: "Q5: Stack operations?", opts: ["Push,Pop","Enqueue,Dequeue","Insert,Delete","None"], ans: 0},
-      {q: "Q6: Queue operations?", opts: ["Enqueue,Dequeue","Push,Pop","Insert,Delete","None"], ans: 0},
-      {q: "Q7: Tree?", opts: ["Hierarchical","Linear","Circular","None"], ans: 0},
-      {q: "Q8: Graph?", opts: ["Nodes+Edges","Array","Stack","Queue"], ans: 0},
-      {q: "Q9: Binary Tree?", opts: ["Max 2 children","Max 3 children","No children","Infinite children"], ans: 0},
-      {q: "Q10: Sorting?", opts: ["Arrange data","Search data","Delete data","None"], ans: 0},
-      {q: "Q11: Searching?", opts: ["Find data","Arrange data","Delete data","None"], ans: 0},
-      {q: "Q12: Bubble Sort?", opts: ["Compare adjacent","Divide and conquer","Hashing","None"], ans: 0},
-      {q: "Q13: Quick Sort?", opts: ["Divide and conquer","Compare adjacent","Hashing","None"], ans: 0},
-      {q: "Q14: Linear Search?", opts: ["Sequential","Binary","Hash","None"], ans: 0},
-      {q: "Q15: Binary Search?", opts: ["Divide array","Sequential","Hash","None"], ans: 0},
-      {q: "Q16: Hash Table?", opts: ["Key-Value pair","Array","Stack","Queue"], ans: 0},
-      {q: "Q17: Recursion uses?", opts: ["Stack","Queue","Array","Tree"], ans: 0},
-      {q: "Q18: Complexity O(n)?", opts: ["Linear","Constant","Quadratic","Log"], ans: 0},
-      {q: "Q19: Complexity O(1)?", opts: ["Constant","Linear","Quadratic","Log"], ans: 0},
-      {q: "Q20: Pointer?", opts: ["Memory address","Data value","Function","None"], ans: 0}
-    ]}},
-    CH2: { name: "CH2: OOP", formula: "Class + Object + Inheritance + Polymorphism", topics: { "MCQs": [
-      {q: "Q1: OOP stands for?", opts: ["Object Oriented Programming","Object Oriented Process","Object Oriented Protocol","None"], ans: 0},
-      {q: "Q2: Class?", opts: ["Blueprint","Object","Function","Variable"], ans: 0},
-      {q: "Q3: Object?", opts: ["Instance of class","Class","Function","Variable"], ans: 0},
-      {q: "Q4: Inheritance?", opts: ["Reuse code","Delete code","Copy code","Hide code"], ans: 0},
-      {q: "Q5: Polymorphism?", opts: ["Many forms","One form","No form","None"], ans: 0},
-      {q: "Q6: Encapsulation?", opts: ["Data hiding","Data display","Data delete","None"], ans: 0},
-      {q: "Q7: Abstraction?", opts: ["Show essential details","Show all details","Hide all","None"], ans: 0},
-      {q: "Q8: Constructor?", opts: ["Initialize object","Destroy object","Copy object","None"], ans: 0},
-      {q: "Q9: Destructor?", opts: ["Destroy object","Initialize object","Copy object","None"], ans: 0},
-      {q: "Q10: Method overloading?", opts: ["Same name diff params","Same name same params","Diff name","None"], ans: 0},
-      {q: "Q11: Method overriding?", opts: ["Same name same params","Same name diff params","Diff name","None"], ans: 0},
-      {q: "Q12: Access specifier?", opts: ["public,private,protected","int,float","class,object","None"], ans: 0},
-      {q: "Q13: Static member?", opts: ["Shared by all objects","Single object","No object","None"], ans: 0},
-      {q: "Q14: Friend function?", opts: ["Access private members","Public members","Protected members","None"], ans: 0},
-      {q: "Q15: Operator overloading?", opts: ["Redefine operator","New operator","Delete operator","None"], ans: 0},
-      {q: "Q16: Multiple inheritance?", opts: ["One class, many parents","Many classes, one parent","No parent","None"], ans: 0},
-      {q: "Q17: Virtual function?", opts: ["Runtime polymorphism","Compile time","No polymorphism","None"], ans: 0},
-      {q: "Q18: Abstract class?", opts: ["Cannot instantiate","Can instantiate","Both","None"], ans: 0},
-      {q: "Q19: Interface?", opts: ["100% abstraction","0% abstraction","50% abstraction","None"], ans: 0},
-      {q: "Q20: this pointer?", opts: ["Current object","Next object","Previous object","None"], ans: 0}
-    ]}},
-    CH3: { name: "CH3: Database", formula: "DBMS + SQL", topics: { "MCQs": [
-      {q: "Q1: DBMS?", opts: ["Database Management System","Data Base Manage System","Database Manage Software","None"], ans: 0},
-      {q: "Q2: SQL?", opts: ["Structured Query Language","Simple Query Language","System Query Language","None"], ans: 0},
-      {q: "Q3: Table?", opts: ["Rows and Columns","Only Rows","Only Columns","None"], ans: 0},
-      {q: "Q4: Primary Key?", opts: ["Unique identifier","Duplicate value","Null value","None"], ans: 0},
-      {q: "Q5: Foreign Key?", opts: ["Reference to other table","Primary key","Unique key","None"], ans: 0},
-      {q: "Q6: SELECT statement?", opts: ["Retrieve data","Insert data","Delete data","Update data"], ans: 0},
-      {q: "Q7: INSERT statement?", opts: ["Add data","Retrieve data","Delete data","Update data"], ans: 0},
-      {q: "Q8: UPDATE statement?", opts: ["Modify data","Retrieve data","Delete data","Add data"], ans: 0},
-      {q: "Q9: DELETE statement?", opts: ["Remove data","Retrieve data","Add data","Update data"], ans: 0},
-      {q: "Q10: WHERE clause?", opts: ["Condition","Sorting","Grouping","None"], ans: 0},
-      {q: "Q11: ORDER BY?", opts: ["Sorting","Filtering","Grouping","None"], ans: 0},
-      {q: "Q12: GROUP BY?", opts: ["Grouping","Sorting","Filtering","None"], ans: 0},
-      {q: "Q13: JOIN?", opts: ["Combine tables","Split table","Delete table","None"], ans: 0},
-      {q: "Q14: Normalization?", opts: ["Reduce redundancy","Increase redundancy","Delete data","None"], ans: 0},
-      {q: "Q15: 1NF?", opts: ["Atomic values","Primary key","Foreign key","None"], ans: 0},
-      {q: "Q16: Index?", opts: ["Fast search","Slow search","No search","None"], ans: 0},
-      {q: "Q17: Transaction?", opts: ["Unit of work","Single query","Single table","None"], ans: 0},
-      {q: "Q18: ACID?", opts: ["Atomicity,Consistency,Isolation,Durability","All,Computer,Internet,Data","None","None"], ans: 0},
-      {q: "Q19: View?", opts: ["Virtual table","Real table","Temp table","None"], ans: 0},
-      {q: "Q20: Backup?", opts: ["Data copy","Data delete","Data update","None"], ans: 0}
-    ]}},
-    CH4: { name: "CH4: Web Development", formula: "Frontend + Backend + Database", topics: { "MCQs": [
-      {q: "Q1: <link> tag used for?", opts: ["CSS file","JS file","Image","Video"], ans: 0},
-      {q: "Q2: <script> tag used for?", opts: ["JavaScript","CSS","HTML","PHP"], ans: 0},
-      {q: "Q3: Form tag?", opts: ["<form>","<input>","<button>","<div>"], ans: 0},
-      {q: "Q4: HTTP?", opts: ["Hyper Text Transfer Protocol","High Text Transfer Protocol","Hyper Tool Transfer Protocol","None"], ans: 0},
-      {q: "Q5: HTTPS?", opts: ["Secure HTTP","Fast HTTP","New HTTP","None"], ans: 0},
-      {q: "Q6: GET method?", opts: ["Retrieve data","Send data","Delete data","Update data"], ans: 0},
-      {q: "Q7: POST method?", opts: ["Send data","Retrieve data","Delete data","Update data"], ans: 0},
-      {q: "Q8: Cookie?", opts: ["Small data file","Large file","Program","None"], ans: 0},
-      {q: "Q9: Session?", opts: ["Server side storage","Client side storage","Database","None"], ans: 0},
-      {q: "Q10: API?", opts: ["Application Programming Interface","Application Process Interface","Application Program Internet","None"], ans: 0},
-      {q: "Q11: JSON?", opts: ["Data format","Programming language","Database","None"], ans: 0},
-      {q: "Q12: AJAX?", opts: ["Async JavaScript And XML","Advanced JS","Application JS","None"], ans: 0},
-      {q: "Q13: Bootstrap?", opts: ["CSS Framework","JS Framework","PHP Framework","None"], ans: 0},
-      {q: "Q14: Responsive design?", opts: ["Works on all devices","Only desktop","Only mobile","None"], ans: 0},
-      {q: "Q15: SEO?", opts: ["Search Engine Optimization","Site Engine Optimization","Search Engine Operation","None"], ans: 0},
-      {q: "Q16: Hosting?", opts: ["Store website","Design website","Code website","None"], ans: 0},
-      {q: "Q17: Domain?", opts: ["Website name","Server name","File name","None"], ans: 0},
-      {q: "Q18: PHP?", opts: ["Server side language","Client side language","Database","None"], ans: 0},
-      {q: "Q19: MySQL?", opts: ["Database","Language","Framework","None"], ans: 0},
-      {q: "Q20: Framework?", opts: ["Prebuilt structure","Language","Database","None"], ans: 0}
-    ]}},
-    CH5: { name: "CH5: Networking", formula: "IP + TCP + HTTP", topics: { "MCQs": [
-      {q: "Q1: HTTP port?", opts: ["80","21","25","110"], ans: 0},
-      {q: "Q2: HTTPS port?", opts: ["443","80","21","25"], ans: 0},
-      {q: "Q3: FTP port?", opts: ["21","80","443","25"], ans: 0},
-      {q: "Q4: SMTP port?", opts: ["25","80","443","21"], ans: 0},
-      {q: "Q5: IP address?", opts: ["Internet Protocol address","Internet Program address","Internal Protocol address","None"], ans: 0},
-      {q: "Q6: IPv4?", opts: ["32 bit","64 bit","128 bit","16 bit"], ans: 0},
-      {q: "Q7: IPv6?", opts: ["128 bit","32 bit","64 bit","16 bit"], ans: 0},
-      {q: "Q8: DNS?", opts: ["Domain Name System","Data Name System","Domain Network System","None"], ans: 0},
-      {q: "Q9: Router?", opts: ["Connect networks","Connect computers","Connect printer","None"], ans: 0},
-      {q: "Q10: Switch?", opts: ["Connect devices in network","Connect networks","Connect internet","None"], ans: 0},
-      {q: "Q11: Hub?", opts: ["Broadcast device","Smart device","Router","None"], ans: 0},
-      {q: "Q12: LAN?", opts: ["Local Area Network","Large Area Network","Long Area Network","None"], ans: 0},
-      {q: "Q13: WAN?", opts: ["Wide Area Network","Wireless Area Network","Web Area Network","None"], ans: 0},
-      {q: "Q14: TCP?", opts: ["Transmission Control Protocol","Transfer Control Protocol","Technical Control Protocol","None"], ans: 0},
-      {q: "Q15: UDP?", opts: ["User Datagram Protocol","Universal Data Protocol","User Data Protocol","None"], ans: 0},
-      {q: "Q16: MAC address?", opts: ["Hardware address","IP address","Domain name","None"], ans: 0},
-      {q: "Q17: Firewall?", opts: ["Network security","Virus","Antivirus","None"], ans: 0},
-      {q: "Q18: VPN?", opts: ["Virtual Private Network","Very Private Network","Virtual Public Network","None"], ans: 0},
-      {q: "Q19: Bandwidth?", opts: ["Data transfer rate","Storage","Memory","None"], ans: 0},
-      {q: "Q20: Protocol?", opts: ["Communication rules","Hardware","Software","None"], ans: 0}
-    ]}}
-  },
+"PHY11": { name: "Physics 11th", CH1: { name: "CH1: Measurements", formula: "ΔA = |Aavg - A|", topics: { "MCQs": [
+{q: "Q1: SI unit of length?", opts: ["kg","m","s","A"], ans: 1}, {q: "Q2: 1 micron =?", opts: ["10^-3 m","10^-6 m","10^-9 m","10^-12 m"], ans: 1},
+{q: "Q3: LC of Vernier?", opts: ["0.1cm","0.01cm","0.001cm","0.1mm"], ans: 1}, {q: "Q4: Sig figs in 0.0050?", opts: ["1","2","3","4"], ans: 1},
+{q: "Q5: Dim of Force?", opts: ["MLT-2","ML2T-2","MLT-1","M2LT-2"], ans: 0}, {q: "Q6: Base quantity?", opts: ["Velocity","Force","Mass","Work"], ans: 2},
+{q: "Q7: 1 light year =?", opts: ["9.46e15 m","3e8 m","1.5e11 m","9.46e12 km"], ans: 0}, {q: "Q8: Accuracy?", opts: ["Close to true","Close to each","Large","Small"], ans: 0},
+{q: "Q9: Precision?", opts: ["Close to true","Close to each","Large","Small"], ans: 1}, {q: "Q10: Zero error is?", opts: ["Random","Systematic","Gross","Personal"], ans: 1},
+{q: "Q11: Unit of Power?", opts: ["J","W","N","Pa"], ans: 1}, {q: "Q12: Dimensionless?", opts: ["Strain","Force","Work","Power"], ans: 0},
+{q: "Q13: 1 parsec =?", opts: ["3.26 ly","1 ly","10 ly","100 ly"], ans: 0}, {q: "Q14: Vernier used for?", opts: ["Time","Temp","Length","Current"], ans: 2},
+{q: "Q15: Abs error formula?", opts: ["Aavg-A","|Aavg-A|","A/Aavg","Aavg/A"], ans: 1}
+]}}, CH2: { name: "CH2: Vectors", formula: "R = sqrt(A^2+B^2+2ABcosθ)", topics: { "MCQs": [
+{q: "Q1: Scalar?", opts: ["Force","Velocity","Mass","Acceleration"], ans: 2}, {q: "Q2: Vector?", opts: ["Time","Mass","Temperature","Displacement"], ans: 3},
+{q: "Q3: Dot product?", opts: ["Vector","Scalar","Zero","Infinite"], ans: 1}, {q: "Q4: Cross product?", opts: ["Vector","Scalar","Zero","Infinite"], ans: 0},
+{q: "Q5: i.j =?", opts: ["0","1","i","j"], ans: 0}, {q: "Q6: i x j =?", opts: ["0","i","j","k"], ans: 3},
+{q: "Q7: |unit vector| =?", opts: ["0","1","2","-1"], ans: 1}, {q: "Q8: Null vector?", opts: ["Zero mag","Unit mag","Large","Negative"], ans: 0},
+{q: "Q9: Equal vectors?", opts: ["Same mag","Same dir","Same mag+dir","Different"], ans: 2}, {q: "Q10: Work =?", opts: ["F.d","F x d","F/d","F+d"], ans: 0},
+{q: "Q11: Torque =?", opts: ["r x F","r.F","r/F","r+F"], ans: 0}, {q: "Q12: Max resultant?", opts: ["0°","90°","180°","270°"], ans: 0},
+{q: "Q13: Min resultant?", opts: ["0°","90°","180°","270°"], ans: 2}, {q: "Q14: i.i =?", opts: ["0","1","i","k"], ans: 1},
+{q: "Q15: j x k =?", opts: ["0","i","j","k"], ans: 1}
+]}}, CH3: { name: "CH3: Motion", formula: "v = u+at", topics: { "MCQs": [
+{q: "Q1: Unit of a?", opts: ["m/s","m/s2","N","J"], ans: 1}, {q: "Q2: 1st equation?", opts: ["v=u+at","s=ut+1/2at2","v2=u2+2as","All"], ans: 3},
+{q: "Q3: g =?", opts: ["9.8","10","9.8cm","10cm"], ans: 0}, {q: "Q4: d-t graph slope?", opts: ["v","a","F","W"], ans: 0},
+{q: "Q5: v-t graph slope?", opts: ["v","a","F","W"], ans: 1}, {q: "Q6: Projectile path?", opts: ["Line","Circle","Parabola","Ellipse"], ans: 2},
+{q: "Q7: TOF?", opts: ["2usinθ/g","usinθ/g","2ucosθ/g","ucosθ/g"], ans: 0}, {q: "Q8: Hmax?", opts: ["u2sin2θ/2g","u2sin2θ/g","u2cos2θ/2g","u2cos2θ/g"], ans: 0},
+{q: "Q9: Range?", opts: ["u2sin2θ/g","u2sinθ/g","u2cos2θ/g","u2cosθ/g"], ans: 0}, {q: "Q10: Uniform motion?", opts: ["a=0","a const","a var","No motion"], ans: 0},
+{q: "Q11: Retardation?", opts: ["+a","-a","a=0","v const"], ans: 1}, {q: "Q12: v inst?", opts: ["ds/dt","dv/dt","da/dt","dF/dt"], ans: 0},
+{q: "Q13: a inst?", opts: ["ds/dt","dv/dt","da/dt","dF/dt"], ans: 1}, {q: "Q14: ω unit?", opts: ["rad/s","rad/s2","m/s","m/s2"], ans: 0},
+{q: "Q15: Centripetal a?", opts: ["v2/r","r/v2","v/r","r/v"], ans: 0}
+]}}, CH4: { name: "CH4: Forces", formula: "F = ma", topics: { "MCQs": [
+{q: "Q1: SI unit F?", opts: ["J","W","N","Pa"], ans: 2}, {q: "Q2: 1st law?", opts: ["F=ma","Act=React","Inertia","Energy"], ans: 2},
+{q: "Q3: 2nd law?", opts: ["F=ma","Act=React","Inertia","Energy"], ans: 0}, {q: "Q4: 3rd law?", opts: ["F=ma","Act=React","Inertia","Energy"], ans: 1},
+{q: "Q5: Momentum?", opts: ["mv","ma","Fd","mgh"], ans: 0}, {q: "Q6: Impulse?", opts: ["F.t","m.v","F.d","m.a"], ans: 0},
+{q: "Q7: Friction dir?", opts: ["Motion","Opposite","Perp","Any"], ans: 1}, {q: "Q8: μs >?", opts: ["μk","μr","Both","None"], ans: 0},
+{q: "Q9: μ =?", opts: ["F/N","N/F","F*d","N*d"], ans: 0}, {q: "Q10: Fc?", opts: ["mv2/r","mr2/v","mvr","mv/r"], ans: 0},
+{q: "Q11: Inertia depends?", opts: ["Mass","v","F","a"], ans: 0}, {q: "Q12: Rocket?", opts: ["1st","2nd","3rd","Energy"], ans: 2},
+{q: "Q13: Tension?", opts: ["Pull","Push","Normal","Friction"], ans: 0}, {q: "Q14: Normal F?", opts: ["||","⊥","Opp","Along"], ans: 1},
+{q: "Q15: Weight =?", opts: ["mg","ma","mv","md"], ans: 0}
+]}}, CH5: { name: "CH5: Work Energy", formula: "W = Fdcosθ", topics: { "MCQs": [
+{q: "Q1: Unit W?", opts: ["N","J","W","kg"], ans: 1}, {q: "Q2: KE?", opts: ["1/2mv2","mgh","Fd","Pt"], ans: 0},
+{q: "Q3: PE?", opts: ["1/2mv2","mgh","Fd","Pt"], ans: 1}, {q: "Q4: Power unit?", opts: ["J","W","N","Pa"], ans: 1},
+{q: "Q5: W=0 when?", opts: ["0°","90°","180°","360°"], ans: 1}, {q: "Q6: Conservative?", opts: ["Friction","Gravity","Air","All"], ans: 1},
+{q: "Q7: Non-conservative?", opts: ["Gravity","Electro","Friction","Magnetic"], ans: 2}, {q: "Q8: Energy cons?", opts: ["KE+PE","W=Fd","P=W/t","F=ma"], ans: 0},
+{q: "Q9: 1 HP =?", opts: ["746W","786W","764W","476W"], ans: 0}, {q: "Q10: W-E theorem?", opts: ["W=ΔKE","W=ΔPE","W=KE+PE","W=F"], ans: 0},
+{q: "Q11: Elastic?", opts: ["KE cons","PE cons","P cons","KE+P"], ans: 3}, {q: "Q12: Inelastic?", opts: ["KE cons","PE cons","P cons","None"], ans: 2},
+{q: "Q13: Spring PE?", opts: ["1/2kx2","kx","k/x","x/k"], ans: 0}, {q: "Q14: Efficiency?", opts: ["Out/In","In/Out","W/t","Fd"], ans: 0},
+{q: "Q15: P =?", opts: ["W/t","Fd","mv","ma"], ans: 0}
+]}} },
+"PHY12": { name: "Physics 12th", CH1: { name: "CH1: Electrostatics", formula: "F = kq1q2/r^2", topics: { "MCQs": [
+{q: "Q1: Unit of charge?", opts: ["N","C","V","J"], ans: 1}, {q: "Q2: k =?", opts: ["9e9","8.99e9","9e8","8.99e8"], ans: 1},
+{q: "Q3: Electric field?", opts: ["F/q","q/F","F.q","q/F2"], ans: 0}, {q: "Q4: Potential?", opts: ["W/q","q/W","W.q","q/W2"], ans: 0},
+{q: "Q5: Gauss law?", opts: ["∮E.dA=q/ε0","F=kq1q2/r2","V=W/q","E=F/q"], ans: 0}, {q: "Q6: Dipole moment?", opts: ["q.d","q/d","d/q","q+d"], ans: 0},
+{q: "Q7: Capacitance?", opts: ["Q/V","V/Q","Q.V","Q2/C"], ans: 0}, {q: "Q8: Energy in capacitor?", opts: ["1/2CV2","CV","QV","Q2/C"], ans: 0},
+{q: "Q9: Dielectric constant?", opts: ["C/C0","C0/C","C*C0","C+C0"], ans: 0}, {q: "Q10: Electric flux?", opts: ["E.A","E/A","A/E","E+A"], ans: 0},
+{q: "Q11: Field lines?", opts: ["Never cross","Always cross","Sometimes","None"], ans: 0}, {q: "Q12: Equipotential?", opts: ["V constant","E constant","F constant","q constant"], ans: 0},
+{q: "Q13: Millikan experiment?", opts: ["Charge quantization","Electron mass","Proton charge","Neutron"], ans: 0}, {q: "Q14: Coulomb force?", opts: ["Attractive","Repulsive","Both","None"], ans: 2},
+{q: "Q15: Superposition?", opts: ["Vector sum","Scalar sum","Product","Division"], ans: 0}
+]}}, CH2: { name: "CH2: Current Electricity", formula: "V = IR", topics: { "MCQs": [
+{q: "Q1: Unit of R?", opts: ["V","A","Ω","C"], ans: 2}, {q: "Q2: Current?", opts: ["Q/t","t/Q","Q.t","Q/t2"], ans: 0},
+{q: "Q3: Power?", opts: ["VI","V/I","I/V","V2/I"], ans: 0}, {q: "Q4: Resistivity?", opts: ["RA/L","L/RA","R/LA","A/RL"], ans: 0},
+{q: "Q5: Kirchhoff 1st?", opts: ["ΣI=0","ΣV=0","ΣP=0","ΣR=0"], ans: 0}, {q: "Q6: Kirchhoff 2nd?", opts: ["ΣI=0","ΣV=0","ΣP=0","ΣR=0"], ans: 1},
+{q: "Q7: Series R?", opts: ["R=R1+R2","1/R=1/R1+1/R2","R=R1*R2","R=R1/R2"], ans: 0}, {q: "Q8: Parallel R?", opts: ["R=R1+R2","1/R=1/R1+1/R2","R=R1*R2","R=R1/R2"], ans: 1},
+{q: "Q9: Drift velocity?", opts: ["I/nAq","nAq/I","I.Aq/n","n.I/Aq"], ans: 0}, {q: "Q10: Mobility?", opts: ["vd/E","E/vd","vd*E","E*vd"], ans: 0},
+{q: "Q11: Wheatstone bridge?", opts: ["R1/R2=R3/R4","R1*R2=R3*R4","R1+R2=R3+R4","R1-R2=R3-R4"], ans: 0}, {q: "Q12: Meter bridge?", opts: ["R1/R2=L1/L2","R1*R2=L1*L2","R1+R2=L1+L2","R1-R2=L1-L2"], ans: 0},
+{q: "Q13: Potentiometer?", opts: ["V∝L","V∝1/L","V=L","V=1/L"], ans: 0}, {q: "Q14: EMF unit?", opts: ["V","A","Ω","C"], ans: 0},
+{q: "Q15: Internal resistance?", opts: ["E-V/I","V-I/E","I/E-V","E/I-V"], ans: 0}
+]}}, CH3: { name: "CH3: Magnetism", formula: "F = BILsinθ", topics: { "MCQs": [
+{q: "Q1: Unit of B?", opts: ["T","Wb","A","N"], ans: 0}, {q: "Q2: Force on current?", opts: ["BILsinθ","BILcosθ","BIL/tanθ","BIL/cosθ"], ans: 0},
+{q: "Q3: Force on charge?", opts: ["qvBsinθ","qB/vsinθ","vB/qsinθ","q/vBsinθ"], ans: 0}, {q: "Q4: Biot-Savart?", opts: ["dB∝Idl/r2","B∝I/r","B∝I/r2","B∝r/I"], ans: 0},
+{q: "Q5: Ampere law?", opts: ["∮B.dl=μ0I","F=BIL","φ=BA","ε=-dφ/dt"], ans: 0}, {q: "Q6: Solenoid B?", opts: ["μ0nI","μ0NI","μ0I/2πr","μ0I/4πr2"], ans: 0},
+{q: "Q7: Toroid B?", opts: ["μ0NI/2πr","μ0nI","μ0I/2πr","μ0I/4πr2"], ans: 0}, {q: "Q8: Force between wires?", opts: ["μ0I1I2/2πd","μ0I1I2/4πd2","BIL","qvB"], ans: 0},
+{q: "Q9: Torque on coil?", opts: ["BINA sinθ","BINA cosθ","BIL","qvB"], ans: 0}, {q: "Q10: Galvanometer?", opts: ["Current","Voltage","Resistance","Power"], ans: 0},
+{q: "Q11: Shunt?", opts: ["Parallel","Series","Both","None"], ans: 0}, {q: "Q12: Voltmeter?", opts: ["High R series","Low R parallel","High R parallel","Low R series"], ans: 2},
+{q: "Q13: Ammeter?", opts: ["High R series","Low R parallel","High R parallel","Low R series"], ans: 3}, {q: "Q14: Cyclotron?", opts: ["Charge accel","Particle accel","Electron","Proton"], ans: 1},
+{q: "Q15: Hall effect?", opts: ["B measure","E measure","I measure","R measure"], ans: 0}
+]}}, CH4: { name: "CH4: EM Induction", formula: "ε = -dφ/dt", topics: { "MCQs": [
+{q: "Q1: Faraday law?", opts: ["ε=-dφ/dt","F=BIL","φ=BA","V=IR"], ans: 0}, {q: "Q2: Lenz law?", opts: ["Opposite current","Same current","No current","Infinite current"], ans: 0},
+{q: "Q3: Unit of flux?", opts: ["T","Wb","H","V"], ans: 1}, {q: "Q4: Unit of L?", opts: ["T","Wb","H","V"], ans: 2},
+{q: "Q5: Motional emf?", opts: ["Bvl","Blv","vlB","lvB"], ans: 0}, {q: "Q6: Eddy current?", opts: ["Heat","Light","Sound","Magnetism"], ans: 0},
+{q: "Q7: Transformer?", opts: ["AC voltage","DC voltage","AC current","DC current"], ans: 0}, {q: "Q8: Mutual induction?", opts: ["2 coils","1 coil","3 coils","No coil"], ans: 0},
+{q: "Q9: Self induction?", opts: ["1 coil","2 coils","3 coils","No coil"], ans: 0}, {q: "Q10: AC generator?", opts: ["Mech to Elec","Elec to Mech","Heat to Elec","Light to Elec"], ans: 0},
+{q: "Q11: DC motor?", opts: ["Elec to Mech","Mech to Elec","Heat to Elec","Light to Elec"], ans: 0}, {q: "Q12: Eddy current use?", opts: ["Braking","Heating","Both","None"], ans: 2},
+{q: "Q13: Inductance?", opts: ["L","C","R","Z"], ans: 0}, {q: "Q14: Energy in inductor?", opts: ["1/2LI2","1/2CV2","QV","I2R"], ans: 0},
+{q: "Q15: Time constant RL?", opts: ["L/R","R/L","LR","1/LR"], ans: 0}
+]}}, CH5: { name: "CH5: AC", formula: "XL = 2πfL", topics: { "MCQs": [
+{q: "Q1: Frequency in PK?", opts: ["50Hz","60Hz","100Hz","220Hz"], ans: 0}, {q: "Q2: XL =?", opts: ["2πfL","1/2πfC","R","Z"], ans: 0},
+{q: "Q3: XC =?", opts: ["2πfL","1/2πfC","R","Z"], ans: 1}, {q: "Q4: Z =?", opts: ["√R2+XL-XC2","R+XL+XC","R-XL-XC","R*XL*XC"], ans: 0},
+{q: "Q5: Resonance?", opts: ["XL=XC","XL>XC","XL<XC","XL=0"], ans: 0}, {q: "Q6: Power factor?", opts: ["cosφ","sinφ","tanφ","1/cosφ"], ans: 0},
+{q: "Q7: True power?", opts: ["VIcosφ","VIsinφ","VI","I2R"], ans: 0}, {q: "Q8: Reactive power?", opts: ["VIsinφ","VIcosφ","VI","I2R"], ans: 0},
+{q: "Q9: Apparent power?", opts: ["VI","VIcosφ","VIsinφ","I2R"], ans: 0}, {q: "Q10: Q factor?", opts: ["ωL/R","R/ωL","ωC/R","R/ωC"], ans: 0},
+{q: "Q11: Bandwidth?", opts: ["f2-f1","f2+f1","f2*f1","f2/f1"], ans: 0}, {q: "Q12: LCR series?", opts: ["Current same","Voltage same","Both same","None same"], ans: 0},
+{q: "Q13: LCR parallel?", opts: ["Current same","Voltage same","Both same","None same"], ans: 1}, {q: "Q14: Phasor?", opts: ["Rotating vector","Static vector","Scalar","None"], ans: 0},
+{q: "Q15: RMS value?", opts: ["Im/√2","Im*√2","Im/2","Im*2"], ans: 0}
+]}} },
+"MATHS11": { name: "Maths 11th", CH1: { name: "CH1: Sets", formula: "n(A∪B) = nA+nB-nA∩B", topics: { "MCQs": [
+{q: "Q1: Empty set?", opts: ["{}","{0}","0","1"], ans: 0}, {q: "Q2: Universal set?", opts: ["U","A","B","C"], ans: 0},
+{q: "Q3: A∪B?", opts: ["All elements","Common","None","Only A"], ans: 0}, {q: "Q4: A∩B?", opts: ["All","Common","None","Only A"], ans: 1},
+{q: "Q5: A-B?", opts: ["In A not B","In B not A","Both","None"], ans: 0}, {q: "Q6: Complement?", opts: ["U-A","A-U","A∩U","A∪U"], ans: 0},
+{q: "Q7: Subset symbol?", opts: ["⊂","∈","∪","∩"], ans: 0}, {q: "Q8: Power set?", opts: ["All subsets","All elements","Empty","Universal"], ans: 0},
+{q: "Q9: n(P(A))?", opts: ["2^n","n^2","2n","n!"], ans: 0}, {q: "Q10: Disjoint?", opts: ["A∩B=∅","A∪B=∅","A=B","A⊂B"], ans: 0},
+{q: "Q11: De Morgan?", opts: ["Both laws","None","Only 1","Only 2"], ans: 0}, {q: "Q12: Singleton?", opts: ["1 element","0","2","Many"], ans: 0},
+{q: "Q13: Finite set?", opts: ["Countable","Uncountable","Infinite","None"], ans: 0}, {q: "Q14: Infinite set?", opts: ["Natural numbers","{1,2,3}","Empty","None"], ans: 0},
+{q: "Q15: Venn diagram?", opts: ["Sets","Numbers","Equations","Functions"], ans: 0}
+]}}, CH2: { name: "CH2: Functions", formula: "f(x) = y", topics: { "MCQs": [
+{q: "Q1: Domain?", opts: ["Input","Output","Both","None"], ans: 0}, {q: "Q2: Range?", opts: ["Input","Output","Both","None"], ans: 1},
+{q: "Q3: One-one?", opts: ["Unique image","Same image","No image","Many"], ans: 0}, {q: "Q4: Onto?", opts: ["Range=Codomain","Range⊂Codomain","Range>Codomain","None"], ans: 0},
+{q: "Q5: Bijective?", opts: ["1-1+Onto","Only 1-1","Only Onto","None"], ans: 0}, {q: "Q6: Composite?", opts: ["f(g(x))","g(f(x))","f+g","f*g"], ans: 0},
+{q: "Q7: Inverse?", opts: ["f^-1","f^2","1/f","-f"], ans: 0}, {q: "Q8: Identity?", opts: ["f(x)=x","f(x)=1","f(x)=0","f(x)=c"], ans: 0},
+{q: "Q9: Constant?", opts: ["f(x)=c","f(x)=x","f(x)=1/x","f(x)=x2"], ans: 0}, {q: "Q10: Even?", opts: ["f(-x)=f(x)","f(-x)=-f(x)","f=0","f=1"], ans: 0},
+{q: "Q11: Odd?", opts: ["f(-x)=f(x)","f(-x)=-f(x)","f=0","f=1"], ans: 1}, {q: "Q12: f(x)=x2?", opts: ["Even","Odd","Both","None"], ans: 0},
+{q: "Q13: f(x)=x3?", opts: ["Even","Odd","Both","None"], ans: 1}, {q: "Q14: f(x)=1/x?", opts: ["Even","Odd","Both","None"], ans: 1},
+{q: "Q15: Vertical line test?", opts: ["Function","Not function","Both","None"], ans: 0}
+]}}, CH3: { name: "CH3: Trigonometry", formula: "sin^2θ+cos^2θ=1", topics: { "MCQs": [
+{q: "Q1: sin90°?", opts: ["0","1","-1","0.5"], ans: 1}, {q: "Q2: cos0°?", opts: ["0","1","-1","0.5"], ans: 1},
+{q: "Q3: tan45°?", opts: ["0","1","-1","∞"], ans: 1}, {q: "Q4: sin30°?", opts: ["0","1/2","√3/2","1"], ans: 1},
+{q: "Q5: cos60°?", opts: ["0","1/2","√3/2","1"], ans: 1}, {q: "Q6: 1+tan2θ?", opts: ["sec2θ","cosec2θ","sin2θ","cos2θ"], ans: 0},
+{q: "Q7: 1+cot2θ?", opts: ["sec2θ","cosec2θ","sin2θ","cos2θ"], ans: 1}, {q: "Q8: sin(A+B)?", opts: ["sinAcosB+cosAsinB","sinAcosB-cosAsinB","cosAcosB-sinAsinB","cosAcosB+sinAsinB"], ans: 0},
+{q: "Q9: cos(A+B)?", opts: ["sinAcosB+cosAsinB","sinAcosB-cosAsinB","cosAcosB-sinAsinB","cosAcosB+sinAsinB"], ans: 2}, {q: "Q10: sin2θ?", opts: ["2sinθcosθ","sin2θ-cos2θ","2cos2θ-1","1-2sin2θ"], ans: 0},
+{q: "Q11: cos2θ?", opts: ["2sinθcosθ","cos2θ-sin2θ","2cos2θ-1","All"], ans: 3}, {q: "Q12: tan2θ?", opts: ["2tanθ/1-tan2θ","2tanθ/1+tan2θ","tanθ/2","1/tanθ"], ans: 0},
+{q: "Q13: π radians?", opts: ["180°","90°","360°","270°"], ans: 0}, {q: "Q14: 180° =? rad", opts: ["π","π/2","2π","π/4"], ans: 0},
+{q: "Q15: Quadrant 2 sin?", opts: ["+","-","+","-"], ans: 0}
+]}}, CH4: { name: "CH4: Sequences", formula: "an = a+(n-1)d", topics: { "MCQs": [
+{q: "Q1: AP example?", opts: ["1,2,4","2,4,6","1,3,9","2,3,5"], ans: 1}, {q: "Q2: GP example?", opts: ["1,2,4","2,4,6","1,3,5","2,3,4"], ans: 0},
+{q: "Q3: nth term AP?", opts: ["a+(n-1)d","a*r^n-1","a+nd","a*r^n"], ans: 0}, {q: "Q4: nth term GP?", opts: ["a+(n-1)d","a*r^n-1","a+nd","a*r^n"], ans: 1},
+{q: "Q5: Sum AP?", opts: ["n/2[2a+(n-1)d]","a(r^n-1)/r-1","n*a","a^n"], ans: 0}, {q: "Q6: Sum GP?", opts: ["n/2[2a+(n-1)d]","a(r^n-1)/r-1","n*a"a(r^n-1)/r-1","n*a","a^n"], ans: 1}, {q: "Q7: AM?", opts: ["a+b/2","√ab","2ab/a+b","ab"], ans: 0},
+{q: "Q8: GM?", opts: ["a+b/2","√ab","2ab/a+b","ab"], ans: 1}, {q: "Q9: HM?", opts: ["a+b/2","√ab","2ab/a+b","ab"], ans: 2},
+{q: "Q10: AM>=GM?", opts: ["True","False","Sometimes","None"], ans: 0}, {q: "Q11: Common diff?", opts: ["d","r","a","n"], ans: 0},
+{q: "Q12: Common ratio?", opts: ["d","r","a","n"], ans: 1}, {q: "Q13: Sum 1 to n?", opts: ["n(n+1)/2","n2","n3","n(n+1)"], ans: 0},
+{q: "Q14: Sum n squares?", opts: ["n(n+1)/2","n(n+1)(2n+1)/6","n2","n3"], ans: 1}, {q: "Q15: Sum n cubes?", opts: ["n(n+1)/2","n(n+1)(2n+1)/6","[n(n+1)/2]2","n3"], ans: 2}
+]}}, CH5: { name: "CH5: Permutations", formula: "nPr = n!/(n-r)!", topics: { "MCQs": [
+{q: "Q1: 5P2 =?", opts: ["10","20","25","30"], ans: 1}, {q: "Q2: 5C2 =?", opts: ["10","20","25","30"], ans: 0},
+{q: "Q3: nPr formula?", opts: ["n!/(n-r)!","n!/r!","n!/n-r!","n*r"], ans: 0}, {q: "Q4: nCr formula?", opts: ["n!/(n-r)!r!","n!/r!","n!/n-r!","n*r"], ans: 0},
+{q: "Q5: nPn =?", opts: ["n!","1","0","n"], ans: 0}, {q: "Q6: nC0 =?", opts: ["n!","1","0","n"], ans: 1},
+{q: "Q7: nCn =?", opts: ["n!","1","0","n"], ans: 1}, {q: "Q8: nCr = nCn-r?", opts: ["True","False","Sometimes","None"], ans: 0},
+{q: "Q9: nCr + nCr-1 =?", opts: ["n+1Cr","nCr","n-1Cr","nCr-1"], ans: 0}, {q: "Q10: 0! =?", opts: ["0","1","∞","undefined"], ans: 1},
+{q: "Q11: Arrangements n?", opts: ["n!","2^n","n^2","n"], ans: 0}, {q: "Q12: Circular perm?", opts: ["n-1!","n!","n+1!","n/2!"], ans: 0},
+{q: "Q13: With repetition?", opts: ["n^r","nPr","nCr","r^n"], ans: 0}, {q: "Q14: APPLE arrangements?", opts: ["60","120","30","90"], ans: 0},
+{q: "Q15: 4! =?", opts: ["8","12","20","24"], ans: 3}
+]}} },
+"MATHS12": { name: "Maths 12th", CH1: { name: "CH1: Relations Functions", formula: "f(g(x))", topics: { "MCQs": [
+{q: "Q1: One-one?", opts: ["Unique image","Same image","Zero","Inf"], ans: 0}, {q: "Q2: Onto?", opts: ["Range=Codomain","Range⊂Codomain","Range>Codomain","None"], ans: 0},
+{q: "Q3: Bijective?", opts: ["1-1+Onto","Only 1-1","Only Onto","None"], ans: 0}, {q: "Q4: Composite?", opts: ["f(g(x))","g(f(x))","f+g","f*g"], ans: 0},
+{q: "Q5: Inverse exists?", opts: ["Bijective","Injective","Surjective","None"], ans: 0}, {q: "Q6: Inverse 2x+3?", opts: ["x-3/2","2x-3","x+3/2","2x+3"], ans: 0},
+{q: "Q7: fof^-1 =?", opts: ["x","1","0","f(x)"], ans: 0}, {q: "Q8: Domain tanx?", opts: ["R","R-{π/2+nπ}","R-{nπ}","R+"], ans: 1},
+{q: "Q9: Range sinx?", opts: ["[-1,1]","R","R+","(0,1)"], ans: 0}, {q: "Q10: Domain logx?", opts: ["R","R+","R-","R-{0}"], ans: 1},
+{q: "Q11: Inverse x^3?", opts: ["x^1/3","x^3","3√x","x/3"], ans: 0}, {q: "Q12: f(x)=x2?", opts: ["One-one","Onto","Both","Neither"], ans: 3},
+{q: "Q13: f(x)=e^x?", opts: ["One-one","Onto","Both","None"], ans: 0}, {q: "Q14: Constant f?", opts: ["Many-one","One-one","Onto","Bijective"], ans: 0},
+{q: "Q15: Identity f?", opts: ["f(x)=x","f(x)=1","f(x)=0","f(x)=c"], ans: 0}
+]}}, CH2: { name: "CH2: Matrices", formula: "|A| = ad-bc", topics: { "MCQs": [
+{q: "Q1: Order?", opts: ["Rows*Cols","Cols*Rows","Rows+Cols","Rows-Cols"], ans: 0}, {q: "Q2: Square?", opts: ["Rows=Cols","Rows>Cols","Rows<Cols","None"], ans: 0},
+{q: "Q3: Det 2x2?", opts: ["ad-bc","ab-cd","a+d","a*d"], ans: 0}, {q: "Q4: Singular?", opts: ["|A|=0","|A|≠0","|A|=1","|A|=-1"], ans: 0},
+{q: "Q5: Inverse exists?", opts: ["|A|≠0","|A|=0","|A|=1","|A|=-1"], ans: 0}, {q: "Q6: A^-1?", opts: ["adjA/|A|","|A|/adjA","A/|A|","|A|/A"], ans: 0},
+{q: "Q7: Identity?", opts: ["Diag 1s","All 0s","All 1s","Diag 0s"], ans: 0}, {q: "Q8: Zero matrix?", opts: ["All 0s","All 1s","Diag 1s","Diag 0s"], ans: 0},
+{q: "Q9: Transpose?", opts: ["Rows=Cols","Cols=Rows","Swap diag","None"], ans: 0}, {q: "Q10: Symmetric?", opts: ["A=A^T","A=-A^T","A*A^T=I","None"], ans: 0},
+{q: "Q11: Skew?", opts: ["A=A^T","A=-A^T","A*A^T=I","None"], ans: 1}, {q: "Q12: |AB|?", opts: ["|A||B|","|A|+|B|","|A|-|B|","|A|/|B|"], ans: 0},
+{q: "Q13: |A^T|?", opts: ["|A|","-|A|","1/|A|","0"], ans: 0}, {q: "Q14: |kA|?", opts: ["k^n|A|","k|A|","|A|/k","k+|A|"], ans: 0},
+{q: "Q15: Cramer's x?", opts: ["|Dx|/|D|","|D|/|Dx|","|D|*|Dx|","|Dx|-|D|"], ans: 0}
+]}}, CH3: { name: "CH3: Limits", formula: "lim x->a f(x)", topics: { "MCQs": [
+{q: "Q1: lim 1/x x->∞?", opts: ["0","1","∞","undef"], ans: 0}, {q: "Q2: lim sinx/x x->0?", opts: ["0","1","∞","undef"], ans: 1},
+{q: "Q3: Continuous?", opts: ["lim=f(a)","lim≠f(a)","lim=0","lim=∞"], ans: 0}, {q: "Q4: lim c?", opts: ["c","0","a","x"], ans: 0},
+{q: "Q5: lim x?", opts: ["c","0","a","x"], ans: 2}, {q: "Q6: lim sin0?", opts: ["0","1","-1","∞"], ans: 0},
+{q: "Q7: lim cos0?", opts: ["0","1","-1","∞"], ans: 1}, {q: "Q8: lim 1/x^n x->∞?", opts: ["0","1","∞","n"], ans: 0},
+{q: "Q9: LHL=RHL=f(a)?", opts: ["Continuous","Discontinuous","Removable","Jump"], ans: 0}, {q: "Q10: lim 1/x x->0?", opts: ["0","1","∞","undef"], ans: 3},
+{q: "Q11: lim |x|/x x->0?", opts: ["0","1","-1","undef"], ans: 3}, {q: "Q12: lim x2 x->2?", opts: ["2","4","0","∞"], ans: 1},
+{q: "Q13: lim x/x x->0?", opts: ["0","1","∞","undef"], ans: 1}, {q: "Q14: lim x*sin1/x x->0?", opts: ["0","1","-1","undef"], ans: 0},
+{q: "Q15: Polynomial cont?", opts: ["Everywhere","Nowhere","At 0","At 1"], ans: 0}
+]}}, CH4: { name: "CH4: Differentiation", formula: "d/dx x^n = n*x^n-1", topics: { "MCQs": [
+{q: "Q1: d/dx sinx?", opts: ["cosx","-cosx","sinx","-sinx"], ans: 0}, {q: "Q2: d/dx cosx?", opts: ["cosx","-cosx","sinx","-sinx"], ans: 1},
+{q: "Q3: d/dx tanx?", opts: ["sec2x","-sec2x","tan2x","cot2x"], ans: 0}, {q: "Q4: d/dx e^x?", opts: ["e^x","x*e^x-1","lnx","1/x"], ans: 0},
+{q: "Q5: d/dx lnx?", opts: ["e^x","x*e^x-1","lnx","1/x"], ans: 3}, {q: "Q6: Product rule?", opts: ["uv'+vu'","u'v'","u+v'","uv"], ans: 0},
+{q: "Q7: Quotient rule?", opts: ["vu'-uv'/v2","uv'-vu'/v2","u'v-uv'","uv'/v"], ans: 0}, {q: "Q8: Chain rule?", opts: ["f'(g)*g'","f'*g'","f(g')","f'*g"], ans: 0},
+{q: "Q9: d/dx x^n?", opts: ["n*x^n-1","x^n","n*x^n","x^n-1"], ans: 0}, {q: "Q10: d/dx c?", opts: ["0","c","1","c*x"], ans: 0},
+{q: "Q11: d/dx x?", opts: ["0","c","1","x"], ans: 2}, {q: "Q12: 2nd derivative?", opts: ["d2y/dx2","dy/dx","dx/dy","y/x"], ans: 0},
+{q: "Q13: Rate of change?", opts: ["dy/dx","dx/dy","y/x","x/y"], ans: 0}, {q: "Q14: Maxima?", opts: ["f'=0,f''<0","f'=0,f''>0","f'>0","f'<0"], ans: 0},
+{q: "Q15: Minima?", opts: ["f'=0,f''<0","f'=0,f''>0","f'>0","f'<0"], ans: 1}
+]}}, CH5: { name: "CH5: Integration", formula: "∫x^n dx = x^n+1/n+1", topics: { "MCQs": [
+{q: "Q1: ∫dx?", opts: ["x","x2","1","0"], ans: 0}, {q: "Q2: ∫x^n?", opts: ["x^n+1/n+1","n*x^n-1","x^n","n*x^n"], ans: 0},
+{q: "Q3: ∫sinx?", opts: ["-cosx","cosx","sinx","-sinx"], ans: 0}, {q: "Q4: ∫cosx?", opts: ["-cosx","cosx","sinx","-sinx"], ans: 2},
+{q: "Q5: ∫e^x?", opts: ["e^x","x*e^x","lnx","1/x"], ans: 0}, {q: "Q6: ∫1/x?", opts: ["e^x","x*e^x","ln|x|","1/x"], ans: 2},
+{q: "Q7: ∫sec2x?", opts: ["tanx","-tanx","secx","-secx"], ans: 0}, {q: "Q8: ∫1/1+x2?", opts: ["tan-1x","sin-1x","cos-1x","sec-1x"], ans: 0},
+{q: "Q9: ∫1/√1-x2?", opts: ["tan-1x","sin-1x","cos-1x","sec-1x"], ans: 1}, {q: "Q10: Area under curve?", opts: ["∫f(x)dx","f'(x)","f''(x)","f(x)"], ans: 0},
+{q: "Q11: Definite integral?", opts: ["F(b)-F(a)","F(a)-F(b)","F(a)*F(b)","F(a)/F(b)"], ans: 0}, {q: "Q12: ∫f'(x)?", opts: ["f(x)","f'(x)","f''(x)","0"], ans: 0},
+{q: "Q13: By parts?", opts: ["∫uv=u∫v-∫u'∫v","uv","u/v","u+v"], ans: 0}, {q: "Q14: ∫secx*tanx?", opts: ["secx","-secx","tanx","-tanx"], ans: 0},
+{q: "Q15: Area between?", opts: ["∫|f-g|dx","∫f*gdx","∫f/gdx","∫f+gdx"], ans: 0}
+]}} },
+"CS11": { name: "CS 11th", CH1: { name: "CH1: Intro to CS", formula: "Data + Instructions", topics: { "MCQs": [
+{q: "Q1: CPU?", opts: ["Central Processing Unit","Computer Processing Unit","Central Program Unit","Control Processing Unit"], ans: 0},
+{q: "Q2: RAM?", opts: ["Random Access Memory","Read Access Memory","Run Access Memory","Real Access Memory"], ans: 0},
+{q: "Q3: ROM?", opts: ["Read Only Memory","Random Only Memory","Run Only Memory","Real Only Memory"], ans: 0}, {q: "Q4: 1 Byte =? bits", opts: ["4","8","16","32"], ans: 1},
+{q: "Q5: Software?", opts: ["Programs","Hardware","CPU","Monitor"], ans: 0}, {q: "Q6: Hardware?", opts: ["Physical parts","Programs","Data","Algorithm"], ans: 0},
+{q: "Q7: OS example?", opts: ["Windows","MS Word","Excel","Chrome"], ans: 0}, {q: "Q8: Input device?", opts: ["Keyboard","Monitor","Printer","Speaker"], ans: 0},
+{q: "Q9: Output device?", opts: ["Mouse","Keyboard","Monitor","Scanner"], ans: 2}, {q: "Q10: Storage?", opts: ["CPU","RAM","Hard Disk","ALU"], ans: 2},
+{q: "Q11: 1 KB =? Bytes", opts: ["1000","1024","512","2048"], ans: 1}, {q: "Q12: ALU?", opts: ["Arithmetic Logic Unit","Array Logic Unit","Application Logic Unit","Arithmetic Local Unit"], ans: 0},
+{q: "Q13: 1 GB =? MB", opts: ["1000","1024","512","2048"], ans: 1}, {q: "Q14: Compiler?", opts: ["Translates code","Executes code","Stores data","Displays output"], ans: 0},
+{q: "Q15: Internet?", opts: ["Network of networks","Single computer","Software","Hardware"], ans: 0}
+]}}, CH2: { name: "CH2: Number System", formula: "2^8 = 256", topics: { "MCQs": [
+{q: "Q1: 10 in binary?", opts: ["1010","1100","1001","1110"], ans: 0}, {q: "Q2: 15 in hex?", opts: ["E","F","D","A"], ans: 1},
+{q: "Q3: Binary base?", opts: ["2","8","10","16"], ans: 0}, {q: "Q4: Octal base?", opts: ["2","8","10","16"], ans: 1},
+{q: "Q5: Hex base?", opts: ["2","8","10","16"], ans: 3}, {q: "Q6: 1111 in decimal?", opts: ["14","15","16","17"], ans: 1},
+{q: "Q7: 1A in decimal?", opts: ["25","26","27","28"], ans: 1}, {q: "Q8: MSB?", opts: ["Most Significant Bit","Minimum Significant Bit","Maximum Simple Bit","Most Small Bit"], ans: 0},
+{q: "Q9: LSB?", opts: ["Least Significant Bit","Large Significant Bit","Last Significant Bit","Least Small Bit"], ans: 0}, {q: "Q10: 2^10 =?", opts: ["512","1024","2048","4096"], ans: 1},
+{q: "Q11: ASCII?", opts: ["Character encoding","Number system","Algorithm","Program"], ans: 0}, {q: "Q12: Unicode?", opts: ["Universal character encoding","Number","Data","File"], ans: 0},
+{q: "Q13: 255 in binary?", opts: ["11111","11110","11100","11111000"], ans: 0}, {q: "Q14: Complement of 0?", opts: ["1","0","-1","2"], ans: 0},
+{q: "Q15: 1's complement?", opts: ["Flip bits","Add 1","Subtract 1","Multiply"], ans: 0}
+]}}, CH3: { name: "CH3: Logic Gates", formula: "A.B = AND", topics: { "MCQs": [
+{q: "Q1: AND output 1?", opts: ["Both 1","Any 1","Both 0","Any 0"], ans: 0}, {q: "Q2: OR output 0?", opts: ["Both 0","Any 0","Both 1","Any 1"], ans: 0},
+{q: "Q3: NOT gate?", opts: ["Inverter","Amplifier","Adder","Subtractor"], ans: 0}, {q: "Q4: NAND =?", opts: ["NOT AND","NOT OR","AND OR","OR AND"], ans: 0},
+{q: "Q5: NOR =?", opts: ["NOT OR","NOT AND","AND OR","OR AND"], ans: 0}, {q: "Q6: XOR output 1?", opts: ["Inputs different","Inputs same","Both 1","Both 0"], ans: 0},
+{q: "Q7: XNOR output 1?", opts: ["Inputs same","Inputs different","Any 1","Any 0"], ans: 0}, {q: "Q8: Universal gates?", opts: ["NAND,NOR","AND,OR","XOR,XNOR","NOT"], ans: 0},
+{q: "Q9: Boolean algebra?", opts: ["0 and 1","1 to 9","A to Z","All"], ans: 0}, {q: "Q10: De Morgan?", opts: ["(AB)'=A'+B'","AB=A+B","A+A=A","AA=0"], ans: 0},
+{q: "Q11: Truth table?", opts: ["All input-output","Only input","Only output","None"], ans: 0}, {q: "Q12: Half Adder?", opts: ["Sum,Carry","Only Sum","Only Carry","None"], ans: 0},
+{q: "Q13: Full Adder inputs?", opts: ["2","3","4","1"], ans: 1}, {q: "Q14: Multiplexer?", opts: ["Many to one","One to many","One to one","None"], ans: 0},
+{q: "Q15: Flip Flop?", opts: ["Memory element","Logic gate","Adder","Multiplier"], ans: 0}
+]}}, CH4: { name: "CH4: Programming", formula: "Algorithm + Data", topics: { "MCQs": [
+{q: "Q1: Compiler?", opts: ["Translates code","Executes code","Stores data","Displays output"], ans: 0}, {q: "Q2: Interpreter?", opts: ["Line by line","Full translation","Stores data","None"], ans: 0},
+{q: "Q3: Algorithm?", opts: ["Step by step","Program","Data","Hardware"], ans: 0}, {q: "Q4: Flowchart decision?", opts: ["Diamond","Rectangle","Oval","Parallelogram"], ans: 0},
+{q: "Q5: Variable?", opts: ["Storage location","Constant","Function","Loop"], ans: 0}, {q: "Q6: Data type?", opts: ["int,float,char","Loop","Function","Array"], ans: 0},
+{q: "Q7: Loop?", opts: ["Repetition","Decision","Input","Output"], ans: 0}, {q: "Q8: If-else?", opts: ["Decision","Repetition","Input","Output"], ans: 0},
+{q: "Q9: Array?", opts: ["Collection same type","Single value","Function","Loop"], ans: 0}, {q: "Q10: Function?", opts: ["Reusable code","Variable","Constant","Loop"], ans: 0},
+{q: "Q11: Debugging?", opts: ["Error removal","Code writing","Compiling","Running"], ans: 0}, {q: "Q12: Syntax error?", opts: ["Language rule break","Logic error","Runtime error","None"], ans: 0},
+{q: "Q13: Logical error?", opts: ["Wrong output","Spelling mistake","Crash","None"], ans: 0}, {q: "Q14: Pseudocode?", opts: ["Algorithm in English","Real code","Diagram","None"], ans: 0},
+{q: "Q15: IDE?", opts: ["Integrated Dev Environment","Internet","OS","Browser"], ans: 0}
+]}}, CH5: { name: "CH5: Web Basics", formula: "HTML + CSS + JS", topics: { "MCQs": [
+{q: "Q1: HTML?", opts: ["Hyper Text Markup Language","High Text Markup Language","Hyper Tool Markup Language","Hyper Text Machine Language"], ans: 0},
+{q: "Q2: CSS?", opts: ["Cascading Style Sheets","Computer Style Sheets","Creative Style Sheets","Colorful Style Sheets"], ans: 0},
+{q: "Q3: JS?", opts: ["JavaScript","Java Source","Just Script","Jungle Script"], ans: 0}, {q: "Q4: <html> tag?", opts: ["Root tag","Head tag","Body tag","Title tag"], ans: 0},
+{q: "Q5: <head>?", opts: ["Meta info","Body content","Images","Links"], ans: 0}, {q: "Q6: <body>?", opts: ["Visible content","Meta info","Code","None"], ans: 0},
+{q: "Q7: <h1> to <h6>?", opts: ["Headings","Paragraphs","Links","Images"], ans: 0}, {q: "Q8: <p> tag?", opts: ["Paragraph","Link","Image","List"], ans: 0},
+{q: "Q9: <a> tag?", opts: ["Anchor/Link","Image","List","Table"], ans: 0}, {q: "Q10: <img> tag?", opts: ["Image","Link","List","Table"], ans: 0},
+{q: "Q11: CSS used for?", opts: ["Styling","Structure","Logic","Database"], ans: 0}, {q: "Q12: JS used for?", opts: ["Interactivity","Structure","Styling","Database"], ans: 0},
+{q: "Q13: <ul> tag?", opts: ["Unordered list","Ordered list","Table","Form"], ans: 0}, {q: "Q14: <ol> tag?", opts: ["Ordered list","Unordered list","Table","Form"], ans: 0},
+{q: "Q15: <table> tag?", opts: ["Table","List","Form","Image"], ans: 0}
+]}} },
+"CS12": { name: "CS 12th", CH1: { name: "CH1: Data Structures", formula: "Stack, Queue, Tree", topics: { "MCQs": [
+{q: "Q1: LIFO?", opts: ["Queue","Stack","Array","Tree"], ans: 1}, {q: "Q2: FIFO?", opts: ["Queue","Stack","Array","Tree"], ans: 0},
+{q: "Q3: Array?", opts: ["Fixed size","Dynamic","Linked","None"], ans: 0}, {q: "Q4: Linked List?", opts: ["Dynamic nodes","Fixed array","Stack","Queue"], ans: 0},
+{q: "Q5: Stack ops?", opts: ["Push,Pop","Enqueue,Dequeue","Insert,Delete","None"], ans: 0}, {q: "Q6: Queue ops?", opts: ["Enqueue,Dequeue","Push,Pop","Insert,Delete","None"], ans: 0},
+{q: "Q7: Tree?", opts: ["Hierarchical","Linear","Circular","None"], ans: 0}, {q: "Q8: Graph?", opts: ["Nodes+Edges","Array","Stack","Queue"], ans: 0},
+{q: "Q9: Binary Tree?", opts: ["Max 2 children","Max 3 children","No children","Infinite"], ans: 0}, {q: "Q10: Sorting?", opts: ["Arrange data","Search data","Delete data","None"], ans: 0},
+{q: "Q11: Searching?", opts: ["Find data","Arrange data","Delete data","None"], ans: 0}, {q: "Q12: Bubble Sort?", opts: ["Compare adjacent","Divide","Hashing","None"], ans: 0},
+{q: "Q13: Quick Sort?", opts: ["Divide and conquer","Compare adjacent","Hashing","None"], ans: 0}, {q: "Q14: Linear Search?", opts: ["Sequential","Binary","Hash","None"], ans: 0},
+{q: "Q15: Binary Search?", opts: ["Divide array","Sequential","Hash","None"], ans: 0}
+]}}, CH2: { name: "CH2: OOP", formula: "Class + Object", topics: { "MCQs": [
+{q: "Q1: OOP?", opts: ["Object Oriented Programming","Object Oriented Process","Object Oriented Protocol","None"], ans: 0},
+{q: "Q2: Class?", opts: ["Blueprint","Object","Function","Variable"], ans: 0}, {q: "Q3: Object?", opts: ["Instance of class","Class","Function","Variable"], ans: 0},
+{q: "Q4: Inheritance?", opts: ["Reuse code","Delete code","Copy code","Hide code"], ans: 0}, {q: "Q5: Polymorphism?", opts: ["Many forms","One form","No form","None"], ans: 0},
+{q: "Q6: Encapsulation?", opts: ["Data hiding","Data display","Data delete","None"], ans: 0}, {q: "Q7: Abstraction?", opts: ["Show essential","Show all","Hide all","None"], ans: 0},
+{q: "Q8: Constructor?", opts: ["Initialize object","Destroy object","Copy object","None"], ans: 0}, {q: "Q9: Destructor?", opts: ["Destroy object","Initialize object","Copy object","None"], ans: 0},
+{q: "Q10: Overloading?", opts: ["Same name diff params","Same name same params","Diff name","None"], ans: 0},
+{q: "Q11: Overriding?", opts: ["Same name same params","Same name diff params","Diff name","None"], ans: 0}, {q: "Q12: Access specifier?", opts: ["public,private","int,float","class,object","None"], ans: 0},
+{q: "Q13: Static member?", opts: ["Shared by all","Single object","No object","None"], ans: 0}, {q: "Q14: Friend function?", opts: ["Access private","Public members","Protected","None"], ans: 0},
+{q: "Q15: Virtual function?", opts: ["Runtime poly","Compile time","No poly","None"], ans: 0}
+]}}, CH3: { name: "CH3: Database", formula: "SQL", topics: { "MCQs": [
+{q: "Q1: DBMS?", opts: ["Database Management System","Data Base Manage System","Database Manage Software","None"], ans: 0},
+{q: "Q2: SQL?", opts: ["Structured Query Language","Simple Query Language","System Query Language","None"], ans: 0},
+{q: "Q3: Table?", opts: ["Rows and Columns","Only Rows","Only Columns","None"], ans: 0}, {q: "Q4: Primary Key?", opts: ["Unique","Duplicate","Null","None"], ans: 0},
+{q: "Q5: Foreign Key?", opts: ["Reference other table","Primary key","Unique key","None"], ans: 0}, {q: "Q6: SELECT?", opts: ["Retrieve data","Insert data","Delete data","Update data"], ans: 0},
+{q: "Q7: INSERT?", opts: ["Add data","Retrieve data","Delete data","Update data"], ans: 0}, {q: "Q8: UPDATE?", opts: ["Modify data","Retrieve data","Delete data","Add data"], ans: 0},
+{q: "Q9: DELETE?", opts: ["Remove data","Retrieve data","Add data","Update data"], ans: 0}, {q: "Q10: WHERE?", opts: ["Condition","Sorting","Grouping","None"], ans: 0},
+{q: "Q11: ORDER BY?", opts: ["Sorting","Filtering","Grouping","None"], ans: 0}, {q: "Q12: GROUP BY?", opts: ["Grouping","Sorting","Filtering","None"], ans: 0},
+{q: "Q13: JOIN?", opts: ["Combine tables","Split table","Delete table","None"], ans: 0}, {q: "Q14: Normalization?", opts: ["Reduce redundancy","Increase redundancy","Delete data","None"], ans: 0},
+{q: "Q15: Index?", opts: ["Fast search","Slow search","No search","None"], ans: 0}
+]}}, CH4: { name: "CH4: Web Dev", formula: "Frontend + Backend", topics: { "MCQs": [
+{q: "Q1: <link> tag?", opts: ["CSS file","JS file","Image","Video"], ans: 0}, {q: "Q2: <script> tag?", opts: ["JavaScript","CSS","HTML","PHP"], ans: 0},
+{q: "Q3: Form tag?", opts: ["<form>","<input>","<button>","<div>"], ans: 0}, {q: "Q4: HTTP?", opts: ["Hyper Text Transfer Protocol","High Text Transfer Protocol","Hyper Tool Transfer Protocol","None"], ans: 0},
+{q: "Q5: HTTPS?", opts: ["Secure HTTP","Fast HTTP","New HTTP","None"], ans: 0}, {q: "Q6: GET method?", opts: ["Retrieve data","Send data","Delete data","Update data"], ans: 0},
+{q: "Q7: POST method?", opts: ["Send data","Retrieve data","Delete data","Update data"], ans: 0}, {q: "Q8: Cookie?", opts: ["Small data file","Large file","Program","None"], ans: 0},
+{q: "Q9: Session?", opts: ["Server storage","Client storage","Database","None"], ans: 0}, {q: "Q10: API?", opts: ["Application Programming Interface","Application Process Interface","Application Program Internet","None"], ans: 0},
+{q: "Q11: JSON?", opts: ["Data format","Programming language","Database","None"], ans: 0}, {q: "Q12: AJAX?", opts: ["Async JS And XML","Advanced JS","Application JS","None"], ans: 0},
+{q: "Q13: Bootstrap?", opts: ["CSS Framework","JS Framework","PHP Framework","None"], ans: 0}, {q: "Q14: Responsive?", opts: ["All devices","Only desktop","Only mobile","None"], ans: 0},
+{q: "Q15: SEO?", opts: ["Search Engine Optimization","Site Engine Optimization","Search Engine Operation","None"], ans: 0}
+]}}, CH5: { name: "CH5: Networking", formula: "IP + TCP", topics: { "MCQs": [
+{q: "Q1: HTTP port?", opts: ["80","21","25","110"], ans: 0}, {q: "Q2: HTTPS port?", opts: ["443","80","21","25"], ans: 0},
+{q: "Q3: FTP port?", opts: ["21","80","443","25"], ans: 0}, {q: "Q4: SMTP port?", opts: ["25","80","443","21"], ans: 0},
+{q: "Q5: IP address?", opts: ["Internet Protocol address","Internet Program address","Internal Protocol address","None"], ans: 0}, {q: "Q6: IPv4?", opts: ["32 bit","64 bit","128 bit","16 bit"], ans: 0},
+{q: "Q7: IPv6?", opts: ["128 bit","32 bit","64 bit","16 bit"], ans: 0}, {q: "Q8: DNS?", opts: ["Domain Name System","Data Name System","Domain Network System","None"], ans: 0}, 
+{q: "Q8: DNS?", opts: ["Domain Name System","Data Name System","Domain Network System","None"], ans: 0},
+{q: "Q9: Router?", opts: ["Connect networks","Connect computers","Connect printer","None"], ans: 0},
+{q: "Q10: Switch?", opts: ["Connect devices in network","Connect networks","Connect internet","None"], ans: 0},
+{q: "Q11: Hub?", opts: ["Broadcast device","Smart device","Router","None"], ans: 0},
+{q: "Q12: LAN?", opts: ["Local Area Network","Large Area Network","Long Area Network","None"], ans: 0},
+{q: "Q13: WAN?", opts: ["Wide Area Network","Wireless Area Network","Web Area Network","None"], ans: 0},
+{q: "Q14: TCP?", opts: ["Transmission Control Protocol","Transfer Control Protocol","Technical Control Protocol","None"], ans: 0},
+{q: "Q15: UDP?", opts: ["User Datagram Protocol","Universal Data Protocol","User Data Protocol","None"], ans: 0}
+]}} },
+
 "GAME": {
     name: "Game",
     levels: [
@@ -547,28 +354,40 @@ const QUIZ_DATA = {
 "AI_BOT": {
     name: "AI Bot",
     responses: {
-      "hello": "Hello! Kya help chahiye?", "physics": "Physics me konsa chapter?", "maths": "Maths me konsa chapter?",
-      "cs": "CS me konsa chapter?", "game": "Game khelna hai?", "bye": "Allah Hafiz!"
+      "hello": "Hello! Kya help chahiye? Physics, Maths ya CS?",
+      "physics": "Physics me konsa chapter padhna hai? CH1 to CH5 available hain",
+      "maths": "Maths me konsa chapter? 11th aur 12th dono hain",
+      "cs": "CS me konsa chapter? Programming, OOP, DB sab hai",
+      "game": "Game khelne ke liye Game button dabao. 15 Levels hain",
+      "mcq": "Kisi bhi subject ka chapter select karo, 15 MCQs milenge",
+      "bye": "Allah Hafiz! Phir milte hain padhai ke liye",
+      "default": "Samjha nahi. 'physics', 'maths', 'cs', 'game' likho"
     }
   }
 };
 
-// JS FUNCTIONS
-let currentSubject="", currentChapter="", currentQ=0, score=0;
+// ===== JS FUNCTIONS =====
+let currentSubject="", currentChapter="", currentQ=0, score=0, gameLevel=0;
 
 function showHome(){
- ['home','chapterMenu','quizBox','gameBox','aiBot'].forEach(id=>document.getElementById(id).classList.add('hidden'));
+ ['home','chapterMenu','quizBox','resultBox','gameBox','aiBot'].forEach(id=>document.getElementById(id).classList.add('hidden'));
  document.getElementById('home').classList.remove('hidden');
 }
 
 function showSubjects(sub){
  currentSubject = sub;
  let menu = document.getElementById('chapterMenu');
- menu.innerHTML = `<h2 class="text-2xl font-bold mb-4">${QUIZ_DATA[sub].name} - Select Chapter</h2>`;
+ menu.innerHTML = `<h2 class="text-2xl font-bold mb-4">${QUIZ_DATA[sub].name} - Select Chapter</h2><div class="grid md:grid-cols-2 gap-4">`;
  for(let ch in QUIZ_DATA[sub]){
   if(ch.startsWith("CH")){
-   menu.innerHTML += `<button onclick="startQuiz('${sub}','${ch}')" class="btn btn-primary m-2">${QUIZ_DATA[sub][ch].name}</button>`;
+   menu.innerHTML += `<button onclick="startQuiz('${sub}','${ch}')" class="btn-subject">
+   <h3 class="font-bold text-lg">${QUIZ_DATA[sub][ch].name}</h3>
+   <p class="text-sm text-cyan-300">Formula: ${QUIZ_DATA[sub][ch].formula}</p>
+   <p class="text-xs mt-2">15 MCQs</p>
+   </button>`;
   }
+ }
+ menu.innerHTML += `</div>`;
  showDiv('chapterMenu');
 }
 
@@ -584,26 +403,103 @@ function loadQuestion(){
    <h3 class="text-xl mb-2">${QUIZ_DATA[currentSubject][currentChapter].name}</h3>
    <p class="text-sm text-cyan-300 mb-4">Formula: ${QUIZ_DATA[currentSubject][currentChapter].formula}</p>
    <h4 class="text-lg mb-4">${qData.q}</h4>
-   ${qData.opts.map((opt,i)=>`<button onclick="checkAns(${i})" class="btn-option">${i+1}. ${opt}</button>`).join('')}
-   <p class="mt-4">Question ${currentQ+1} / 20</p>
+   ${qData.opts.map((opt,i)=>`<button onclick="checkAns(${i})" class="btn-option" id="opt${i}">${i+1}. ${opt}</button>`).join('')}
+   <p class="mt-4">Question ${currentQ+1} / 15 | Score: ${score}</p>
   </div>
  `;
 }
 
 function checkAns(i){
  let qData = QUIZ_DATA[currentSubject][currentChapter].topics.MCQs[currentQ];
- if(i==qData.ans) score++;
- currentQ++;
- if(currentQ < 20) loadQuestion();
- else alert(`Quiz Complete! Score: ${score}/20`);
+ let buttons = document.querySelectorAll('.btn-option');
+ buttons.forEach(btn => btn.disabled = true);
+
+ if(i==qData.ans){
+  score++;
+  buttons[i].classList.add('correct');
+ } else {
+  buttons[i].classList.add('wrong');
+  buttons[qData.ans].classList.add('correct');
+ }
+
+ setTimeout(()=>{
+  currentQ++;
+  if(currentQ < 15) loadQuestion();
+  else showResult();
+ }, 1000);
 }
 
-function showGame(){ showDiv('gameBox'); document.getElementById('gameBox').innerHTML="<h2>Game Coming Soon</h2>"; }
-function showAiBot(){ showDiv('aiBot'); document.getElementById('aiBot').innerHTML="<h2>AI Bot Coming Soon</h2>"; }
+function showResult(){
+ document.getElementById('quizBox').innerHTML = `
+  <div class="glass p-6 rounded-2xl text-center">
+   <h2 class="text-2xl font-bold mb-4">Quiz Complete!</h2>
+   <p class="text-4xl mb-2">${score}/15</p>
+   <p class="text-slate-400 mb-4">${score >= 12? 'Excellent!' : score >= 8? 'Good Job!' : 'Keep Practicing!'}</p>
+   <button onclick="showSubjects('${currentSubject}')" class="btn btn-primary">Back to Chapters</button>
+  </div>
+ `;
+}
+
+function showGame(){
+ gameLevel = 0;
+ showDiv('gameBox'); loadGameLevel();
+}
+
+function loadGameLevel(){
+ let qData = QUIZ_DATA.GAME.levels[gameLevel];
+ document.getElementById('gameBox').innerHTML = `
+  <div class="glass p-6 rounded-2xl">
+   <h3 class="text-2xl mb-4 text-green-400">${qData.q}</h3>
+   ${qData.opts.map((opt,i)=>`<button onclick="checkGame(${i})" class="btn-option" id="gopt${i}">${i+1}. ${opt}</button>`).join('')}
+   <p class="mt-4">Level ${gameLevel+1} / 15</p>
+  </div>
+ `;
+}
+
+function checkGame(i){
+ let qData = QUIZ_DATA.GAME.levels[gameLevel];
+ let buttons = document.querySelectorAll('#gameBox.btn-option');
+ buttons.forEach(btn => btn.disabled = true);
+
+ if(i==qData.ans){
+  buttons[i].classList.add('correct');
+  setTimeout(()=>{
+   gameLevel++;
+   if(gameLevel < 15) loadGameLevel();
+   else alert('🎉 Game Complete! You Won!');
+  }, 1000);
+ } else {
+  buttons[i].classList.add('wrong');
+  setTimeout(()=>{ loadGameLevel(); }, 1000);
+ }
+}
+
+function showAiBot(){
+ showDiv('aiBot');
+ document.getElementById('aiBot').innerHTML = `
+  <div class="glass p-6 rounded-2xl">
+   <h2 class="text-2xl mb-4">🤖 AI Bot</h2>
+   <div id="chatBox" class="h-64 overflow-y-auto mb-4 p-4 bg-slate-800 rounded-lg"></div>
+   <input type="text" id="userInput" placeholder="Type: hello, physics, maths, cs, game" class="w-full p-3 rounded-lg bg-slate-700 mb-2">
+   <button onclick="sendMsg()" class="btn btn-primary w-full">Send</button>
+  </div>
+ `;
+}
+
+function sendMsg(){
+ let input = document.getElementById('userInput').value.toLowerCase();
+ let chatBox = document.getElementById('chatBox');
+ chatBox.innerHTML += `<p class="text-right mb-2">You: ${input}</p>`;
+ let reply = QUIZ_DATA.AI_BOT.responses[input] || QUIZ_DATA.AI_BOT.responses.default;
+ chatBox.innerHTML += `<p class="text-left mb-2 text-cyan-300">Bot: ${reply}</p>`;
+ document.getElementById('userInput').value = '';
+ chatBox.scrollTop = chatBox.scrollHeight;
+}
+
 function showDiv(id){
- ['home','chapterMenu','quizBox','gameBox','aiBot'].forEach(d=>document.getElementById(d).classList.add('hidden'));
+ ['home','chapterMenu','quizBox','resultBox','gameBox','aiBot'].forEach(d=>document.getElementById(d).classList.add('hidden'));
  document.getElementById(id).classList.remove('hidden');
 }
 </script>
 </body>
-</html>
+</html>                                                                         
