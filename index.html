@@ -1,225 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Astra Learn v6.1 - Game + MCQs + Gemini</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Astra Learn v8.0 Premium</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
- body { background: linear-gradient(135deg, #020617 0%, #0f172a 100%); font-family: 'Poppins', sans-serif; }
-.glass { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(56, 189, 248, 0.2); }
-.btn { padding: 0.8rem 1.6rem; border-radius: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-.btn-primary { background: linear-gradient(90deg, #0ea5e9, #06b6d4); color: white; box-shadow: 0 0 15px rgba(14,165,233,0.4); }
-.btn-primary:hover { transform: scale(1.05) translateY(-2px); }
-.btn-subject { width: 100%; padding: 1.5rem; border-radius: 1.2rem; background: linear-gradient(145deg, #1e293b, #0f172a); text-align: left; border: 1px solid #334155; }
-.btn-subject:hover { border-color: #0ea5e9; transform: translateY(-5px); }
-.btn-option { width: 100%; text-align: left; padding: 1rem; margin: 0.6rem 0; border-radius: 0.8rem; background: #1e293b; border: 2px solid #334155; }
-.btn-option:hover { background: #334155; border-color: #38bdf8; }
-.correct { background: rgba(34,197,94,0.2)!important; border: 2px solid #22c55e!important; }
-.wrong { background: rgba(239,68,68,0.2)!important; border: 2px solid #ef4444!important; }
-.hidden { display: none; }
-.hint-box { background: rgba(234,179,8,0.15); border: 1px solid #eab308; padding: 12px; border-radius: 10px; margin: 10px 0; color:#fde047; }
-#chatBox { height: 400px; overflow-y: auto; scrollbar-width: thin; }
-.user-msg { background: #0ea5e9; color: white; padding: 10px; border-radius: 15px; margin: 5px; text-align: right; }
-.bot-msg { background: #1e293b; color: #cbd5e1; padding: 10px; border-radius: 15px; margin: 5px; text-align: left; }
+*{font-family:'Poppins',sans-serif}
+body{background:#020617;color:#e2e8f0;min-height:100vh;background-image:radial-gradient(at 20% 20%, rgba(14,165,233,0.15) 0px, transparent 50%),radial-gradient(at 80% 80%, rgba(168,85,247,0.15) 0px, transparent 50%)}
+.glass{background:rgba(15,23,42,0.85);backdrop-filter:blur(20px);border:1px solid rgba(56,189,248,0.15);border-radius:20px}
+.card{transition:all 0.4s;cursor:pointer}
+.card:hover{transform:translateY(-8px);border-color:#0ea5e9;box-shadow:0 20px 40px rgba(14,165,233,0.2)}
+.btn-opt{width:100%;text-align:left;padding:14px 18px;margin:8px 0;border-radius:12px;background:#1e293b;border:2px solid #334155}
+.btn-opt:hover{border-color:#38bdf8}
+.correct{background:rgba(34,197,94,0.2)!important;border-color:#22c55e!important}
+.wrong{background:rgba(239,68,68,0.2)!important;border-color:#ef4444!important}
+.hidden{display:none}
 </style>
 </head>
-<body class="text-slate-200 min-h-screen">
+<body class="p-4">
+<div class="max-w-6xl mx-auto">
+<header class="glass p-5 mb-6 flex justify-between items-center">
+<h1 class="text-3xl font-extrabold bg-gradient-to-r from-cyan-400 to-fuchsia-400 bg-clip-text text-transparent">ASTRA LEARN v8.0</h1>
+<button onclick="goHome()" class="px-5 py-2 rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 font-bold text-white">Home</button>
+</header>
 
-<div class="max-w-7xl mx-auto p-4">
- <header class="glass p-5 rounded-2xl mb-6 flex justify-between items-center">
-  <h1 class="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Astra Learn v6.1</h1>
-  <button onclick="showHome()" class="btn btn-primary">🏠 Home</button>
- </header>
+<div id="home">
+<div class="glass p-10 text-center mb-6">
+<h2 class="text-5xl font-extrabold mb-3">Premium Learning Platform</h2>
+<p class="text-slate-400">6 Subjects | 36 Chapters | 10 MCQs Each = 360 Real MCQs</p>
+</div>
+<div class="grid md:grid-cols-3 gap-5" id="subGrid"></div>
+<div class="grid md:grid-cols-2 gap-5 mt-5">
+<button onclick="openGame()" class="glass card p-6 text-left"><h3 class="text-xl font-bold">🎮 Coding Game - 5 Levels</h3><p class="text-sm text-slate-400">Includes Hint Button</p></button>
+<button onclick="openBot()" class="glass card p-6 text-left"><h3 class="text-xl font-bold">🤖 Gemini AI Tutor</h3><p class="text-sm text-slate-400">Ask any Maths, Physics, CS question</p></button>
+</div>
+</div>
 
- <div id="home">
-  <div class="glass p-10 rounded-2xl mb-6 text-center">
-   <h2 class="text-5xl font-bold mb-3">Welcome to Astra Learn</h2>
-   <p class="text-slate-400 text-lg">540 Premium MCQs | 5 Level Coding Game | Gemini AI Tutor</p>
-  </div>
-  <div class="grid md:grid-cols-3 gap-6">
-   <button onclick="showSubjects('PHY11')" class="btn-subject">⚛️ <b>Physics Grade 11</b><p class="text-sm text-slate-400">6 Chapters, 90 MCQs</p></button>
-   <button onclick="showSubjects('PHY12')" class="btn-subject">⚛️ <b>Physics Grade 12</b><p class="text-sm text-slate-400">6 Chapters, 90 MCQs</p></button>
-   <button onclick="showSubjects('MATHS11')" class="btn-subject">📊 <b>Mathematics Grade 11</b><p class="text-sm text-slate-400">6 Chapters, 90 MCQs</p></button>
-   <button onclick="showSubjects('MATHS12')" class="btn-subject">📊 <b>Mathematics Grade 12</b><p class="text-sm text-slate-400">6 Chapters, 90 MCQs</p></button>
-   <button onclick="showSubjects('CS11')" class="btn-subject">💻 <b>Computer Science Grade 11</b><p class="text-sm text-slate-400">6 Chapters, 90 MCQs</p></button>
-   <button onclick="showSubjects('CS12')" class="btn-subject">💻 <b>Computer Science Grade 12</b><p class="text-sm text-slate-400">6 Chapters, 90 MCQs</p></button>
-  </div>
-  <button onclick="showGame()" class="btn-subject w-full mt-6 bg-gradient-to-r from-green-800 to-emerald-700">🎮 Coding Game - 5 Levels</button>
-  <button onclick="showAiBot()" class="btn-subject w-full mt-4 bg-gradient-to-r from-purple-800 to-fuchsia-700">🤖 Ask Gemini AI Tutor</button>
- </div>
-
- <div id="chapterMenu" class="hidden"></div>
- <div id="quizBox" class="hidden"></div>
- <div id="gameBox" class="hidden"></div>
- <div id="aiBot" class="hidden"></div>
+<div id="chapBox" class="hidden"></div>
+<div id="quizBox" class="hidden"></div>
+<div id="gameBox" class="hidden"></div>
+<div id="botBox" class="hidden"></div>
 </div>
 
 <script>
-const GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"; // <--- Yahan apni Gemini API key dalo
+const API_KEY = "YOUR_GEMINI_API_KEY"; // key from aistudio.google.com/app/apikey
 
-const QUIZ_DATA = {
-"PHY11": { name: "Physics Grade 11",
-  "CH1": { name: "Chapter 1: Physical Quantities and Measurement", formula: "Absolute Error = |Average Value - Measured Value|", hint: "SI Base Units: Meter, Kilogram, Second", topics: { "MCQs": [
-{q:"Q1: What is the SI unit of length?",opts:["Kilogram","Meter","Second","Ampere"],ans:1},{q:"Q2: 1 micrometer is equal to?",opts:["10^-3 m","10^-6 m","10^-9 m","10^-12 m"],ans:1},{q:"Q3: What is the least count of Vernier Caliper?",opts:["0.1 cm","0.01 cm","0.001 cm","0.1 mm"],ans:1},{q:"Q4: How many significant figures in 0.0050?",opts:["1","2","3","4"],ans:1},{q:"Q5: What is the dimension of Force?",opts:["MLT-2","ML2T-2","MLT-1","M2LT-2"],ans:0},{q:"Q6: Which one is a base quantity?",opts:["Velocity","Force","Mass","Work"],ans:2},{q:"Q7: 1 Light Year is equal to?",opts:["9.46x10^15 m","3x10^8 m","1.5x10^11 m","9.46x10^12 km"],ans:0},{q:"Q8: Accuracy means?",opts:["Close to true value","Close to each other","Large value","Small value"],ans:0},{q:"Q9: Precision means?",opts:["Close to true value","Close to each other","Large value","Small value"],ans:1},{q:"Q10: Zero error is a type of?",opts:["Random Error","Systematic Error","Gross Error","Personal Error"],ans:1},{q:"Q11: What is the SI unit of Power?",opts:["Joule","Watt","Newton","Pascal"],ans:1},{q:"Q12: Which one is dimensionless?",opts:["Strain","Force","Work","Power"],ans:0},{q:"Q13: 1 Parsec is equal to?",opts:["3.26 Light Years","1 Light Year","10 Light Years","100 Light Years"],ans:0},{q:"Q14: Vernier Caliper is used to measure?",opts:["Time","Temperature","Length","Current"],ans:2},{q:"Q15: What is the SI unit of Temperature?",opts:["Celsius","Fahrenheit","Kelvin","Rankine"],ans:2}
-]}},
-  "CH2": { name: "Chapter 2: Vectors and Equilibrium", formula: "R = sqrt(A^2 + B^2 + 2ABcosθ)", hint: "Dot product gives scalar", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Vector MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) }},
-  "CH3": { name: "Chapter 3: Motion and Force", formula: "v = u + at", hint: "Projectile path is Parabola", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Motion MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) }},
-  "CH4": { name: "Chapter 4: Work and Energy", formula: "Work = Fdcosθ", hint: "KE = 1/2mv²", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Work MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) }},
-  "CH5": { name: "Chapter 5: Circular Motion", formula: "ac = v²/r", hint: "Force towards center", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Circular Motion MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) }},
-  "CH6": { name: "Chapter 6: Fluid Dynamics", formula: "P + 1/2ρv² + ρgh = Constant", hint: "Bernoulli's Principle", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Fluid MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) }}
-},
-"PHY12": { name: "Physics Grade 12", "CH1": { name: "Chapter 1: Electrostatics", formula: "F = kq1q2/r²", hint: "k = 8.99x10^9", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Electrostatics MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH2": { name: "Chapter 2: Current Electricity", formula: "V = IR", hint: "KCL: Sum of currents = 0", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Current MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH3": { name: "Chapter 3: Electromagnetism", formula: "F = BILsinθ", hint: "Fleming Left Hand Rule", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Magnetism MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH4": { name: "Chapter 4: Electromagnetic Induction", formula: "ε = -dφ/dt", hint: "Lenz Law opposes change", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: EMI MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH5": { name: "Chapter 5: Alternating Current", formula: "XL = 2πfL", hint: "At resonance XL = XC", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: AC MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH6": { name: "Chapter 6: Modern Physics", formula: "E = hf", hint: "Planck's Equation", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Modern Physics MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) }
-},
-"MATHS11": { name: "Mathematics Grade 11", "CH1": { name: "Chapter 1: Sets and Functions", formula: "n(A∪B)=n(A)+n(B)-n(A∩B)", hint: "Empty set = {}", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Sets MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH2": { name: "Chapter 2: Functions and Graphs", formula: "f(x) = y", hint: "One-One has unique image", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Functions MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH3": { name: "Chapter 3: Trigonometry", formula: "sin²θ + cos²θ = 1", hint: "π radians = 180°", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Trigonometry MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH4": { name: "Chapter 4: Sequences and Series", formula: "an = a + (n-1)d", hint: "GP: ar^(n-1)", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Sequence MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH5": { name: "Chapter 5: Permutations and Combinations", formula: "nPr = n!/(n-r)!", hint: "nC0 = 1", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Permutation MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH6": { name: "Chapter 6: Statistics", formula: "Mean = Σx/n", hint: "Median is middle value", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Statistics MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) }
-},
-"MATHS12": { name: "Mathematics Grade 12", "CH1": { name: "Chapter 1: Relations and Functions", formula: "f(g(x))", hint: "Bijective = One-One + Onto", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Relations MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH2": { name: "Chapter 2: Matrices and Determinants", formula: "|A| = ad - bc", hint: "Singular if |A|=0", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Matrix MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH3": { name: "Chapter 3: Limits and Continuity", formula: "lim x->a f(x)", hint: "lim sinx/x = 1", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Limit MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH4": { name: "Chapter 4: Differentiation", formula: "d/dx x^n = n*x^(n-1)", hint: "Product rule", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Differentiation MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH5": { name: "Chapter 5: Integration", formula: "∫x^n dx = x^(n+1)/(n+1)", hint: "∫1/x = ln|x|", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Integration MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH6": { name: "Chapter 6: Probability", formula: "P(A) = n(A)/n(S)", hint: "P(A and B) = P(A)*P(B)", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Probability MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) }
-},
-"CS11": { name: "Computer Science Grade 11", "CH1": { name: "Chapter 1: Introduction to Computer Science", formula: "Data + Instructions = Information", hint: "CPU is brain", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Intro to CS MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH2": { name: "Chapter 2: Number Systems", formula: "Binary base = 2", hint: "Hex base = 16", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Number System MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH3": { name: "Chapter 3: Logic Gates", formula: "A AND B = A.B", hint: "NAND and NOR universal", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Logic Gate MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH4": { name: "Chapter 4: Programming Fundamentals", formula: "Algorithm + Data Structure", hint: "Compiler translates", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Programming MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH5": { name: "Chapter 5: Web Development Basics", formula: "HTML + CSS + JavaScript", hint: "CSS for styling", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Web MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH6": { name: "Chapter 6: MS Office", formula: "Word, Excel, PowerPoint", hint: "Excel for calculations", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: MS Office MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) }
-},
-"CS12": { name: "Computer Science Grade 12", "CH1": { name: "Chapter 1: Data Structures", formula: "Stack = LIFO", hint: "Queue = FIFO", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Data Structure MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH2": { name: "Chapter 2: Object Oriented Programming", formula: "Class + Object", hint: "Inheritance for reuse", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: OOP MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH3": { name: "Chapter 3: Database Management System", formula: "SQL", hint: "Primary Key unique", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: DBMS MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH4": { name: "Chapter 4: Web Development", formula: "Frontend + Backend", hint: "HTTP port = 80", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Web Dev MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH5": { name: "Chapter 5: Networking", formula: "IP + TCP", hint: "Router connects networks", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: Networking MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) },
-  "CH6": { name: "Chapter 6: Artificial Intelligence Basics", formula: "Data + Algorithm = AI", hint: "ML is subset of AI", topics: { "MCQs": Array(15).fill().map((_,i)=>({q:`Q${i+1}: AI MCQ ${i+1}`,opts:["Option A","Option B","Option C","Option D"],ans:i%4})) }
-},
-"GAME": {
-    name: "Coding Game",
-    levels: [
-      {level: 1, q: "Level 1: What will be the output of print(2 + 3 * 2)?", opts: ["10","8","7","12"], ans: 2, hint: "BODMAS rule: 3*2=6, then 2+6=8"},
-      {level: 2, q: "Level 2: Which data type is used to store True or False?", opts: ["int","string","boolean","float"], ans: 2, hint: "Boolean has only 2 values"},
-      {level: 3, q: "Level 3: What is the correct way to define a function in Python?", opts: ["function myFunc():","def myFunc():","create myFunc():","func myFunc():"], ans: 1, hint: "Python uses def keyword"},
-      {level: 4, q: "Level 4: What will be output of len('Hello')?", opts: ["4","5","6","Error"], ans: 1, hint: "H-e-l-l-o = 5 characters"},
-      {level: 5, q: "Level 5: Which loop will run at least once?", opts: ["for loop","while loop","do-while loop","if statement"], ans: 2, hint: "do-while checks condition after running"}
-    ]
-  },
-"AI_BOT": { name: "AI Assistant Bot", responses: {} }
+const DATA = {
+"PHY11":{name:"Physics 11",icon:"⚛️",ch:{
+"CH1":{name:"Ch1 Physical Quantities",form:"Error = |Avg - Measured|",hint:"Meter = SI unit of length",qs:[
+{q:"SI unit of length?",o:["Kg","Meter","Second","Ampere"],a:1},{q:"1 micro meter =?",o:["10^-3","10^-6","10^-9","10^-12"],a:1},{q:"Least count of Vernier?",o:["0.1cm","0.01cm","0.001cm","0.1mm"],a:1},{q:"Sig figs in 0.0050?",o:["1","2","3","4"],a:1},{q:"Dimension of Force?",o:["MLT-2","ML2T-2","MLT-1","M2LT-2"],a:0},{q:"Base quantity?",o:["Velocity","Force","Mass","Work"],a:2},{q:"1 Light year =?",o:["9.46x10^15m","3x10^8m","1.5x10^11m","9.46x10^12km"],a:0},{q:"Accuracy means?",o:["Close to true","Close to each other","Large","Small"],a:0},{q:"Zero error is?",o:["Random","Systematic","Gross","Personal"],a:1},{q:"SI unit of Power?",o:["Joule","Watt","Newton","Pascal"],a:1}
+]},
+"CH2":{name:"Ch2 Vectors",form:"R=√(A²+B²+2ABcosθ)",hint:"Dot product = scalar",qs:[
+{q:"Which is scalar?",o:["Force","Velocity","Mass","Accel"],a:2},{q:"Which is vector?",o:["Time","Mass","Temp","Displacement"],a:3},{q:"Dot product gives?",o:["Vector","Scalar","Zero","Infinity"],a:1},{q:"Cross product gives?",o:["Vector","Scalar","Zero","Infinity"],a:0},{q:"i. j =?",o:["0","1","i","j"],a:0},{q:"i x j =?",o:["0","i","j","k"],a:3},{q:"Unit vector magnitude?",o:["0","1","2","-1"],a:1},{q:"Null vector has?",o:["Zero mag","Unit mag","Large","Negative"],a:0},{q:"Work done =?",o:["F. d","F x d","F/d","F+d"],a:0},{q:"Torque =?",o:["r x F","r. F","r/F","r+F"],a:0}
+]},
+"CH3":{name:"Ch3 Motion",form:"v = u + at",hint:"Projectile path is parabola",qs:[
+{q:"SI unit of a?",o:["m/s","m/s²","N","J"],a:1},{q:"Value of g?",o:["9.8 m/s²","10","9.8 cm","10 cm"],a:0},{q:"Slope of s-t graph?",o:["Velocity","Accel","Force","Work"],a:0},{q:"Slope of v-t graph?",o:["Velocity","Accel","Force","Work"],a:1},{q:"Projectile path?",o:["Line","Circle","Parabola","Ellipse"],a:2},{q:"Time of flight?",o:["2usinθ/g","usinθ/g","2ucosθ/g","ucosθ/g"],a:0},{q:"Range?",o:["u²sin2θ/g","u²sinθ/g","u²cos2θ/g","u²cosθ/g"],a:0},{q:"Uniform motion?",o:["a=0","a const","a var","No motion"],a:0},{q:"Retardation?",o:["+a","-a","a=0","const v"],a:1},{q:"Inst velocity?",o:["ds/dt","dv/dt","da/dt","dF/dt"],a:0}
+]},
+"CH4":{name:"Ch4 Work & Energy",form:"W=Fdcosθ",hint:"KE=1/2mv²",qs:[
+{q:"SI unit of Work?",o:["N","J","W","Kg"],a:1},{q:"KE formula?",o:["1/2mv²","mgh","Fd","Pt"],a:0},{q:"PE formula?",o:["1/2mv²","mgh","Fd","Pt"],a:1},{q:"SI unit of Power?",o:["J","W","N","Pa"],a:1},{q:"Work zero when?",o:["0°","90°","180°","360°"],a:1},{q:"Conservative force?",o:["Friction","Gravity","Air","All"],a:1},{q:"Non-conservative?",o:["Gravity","Electro","Friction","Magnetic"],a:2},{q:"1 HP=?",o:["746W","786W","764W","476W"],a:0},{q:"Spring PE?",o:["1/2kx²","kx","k/x","x/k"],a:0},{q:"Power?",o:["W/t","Fd","mv","ma"],a:0}
+]},
+"CH5":{name:"Ch5 Circular Motion",form:"ac=v²/r",hint:"Force towards center",qs:[
+{q:"ac=?",o:["v²/r","r/v²","v/r","r/v"],a:0},{q:"Fc direction?",o:["Away","To center","Tangent","Opposite"],a:1},{q:"v and ω?",o:["v=rω","v=ω/r","v=r/ω","v=r+ω"],a:0},{q:"Time period?",o:["2πr/v","v/2πr","r/v","v/r"],a:0},{q:"Frequency?",o:["1/T","T","2π/T","T/2π"],a:0},{q:"Fc=?",o:["mv²/r","mr²/v","mvr","mv/r"],a:0},{q:"Centrifugal is?",o:["Real","Pseudo","Grav","Magnetic"],a:1},{q:"Unit of α?",o:["rad/s","rad/s²","m/s","m/s²"],a:1},{q:"Angular momentum?",o:["Iω","mv","F.r","τ.t"],a:0},{q:"Geo satellite period?",o:["12h","24h","48h","7d"],a:1}
+]},
+"CH6":{name:"Ch6 Fluid Dynamics",form:"P+½ρv²+ρgh=const",hint:"Bernoulli principle",qs:[
+{q:"Viscosity is?",o:["Fluid friction","Fluid speed","Density","Pressure"],a:0},{q:"SI unit viscosity?",o:["Pa.s","N/m","Kg/m³","J"],a:0},{q:"Bernoulli based on?",o:["Energy","Mass","Momentum","None"],a:0},{q:"Continuity eq?",o:["A1V1=A2V2","P1=P2","F1=F2","None"],a:0},{q:"Pressure at depth?",o:["P=ρgh","P=F/A","P=mg","None"],a:0},{q:"Buoyant force?",o:["Upward","Downward","Sideways","None"],a:0},{q:"Streamline is?",o:["Smooth","Turbulent","Random","None"],a:0},{q:"Turbulent is?",o:["Irregular","Smooth","Straight","None"],a:0},{q:"Surface tension?",o:["Contract surface","Expand","No effect","None"],a:0},{q:"Stokes Law?",o:["F=6πηrv","F=ma","F=mg","None"],a:0}
+]}
+}},
+
+"MATHS11":{name:"Maths 11",icon:"📊",ch:{
+"CH1":{name:"Ch1 Sets",form:"n(A∪B)=n(A)+n(B)-n(A∩B)",hint:"Empty set = {}",qs:[
+{q:"Empty set is?",o:["{}","{0}","0","1"],a:0},{q:"Universal set symbol?",o:["U","A","B","C"],a:0},{q:"A∪B means?",o:["All elements","Common","No elements","Only A"],a:0},{q:"A∩B means?",o:["All","Common","No","Only A"],a:1},{q:"A-B means?",o:["In A not B","In B not A","In both","In none"],a:0},{q:"Complement is?",o:["U-A","A-U","A∩U","A∪U"],a:0},{q:"Subset symbol?",o:["⊂","∈","∪","∩"],a:0},{q:"Power set is?",o:["All subsets","All elements","Empty","Universal"],a:0},{q:"n(P(A))=? ",o:["2^n","n^2","2n","n!"],a:0},{q:"Disjoint means?",o:["A∩B=∅","A∪B=∅","A=B","A⊂B"],a:0}
+]},
+"CH2":{name:"Ch2 Functions",form:"f(x)=y",hint:"Domain=inputs",qs:[
+{q:"Domain means?",o:["Inputs","Outputs","Both","None"],a:0},{q:"Range means?",o:["Inputs","Outputs","Both","None"],a:1},{q:"One-One means?",o:["Unique image","Same image","No image","Many"],a:0},{q:"Onto means?",o:["Range=Codomain","Range⊂Codomain","Range>Codomain","None"],a:0},{q:"Bijective means?",o:["One-One+Onto","Only One-One","Only Onto","None"],a:0},{q:"Composite f(g(x)) is?",o:["f of g","g of f","f+g","f*g"],a:0},{q:"Inverse is?",o:["f^-1","f^2","1/f","-f"],a:0},{q:"Identity function?",o:["f(x)=x","f(x)=1","f(x)=0","f(x)=c"],a:0},{q:"Even function?",o:["f(-x)=f(x)","f(-x)=-f(x)","f=0","f=1"],a:0},{q:"Odd function?",o:["f(-x)=f(x)","f(-x)=-f(x)","f=0","f=1"],a:1}
+]},
+"CH3":{name:"Ch3 Trigonometry",form:"sin²+cos²=1",hint:"π rad=180°",qs:[
+{q:"sin 90° =?",o:["0","1","-1","0.5"],a:1},{q:"cos 0° =?",o:["0","1","-1","0.5"],a:1},{q:"tan 45° =?",o:["0","1","-1","∞"],a:1},{q:"sin 30° =?",o:["0","1/2","√3/2","1"],a:1},{q:"cos 60° =?",o:["0","1/2","√3/2","1"],a:1},{q:"π radians =?",o:["90°","180°","270°","360°"],a:1},{q:"1 radian =?",o:["57.3°","90°","180°","360°"],a:0},{q:"sin(-θ)=?",o:["-sinθ","sinθ","cosθ","-cosθ"],a:0},{q:"cos(-θ)=?",o:["-cosθ","cosθ","sinθ","-sinθ"],a:1},{q:"tan =?",o:["sin/cos","cos/sin","sin*cos","sin+cos"],a:0}
+]},
+"CH4":{name:"Ch4 Sequences",form:"an=a+(n-1)d",hint:"GP ar^(n-1)",qs:[
+{q:"AP common difference?",o:["a2-a1","a2/a1","a2*a1","a2+a1"],a:0},{q:"GP common ratio?",o:["a2-a1","a2/a1","a2*a1","a2+a1"],a:1},{q:"nth term of AP?",o:["a+(n-1)d","a+(n)d","a-(n-1)d","ar^(n-1)"],a:0},{q:"Sum of AP?",o:["n/2(2a+(n-1)d)","a+(n-1)d","ar^(n-1)","a/r"],a:0},{q:"Sum of GP?",o:["a(r^n-1)/(r-1)","a+(n-1)d","n/2(2a+(n-1)d)","a*n"],a:0},{q:"Harmonic mean?",o:["2ab/(a+b)","(a+b)/2","√ab","(a-b)/2"],a:0},{q:"Arithmetic mean?",o:["(a+b)/2","2ab/(a+b)","√ab","a*b"],a:0},{q:"Geometric mean?",o:["(a+b)/2","2ab/(a+b)","√ab","a*b"],a:2},{q:"Sequence 2,4,6,8 is?",o:["AP","GP","HP","None"],a:0},{q:"Sequence 2,4,8,16 is?",o:["AP","GP","HP","None"],a:1}
+]},
+"CH5":{name:"Ch5 Permutations",form:"nPr=n!/(n-r)!",hint:"nC0=1",qs:[
+{q:"nC0=?",o:["0","1","n","n!"],a:1},{q:"nC1=?",o:["0","1","n","n!"],a:2},{q:"nPn=?",o:["0","1","n","n!"],a:3},{q:"nPr formula?",o:["n!/(n-r)!","n!/(r!)","n!/r","n/r"],a:0},{q:"nCr formula?",o:["n!/(r!(n-r)!)","n!/(n-r)!","n!/r","n/r"],a:0},{q:"0! =?",o:["0","1","Undefined","Infinity"],a:1},{q:"1! =?",o:["0","1","2","3"],a:1},{q:"Permutation is?",o:["Arrangement","Selection","Both","None"],a:0},{q:"Combination is?",o:["Arrangement","Selection","Both","None"],a:1},{q:"nCr = nC?",o:["n-r","r","n","0"],a:0}
+]},
+"CH6":{name:"Ch6 Statistics",form:"Mean=Σx/n",hint:"Median middle",qs:[
+{q:"Mean formula?",o:["Σx/n","n/Σx","Σx*n","n*Σx"],a:0},{q:"Median means?",o:["Middle","Average","Most frequent","Lowest"],a:0},{q:"Mode means?",o:["Middle","Average","Most frequent","Lowest"],a:2},{q:"Range =?",o:["Max-Min","Max+Min","Max*Min","Max/Min"],a:0},{q:"Variance is?",o:["Square of SD","SD","Mean","Median"],a:0},{q:"SD is?",o:["√Variance","Variance²","Mean","Median"],a:0},{q:"If all values same, SD=?",o:["0","1","∞","Mean"],a:0},{q:"Histogram is for?",o:["Continuous data","Discrete","Both","None"],a:0},{q:"Bar chart for?",o:["Discrete","Continuous","Both","None"],a:0},{q:"Mean, median, mode are?",o:["Averages","Dispersion","Both","None"],a:0}
+]}
+}},
+
+"CS11":{name:"CS 11",icon:"💻",ch:{
+"CH1":{name:"Ch1 Intro to CS",form:"Data+Instructions=Info",hint:"CPU is brain",qs:[
+{q:"CPU stands for?",o:["Central Processing Unit","Computer Unit","Central Program","Control Unit"],a:0},{q:"Brain of computer?",o:["CPU","RAM","Hard disk","Mouse"],a:0},{q:"RAM is?",o:["Volatile","Non-volatile","Permanent","None"],a:0},{q:"Hard disk is?",o:["Volatile","Non-volatile","Temporary","None"],a:1},{q:"Input device?",o:["Keyboard","Monitor","Printer","Speaker"],a:0},{q:"Output device?",o:["Keyboard","Mouse","Monitor","Scanner"],a:2},{q:"Binary language?",o:["0 and 1","A-Z","0-9","Special chars"],a:0},{q:"1 Byte =?",o:["8 bits","4 bits","16 bits","2 bits"],a:0},{q:"1 KB =?",o:["1024 Bytes","1000 Bytes","1024 Bits","1000 Bits"],a:0},{q:"Software is?",o:["Set of programs","Physical parts","Both","None"],a:0}
+]},
+"CH2":{name:"Ch2 Number Systems",form:"Binary base=2",hint:"Hex base=16",qs:[
+{q:"Binary base?",o:["2","8","10","16"],a:0},{q:"Decimal base?",o:["2","8","10","16"],a:2},{q:"Octal base?",o:["2","8","10","16"],a:1},{q:"Hex base?",o:["2","8","10","16"],a:3},{q:"(10)2 in decimal?",o:["2","3","4","5"],a:0},{q:"(101)2 in decimal?",o:["3","4","5","6"],a:2},{q:"Hex uses?",o:["0-9,A-F","0-1","0-7","0-9"],a:0},{q:"1+1 in binary?",o:["10","11","1","0"],a:0},{q:"Binary of 5?",o:["101","100","111","110"],a:0},{q:"Hex of 15?",o:["A","B","C","F"],a:3}
+]},
+"CH3":{name:"Ch3 Logic Gates",form:"A.B=AND",hint:"NAND/NOR universal",qs:[
+{q:"AND output 1 when?",o:["Any 1","All 1","Any 0","All 0"],a:1},{q:"OR output 0 when?",o:["Any 1","All 0","Any 0","All 1"],a:1},{q:"NOT gate has?",o:["1 input","2 inputs","3 inputs","4 inputs"],a:0},{q:"NAND is?",o:["AND+NOT","OR+NOT","AND+OR","NOT+NOT"],a:0},{q:"NOR is?",o:["OR+NOT","AND+NOT","AND+OR","NOT"],a:0},{q:"XOR output 1 when inputs?",o:["Same","Different","All 1","All 0"],a:1},{q:"Universal gates?",o:["NAND,NOR","AND,OR","NOT,XOR","AND,NOT"],a:0},{q:"AND gate symbol?",o:["D shape","Triangle","Curved","Circle"],a:0},{q:"0 AND 1 =?",o:["0","1","10","11"],a:0},{q:"1 OR 0 =?",o:["0","1","10","11"],a:1}
+]},
+"CH4":{name:"Ch4 Programming",form:"Algorithm+Data",hint:"Compiler translates all",qs:[
+{q:"Which is language?",o:["HTML","Python","CSS","HTTP"],a:1},{q:"High level language?",o:["Python","Machine","Assembly","Binary"],a:0},{q:"Low level language?",o:["Python","Java","Machine","C++"],a:2},{q:"Compiler does?",o:["Translate all at once","Line by line","No translate","Only errors"],a:0},{q:"Interpreter does?",o:["Translate all","Line by line","No translate","Only errors"],a:1},{q:"Algorithm is?",o:["Step by step solution","Program","Language","Hardware"],a:0},{q:"Flowchart uses?",o:["Symbols","Code","Text only","Numbers"],a:0},{q:"Variable is?",o:["Storage location","Constant","Data type","Loop"],a:0},{q:"If statement is?",o:["Conditional","Loop","Function","Array"],a:0},{q:"Loop is used for?",o:["Repetition","Selection","Sequence","None"],a:0}
+]},
+"CH5":{name:"Ch5 Web Basics",form:"HTML+CSS+JS",hint:"CSS for styling",qs:[
+{q:"HTML stands for?",o:["Hyper Text Markup Language","High Text","Hyper Transfer","Hyper Machine"],a:0},{q:"CSS stands for?",o:["Cascading Style Sheets","Creative Style","Computer Style","Colorful Style"],a:0},{q:"JS stands for?",o:["JavaScript","JavaStyle","JustScript","JoomlaScript"],a:0},{q:"HTML for?",o:["Structure","Styling","Logic","Database"],a:0},{q:"CSS for?",o:["Structure","Styling","Logic","Database"],a:1},{q:"JS for?",o:["Structure","Styling","Logic/Behavior","Database"],a:2},{q:"<p> tag is for?",o:["Paragraph","Picture","Page","Print"],a:0},{q:"<h1> tag is for?",o:["Heading","Hyperlink","Host","Height"],a:0},{q:"Which is frontend?",o:["HTML,CSS,JS","Python,PHP","MySQL","All"],a:0},{q:"Which is backend?",o:["HTML","CSS","Python/PHP","JS"],a:2}
+]},
+"CH6":{name:"Ch6 MS Office",form:"Word,Excel,PPT",hint:"Excel for calculations",qs:[
+{q:"MS Word is for?",o:["Typing/Document","Calculations","Presentation","Drawing"],a:0},{q:"MS Excel is for?",o:["Typing","Calculations/Sheets","Presentation","Drawing"],a:1},{q:"MS PowerPoint for?",o:["Typing","Calculations","Presentation","Drawing"],a:2},{q:"Excel row and column is?",o:["Cell","Box","Table","Sheet"],a:0},{q:"Excel formula starts with?",o:["=","+","-","*"],a:0},{q:"SUM formula?",o:["=SUM()","=ADD()","=TOTAL()","=PLUS()"],a:0},{q:"Word shortcut for save?",o:["Ctrl+S","Ctrl+P","Ctrl+C","Ctrl+V"],a:0},{q:"Shortcut for copy?",o:["Ctrl+S","Ctrl+P","Ctrl+C","Ctrl+V"],a:2},{q:"Shortcut for paste?",o:["Ctrl+S","Ctrl+P","Ctrl+C","Ctrl+V"],a:3},{q:"Which is office suite?",o:["MS Office","Windows","Linux","Android"],a:0}
+]}
+}}
 };
 
-// ===== JS FUNCTIONS =====
-let currentSubject="", currentChapter="", currentQ=0, score=0, gameLevel=0;
+const OTHER_SUBS = {
+"PHY12":{name:"Physics 12",icon:"⚛️",ch:{
+"CH1":{name:"Electrostatics",form:"F=kq1q2/r²",hint:"k=9x10^9",qs:[{q:"SI unit of charge?",o:["N","C","V","J"],a:1},{q:"Value of k?",o:["9x10^9","8.99x10^9","9x10^8","8.99x10^8"],a:1},{q:"Electric field?",o:["F/q","q/F","Fq","q/F²"],a:0},{q:"Potential?",o:["W/q","q/W","Wq","q/W²"],a:0},{q:"Gauss Law?",o:["∮E.dA=q/ε0","F=kq1q2/r²","V=W/q","E=F/q"],a:0},{q:"Dipole moment?",o:["qd","q/d","d/q","q+d"],a:0},{q:"Capacitance?",o:["Q/V","V/Q","QV","Q²/C"],a:0},{q:"Energy in capacitor?",o:["1/2CV²","CV","QV","Q²/C"],a:0},{q:"Flux?",o:["E.A","E/A","A/E","E+A"],a:0},{q:"Field lines?",o:["Never cross","Cross","Sometimes","None"],a:0}]},
+"CH2":{name:"Current Electricity",form:"V=IR",hint:"KCL ΣI=0",qs:[{q:"SI unit of R?",o:["V","A","Ω","C"],a:2},{q:"Current?",o:["Q/t","t/Q","Qt","Q/t²"],a:0},{q:"Power?",o:["VI","V/I","I/V","V²/I"],a:0},{q:"Resistivity?",o:["RA/L","L/RA","R/LA","A/RL"],a:0},{q:"KCL?",o:["ΣI=0","ΣV=0","ΣP=0","ΣR=0"],a:0},{q:"KVL?",o:["ΣI=0","ΣV=0","ΣP=0","ΣR=0"],a:1},{q:"Series R?",o:["R1+R2","1/R=Σ1/Ri","R1*R2","R1/R2"],a:0},{q:"Parallel R?",o:["R1+R2","1/R=Σ1/Ri","R1*R2","R1/R2"],a:1},{q:"Drift velocity?",o:["I/nAq","nAq/I","IAq/n","nI/Aq"],a:0},{q:"Wheatstone?",o:["R1/R2=R3/R4","R1R2=R3R4","R1+R2=R3+R4","R1-R2=R3-R4"],a:0}]},
+"CH3":{name:"Electromagnetism",form:"F=BILsinθ",hint:"Fleming Left",qs:[{q:"SI unit B?",o:["T","Wb","A","N"],a:0},{q:"F on wire?",o:["BILsinθ","BILcosθ","BIL/tanθ","BIL/cosθ"],a:0},{q:"F on charge?",o:["qvBsinθ","qB/vsinθ","vB/qsinθ","q/vBsinθ"],a:0},{q:"Biot-Savart?",o:["dB∝Idl/r²","B∝I/r","B∝I/r²","B∝r/I"],a:0},{q:"Ampere Law?",o:["∮B.dl=μ0I","F=BIL","φ=BA","ε=-dφ/dt"],a:0},{q:"B in solenoid?",o:["μ0nI","μ0NI","μ0I/2πr","μ0I/4πr²"],a:0},{q:"Torque loop?",o:["BINA sinθ","BINA cosθ","BIL","qvB"],a:0},{q:"Galvanometer measures?",o:["Current","Voltage","R","P"],a:0},{q:"Voltmeter has?",o:["High R series","Low R parallel","High R parallel","Low R series"],a:2},{q:"μ0 value?",o:["4πx10^-7","9x10^9","8.85x10^-12","1.6x10^-19"],a:0}]},
+"CH4":{name:"EMI",form:"ε=-dφ/dt",hint:"Lenz opposes",qs:[{q:"Faraday Law?",o:["ε=-dφ/dt","F=BIL","φ=BA","V=IR"],a:0},{q:"Lenz Law?",o:["Opposes change","Supports","No effect","∞ I"],a:0},{q:"SI unit φ?",o:["T","Wb","H","V"],a:1},{q:"SI unit L?",o:["T","Wb","H","V"],a:2},{q:"Motional EMF?",o:["Bvl","Blv","vlB","lvB"],a:0},{q:"Eddy currents cause?",o:["Heating","Light","Sound","Magnetism"],a:0},{q:"Transformer?",o:["AC V","DC V","AC I","DC I"],a:0},{q:"Mutual induction?",o:["2 coils","1 coil","3 coils","No coil"],a:0},{q:"Self induction?",o:["1 coil","2 coils","3 coils","No coil"],a:0},{q:"AC Generator?",o:["M to E","E to M","H to E","L to E"],a:0}]},
+"CH5":{name:"AC",form:"XL=2πfL",hint:"At resonance XL=XC",qs:[{q:"F in PK?",o:["50Hz","60Hz","100Hz","220Hz"],a:0},{q:"XL?",o:["2πfL","1/2πfC","R","Z"],a:0},{q:"XC?",o:["2πfL","1/2πfC","R","Z"],a:1},{q:"Impedance?",o:["√R²+(XL-XC)²","R+XL+XC","R-XL-XC","R*XL*XC"],a:0},{q:"Resonance?",o:["XL=XC","XL>XC","XL<XC","XL=0"],a:0},{q:"Power factor?",o:["cosφ","sinφ","tanφ","1/cosφ"],a:0},{q:"True Power?",o:["VIcosφ","VIsinφ","VI","I²R"],a:0},{q:"RMS Value?",o:["V0/√2","V0","V0*√2","V0/2"],a:0},{q:"Pure L circuit?",o:["I lags V by 90","I leads V","I=V","None"],a:0},{q:"Pure C circuit?",o:["I leads V","I lags V","I=V","None"],a:0}]},
+"CH6":{name:"Modern Physics",form:"E=hf",hint:"Photoelectric Effect",qs:[{q:"Photon energy?",o:["E=hf","E=mc²","E=Fd","E=Pt"],a:0},{q:"Photoelectric effect?",o:["Light ejects e-","Heat ejects e-","Magnet ejects e-","None"],a:0},{q:"Work function?",o:["Min energy to eject e-","Max energy","Average","None"],a:0},{q:"De Broglie wavelength?",o:["h/p","h/m","h/v","None"],a:0},{q:"Laser stands for?",o:["Light Amplification...","Light Auto...","Laser Action...","None"],a:0},{q:"Nuclear fission?",o:["Split nucleus","Join nucleus","None","All"],a:0},{q:"Nuclear fusion?",o:["Join nucleus","Split nucleus","None","All"],a:0},{q:"Half life?",o:["Time for 50% decay","Total decay","None","All"],a:0},{q:"Alpha particle?",o:["He nucleus","Electron","Proton","None"],a:0},{q:"Beta particle?",o:["Electron","He nucleus","Proton","None"],a:0}]}
+}},
+"MATHS12":{name:"Maths 12",icon:"📊",ch:{
+"CH1":{name:"Relations",form:"f(g(x))",hint:"Bijective=One-One+Onto",qs:[{q:"Bijective means?",o:["One-One+Onto","Only One-One","Only Onto","None"],a:0},{q:"Domain?",o:["Inputs","Outputs","Both","None"],a:0},{q:"Range?",o:["Inputs","Outputs","Both","None"],a:1},{q:"Composite?",o:["f(g(x))","g(f(x))","f+g","f*g"],a:0},{q:"Inverse?",o:["f^-1","f^2","1/f","-f"],a:0},{q:"Identity?",o:["f(x)=x","f(x)=1","f(x)=0","f(x)=c"],a:0},{q:"Constant?",o:["f(x)=c","f(x)=x","f(x)=1/x","f(x)=x²"],a:0},{q:"Even?",o:["f(-x)=f(x)","f(-x)=-f(x)","f=0","f=1"],a:0},{q:"Odd?",o:["f(-x)=f(x)","f(-x)=-f(x)","f=0","f=1"],a:1},{q:"f(x)=x² is?",o:["Even","Odd","Both","None"],a:0}]},
+"CH2":{name:"Matrices",form:"|A|=ad-bc",hint:"Singular if |A|=0",qs:[{q:"Determinant of 2x2?",o:["ad+bc","ad-bc","a+b-c+d","a-b-c-d"],a:1},{q:"Singular means?",o:["|A|=0","|A|≠0","|A|=1","|A|=-1"],a:0},{q:"Non-singular?",o:["|A|=0","|A|≠0","|A|=1","|A|=-1"],a:1},{q:"Order of 2x3?",o:["2 rows 3 cols","3 rows 2 cols","2x2","3x3"],a:0},{q:"Identity matrix?",o:["Diagonal 1","All 1","All 0","Diagonal 0"],a:0},{q:"Transpose means?",o:["Rows to cols","Cols to rows","Both","None"],a:0},{q:"A*A^-1=?",o:["I","A","0","A²"],a:0},{q:"If AB=BA then?",o:["Commutative","Not commutative","Zero","None"],a:0},{q:"Symmetric?",o:["A=A^T","A=-A^T","A=0","A=I"],a:0},{q:"Skew symmetric?",o:["A=A^T","A=-A^T","A=0","A=I"],a:1}]},
+"CH3":{name:"Limits",form:"lim x→a f(x)",hint:"lim sinx/x=1",qs:[{q:"lim sinx/x as 0?",o:["0","1","∞","undefined"],a:1},{q:"lim (1+1/n)^n =?",o:["e","1","0","∞"],a:0},{q:"If lim exists, it is?",o:["Unique","Two values","Many","Zero"],a:0},{q:"Continuity means?",o:["No break","Break","Jump","None"],a:0},{q:"lim x→a c =?",o:["c","0","a","∞"],a:0},{q:"lim x→a x =?",o:["a","0","1","∞"],a:0},{q:"Left hand limit?",o:["x→a-","x→a+","x→a","x→0"],a:0},{q:"Right hand limit?",o:["x→a-","x→a+","x→a","x→0"],a:1},{q:"If LHL≠RHL then?",o:["Limit not exist","Limit exist","Continuous","Differentiable"],a:0},{q:"lim 1/x as x→∞?",o:["0","1","∞","-∞"],a:0}]},
+"CH4":{name:"Differentiation",form:"d/dx xⁿ=n xⁿ⁻¹",hint:"Product rule uv'+vu'",qs:[{q:"d/dx x²=?",o:["x","2x","x²","2"],a:1},{q:"d/dx sinx=?",o:["cosx","-cosx","sinx","-sinx"],a:0},{q:"d/dx cosx=?",o:["sinx","-sinx","cosx","-cosx"],a:1},{q:"d/dx e^x=?",o:["e^x","xe^x","e","0"],a:0},{q:"d/dx lnx=?",o:["1/x","x","lnx","0"],a:0},{q:"Chain rule for?",o:["Composite","Product","Quotient","Sum"],a:0},{q:"Product rule?",o:["uv'+vu'","uv","u/v","u+v"],a:0},{q:"Quotient rule?",o:["(vu'-uv')/v²","uv'+vu'","u/v","u+v"],a:0},{q:"d/dx constant=?",o:["0","1","Constant","∞"],a:0},{q:"Second derivative is?",o:["d²y/dx²","dy/dx","y","∫y"],a:0}]},
+"CH5":{name:"Integration",form:"∫xⁿ=xⁿ⁺¹/(n+1)",hint:"∫1/x=ln|x|",qs:[{q:"∫1 dx=?",o:["x","1","0","x²"],a:0},{q:"∫x dx=?",o:["x²/2","x²","x","2x"],a:0},{q:"∫1/x dx=?",o:["ln|x|","1/x²","x","e^x"],a:0},{q:"∫e^x dx=?",o:["e^x","xe^x","lnx","1/x"],a:0},{q:"∫cosx dx=?",o:["sinx","-sinx","cosx","-cosx"],a:0},{q:"∫sinx dx=?",o:["-cosx","cosx","sinx","-sinx"],a:0},{q:"Integration is?",o:["Reverse of diff","Same as diff","Product","Division"],a:0},{q:"Definite integral gives?",o:["Area","Slope","Volume only","None"],a:0},{q:"∫0 dx=?",o:["C","0","1","x"],a:0},{q:"Integration constant?",o:["C","0","1","x"],a:0}]},
+"CH6":{name:"Probability",form:"P(A)=n(A)/n(S)",hint:"P(A and B)=P(A)*P(B)",qs:[{q:"Probability range?",o:["0 to 1","1 to 10","-1 to 1","0 to 100"],a:0},{q:"P(Impossible event)=?",o:["0","1","0.5","∞"],a:0},{q:"P(Sure event)=?",o:["0","1","0.5","∞"],a:1},{q:"P(A)+P(not A)=?",o:["0","1","0.5","∞"],a:1},{q:"If P(A)=0.5, P(not A)=?",o:["0.5","1","0","1.5"],a:0},{q:"Independent events?",o:["P(A∩B)=P(A)P(B)","P(A∩B)=P(A)+P(B)","P(A∪B)=P(A)P(B)","None"],a:0},{q:"Mutually exclusive means?",o:["P(A∩B)=0","P(A∩B)=1","P(A∩B)=0.5","P(A∩B)=P(A)"],a:0},{q:"Sample space?",o:["All outcomes","One outcome","No outcome","Two outcomes"],a:0},{q:"Event is?",o:["Subset of sample space","Superset","Both","None"],a:0},{q:"Coin toss P(Head)=?",o:["0.5","1","0","0.25"],a:0}]}
+}},
+"CS12":{name:"CS 12",icon:"💻",ch:{
+"CH1":{name:"Data Structures",form:"Stack LIFO",hint:"Queue FIFO",qs:[{q:"LIFO stands for?",o:["Last In First Out","First In First Out","Last In Last Out","First In Last Out"],a:0},{q:"FIFO stands for?",o:["Last In First Out","First In First Out","Last In Last Out","First In Last Out"],a:1},{q:"Stack uses?",o:["LIFO","FIFO","Both","None"],a:0},{q:"Queue uses?",o:["LIFO","FIFO","Both","None"],a:1},{q:"Linear data structure?",o:["Array","Tree","Graph","All"],a:0},{q:"Non-linear?",o:["Array","Tree","Stack","Queue"],a:1},{q:"Top of stack?",o:["Last added","First added","Middle","Any"],a:0},{q:"Enqueue means?",o:["Add in queue","Remove","Both","None"],a:0},{q:"Dequeue means?",o:["Remove from queue","Add","Both","None"],a:0},{q:"Push means?",o:["Add in stack","Remove","Both","None"],a:0}]},
+"CH2":{name:"OOP",form:"Class+Object",hint:"Inheritance reuse",qs:[{q:"OOP stands for?",o:["Object Oriented Programming","Oriented Process","Protocol","Procedure"],a:0},{q:"Class is?",o:["Blueprint","Object","Instance","Variable"],a:0},{q:"Object is?",o:["Instance of class","Blueprint","Both","None"],a:0},{q:"Encapsulation means?",o:["Hiding data","Showing data","Both","None"],a:0},{q:"Inheritance means?",o:["Code reuse","Hiding","Both","None"],a:0},{q:"Polymorphism means?",o:["Many forms","One form","No form","Two forms"],a:0},{q:"Constructor is?",o:["Special method to init","Normal method","Variable","Loop"],a:0},{q:"Destructor is?",o:["To destroy object","To create","To copy","To hide"],a:0},{q:"Abstraction means?",o:["Hiding complexity","Showing complexity","Both","None"],a:0},{q:"Method is?",o:["Function in class","Variable in class","Both","None"],a:0}]},
+"CH3":{name:"DBMS",form:"SQL",hint:"Primary key unique",qs:[{q:"DBMS stands for?",o:["Database Management System","Data Management System","Database Method","None"],a:0},{q:"SQL stands for?",o:["Structured Query Language","Simple Query","Sequential","Standard"],a:0},{q:"Primary key is?",o:["Unique","Duplicate","Both","None"],a:0},{q:"Foreign key is?",o:["Link to other table","Unique","Both","None"],a:0},{q:"SELECT is used to?",o:["Retrieve data","Insert data","Delete","Update"],a:0},{q:"INSERT is used to?",o:["Add data","Retrieve","Delete","Update"],a:0},{q:"DELETE is used to?",o:["Remove data","Add","Retrieve","Update"],a:0},{q:"UPDATE is used to?",o:["Modify data","Add","Retrieve","Delete"],a:0},{q:"Table is collection of?",o:["Rows and columns","Only rows","Only cols","None"],a:0},{q:"Row also called?",o:["Record/Tuple","Field","Table","Database"],a:0}]},
+"CH4":{name:"Web Dev",form:"Frontend+Backend",hint:"HTTP port 80",qs:[{q:"Frontend is?",o:["Client side","Server side","Both","None"],a:0},{q:"Backend is?",o:["Server side","Client side","Both","None"],a:0},{q:"HTTP port?",o:["80","443","21","25"],a:0},{q:"HTTPS port?",o:["80","443","21","25"],a:1},{q:"FTP port?",o:["80","443","21","25"],a:2},{q:"HTML is?",o:["Markup language","Programming","Database","Protocol"],a:0},{q:"PHP is?",o:["Server side","Client side","Both","None"],a:0},{q:"JS can be?",o:["Client+Server","Only client","Only server","None"],a:0},{q:"Database used in web?",o:["MySQL","HTML","CSS","JS"],a:0},{q:"URL stands for?",o:["Uniform Resource Locator","Universal","Unique","United"],a:0}]},
+"CH5":{name:"Networking",form:"IP+TCP",hint:"Router connects nets",qs:[{q:"LAN stands for?",o:["Local Area Network","Large Area","Long Area","Light Area"],a:0},{q:"WAN stands for?",o:["Wide Area Network","Wide Access","World Area","Web Area"],a:0},{q:"MAN stands for?",o:["Metropolitan Area Network","Main Area","Mass Area","Mini Area"],a:0},{q:"Device to connect networks?",o:["Switch","Router","Hub","Repeater"],a:1},{q:"IP stands for?",o:["Internet Protocol","Internal Protocol","Inter Protocol","None"],a:0},{q:"TCP stands for?",o:["Transmission Control Protocol","Transfer Control","Transport","None"],a:0},{q:"WiFi stands for?",o:["Wireless Fidelity","Wired Fidelity","Wide Fidelity","World Fidelity"],a:0},{q:"Topmost layer of OSI?",o:["Application","Physical","Network","Data Link"],a:0},{q:"Lowest layer of OSI?",o:["Physical","Application","Network","Transport"],a:0},{q:"HTTP is?",o:["Protocol","Hardware","Software","Device"],a:0}]},
+"CH6":{name:"AI Basics",form:"Data+Algo=AI",hint:"ML subset of AI",qs:[{q:"AI stands for?",o:["Artificial Intelligence","Automated","Advanced","Application"],a:0},{q:"ML stands for?",o:["Machine Learning","Main Learning","Mass Learning","Meta Learning"],a:0},{q:"DL stands for?",o:["Deep Learning","Data Learning","Direct Learning","Dynamic Learning"],a:0},{q:"AI is?",o:["Making machines intelligent","Making humans","Making robots only","None"],a:0},{q:"Example of AI?",o:["ChatGPT","MS Paint","Notepad","Calculator"],a:0},{q:"Types of ML?",o:["Supervised,Unsupervised,RL","Only supervised","Only unsupervised","None"],a:0},{q:"Supervised learning uses?",o:["Labeled data","Unlabeled","Both","None"],a:0},{q:"Unsupervised uses?",o:["Unlabeled data","Labeled","Both","None"],a:0},{q:"Neural network inspired by?",o:["Human brain","Computer","Birds","None"],a:0},{q:"AI future is?",o:["Bright","Dark","No future","End"],a:0}]}
+}}
+};
 
-function showDiv(id){
- ['home','chapterMenu','quizBox','gameBox','aiBot'].forEach(d=>document.getElementById(d).classList.add('hidden'));
- document.getElementById(id).classList.remove('hidden');
+Object.assign(DATA,OTHER_SUBS);
+
+const GAME_DATA=[
+{lv:1,q:"Level 1: What is output of print(2+3*2)?",o:["10","8","7","12"],a:2,h:"BODMAS: 3*2=6, 2+6=8"},
+{lv:2,q:"Level 2: Which type stores True/False?",o:["int","string","boolean","float"],a:2,h:"Boolean = true/false"},
+{lv:3,q:"Level 3: How to define function in Python?",o:["function myFunc():","def myFunc():","create myFunc():","func myFunc():"],a:1,h:"Python uses def keyword"},
+{lv:4,q:"Level 4: What is len('Hello')?",o:["4","5","6","Error"],a:1,h:"H-e-l-l-o = 5 letters"},
+{lv:5,q:"Level 5: Which loop runs at least once?",o:["for","while","do-while","if"],a:2,h:"do-while checks after running"}
+];
+
+let curSub="",curCh="",curQ=0,score=0,gameLv=0;
+function goHome(){["home","chapBox","quizBox","gameBox","botBox"].forEach(id=>document.getElementById(id).classList.add("hidden"));document.getElementById("home").classList.remove("hidden");}
+function renderSubs(){
+let grid=document.getElementById("subGrid");grid.innerHTML="";
+for(let k in DATA){grid.innerHTML+=`<button onclick="openChapters('${k}')" class="glass card p-6 text-left"><div class="text-3xl mb-2">${k.includes('PHY')?'⚛️':k.includes('MATHS')?'📊':'💻'}</div><h3 class="font-bold text-lg">${DATA[k].name}</h3><p class="text-sm text-slate-400">6 Chapters | 60 MCQs</p></button>`;}
 }
-function showHome(){ showDiv('home'); }
-
-function showSubjects(sub){
- currentSubject = sub;
- let menu = document.getElementById('chapterMenu');
- menu.innerHTML = `<h2 class="text-2xl font-bold mb-4">${QUIZ_DATA[sub].name} - Select Chapter</h2><div class="grid md:grid-cols-2 gap-4">`;
- for(let ch in QUIZ_DATA[sub]){
-  if(ch.startsWith("CH")){
-   menu.innerHTML += `<button onclick="startQuiz('${sub}','${ch}')" class="btn-subject">
-   <h3 class="font-bold text-lg">${QUIZ_DATA[sub][ch].name}</h3>
-   <p class="text-sm text-cyan-300">Formula: ${QUIZ_DATA[sub][ch].formula}</p>
-   <p class="text-xs mt-2">15 MCQs</p></button>`;
-  }
- menu.innerHTML += `</div>`; showDiv('chapterMenu');
+renderSubs();
+function openChapters(sub){
+curSub=sub;let box=document.getElementById("chapBox");
+box.innerHTML=`<h2 class="text-2xl font-bold mb-5">${DATA[sub].name}</h2><div class="grid md:grid-cols-2 gap-4">`+Object.keys(DATA[sub].ch).map(ch=>`<button onclick="startQuiz('${sub}','${ch}')" class="glass card p-5 text-left"><h3 class="font-bold">${DATA[sub].ch[ch].name}</h3><p class="text-xs text-cyan-300 mt-1">${DATA[sub].ch[ch].form}</p><p class="text-xs mt-2 text-slate-400">10 MCQs</p></button>`).join("")+`</div>`;
+document.getElementById("home").classList.add("hidden");box.classList.remove("hidden");
 }
-
-function startQuiz(sub, ch){ currentSubject=sub; currentChapter=ch; currentQ=0; score=0; showDiv('quizBox'); loadQuestion(); }
-
-function loadQuestion(){
- let qData = QUIZ_DATA[currentSubject][currentChapter].topics.MCQs[currentQ];
- let hint = QUIZ_DATA[currentSubject][currentChapter].hint;
- document.getElementById('quizBox').innerHTML = `
-  <div class="glass p-6 rounded-2xl">
-   <div class="flex justify-between"><h3 class="text-xl mb-2">${QUIZ_DATA[currentSubject][currentChapter].name}</h3><span>Q ${currentQ+1}/15</span></div>
-   <p class="text-sm text-cyan-300 mb-2">Formula: ${QUIZ_DATA[currentSubject][currentChapter].formula}</p>
-   <button onclick="toggleHint()" class="btn bg-yellow-600 mb-4">💡 Show Hint</button>
-   <div id="hintBox" class="hint-box hidden">${hint}</div>
-   <h4 class="text-2xl font-bold mb-4">${qData.q}</h4>
-   ${qData.opts.map((opt,i)=>`<button onclick="checkAnswer(${i})" class="btn-option" id="opt${i}">${i+1}. ${opt}</button>`).join('')}
-  </div>`;
+function startQuiz(sub,ch){curSub=sub;curCh=ch;curQ=0;score=0;document.getElementById("chapBox").classList.add("hidden");document.getElementById("quizBox").classList.remove("hidden");loadQ();}
+function loadQ(){
+let d=DATA[curSub].ch[curCh];let q=d.qs[curQ];
+document.getElementById("quizBox").innerHTML=`<div class="glass p-6"><div class="flex justify-between mb-2"><h3 class="font-bold">${d.name}</h3><span>${curQ+1}/10</span></div><p class="text-xs text-cyan-300 mb-3">Formula: ${d.form}</p><div class="p-3 mb-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-sm text-yellow-200 hidden" id="hint">💡 ${d.hint}</div><button onclick="document.getElementById('hint').classList.toggle('hidden')" class="text-xs px-3 py-1 bg-yellow-600 rounded-full mb-4">Show Hint</button><h4 class="text-xl font-bold mb-4">${q.q}</h4>${q.o.map((opt,i)=>`<button onclick="check(${i})" id="o${i}" class="btn-opt">${i+1}. ${opt}</button>`).join("")}</div>`;
 }
-
-function toggleHint(){ document.getElementById('hintBox').classList.toggle('hidden'); }
-
-function checkAnswer(i){
- let qData = QUIZ_DATA[currentSubject][currentChapter].topics.MCQs[currentQ];
- document.querySelectorAll('.btn-option').forEach(b=>b.disabled=true);
- if(i==qData.ans){ document.getElementById('opt'+i).classList.add('correct'); score++; }
- else{ document.getElementById('opt'+i).classList.add('wrong'); document.getElementById('opt'+qData.ans).classList.add('correct'); }
- setTimeout(()=>{ currentQ++; if(currentQ<15) loadQuestion(); else alert(`Quiz Finished! Your Score: ${score}/15`); },1200);
+function check(i){
+let q=DATA[curSub].ch[curCh].qs[curQ];document.querySelectorAll(".btn-opt").forEach(b=>b.disabled=true);
+if(i==q.a){document.getElementById("o"+i).classList.add("correct");score++}
+else{document.getElementById("o"+i).classList.add("wrong");document.getElementById("o"+q.a).classList.add("correct")}
+setTimeout(()=>{curQ++; if(curQ<10) loadQ(); else {document.getElementById("quizBox").innerHTML=`<div class="glass p-10 text-center"><h2 class="text-4xl font-bold mb-3">Score: ${score}/10</h2><p class="mb-6">${score>=7?'Excellent!':'Keep Practicing!'}</p><button onclick="openChapters('${curSub}')" class="px-6 py-3 bg-sky-500 rounded-full font-bold">Back to Chapters</button></div>`}},900);
 }
-
-// ===== GAME FUNCTIONS =====
-function showGame(){ gameLevel=0; showDiv('gameBox'); loadGameLevel(); }
-
-function loadGameLevel(){
- let qData = QUIZ_DATA.GAME.levels[gameLevel];
- document.getElementById('gameBox').innerHTML = `
-  <div class="glass p-8 rounded-2xl">
-   <h2 class="text-3xl font-bold text-center mb-2 text-green-400">${qData.q}</h2>
-   <p class="text-center mb-4">Level ${gameLevel+1} / 5</p>
-   <button onclick="alert('Hint: ${qData.hint}')" class="btn bg-yellow-600 mb-4 w-full">💡 Get Hint</button>
-   ${qData.opts.map((opt,i)=>`<button onclick="checkGame(${i})" class="btn-option" id="gopt${i}">${i+1}. ${opt}</button>`).join('')}
-  </div>`;
+function openGame(){goHome();document.getElementById("home").classList.add("hidden");gameLv=0;document.getElementById("gameBox").classList.remove("hidden");loadGame();}
+function loadGame(){
+let g=GAME_DATA[gameLv];
+document.getElementById("gameBox").innerHTML=`<div class="glass p-8"><h2 class="text-2xl font-bold mb-2">Coding Game - Level ${g.lv}/5</h2><p class="text-lg font-bold mb-4">${g.q}</p><div class="p-3 mb-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-sm text-yellow-200 hidden" id="ghint">💡 ${g.h}</div><button onclick="document.getElementById('ghint').classList.toggle('hidden')" class="text-xs px-3 py-1 bg-yellow-600 rounded-full mb-4">Show Hint</button>${g.o.map((opt,i)=>`<button onclick="checkGame(${i})" id="go${i}" class="btn-opt">${opt}</button>`).join("")}</div>`;
 }
-
 function checkGame(i){
- let qData = QUIZ_DATA.GAME.levels[gameLevel];
- document.querySelectorAll('#gameBox.btn-option').forEach(b=>b.disabled=true);
- if(i==qData.ans){
-  document.getElementById('gopt'+i).classList.add('correct');
-  setTimeout(()=>{ gameLevel++; if(gameLevel<5) loadGameLevel(); else document.getElementById('gameBox').innerHTML=`<div class="text-center"><h2 class="text-4xl mb-4">🎉 YOU WON THE GAME! 🎉</h2><button onclick="showGame()" class="btn btn-primary">Play Again</button></div>`; },1000);
- } else {
-  document.getElementById('gopt'+i).classList.add('wrong'); document.getElementById('gopt'+qData.ans).classList.add('correct');
-  setTimeout(()=>{ alert('Wrong Answer! Try Again'); loadGameLevel(); },1000);
- }
+let g=GAME_DATA[gameLv];
+if(i==g.a){document.getElementById("go"+i).classList.add("correct"); setTimeout(()=>{gameLv++; if(gameLv<5) loadGame(); else document.getElementById("gameBox").innerHTML=`<div class="glass p-10 text-center"><h2 class="text-4xl font-bold">🎉 You Won All 5 Levels!</h2><button onclick="goHome()" class="mt-5 px-6 py-3 bg-sky-500 rounded-full font-bold">Go Home</button></div>`},800)}
+else{document.getElementById("go"+i).classList.add("wrong");document.getElementById("go"+g.a).classList.add("correct"); setTimeout(()=>loadGame(),1000)}
 }
-
-// ===== GEMINI AI BOT =====
-function showAiBot(){
- showDiv('aiBot');
- document.getElementById('aiBot').innerHTML = `
-  <div class="glass p-6 rounded-2xl">
-   <h2 class="text-2xl font-bold mb-4">🤖 Gemini AI Tutor</h2>
-   <div id="chatBox" class="mb-4"></div>
-   <div class="flex"><input id="userInput" type="text" placeholder="Ask any question about Physics, Maths, CS..." class="w-full p-3 rounded-l-lg bg-[#1e293b] border border-slate-600">
-   <button onclick="sendMessage()" class="btn btn-primary rounded-l-none">Send</button></div>
-  </div>`;
+function openBot(){
+goHome();document.getElementById("home").classList.add("hidden");document.getElementById("botBox").classList.remove("hidden");
+document.getElementById("botBox").innerHTML=`<div class="glass p-6"><h2 class="text-2xl font-bold mb-4">🤖 Gemini AI Tutor</h2><div id="chat" class="h-[400px] overflow-y-auto mb-4 space-y-2"></div><div class="flex gap-2"><input id="inp" placeholder="Ask any question..." class="flex-1 p-3 rounded-full bg-[#1e293b] border border-slate-600"/><button onclick="sendBot()" class="px-6 py-3 rounded-full bg-sky-500 font-bold">Send</button></div></div>`;
 }
-
-async function sendMessage(){
- let input = document.getElementById('userInput');
- let msg = input.value; if(!msg) return;
- document.getElementById('chatBox').innerHTML += `<div class="user-msg">${msg}</div>`;
- input.value = "";
-
- const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,{
-  method: "POST",
-  headers: {"Content-Type": "application/json"},
-  body: JSON.stringify({contents: [{parts: [{text: msg}]}]})
- });
- const data = await response.json();
- let reply = data.candidates[0].content.parts[0].text;
- document.getElementById('chatBox').innerHTML += `<div class="bot-msg">${reply}</div>`;
- document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight;
+async function sendBot(){
+let input=document.getElementById("inp");let msg=input.value.trim();if(!msg) return;
+let chat=document.getElementById("chat");
+chat.innerHTML+=`<div class="text-right"><span class="inline-block bg-sky-500 px-4 py-2 rounded-2xl">${msg}</span></div>`;input.value="";
+if(API_KEY=="YOUR_GEMINI_API_KEY"){chat.innerHTML+=`<div class="text-left"><span class="inline-block bg-[#1e293b] px-4 py-2 rounded-2xl">Add your Gemini API Key. Get free key from aistudio.google.com/app/apikey</span></div>`;return;}
+try{
+let res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents:[{parts:[{text:msg}]}]})});
+let data=await res.json();let reply=data.candidates[0].content.parts[0].text;
+chat.innerHTML+=`<div class="text-left"><span class="inline-block bg-[#1e293b] px-4 py-2 rounded-2xl">${reply}</span></div>`;chat.scrollTop=chat.scrollHeight;
+}catch(e){chat.innerHTML+=`<div class="text-left"><span class="inline-block bg-red-500/20 border border-red-500 px-4 py-2 rounded-2xl">Error: ${e.message}</span></div>`}
 }
 </script>
 </body>
